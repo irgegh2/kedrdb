@@ -25,13 +25,13 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libxkbcommon-dev libegl1-mesa-dev libwayland-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev xvfb
+          sudo apt-get install -y libxkbcommon-dev libxkbcommon-x11-dev libegl1-mesa-dev libwayland-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev xvfb xauth
       - name: Lint
-        run: cargo clippy --workspace --all-targets --locked --offline -- -D warnings
+        run: cargo clippy --workspace --all-targets --all-features --locked --offline -- -D warnings
       - name: Debug tests
-        run: cargo test --workspace --locked --offline
+        run: cargo test --workspace --all-features --locked --offline
       - name: Release tests
-        run: cargo test --workspace --release --locked --offline
+        run: cargo test --workspace --all-features --release --locked --offline
       - name: Million-operation tree campaign
         env:
           KEDR_TREE_SEEDS: 100
@@ -39,15 +39,6 @@ jobs:
         run: cargo test -p kedr-testkit --test tree_contract --release --locked --offline seeded_tree_operations_match_independent_map -- --exact --nocapture
       - name: Build CLI
         run: cargo build --workspace --release --locked --offline
-      - name: Native Studio preview (Linux)
-        if: runner.os == 'Linux'
-        env:
-          LIBGL_ALWAYS_SOFTWARE: 1
-          EFRAME_SCREENSHOT_TO: ${{ runner.temp }}/kedr-studio-preview.png
-        run: |
-          cargo build -p kedr-studio --features screenshot --locked --offline
-          timeout 30s xvfb-run -a target/debug/kedr-studio --preview-results
-          test -s "$EFRAME_SCREENSHOT_TO"
       - name: Ten-thousand-point crash campaign
         env:
           KEDR_CRASH_CASES: 10000
@@ -64,3 +55,26 @@ jobs:
         run: |
           /usr/bin/python3 tools/check_stage5_sql.py --pg-bin /usr/lib/postgresql/16/bin --manual 1025 --generated 100000 --output "$RUNNER_TEMP/stage5-sql-oracle"
           cat "$RUNNER_TEMP/stage5-sql-oracle/summary.json"
+  studio-integration:
+    timeout-minutes: 25
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned Rust
+        run: rustup toolchain install 1.94.1 --profile minimal
+      - name: Install native/client test dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxkbcommon-dev libxkbcommon-x11-dev libegl1-mesa-dev libwayland-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev xvfb xauth fonts-dejavu-core postgresql-16 python3-psycopg python3-pil
+      - name: Build actual server and Studio
+        run: cargo build --workspace --features kedr-studio/screenshot --locked
+      - name: Native Studio and client acceptance
+        run: |
+          /usr/bin/python3 tools/check_stage6_clients.py --psql /usr/lib/postgresql/16/bin/psql --output "$RUNNER_TEMP/stage6-clients" --studio
+          cat "$RUNNER_TEMP/stage6-clients/summary.json"
+      - name: Save native acceptance artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage6-linux-studio
+          path: ${{ runner.temp }}/stage6-clients
+          retention-days: 7

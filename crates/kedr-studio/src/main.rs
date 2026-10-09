@@ -1,9 +1,12 @@
 // SPDX-License-Identifier: Apache-2.0
 mod app;
 mod backend;
+mod network;
 
 fn main() -> eframe::Result {
     let preview_results = std::env::args().any(|arg| arg == "--preview-results");
+    #[cfg(feature = "screenshot")]
+    let mut profile = test_profile();
     eframe::run_native(
         "Kedr Studio",
         eframe::NativeOptions {
@@ -12,6 +15,50 @@ fn main() -> eframe::Result {
                 .with_min_inner_size([820.0, 600.0]),
             ..Default::default()
         },
-        Box::new(move |cc| Ok(Box::new(app::Studio::new(cc, preview_results)))),
+        Box::new(move |cc| {
+            let studio = app::Studio::new(cc, preview_results);
+            #[cfg(feature = "screenshot")]
+            let mut studio = studio;
+            #[cfg(feature = "screenshot")]
+            if let Some(profile) = profile.take() {
+                studio.connect_test(profile);
+            }
+            Ok(Box::new(studio))
+        }),
     )
+}
+
+#[cfg(feature = "screenshot")]
+fn test_profile() -> Option<backend::Profile> {
+    use std::io::Read;
+    let args = std::env::args().collect::<Vec<_>>();
+    let port = args
+        .windows(2)
+        .find(|args| args[0] == "--connect-test")?
+        .get(1)?
+        .parse()
+        .ok()?;
+    let ca_file = args
+        .windows(2)
+        .find(|args| args[0] == "--test-ca")
+        .map(|args| args[1].clone());
+    let mut password = zeroize::Zeroizing::new(String::new());
+    std::io::stdin()
+        .take(1027)
+        .read_to_string(&mut password)
+        .ok()?;
+    if password.len() > 1026 {
+        return None;
+    }
+    while password.ends_with(['\r', '\n']) {
+        password.pop();
+    }
+    Some(backend::Profile {
+        host: "127.0.0.1".into(),
+        port,
+        database: "kedrdb".into(),
+        user: "admin".into(),
+        password,
+        ca_file,
+    })
 }

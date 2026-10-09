@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: Apache-2.0
 [workspace]
-members = ["crates/kedr-core", "crates/kedr-testkit", "crates/kedr-cli", "crates/kedr-studio"]
+members = ["crates/kedr-core", "crates/kedr-testkit", "crates/kedr-cli", "crates/kedr-studio", "crates/kedr-server"]
 resolver = "3"
 
 [workspace.package]

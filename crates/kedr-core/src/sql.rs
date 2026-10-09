@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //! Bounded relational SQL over the same private-page transaction machinery.
 mod catalog;
+mod describe;
 mod executor;
 mod expression;
 mod keywords;
@@ -32,6 +33,11 @@ pub struct QueryResult {
     pub affected: u64,
     pub tag: String,
 }
+#[derive(Debug, Clone)]
+pub struct Description {
+    pub parameters: Vec<DataType>,
+    pub columns: Vec<ResultColumn>,
+}
 impl QueryResult {
     pub(crate) fn command(tag: &str, affected: u64) -> Self {
         Self {
@@ -51,6 +57,39 @@ impl SqlSession {
     }
     pub fn cancel_handle(&self) -> crate::transaction::CancelHandle {
         self.session.cancel_handle()
+    }
+    /// Bind names/types without executing writes or scanning table rows.
+    pub fn describe(&mut self, sql: &str, types: &[Option<DataType>]) -> Result<Description> {
+        let statement = match parser::parse(sql) {
+            Ok(statement) => statement,
+            Err(error) => {
+                self.session.fail(error)?;
+                unreachable!()
+            }
+        };
+        if types.len() > 256 {
+            self.session.fail(error("54000", "parameter count limit"))?;
+        }
+        // Transaction control must remain preparable after an error, so clients
+        // using Extended Query can still ROLLBACK (or COMMIT an aborted block).
+        if matches!(
+            statement,
+            parser::Statement::Begin(_) | parser::Statement::Commit | parser::Statement::Rollback
+        ) {
+            return Ok(Description {
+                parameters: types
+                    .iter()
+                    .map(|kind| kind.unwrap_or(DataType::Text))
+                    .collect(),
+                columns: Vec::new(),
+            });
+        }
+        let types = types.to_vec();
+        self.session
+            .describe_sql(move |store| describe::describe(store, &statement, types))
+    }
+    pub fn fail(&mut self, error: Error) -> Result<()> {
+        self.session.fail(error)
     }
     /// Exactly one statement; values are supplied separately from SQL text.
     pub fn execute(&mut self, sql: &str, parameters: &[Value]) -> Result<QueryResult> {

@@ -47,6 +47,81 @@ fn rows(session: &mut SqlSession, sql: &str) -> Vec<Vec<Value>> {
 }
 
 #[test]
+fn describe_and_catalog_share_snapshot_without_executing_writes() {
+    use kedr_core::sql::DataType;
+    let (_root, _shared, mut sql) = database();
+    sql.execute(
+        "CREATE TABLE items (id BIGINT PRIMARY KEY, stock INT, name TEXT)",
+        &[],
+    )
+    .unwrap();
+    let insert = sql
+        .describe("INSERT INTO items (id,stock,name) VALUES ($1,$2,$3)", &[])
+        .unwrap();
+    assert_eq!(
+        insert.parameters,
+        [DataType::BigInt, DataType::Int, DataType::Text]
+    );
+    assert!(insert.columns.is_empty());
+    assert_eq!(
+        rows(&mut sql, "SELECT COUNT(*) FROM items"),
+        vec![vec![Value::BigInt(0)]]
+    );
+    let select = sql
+        .describe(
+            "SELECT id,stock,$1 FROM items WHERE id=$2 LIMIT $3",
+            &[Some(DataType::Text)],
+        )
+        .unwrap();
+    assert_eq!(
+        select.parameters,
+        [DataType::Text, DataType::BigInt, DataType::BigInt]
+    );
+    assert_eq!(
+        select
+            .columns
+            .iter()
+            .map(|column| column.data_type)
+            .collect::<Vec<_>>(),
+        [DataType::BigInt, DataType::Int, DataType::Text]
+    );
+    assert!(
+        sql.describe("UPDATE items SET stock=$1", &[Some(DataType::Boolean)])
+            .is_err()
+    );
+    assert!(
+        sql.describe("DELETE FROM items WHERE $1", &[Some(DataType::Int)])
+            .is_err()
+    );
+    sql.execute("BEGIN", &[]).unwrap();
+    sql.execute("CREATE TABLE private (id BIGINT PRIMARY KEY)", &[])
+        .unwrap();
+    assert_eq!(rows(&mut sql, "SHOW TABLES").len(), 2);
+    assert_eq!(
+        sql.describe("SELECT id FROM private", &[]).unwrap().columns[0].data_type,
+        DataType::BigInt
+    );
+    sql.execute("ROLLBACK", &[]).unwrap();
+    assert_eq!(
+        rows(&mut sql, "SHOW TABLES"),
+        vec![vec![Value::Text("items".into())]]
+    );
+    sql.execute("BEGIN", &[]).unwrap();
+    assert!(sql.execute("SELECT missing FROM items", &[]).is_err());
+    sql.describe("ROLLBACK", &[]).unwrap();
+    sql.execute("ROLLBACK", &[]).unwrap();
+    let Err(Error::Sql { message, .. }) = sql.execute("SELECT id\nFROM", &[]) else {
+        panic!("expected syntax error");
+    };
+    assert!(message.contains("line 2, column 5"), "{message}");
+    sql.execute("BEGIN READ ONLY", &[]).unwrap();
+    assert_eq!(rows(&mut sql, "SHOW COLUMNS FROM items").len(), 3);
+    sql.describe("INSERT INTO items (id) VALUES ($1)", &[])
+        .unwrap();
+    sql.execute("ROLLBACK", &[]).unwrap();
+}
+
+#[test]
 fn tables_crud_parameters_nulls_indices_and_reopen() {
     let (root, shared, mut sql) = database();
     sql.execute("CREATE TABLE items (id BIGINT PRIMARY KEY, name TEXT NOT NULL, stock INT, active BOOLEAN, code TEXT UNIQUE)",&[]).unwrap();

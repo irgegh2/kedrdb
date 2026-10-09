@@ -6,7 +6,7 @@ use crate::{
     Error, Result,
     database::FileDatabase,
     engine::{ReadView, StorageTransaction},
-    sql::{QueryResult, Store},
+    sql::{Description, QueryResult, Store},
     storage::FileStorage,
     tree::KeyValue,
 };
@@ -149,20 +149,32 @@ enum Command {
     Range(Option<Vec<u8>>, Option<Vec<u8>>, usize),
     Fail(Error),
     Sql(bool, SqlOperation),
+    Describe(DescribeOperation),
 }
 type SqlOperation = Box<dyn FnOnce(&mut dyn Store) -> Result<QueryResult> + Send>;
+type DescribeOperation = Box<dyn FnOnce(&mut dyn Store) -> Result<Description> + Send>;
 enum Response {
     Done,
     Value(Option<Vec<u8>>),
     Deleted(bool),
     Rows(Vec<KeyValue>),
     Sql(QueryResult),
+    Description(Description),
 }
 struct Request {
     command: Command,
     reply: SyncSender<Result<Response>>,
 }
 impl Session {
+    pub(crate) fn describe_sql(
+        &mut self,
+        operation: impl FnOnce(&mut dyn Store) -> Result<Description> + Send + 'static,
+    ) -> Result<Description> {
+        match self.request(Command::Describe(Box::new(operation)))? {
+            Response::Description(result) => Ok(result),
+            _ => unreachable!("description response contract"),
+        }
+    }
     pub(crate) fn execute_sql(
         &mut self,
         read_only: bool,
@@ -280,6 +292,7 @@ fn reply(request: Request, result: Result<Response>) {
 fn read_command(view: &mut ReadView<FileStorage>, command: Command) -> Result<Response> {
     match command {
         Command::Sql(true, operation) => operation(view).map(Response::Sql),
+        Command::Describe(operation) => operation(view).map(Response::Description),
         Command::Sql(false, _) => Err(Error::ReadOnlyTransaction),
         Command::Get(key) => view.get(&key).map(Response::Value),
         Command::Range(start, end, limit) => view
@@ -298,6 +311,7 @@ fn write_command(
 ) -> Result<Response> {
     match command {
         Command::Sql(_, operation) => operation(tx).map(Response::Sql),
+        Command::Describe(operation) => operation(tx).map(Response::Description),
         Command::Get(key) => tx.get(&key).map(Response::Value),
         Command::Range(start, end, limit) => tx
             .range(start.as_deref(), end.as_deref(), limit)
@@ -579,7 +593,7 @@ fn worker_loop(inner: &Inner, receiver: &Receiver<Request>, cancelled: &Arc<Atom
         let mode = match request.command {
             Command::Begin(mode) => mode,
             Command::Get(..) | Command::Range(..) => Mode::ReadOnly,
-            Command::Sql(true, _) => Mode::ReadOnly,
+            Command::Sql(true, _) | Command::Describe(_) => Mode::ReadOnly,
             _ => Mode::ReadWrite,
         };
         let permit =

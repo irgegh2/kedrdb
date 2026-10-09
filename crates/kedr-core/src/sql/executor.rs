@@ -2,7 +2,7 @@
 use super::{
     DataType, MAX_RESULT_BYTES, MAX_WORK_BYTES, QueryResult, ResultColumn, Store,
     catalog::{self, Index, Table},
-    error,
+    describe, error,
     expression::{self, Bound, Field, Kind},
     parser::{Column, Expr, Op, Projection, Select, Statement},
 };
@@ -29,8 +29,9 @@ pub(super) fn execute(
             columns,
             values,
         } => insert(store, &table, &columns, &values, params),
-        Statement::Select(select) => select_rows(store, &select, params, false),
-        Statement::Explain(select) => select_rows(store, &select, params, true),
+        Statement::Select(select) => select_rows(store, &select, params, false, false),
+        Statement::Explain(select) => select_rows(store, &select, params, true, false),
+        Statement::Catalog(target) => describe::catalog_result(store, target.as_ref()),
         Statement::Update {
             table,
             assignments,
@@ -47,7 +48,7 @@ fn column_index(table: &Table, name: &str) -> Result<usize> {
         .position(|c| c.name == name)
         .ok_or_else(|| error("42703", format!("column {name} does not exist")))
 }
-fn fields(table: &Table, alias: &str) -> Vec<Field> {
+pub(super) fn fields(table: &Table, alias: &str) -> Vec<Field> {
     table
         .columns
         .iter()
@@ -550,11 +551,12 @@ fn access_name(access: &Access) -> String {
         Access::Index(i, _) => format!("IndexLookup {}", i.name),
     }
 }
-fn select_rows(
+pub(super) fn select_rows(
     store: &mut dyn Store,
     select: &Select,
     params: &[Value],
     explain: bool,
+    describe_only: bool,
 ) -> Result<QueryResult> {
     let left = select
         .source
@@ -672,6 +674,21 @@ fn select_rows(
     } else {
         None
     };
+    if describe_only {
+        return Ok(QueryResult {
+            columns: if explain {
+                vec![ResultColumn {
+                    name: "QUERY PLAN".into(),
+                    data_type: DataType::Text,
+                }]
+            } else {
+                columns
+            },
+            rows: Vec::new(),
+            affected: 0,
+            tag: String::new(),
+        });
+    }
     let access = left
         .as_ref()
         .map(|t| choose(t, predicate.as_ref()))

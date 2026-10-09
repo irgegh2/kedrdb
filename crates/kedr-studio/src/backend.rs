@@ -2,7 +2,7 @@
 //! UI transport boundary. The preview adapter never opens a database or socket.
 use std::sync::{
     Arc,
-    atomic::{AtomicBool, Ordering},
+    atomic::{AtomicBool, AtomicU64, Ordering},
     mpsc::{self, Receiver, SyncSender, TryRecvError, TrySendError},
 };
 use std::thread::{self, JoinHandle};
@@ -49,14 +49,27 @@ impl Cell {
 pub struct ResultSet {
     pub columns: Vec<(String, String)>,
     pub rows: Vec<Vec<Cell>>,
+    pub affected: u64,
+    pub truncated: bool,
+}
+
+pub struct Profile {
+    pub host: String,
+    pub port: u16,
+    pub database: String,
+    pub user: String,
+    pub password: zeroize::Zeroizing<String>,
+    pub ca_file: Option<String>,
 }
 
 pub enum Command {
+    Connect(Profile),
     Catalog,
     Query(String),
 }
 
 pub enum Payload {
+    Connected(Vec<Table>),
     Catalog(Vec<Table>),
     Rows(ResultSet),
 }
@@ -65,6 +78,12 @@ pub struct Reply {
     pub id: u64,
     pub elapsed: Duration,
     pub result: Result<Payload, String>,
+    pub status: String,
+}
+#[derive(Default)]
+pub struct ConnectionHealth {
+    pub generation: AtomicU64,
+    pub connected: AtomicBool,
 }
 
 struct Job {
@@ -76,6 +95,12 @@ struct Job {
 /// Future transports must honor cancellation/deadlines and return bounded data.
 pub trait Backend: Send + 'static {
     fn perform(&mut self, command: Command, cancel: &AtomicBool) -> Result<Payload, String>;
+    fn status(&self) -> String {
+        "Тест интерфейса · сервер не подключён".into()
+    }
+    fn health(&self) -> Option<Arc<ConnectionHealth>> {
+        None
+    }
 }
 
 pub struct Preview;
@@ -90,6 +115,7 @@ impl Backend for Preview {
             thread::sleep(Duration::from_millis(2));
         }
         match command {
+            Command::Connect(_) => Err("Тестовый адаптер не подключается к серверу.".into()),
             Command::Catalog => Ok(Payload::Catalog(preview_catalog())),
             Command::Query(sql) => {
                 if sql.len() > MAX_SQL_BYTES {
@@ -110,6 +136,7 @@ impl Backend for Preview {
 }
 
 pub struct Worker {
+    health: Option<Arc<ConnectionHealth>>,
     commands: Option<SyncSender<Job>>,
     replies: Option<Receiver<Reply>>,
     active_cancel: Option<Arc<AtomicBool>>,
@@ -119,6 +146,7 @@ pub struct Worker {
 
 impl Worker {
     pub fn new(mut backend: impl Backend) -> Result<Self, String> {
+        let health = backend.health();
         let (commands, jobs) = mpsc::sync_channel::<Job>(1);
         let (out, replies) = mpsc::sync_channel(1);
         let thread = thread::Builder::new()
@@ -132,6 +160,7 @@ impl Worker {
                             id: job.id,
                             elapsed: start.elapsed(),
                             result,
+                            status: backend.status(),
                         })
                         .is_err()
                     {
@@ -141,12 +170,18 @@ impl Worker {
             })
             .map_err(|error| format!("Не удалось запустить фоновые операции: {error}"))?;
         Ok(Self {
+            health,
             commands: Some(commands),
             replies: Some(replies),
             active_cancel: None,
             thread: Some(thread),
             next_id: 1,
         })
+    }
+    pub fn connection_alive(&self) -> Option<bool> {
+        self.health
+            .as_ref()
+            .map(|health| health.connected.load(Ordering::Acquire))
     }
 
     pub fn submit(&mut self, command: Command) -> Result<u64, String> {
@@ -265,6 +300,8 @@ pub fn product_rows() -> ResultSet {
         "Сумка",
     ];
     ResultSet {
+        affected: 10,
+        truncated: false,
         columns: [
             ("id", "BIGINT"),
             ("name", "TEXT"),
@@ -295,6 +332,8 @@ pub fn product_rows() -> ResultSet {
 
 fn user_rows() -> ResultSet {
     ResultSet {
+        affected: 2,
+        truncated: false,
         columns: [("id", "BIGINT"), ("name", "TEXT"), ("email", "TEXT")]
             .into_iter()
             .map(|(name, kind)| (name.to_owned(), kind.to_owned()))

@@ -67,6 +67,7 @@ pub(super) enum Statement {
     Begin(bool),
     Commit,
     Rollback,
+    Catalog(Option<(String, bool)>),
     Create(String, Vec<Column>),
     Drop(String),
     Add(String, Column),
@@ -95,11 +96,13 @@ pub(super) enum Statement {
 }
 impl Statement {
     pub fn read_only(&self) -> bool {
-        matches!(self, Self::Select(_) | Self::Explain(_))
+        matches!(self, Self::Select(_) | Self::Explain(_) | Self::Catalog(_))
     }
 }
 struct Parser {
     tokens: Vec<Token>,
+    locations: Vec<sqlparser::tokenizer::Location>,
+    end: sqlparser::tokenizer::Location,
     at: usize,
     depth: usize,
     nodes: usize,
@@ -109,10 +112,13 @@ pub(super) fn parse(sql: &str) -> Result<Statement> {
         return Err(error("54000", "SQL text exceeds 64 KiB"));
     }
     let raw = Tokenizer::new(&PostgreSqlDialect {}, sql)
-        .tokenize()
+        .tokenize_with_location()
         .map_err(|e| error("42601", e.to_string()))?;
     let mut tokens = Vec::new();
-    for token in raw {
+    let mut locations = Vec::new();
+    for located in raw {
+        let location = located.span.start;
+        let token = located.token;
         if matches!(token, Token::Whitespace(_)) {
             continue;
         }
@@ -134,6 +140,11 @@ pub(super) fn parse(sql: &str) -> Result<Statement> {
                 _ => None,
             };
             if let Some(operator) = operator {
+                locations.push(location);
+                locations.push(sqlparser::tokenizer::Location::new(
+                    location.line,
+                    location.column + head.len() as u64,
+                ));
                 tokens.push(operator);
                 tokens.push(if sign == '-' {
                     Token::Minus
@@ -143,28 +154,60 @@ pub(super) fn parse(sql: &str) -> Result<Statement> {
                 continue;
             }
         }
+        locations.push(location);
         tokens.push(token);
     }
     if tokens.len() > 4096 {
         return Err(error("54000", "SQL token limit exceeded"));
     }
+    let end = sql.chars().fold(
+        sqlparser::tokenizer::Location::new(1, 1),
+        |mut location, ch| {
+            if ch == '\n' {
+                location.line += 1;
+                location.column = 1;
+            } else {
+                location.column += 1;
+            }
+            location
+        },
+    );
     let mut parser = Parser {
         tokens,
+        locations,
+        end,
         at: 0,
         depth: 0,
         nodes: 0,
     };
-    let statement = parser.statement()?;
+    let statement = parser.statement().map_err(|error| parser.annotate(error))?;
     parser.eat(Token::SemiColon);
     if parser.at != parser.tokens.len() {
-        return Err(error(
+        return Err(parser.annotate(error(
             "0A000",
             format!("unsupported SQL near {}", parser.tokens[parser.at]),
-        ));
+        )));
     }
     Ok(statement)
 }
 impl Parser {
+    fn annotate(&self, error: crate::Error) -> crate::Error {
+        if let crate::Error::Sql { state, message } = error {
+            if matches!(state, "42601" | "0A000") {
+                let location = self.locations.get(self.at).copied().unwrap_or(self.end);
+                return super::error(
+                    state,
+                    format!(
+                        "{message} (line {}, column {})",
+                        location.line, location.column
+                    ),
+                );
+            }
+            super::error(state, message)
+        } else {
+            error
+        }
+    }
     fn peek(&self) -> Option<&Token> {
         self.tokens.get(self.at)
     }
@@ -314,6 +357,17 @@ impl Parser {
         Ok(column)
     }
     fn statement(&mut self) -> Result<Statement> {
+        if self.keyword("SHOW") {
+            if self.keyword("TABLES") {
+                return Ok(Statement::Catalog(None));
+            }
+            let indices = self.keyword("INDEXES");
+            if !indices {
+                self.word("COLUMNS")?;
+            }
+            self.word("FROM")?;
+            return Ok(Statement::Catalog(Some((self.name()?, indices))));
+        }
         if self.keyword("BEGIN") {
             self.keyword("TRANSACTION");
             let read_only = if self.keyword("READ") {

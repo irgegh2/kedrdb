@@ -1,0 +1,31 @@
+# SPDX-License-Identifier: Apache-2.0
+[package]
+name = "kedr-server"
+description = "KedrDB bounded PostgreSQL protocol server"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+kedr-core = { path = "../kedr-core" }
+tokio = { version = "=1.53.2", features = ["rt-multi-thread", "net", "io-util", "sync", "time", "signal", "macros"] }
+tokio-rustls = { version = "=0.26.6", default-features = false, features = ["ring", "tls12"] }
+rustls = { version = "=0.23.45", default-features = false, features = ["ring", "std", "tls12"] }
+rustls-pemfile = "=2.2.0"
+rsasl = { version = "=2.3.1", default-features = false, features = ["provider", "config_builder", "scram-sha-2"] }
+sha2 = "=0.10.9"
+ring = "=0.17.14"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+stringprep = "0.1"
+zeroize = "1"
+rpassword = "=7.5.4"
+
+[dev-dependencies]
+tokio-postgres = "=0.7.18"
+tokio-postgres-rustls = { version = "=0.14.0", features = ["ring"] }
+
+[lints]
+workspace = true
