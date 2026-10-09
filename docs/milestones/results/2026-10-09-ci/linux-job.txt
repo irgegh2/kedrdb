@@ -1,0 +1,321 @@
+﻿2026-10-09T02:58:17.2418785Z Current runner version: '2.337.0'
+2026-10-09T02:58:17.2456674Z ##[group]Runner Image Provisioner
+2026-10-09T02:58:17.2458110Z Hosted Compute Agent
+2026-10-09T02:58:17.2459302Z Version: 20261002.596
+2026-10-09T02:58:17.2460704Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-09T02:58:17.2462131Z Build Date: 2026-10-02T22:28:27Z
+2026-10-09T02:58:17.2463411Z Worker ID: {8124047c-49ed-42d6-a314-e79dffce12fa}
+2026-10-09T02:58:17.2464853Z Region: centralus
+2026-10-09T02:58:17.2465906Z Cloud: Azure
+2026-10-09T02:58:17.2466895Z ##[endgroup]
+2026-10-09T02:58:17.2469750Z ##[group]Operating System
+2026-10-09T02:58:17.2470859Z Ubuntu
+2026-10-09T02:58:17.2471763Z 24.04.5
+2026-10-09T02:58:17.2472983Z LTS
+2026-10-09T02:58:17.2473950Z ##[endgroup]
+2026-10-09T02:58:17.2475059Z ##[group]Runner Image
+2026-10-09T02:58:17.2476110Z Image: ubuntu-24.04
+2026-10-09T02:58:17.2477092Z Version: 20261004.327.1
+2026-10-09T02:58:17.2479848Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-09T02:58:17.2482915Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+2026-10-09T02:58:17.2484729Z ##[endgroup]
+2026-10-09T02:58:17.2486894Z ##[group]GITHUB_TOKEN Permissions
+2026-10-09T02:58:17.2490598Z Contents: read
+2026-10-09T02:58:17.2492094Z Metadata: read
+2026-10-09T02:58:17.2493274Z ##[endgroup]
+2026-10-09T02:58:17.2496364Z Secret source: Actions
+2026-10-09T02:58:17.2498151Z Cache mode: write
+2026-10-09T02:58:17.2500174Z Prepare workflow directory
+2026-10-09T02:58:17.2902221Z Prepare all required actions
+2026-10-09T02:58:17.2974794Z Getting action download info
+2026-10-09T02:58:17.5387796Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-09T02:58:17.7334950Z Complete job name: check (ubuntu-24.04)
+2026-10-09T02:58:17.8229266Z ##[group]Run actions/checkout@v4
+2026-10-09T02:58:17.8230468Z with:
+2026-10-09T02:58:17.8230920Z   repository: irgegh2/kedrdb
+2026-10-09T02:58:17.8234652Z   token: ***
+2026-10-09T02:58:17.8235086Z   ssh-strict: true
+2026-10-09T02:58:17.8235521Z   ssh-user: git
+2026-10-09T02:58:17.8235972Z   persist-credentials: true
+2026-10-09T02:58:17.8236458Z   clean: true
+2026-10-09T02:58:17.8236909Z   sparse-checkout-cone-mode: true
+2026-10-09T02:58:17.8237439Z   fetch-depth: 1
+2026-10-09T02:58:17.8237868Z   fetch-tags: false
+2026-10-09T02:58:17.8238312Z   show-progress: true
+2026-10-09T02:58:17.8238760Z   lfs: false
+2026-10-09T02:58:17.8239166Z   submodules: false
+2026-10-09T02:58:17.8239811Z   set-safe-directory: true
+2026-10-09T02:58:17.8240388Z   allow-unsafe-pr-checkout: false
+2026-10-09T02:58:17.8241188Z ##[endgroup]
+2026-10-09T02:58:17.9284305Z Syncing repository: irgegh2/kedrdb
+2026-10-09T02:58:17.9287115Z ##[group]Getting Git version info
+2026-10-09T02:58:17.9288568Z Working directory is '/home/runner/work/kedrdb/kedrdb'
+2026-10-09T02:58:17.9290518Z [command]/usr/bin/git version
+2026-10-09T02:58:17.9386252Z git version 2.55.0
+2026-10-09T02:58:17.9425992Z ##[endgroup]
+2026-10-09T02:58:17.9438086Z Temporarily overriding HOME='/home/runner/work/_temp/6a8a58ea-89a4-4d73-91d8-b59385a06570' before making global git config changes
+2026-10-09T02:58:17.9440789Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-09T02:58:17.9442730Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/kedrdb/kedrdb
+2026-10-09T02:58:17.9508060Z Deleting the contents of '/home/runner/work/kedrdb/kedrdb'
+2026-10-09T02:58:17.9513174Z ##[group]Initializing the repository
+2026-10-09T02:58:17.9520689Z [command]/usr/bin/git init /home/runner/work/kedrdb/kedrdb
+2026-10-09T02:58:17.9655166Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-09T02:58:17.9656743Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-09T02:58:17.9663190Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-09T02:58:17.9665073Z hint: call:
+2026-10-09T02:58:17.9667140Z hint:
+2026-10-09T02:58:17.9668502Z hint: 	git config --global init.defaultBranch <name>
+2026-10-09T02:58:17.9670210Z hint:
+2026-10-09T02:58:17.9671624Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-09T02:58:17.9673228Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-09T02:58:17.9674444Z hint:
+2026-10-09T02:58:17.9675188Z hint: 	git branch -m <name>
+2026-10-09T02:58:17.9676061Z hint:
+2026-10-09T02:58:17.9677074Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-09T02:58:17.9678648Z Initialized empty Git repository in /home/runner/work/kedrdb/kedrdb/.git/
+2026-10-09T02:58:17.9682100Z [command]/usr/bin/git remote add origin https://github.com/irgegh2/kedrdb
+2026-10-09T02:58:17.9736193Z ##[endgroup]
+2026-10-09T02:58:17.9737514Z ##[group]Disabling automatic garbage collection
+2026-10-09T02:58:17.9740177Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-09T02:58:17.9782094Z ##[endgroup]
+2026-10-09T02:58:17.9783529Z ##[group]Setting up auth
+2026-10-09T02:58:17.9787550Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-09T02:58:17.9834825Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-09T02:58:18.0231658Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-09T02:58:18.0271171Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-09T02:58:18.0502630Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-09T02:58:18.0541691Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-09T02:58:18.0770180Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-09T02:58:18.0811396Z ##[endgroup]
+2026-10-09T02:58:18.0812282Z ##[group]Fetching the repository
+2026-10-09T02:58:18.0822397Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ecd431621b171fb6d2175bc5e4e028fb14f38530:refs/remotes/origin/main
+2026-10-09T02:58:18.4707516Z From https://github.com/irgegh2/kedrdb
+2026-10-09T02:58:18.4709630Z  * [new ref]         ecd431621b171fb6d2175bc5e4e028fb14f38530 -> origin/main
+2026-10-09T02:58:18.4713390Z ##[endgroup]
+2026-10-09T02:58:18.4714343Z ##[group]Determining the checkout info
+2026-10-09T02:58:18.4716554Z ##[endgroup]
+2026-10-09T02:58:18.4722456Z [command]/usr/bin/git sparse-checkout disable
+2026-10-09T02:58:18.4783612Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-09T02:58:18.4826131Z ##[group]Checking out the ref
+2026-10-09T02:58:18.4832409Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-09T02:58:18.4956682Z Switched to a new branch 'main'
+2026-10-09T02:58:18.4962779Z branch 'main' set up to track 'origin/main'.
+2026-10-09T02:58:18.4969003Z ##[endgroup]
+2026-10-09T02:58:18.5018019Z [command]/usr/bin/git log -1 --format=%H
+2026-10-09T02:58:18.5048247Z ecd431621b171fb6d2175bc5e4e028fb14f38530
+2026-10-09T02:58:18.5294855Z ##[group]Run rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy
+2026-10-09T02:58:18.5296323Z [36;1mrustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy[0m
+2026-10-09T02:58:18.5573193Z shell: /usr/bin/bash -e {0}
+2026-10-09T02:58:18.5573970Z ##[endgroup]
+2026-10-09T02:58:18.6219742Z info: syncing channel updates for 1.94.1-x86_64-unknown-linux-gnu
+2026-10-09T02:58:19.1007074Z info: latest update on 2026-03-26 for version 1.94.1 (e408947bf 2026-03-25)
+2026-10-09T02:58:19.1008696Z info: downloading 5 components
+2026-10-09T02:58:27.4959700Z 
+2026-10-09T02:58:27.5034568Z   1.94.1-x86_64-unknown-linux-gnu installed - rustc 1.94.1 (e408947bf 2026-03-25)
+2026-10-09T02:58:27.5035239Z 
+2026-10-09T02:58:27.5158133Z ##[group]Run cargo fmt --all -- --check
+2026-10-09T02:58:27.5158575Z [36;1mcargo fmt --all -- --check[0m
+2026-10-09T02:58:27.5228409Z shell: /usr/bin/bash -e {0}
+2026-10-09T02:58:27.5228749Z ##[endgroup]
+2026-10-09T02:58:27.6103262Z ##[group]Run cargo clippy --workspace --all-targets --locked --offline -- -D warnings
+2026-10-09T02:58:27.6104026Z [36;1mcargo clippy --workspace --all-targets --locked --offline -- -D warnings[0m
+2026-10-09T02:58:27.6170800Z shell: /usr/bin/bash -e {0}
+2026-10-09T02:58:27.6171137Z ##[endgroup]
+2026-10-09T02:58:27.7068244Z     Checking kedr-core v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-core)
+2026-10-09T02:58:27.8026799Z     Checking kedr-testkit v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-testkit)
+2026-10-09T02:58:27.8027869Z     Checking kedr v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-cli)
+2026-10-09T02:58:28.0502322Z     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.37s
+2026-10-09T02:58:28.0642351Z ##[group]Run cargo test --workspace --locked --offline
+2026-10-09T02:58:28.0642806Z [36;1mcargo test --workspace --locked --offline[0m
+2026-10-09T02:58:28.0709903Z shell: /usr/bin/bash -e {0}
+2026-10-09T02:58:28.0710182Z ##[endgroup]
+2026-10-09T02:58:28.1385408Z    Compiling kedr-core v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-core)
+2026-10-09T02:58:28.2032000Z    Compiling kedr-testkit v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-testkit)
+2026-10-09T02:58:28.2747225Z    Compiling kedr v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-cli)
+2026-10-09T02:58:29.3212787Z     Finished `test` profile [unoptimized + debuginfo] target(s) in 1.21s
+2026-10-09T02:58:29.3219839Z      Running unittests src/main.rs (target/debug/deps/kedr-04240f81d443dcc4)
+2026-10-09T02:58:29.3230899Z 
+2026-10-09T02:58:29.3231085Z running 0 tests
+2026-10-09T02:58:29.3231532Z 
+2026-10-09T02:58:29.3231905Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T02:58:29.3232303Z 
+2026-10-09T02:58:29.3234037Z      Running tests/cli.rs (target/debug/deps/cli-ab4c8185b4d9c61b)
+2026-10-09T02:58:29.3243318Z 
+2026-10-09T02:58:29.3243525Z running 4 tests
+2026-10-09T02:58:29.3259697Z test doctor_reports_actual_capabilities ... ok
+2026-10-09T02:58:29.3260825Z test invalid_arguments_are_reported_as_errors ... ok
+2026-10-09T02:58:29.3269595Z test storage_check_rejects_file_as_directory_without_mutation ... ok
+2026-10-09T02:58:29.3283752Z test storage_check_preserves_existing_files_and_cleans_up ... ok
+2026-10-09T02:58:29.3284598Z 
+2026-10-09T02:58:29.3285178Z test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T02:58:29.3286262Z      Running unittests src/lib.rs (target/debug/deps/kedr_core-f7e8c82e4414be2e)
+2026-10-09T02:58:29.3286610Z 
+2026-10-09T02:58:29.3295212Z 
+2026-10-09T02:58:29.3295547Z running 0 tests
+2026-10-09T02:58:29.3295795Z 
+2026-10-09T02:58:29.3296275Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T02:58:29.3296884Z 
+2026-10-09T02:58:29.3297718Z      Running unittests src/lib.rs (target/debug/deps/kedr_testkit-72be5798cb96a3ab)
+2026-10-09T02:58:29.3306544Z 
+2026-10-09T02:58:29.3306743Z running 0 tests
+2026-10-09T02:58:29.3307007Z 
+2026-10-09T02:58:29.3307501Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T02:58:29.3308065Z 
+2026-10-09T02:58:29.3310293Z      Running unittests src/bin/kedr-crash-fixture.rs (target/debug/deps/kedr_crash_fixture-365d6c1965244179)
+2026-10-09T02:58:29.3317976Z 
+2026-10-09T02:58:29.3318157Z running 0 tests
+2026-10-09T02:58:29.3320097Z 
+2026-10-09T02:58:29.3320564Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T02:58:29.3321164Z 
+2026-10-09T02:58:29.3321798Z      Running tests/file_and_crash.rs (target/debug/deps/file_and_crash-72784cb3c6fee9de)
+2026-10-09T02:58:29.3329938Z 
+2026-10-09T02:58:29.3330135Z running 2 tests
+2026-10-09T02:58:29.3343180Z test file_reopen_sparse_write_resize_and_exclusive_creation ... ok
+2026-10-09T02:58:29.3350195Z test synchronized_prefix_survives_real_process_kill ... ok
+2026-10-09T02:58:29.3350684Z 
+2026-10-09T02:58:29.3351120Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T02:58:29.3351770Z 
+2026-10-09T02:58:29.3352280Z      Running tests/storage_contract.rs (target/debug/deps/storage_contract-64573c06a4021e08)
+2026-10-09T02:58:29.3361257Z 
+2026-10-09T02:58:29.3361501Z running 13 tests
+2026-10-09T02:58:29.3364753Z test allocation_limit_rejects_mutation_and_sparse_holes_are_zero ... ok
+2026-10-09T02:58:29.3365993Z test eof_reports_actual_progress ... ok
+2026-10-09T02:58:29.3366658Z test errors_after_partial_write_leave_partial_bytes ... ok
+2026-10-09T02:58:29.3367408Z test harness_detects_intentionally_missing_sync ... ok
+2026-10-09T02:58:29.3368024Z test broken_backend_byte_counts_are_rejected ... ok
+2026-10-09T02:58:29.3368728Z test exact_helpers_retry_short_io_and_interrupts ... ok
+2026-10-09T02:58:29.3369188Z test invalid_faults_and_duplicate_call_numbers_are_rejected ... ok
+2026-10-09T02:58:29.3380449Z test sync_and_crash_include_file_length ... ok
+2026-10-09T02:58:29.3381141Z test range_overflow_is_rejected_before_backend_calls ... ok
+2026-10-09T02:58:29.3381813Z test replay_has_identical_trace_and_bytes ... ok
+2026-10-09T02:58:29.3382484Z test sync_failure_can_happen_before_or_after_persistence ... ok
+2026-10-09T02:58:29.3383184Z test zero_write_is_an_error_not_an_infinite_loop ... ok
+2026-10-09T02:58:42.9364327Z test seeded_operations_match_independent_sparse_byte_oracle ... ok
+2026-10-09T02:58:42.9365889Z    Doc-tests kedr_core
+2026-10-09T02:58:42.9366211Z 
+2026-10-09T02:58:42.9366787Z test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 13.60s
+2026-10-09T02:58:42.9367650Z 
+2026-10-09T02:58:42.9535594Z 
+2026-10-09T02:58:42.9536103Z running 0 tests
+2026-10-09T02:58:42.9536428Z 
+2026-10-09T02:58:42.9536745Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T02:58:42.9537118Z 
+2026-10-09T02:58:42.9548028Z    Doc-tests kedr_testkit
+2026-10-09T02:58:42.9714925Z 
+2026-10-09T02:58:42.9715491Z running 0 tests
+2026-10-09T02:58:42.9715694Z 
+2026-10-09T02:58:42.9715983Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T02:58:42.9716348Z 
+2026-10-09T02:58:42.9778893Z ##[group]Run cargo test --workspace --release --locked --offline
+2026-10-09T02:58:42.9779657Z [36;1mcargo test --workspace --release --locked --offline[0m
+2026-10-09T02:58:42.9843021Z shell: /usr/bin/bash -e {0}
+2026-10-09T02:58:42.9843284Z ##[endgroup]
+2026-10-09T02:58:43.0287878Z    Compiling kedr-core v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-core)
+2026-10-09T02:58:43.0793443Z    Compiling kedr-testkit v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-testkit)
+2026-10-09T02:58:43.1059228Z    Compiling kedr v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-cli)
+2026-10-09T02:59:06.0067196Z     Finished `release` profile [optimized] target(s) in 22.98s
+2026-10-09T02:59:06.0071972Z      Running unittests src/main.rs (target/release/deps/kedr-a13f77727c859430)
+2026-10-09T02:59:06.0083116Z 
+2026-10-09T02:59:06.0083545Z running 0 tests
+2026-10-09T02:59:06.0083861Z 
+2026-10-09T02:59:06.0084471Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T02:59:06.0084876Z 
+2026-10-09T02:59:06.0086604Z      Running tests/cli.rs (target/release/deps/cli-37d244b90a2b13d1)
+2026-10-09T02:59:06.0095682Z 
+2026-10-09T02:59:06.0096124Z running 4 tests
+2026-10-09T02:59:06.0112714Z test doctor_reports_actual_capabilities ... ok
+2026-10-09T02:59:06.0118879Z test invalid_arguments_are_reported_as_errors ... ok
+2026-10-09T02:59:06.0123005Z test storage_check_rejects_file_as_directory_without_mutation ... ok
+2026-10-09T02:59:06.0127032Z test storage_check_preserves_existing_files_and_cleans_up ... ok
+2026-10-09T02:59:06.0127510Z 
+2026-10-09T02:59:06.0127895Z test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T02:59:06.0128290Z 
+2026-10-09T02:59:06.0131260Z      Running unittests src/lib.rs (target/release/deps/kedr_core-be080f05c9fe3b86)
+2026-10-09T02:59:06.0138894Z 
+2026-10-09T02:59:06.0139045Z running 0 tests
+2026-10-09T02:59:06.0139277Z 
+2026-10-09T02:59:06.0139858Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T02:59:06.0140232Z 
+2026-10-09T02:59:06.0141831Z      Running unittests src/lib.rs (target/release/deps/kedr_testkit-cc766dbcf076543b)
+2026-10-09T02:59:06.0151226Z 
+2026-10-09T02:59:06.0151416Z running 0 tests
+2026-10-09T02:59:06.0151691Z 
+2026-10-09T02:59:06.0151957Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T02:59:06.0152326Z 
+2026-10-09T02:59:06.0154033Z      Running unittests src/bin/kedr-crash-fixture.rs (target/release/deps/kedr_crash_fixture-0910086ba6944a6f)
+2026-10-09T02:59:06.0162906Z 
+2026-10-09T02:59:06.0163056Z running 0 tests
+2026-10-09T02:59:06.0163279Z 
+2026-10-09T02:59:06.0163583Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T02:59:06.0163951Z 
+2026-10-09T02:59:06.0165519Z      Running tests/file_and_crash.rs (target/release/deps/file_and_crash-ae3a50e64e137118)
+2026-10-09T02:59:06.0175181Z 
+2026-10-09T02:59:06.0175475Z running 2 tests
+2026-10-09T02:59:06.0193573Z test file_reopen_sparse_write_resize_and_exclusive_creation ... ok
+2026-10-09T02:59:06.0195833Z test synchronized_prefix_survives_real_process_kill ... ok
+2026-10-09T02:59:06.0196274Z 
+2026-10-09T02:59:06.0196685Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T02:59:06.0197053Z 
+2026-10-09T02:59:06.0197760Z      Running tests/storage_contract.rs (target/release/deps/storage_contract-78669a4def864771)
+2026-10-09T02:59:06.0206730Z 
+2026-10-09T02:59:06.0207060Z running 13 tests
+2026-10-09T02:59:06.0210028Z test allocation_limit_rejects_mutation_and_sparse_holes_are_zero ... ok
+2026-10-09T02:59:06.0210828Z test broken_backend_byte_counts_are_rejected ... ok
+2026-10-09T02:59:06.0212321Z test harness_detects_intentionally_missing_sync ... ok
+2026-10-09T02:59:06.0212939Z test eof_reports_actual_progress ... ok
+2026-10-09T02:59:06.0213851Z test errors_after_partial_write_leave_partial_bytes ... ok
+2026-10-09T02:59:06.0214574Z test exact_helpers_retry_short_io_and_interrupts ... ok
+2026-10-09T02:59:06.0215223Z test range_overflow_is_rejected_before_backend_calls ... ok
+2026-10-09T02:59:06.0217362Z test sync_and_crash_include_file_length ... ok
+2026-10-09T02:59:06.0218059Z test invalid_faults_and_duplicate_call_numbers_are_rejected ... ok
+2026-10-09T02:59:06.0218732Z test replay_has_identical_trace_and_bytes ... ok
+2026-10-09T02:59:06.0219343Z test sync_failure_can_happen_before_or_after_persistence ... ok
+2026-10-09T02:59:06.0220098Z test zero_write_is_an_error_not_an_infinite_loop ... ok
+2026-10-09T02:59:06.7930507Z test seeded_operations_match_independent_sparse_byte_oracle ... ok
+2026-10-09T02:59:06.7931138Z 
+2026-10-09T02:59:06.7931625Z test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.77s
+2026-10-09T02:59:06.7932495Z    Doc-tests kedr_core
+2026-10-09T02:59:06.7932763Z 
+2026-10-09T02:59:06.8095622Z 
+2026-10-09T02:59:06.8096093Z running 0 tests
+2026-10-09T02:59:06.8096368Z 
+2026-10-09T02:59:06.8096755Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T02:59:06.8097306Z 
+2026-10-09T02:59:06.8110652Z    Doc-tests kedr_testkit
+2026-10-09T02:59:06.8271127Z 
+2026-10-09T02:59:06.8272206Z running 0 tests
+2026-10-09T02:59:06.8272468Z 
+2026-10-09T02:59:06.8272859Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T02:59:06.8273532Z 
+2026-10-09T02:59:06.8342182Z ##[group]Run cargo build --workspace --release --locked --offline
+2026-10-09T02:59:06.8343128Z [36;1mcargo build --workspace --release --locked --offline[0m
+2026-10-09T02:59:06.8414979Z shell: /usr/bin/bash -e {0}
+2026-10-09T02:59:06.8415245Z ##[endgroup]
+2026-10-09T02:59:06.8888605Z     Finished `release` profile [optimized] target(s) in 0.01s
+2026-10-09T02:59:06.8937827Z ##[group]Run target/release/kedr doctor && target/release/kedr storage-check "$RUNNER_TEMP"
+2026-10-09T02:59:06.8938508Z [36;1mtarget/release/kedr doctor && target/release/kedr storage-check "$RUNNER_TEMP"[0m
+2026-10-09T02:59:06.9000696Z shell: /usr/bin/bash -e {0}
+2026-10-09T02:59:06.9000969Z ##[endgroup]
+2026-10-09T02:59:06.9088375Z KedrDB 0.1.0
+2026-10-09T02:59:06.9088746Z Platform: linux/x86_64
+2026-10-09T02:59:06.9089249Z License: Apache-2.0; storage: positional file I/O + sync_all.
+2026-10-09T02:59:06.9090194Z SQL server, pages, WAL and transactions: not implemented.
+2026-10-09T02:59:06.9109682Z Storage check passed: positional write, sync, reopen, exact read, cleanup.
+2026-10-09T02:59:06.9110586Z This is a file I/O check; SQL and transaction recovery are not implemented.
+2026-10-09T02:59:06.9229580Z Post job cleanup.
+2026-10-09T02:59:07.0108945Z [command]/usr/bin/git version
+2026-10-09T02:59:07.0155137Z git version 2.55.0
+2026-10-09T02:59:07.0199158Z Temporarily overriding HOME='/home/runner/work/_temp/150e7cce-b01e-4ae9-874a-831d412ade95' before making global git config changes
+2026-10-09T02:59:07.0200682Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-09T02:59:07.0205994Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/kedrdb/kedrdb
+2026-10-09T02:59:07.0249940Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-09T02:59:07.0287669Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-09T02:59:07.0540408Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-09T02:59:07.0578541Z http.https://github.com/.extraheader
+2026-10-09T02:59:07.0597201Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-09T02:59:07.0636591Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-09T02:59:07.0938300Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-09T02:59:07.0979151Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-09T02:59:07.1382390Z Cleaning up orphan processes
+2026-10-09T02:59:07.1796575Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
