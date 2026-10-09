@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
+mod sql;
 use kedr_core::{
     Error, Operation, Result,
     database::FileDatabase,
@@ -15,7 +16,7 @@ use std::{
 
 const PAYLOAD: &[u8] = b"KedrDB stage 1 storage check\n";
 const CACHE_BUDGET: usize = 4 * 16 * 1024;
-const USAGE: &str = "Usage: kedr --version | doctor | storage-check <directory> | create-db <new-directory> | create-store <new-file> | put <database> <bigint-key> <text> | get <database> <bigint-key> | delete <database> <bigint-key> | integrity-check <database> | checkpoint <database-directory>";
+const USAGE: &str = "Usage: kedr --version | doctor | storage-check <directory> | create-db <new-directory> | sql <database-directory> <statement> | sql-stream <database-directory> | create-store <new-file> | put <database> <bigint-key> <text> | get <database> <bigint-key> | delete <database> <bigint-key> | integrity-check <database> | checkpoint <database-directory>";
 
 fn open_tree(path: &Path) -> Result<BPlusTree<FileStorage>> {
     let file = FileStorage::open_existing(path)?;
@@ -30,6 +31,17 @@ fn key(argument: &std::ffi::OsStr) -> Result<[u8; 8]> {
             message: "key must be a signed BIGINT",
         })?;
     Ok(primary_key(value))
+}
+fn raw_store_guard(marker: Option<Vec<u8>>) -> Result<()> {
+    if marker
+        .as_deref()
+        .is_some_and(|bytes| bytes.starts_with(b"KEDRSQL1"))
+    {
+        return Err(Error::InvalidArgument {
+            message: "SQL database: use sql/sql-stream; raw key/value commands are disabled",
+        });
+    }
+    Ok(())
 }
 fn random_id() -> Result<[u8; 16]> {
     use std::io::Read;
@@ -116,6 +128,7 @@ fn run() -> Result<()> {
             );
             println!("Single-owner storage transactions, WAL redo and checkpoints: available.");
             println!("Local concurrent sessions, fair locks and transaction timeouts: available.");
+            println!("Local SQL tables and bounded SQL execution: in development.");
             println!("SQL server and network protocol: not implemented.");
         }
         [command, directory] if command == "storage-check" => storage_check(Path::new(directory))?,
@@ -123,17 +136,26 @@ fn run() -> Result<()> {
         [command, path] if command == "create-db" => {
             FileDatabase::create(Path::new(path), random_id()?, CACHE_BUDGET)?;
             println!(
-                "Created development database with WAL recovery. SQL tables are not available yet."
+                "Created development database with WAL recovery. Use sql or sql-stream for SQL tables."
             );
         }
+        [command, path, query] if command == "sql" => {
+            let query = query.to_str().ok_or(Error::InvalidArgument {
+                message: "SQL must be UTF-8",
+            })?;
+            sql::single(Path::new(path), query)?;
+        }
+        [command, path] if command == "sql-stream" => sql::stream(Path::new(path))?,
         [command, path, key_arg, value] if command == "put" => {
             let key = key(key_arg)?;
             let value = value.to_str().ok_or(Error::InvalidArgument {
                 message: "value must be UTF-8",
             })?;
             if Path::new(path).is_dir() {
-                FileDatabase::open(Path::new(path), CACHE_BUDGET)?
-                    .transaction(|tx| tx.replace(&key, value.as_bytes()))?;
+                FileDatabase::open(Path::new(path), CACHE_BUDGET)?.transaction(|tx| {
+                    raw_store_guard(tx.get(&[1])?)?;
+                    tx.replace(&key, value.as_bytes())
+                })?;
                 println!("Stored (durable commit).");
             } else {
                 let mut tree = open_tree(Path::new(path))?;
@@ -145,7 +167,9 @@ fn run() -> Result<()> {
         [command, path, key_arg] if command == "get" => {
             let key = key(key_arg)?;
             let result = if Path::new(path).is_dir() {
-                FileDatabase::open(Path::new(path), CACHE_BUDGET)?.get(&key)?
+                let mut db = FileDatabase::open(Path::new(path), CACHE_BUDGET)?;
+                raw_store_guard(db.get(&[1])?)?;
+                db.get(&key)?
             } else {
                 open_tree(Path::new(path))?.get(&key)?
             };
@@ -157,8 +181,10 @@ fn run() -> Result<()> {
         [command, path, key_arg] if command == "delete" => {
             let key = key(key_arg)?;
             let deleted = if Path::new(path).is_dir() {
-                FileDatabase::open(Path::new(path), CACHE_BUDGET)?
-                    .transaction(|tx| tx.delete(&key))?
+                FileDatabase::open(Path::new(path), CACHE_BUDGET)?.transaction(|tx| {
+                    raw_store_guard(tx.get(&[1])?)?;
+                    tx.delete(&key)
+                })?
             } else {
                 let mut tree = open_tree(Path::new(path))?;
                 let deleted = tree.delete(&key)?;

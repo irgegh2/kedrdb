@@ -1,6 +1,6 @@
 # Предварительная архитектура
 
-Статус: архитектурный план с частичной реализацией. Есть файловый I/O, harness, codecs, bounded cache, B+ tree, WAL/private writes/storage transactions, файловый checkpoint и локальные конкурентные сессии. Этап 3 пройден; этап 4 прошел локальную приемку, ожидается CI. SQL и сервер впереди. Решения: [I/O](decisions/001-storage-and-failures.md), [tree format](decisions/003-tree-file-format.md), [WAL](decisions/004-wal-and-private-writes.md), [сессии](decisions/005-session-workers-and-fair-locks.md). Текущие гарантии и ограничения — в [DURABILITY.md](DURABILITY.md) и [ISOLATION.md](ISOLATION.md).
+Статус: архитектурный план с частичной реализацией. Есть файловый I/O, harness, codecs, bounded cache, B+ tree, WAL/private writes/storage transactions, файловый checkpoint и локальные конкурентные сессии. Этапы 1–4 пройдены; начальный SQL-слой этапа 5 проверяется. Сетевой сервер впереди. Решения: [I/O](decisions/001-storage-and-failures.md), [tree format](decisions/003-tree-file-format.md), [WAL](decisions/004-wal-and-private-writes.md), [сессии](decisions/005-session-workers-and-fair-locks.md). Текущие гарантии и ограничения — в [DURABILITY.md](DURABILITY.md) и [ISOLATION.md](ISOLATION.md).
 
 ## 1. Поток запроса
 

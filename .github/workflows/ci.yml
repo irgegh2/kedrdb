@@ -7,7 +7,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   check:
-    timeout-minutes: 15
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -19,6 +19,8 @@ jobs:
         run: rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy
       - name: Format
         run: cargo fmt --all -- --check
+      - name: Fetch locked dependencies
+        run: cargo fetch --locked
       - name: Lint
         run: cargo clippy --workspace --all-targets --locked --offline -- -D warnings
       - name: Debug tests
@@ -38,3 +40,13 @@ jobs:
         run: cargo test -p kedr-testkit --test crash_campaign --release --locked --offline -- --nocapture
       - name: File I/O smoke check
         run: target/release/kedr doctor && target/release/kedr storage-check "$RUNNER_TEMP"
+      - name: Install PostgreSQL SQL oracle (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-16 python3-psycopg
+      - name: SQL differential campaign (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          /usr/bin/python3 tools/check_stage5_sql.py --pg-bin /usr/lib/postgresql/16/bin --manual 1025 --generated 100000 --output "$RUNNER_TEMP/stage5-sql-oracle"
+          cat "$RUNNER_TEMP/stage5-sql-oracle/summary.json"

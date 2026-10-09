@@ -1,0 +1,584 @@
+﻿2026-10-09T19:36:40.7152274Z Current runner version: '2.337.0'
+2026-10-09T19:36:40.7169550Z ##[group]Runner Image Provisioner
+2026-10-09T19:36:40.7170109Z Hosted Compute Agent
+2026-10-09T19:36:40.7170515Z Version: 20261002.596
+2026-10-09T19:36:40.7170950Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-09T19:36:40.7171401Z Build Date: 2026-10-02T22:28:27Z
+2026-10-09T19:36:40.7171925Z Worker ID: {903fde6b-3d44-42f4-b7bf-40d78dd7a4f4}
+2026-10-09T19:36:40.7172354Z Region: centralus
+2026-10-09T19:36:40.7172720Z Cloud: Azure
+2026-10-09T19:36:40.7173260Z ##[endgroup]
+2026-10-09T19:36:40.7174110Z ##[group]Operating System
+2026-10-09T19:36:40.7174523Z Ubuntu
+2026-10-09T19:36:40.7174848Z 24.04.5
+2026-10-09T19:36:40.7175156Z LTS
+2026-10-09T19:36:40.7175552Z ##[endgroup]
+2026-10-09T19:36:40.7175894Z ##[group]Runner Image
+2026-10-09T19:36:40.7176322Z Image: ubuntu-24.04
+2026-10-09T19:36:40.7176673Z Version: 20261004.327.1
+2026-10-09T19:36:40.7177729Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-09T19:36:40.7178629Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+2026-10-09T19:36:40.7179252Z ##[endgroup]
+2026-10-09T19:36:40.7179905Z ##[group]GITHUB_TOKEN Permissions
+2026-10-09T19:36:40.7181328Z Contents: read
+2026-10-09T19:36:40.7181686Z Metadata: read
+2026-10-09T19:36:40.7182024Z ##[endgroup]
+2026-10-09T19:36:40.7183576Z Secret source: Actions
+2026-10-09T19:36:40.7184128Z Cache mode: write
+2026-10-09T19:36:40.7184645Z Prepare workflow directory
+2026-10-09T19:36:40.7399629Z Prepare all required actions
+2026-10-09T19:36:40.7441873Z Getting action download info
+2026-10-09T19:36:40.9597392Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-09T19:36:41.0856404Z Complete job name: check (ubuntu-24.04)
+2026-10-09T19:36:41.1368301Z ##[group]Run actions/checkout@v4
+2026-10-09T19:36:41.1368696Z with:
+2026-10-09T19:36:41.1368930Z   repository: irgegh2/kedrdb
+2026-10-09T19:36:41.1370851Z   token: ***
+2026-10-09T19:36:41.1371080Z   ssh-strict: true
+2026-10-09T19:36:41.1371312Z   ssh-user: git
+2026-10-09T19:36:41.1371550Z   persist-credentials: true
+2026-10-09T19:36:41.1371809Z   clean: true
+2026-10-09T19:36:41.1372046Z   sparse-checkout-cone-mode: true
+2026-10-09T19:36:41.1372320Z   fetch-depth: 1
+2026-10-09T19:36:41.1372553Z   fetch-tags: false
+2026-10-09T19:36:41.1372791Z   show-progress: true
+2026-10-09T19:36:41.1373151Z   lfs: false
+2026-10-09T19:36:41.1373371Z   submodules: false
+2026-10-09T19:36:41.1373610Z   set-safe-directory: true
+2026-10-09T19:36:41.1373881Z   allow-unsafe-pr-checkout: false
+2026-10-09T19:36:41.1374230Z ##[endgroup]
+2026-10-09T19:36:41.2005773Z Syncing repository: irgegh2/kedrdb
+2026-10-09T19:36:41.2007190Z ##[group]Getting Git version info
+2026-10-09T19:36:41.2007804Z Working directory is '/home/runner/work/kedrdb/kedrdb'
+2026-10-09T19:36:41.2008675Z [command]/usr/bin/git version
+2026-10-09T19:36:41.2113886Z git version 2.55.0
+2026-10-09T19:36:41.2115494Z ##[endgroup]
+2026-10-09T19:36:41.2132113Z Temporarily overriding HOME='/home/runner/work/_temp/4f0bf6bb-bd8d-4089-8684-1f77fadecd5e' before making global git config changes
+2026-10-09T19:36:41.2133500Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-09T19:36:41.2136459Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/kedrdb/kedrdb
+2026-10-09T19:36:41.2182549Z Deleting the contents of '/home/runner/work/kedrdb/kedrdb'
+2026-10-09T19:36:41.2185608Z ##[group]Initializing the repository
+2026-10-09T19:36:41.2188799Z [command]/usr/bin/git init /home/runner/work/kedrdb/kedrdb
+2026-10-09T19:36:41.2290280Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-09T19:36:41.2291062Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-09T19:36:41.2291853Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-09T19:36:41.2292416Z hint: call:
+2026-10-09T19:36:41.2293179Z hint:
+2026-10-09T19:36:41.2294239Z hint: 	git config --global init.defaultBranch <name>
+2026-10-09T19:36:41.2294646Z hint:
+2026-10-09T19:36:41.2295098Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-09T19:36:41.2295908Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-09T19:36:41.2296568Z hint:
+2026-10-09T19:36:41.2296925Z hint: 	git branch -m <name>
+2026-10-09T19:36:41.2297340Z hint:
+2026-10-09T19:36:41.2297854Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-09T19:36:41.2298826Z Initialized empty Git repository in /home/runner/work/kedrdb/kedrdb/.git/
+2026-10-09T19:36:41.2302809Z [command]/usr/bin/git remote add origin https://github.com/irgegh2/kedrdb
+2026-10-09T19:36:41.2344575Z ##[endgroup]
+2026-10-09T19:36:41.2345312Z ##[group]Disabling automatic garbage collection
+2026-10-09T19:36:41.2347383Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-09T19:36:41.2373626Z ##[endgroup]
+2026-10-09T19:36:41.2374279Z ##[group]Setting up auth
+2026-10-09T19:36:41.2378316Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-09T19:36:41.2404626Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-09T19:36:41.2715671Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-09T19:36:41.2745775Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-09T19:36:41.2917366Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-09T19:36:41.2944043Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-09T19:36:41.3115302Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-09T19:36:41.3146926Z ##[endgroup]
+2026-10-09T19:36:41.3147506Z ##[group]Fetching the repository
+2026-10-09T19:36:41.3153200Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +33ec418422e522bc516debaf28bb3a06b78566e5:refs/remotes/origin/codex/transaction-manager
+2026-10-09T19:36:41.8216322Z From https://github.com/irgegh2/kedrdb
+2026-10-09T19:36:41.8216939Z  * [new ref]         33ec418422e522bc516debaf28bb3a06b78566e5 -> origin/codex/transaction-manager
+2026-10-09T19:36:41.8219994Z ##[endgroup]
+2026-10-09T19:36:41.8220427Z ##[group]Determining the checkout info
+2026-10-09T19:36:41.8221803Z ##[endgroup]
+2026-10-09T19:36:41.8226445Z [command]/usr/bin/git sparse-checkout disable
+2026-10-09T19:36:41.8270923Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-09T19:36:41.8296517Z ##[group]Checking out the ref
+2026-10-09T19:36:41.8299324Z [command]/usr/bin/git checkout --progress --force -B codex/transaction-manager refs/remotes/origin/codex/transaction-manager
+2026-10-09T19:36:41.8405647Z Switched to a new branch 'codex/transaction-manager'
+2026-10-09T19:36:41.8410278Z branch 'codex/transaction-manager' set up to track 'origin/codex/transaction-manager'.
+2026-10-09T19:36:41.8414059Z ##[endgroup]
+2026-10-09T19:36:41.8445243Z [command]/usr/bin/git log -1 --format=%H
+2026-10-09T19:36:41.8465684Z 33ec418422e522bc516debaf28bb3a06b78566e5
+2026-10-09T19:36:41.8627385Z ##[group]Run rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy
+2026-10-09T19:36:41.8628158Z [36;1mrustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy[0m
+2026-10-09T19:36:41.8850962Z shell: /usr/bin/bash -e {0}
+2026-10-09T19:36:41.8851277Z ##[endgroup]
+2026-10-09T19:36:41.9327402Z info: syncing channel updates for 1.94.1-x86_64-unknown-linux-gnu
+2026-10-09T19:36:42.1091103Z info: latest update on 2026-03-26 for version 1.94.1 (e408947bf 2026-03-25)
+2026-10-09T19:36:48.2135270Z info: downloading 5 components
+2026-10-09T19:36:48.2135643Z 
+2026-10-09T19:36:48.2194384Z   1.94.1-x86_64-unknown-linux-gnu installed - rustc 1.94.1 (e408947bf 2026-03-25)
+2026-10-09T19:36:48.2194816Z 
+2026-10-09T19:36:48.2265100Z ##[group]Run cargo fmt --all -- --check
+2026-10-09T19:36:48.2265349Z [36;1mcargo fmt --all -- --check[0m
+2026-10-09T19:36:48.2321135Z shell: /usr/bin/bash -e {0}
+2026-10-09T19:36:48.2321315Z ##[endgroup]
+2026-10-09T19:36:48.3325089Z ##[group]Run cargo clippy --workspace --all-targets --locked --offline -- -D warnings
+2026-10-09T19:36:48.3325503Z [36;1mcargo clippy --workspace --all-targets --locked --offline -- -D warnings[0m
+2026-10-09T19:36:48.3379816Z shell: /usr/bin/bash -e {0}
+2026-10-09T19:36:48.3379999Z ##[endgroup]
+2026-10-09T19:36:48.4034931Z     Checking kedr-core v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-core)
+2026-10-09T19:36:48.7594371Z     Checking kedr-testkit v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-testkit)
+2026-10-09T19:36:48.7600355Z     Checking kedr v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-cli)
+2026-10-09T19:36:49.1395400Z     Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.76s
+2026-10-09T19:36:49.1451997Z ##[group]Run cargo test --workspace --locked --offline
+2026-10-09T19:36:49.1452259Z [36;1mcargo test --workspace --locked --offline[0m
+2026-10-09T19:36:49.1505806Z shell: /usr/bin/bash -e {0}
+2026-10-09T19:36:49.1505973Z ##[endgroup]
+2026-10-09T19:36:49.1996776Z    Compiling kedr-core v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-core)
+2026-10-09T19:36:49.5723623Z    Compiling kedr-testkit v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-testkit)
+2026-10-09T19:36:50.0479776Z    Compiling kedr v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-cli)
+2026-10-09T19:36:52.1175258Z     Finished `test` profile [unoptimized + debuginfo] target(s) in 2.94s
+2026-10-09T19:36:52.1186222Z      Running unittests src/main.rs (target/debug/deps/kedr-04240f81d443dcc4)
+2026-10-09T19:36:52.1196257Z 
+2026-10-09T19:36:52.1196503Z running 0 tests
+2026-10-09T19:36:52.1196698Z 
+2026-10-09T19:36:52.1197116Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T19:36:52.1197950Z      Running tests/cli.rs (target/debug/deps/cli-ab4c8185b4d9c61b)
+2026-10-09T19:36:52.1198187Z 
+2026-10-09T19:36:52.1206959Z 
+2026-10-09T19:36:52.1207424Z running 7 tests
+2026-10-09T19:36:52.1219921Z test doctor_reports_actual_capabilities ... ok
+2026-10-09T19:36:52.1223120Z test invalid_arguments_are_reported_as_errors ... ok
+2026-10-09T19:36:52.1245502Z test storage_check_rejects_file_as_directory_without_mutation ... ok
+2026-10-09T19:36:52.1250628Z test storage_check_preserves_existing_files_and_cleans_up ... ok
+2026-10-09T19:36:52.1293327Z test locked_store_rejects_another_process_and_releases_on_close ... ok
+2026-10-09T19:36:52.1404282Z test store_commands_persist_and_integrity_read_preserves_file ... ok
+2026-10-09T19:36:52.1558892Z test database_directory_commands_recover_and_checkpoint_between_processes ... ok
+2026-10-09T19:36:52.1559100Z 
+2026-10-09T19:36:52.1559459Z test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+2026-10-09T19:36:52.1559786Z 
+2026-10-09T19:36:52.1561095Z      Running unittests src/lib.rs (target/debug/deps/kedr_core-f7e8c82e4414be2e)
+2026-10-09T19:36:52.1570357Z 
+2026-10-09T19:36:52.1570438Z running 2 tests
+2026-10-09T19:36:52.1575135Z test checksum::tests::standard_crc32c_vectors ... ok
+2026-10-09T19:36:52.3464796Z test database::tests::every_checkpoint_lifecycle_step_before_and_after_failure_preserves_acknowledgements ... ok
+2026-10-09T19:36:52.3465200Z 
+2026-10-09T19:36:52.3465524Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.19s
+2026-10-09T19:36:52.3466798Z 
+2026-10-09T19:36:52.3467850Z      Running tests/database_file.rs (target/debug/deps/database_file-ac9a0565e59d7420)
+2026-10-09T19:36:52.3476931Z 
+2026-10-09T19:36:52.3477033Z running 4 tests
+2026-10-09T19:36:52.3637690Z test identity_corruption_and_symlink_members_are_rejected_without_changes ... ok
+2026-10-09T19:36:52.3662364Z test checkpoint_failure_poisoning_can_be_resolved_only_by_reopen ... ok
+2026-10-09T19:36:52.4115032Z test incomplete_checkpoint_header_uses_predecessor_but_complete_corruption_fails ... ok
+2026-10-09T19:36:52.4777589Z test rotations_reopen_and_prevent_raw_page_writes_or_a_second_owner ... ok
+2026-10-09T19:36:52.4777880Z 
+2026-10-09T19:36:52.4778104Z test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.13s
+2026-10-09T19:36:52.4778400Z 
+2026-10-09T19:36:52.4780138Z      Running tests/pages.rs (target/debug/deps/pages-ede3ce2ee1878738)
+2026-10-09T19:36:52.4787934Z 
+2026-10-09T19:36:52.4788029Z running 8 tests
+2026-10-09T19:36:52.4800929Z test deletion_keeps_other_slots_and_clears_payload ... ok
+2026-10-09T19:36:52.4806195Z test explicit_little_endian_format_and_roundtrip ... ok
+2026-10-09T19:36:52.4806974Z test corruption_and_truncation_are_rejected ... ok
+2026-10-09T19:36:52.4819515Z test record_and_capacity_limits_are_atomic ... ok
+2026-10-09T19:36:52.4843463Z test slot_table_exhaustion_with_empty_records ... ok
+2026-10-09T19:36:52.4859817Z test encoded_page_survives_file_sync_and_reopen ... ok
+2026-10-09T19:36:52.4921520Z test valid_checksum_does_not_bypass_structural_checks ... ok
+2026-10-09T19:36:54.6958215Z test seeded_sequences_match_an_independent_record_model ... ok
+2026-10-09T19:36:54.6958475Z 
+2026-10-09T19:36:54.6958663Z test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.22s
+2026-10-09T19:36:54.6958868Z 
+2026-10-09T19:36:54.6960752Z      Running tests/records.rs (target/debug/deps/records-430fb6ef2a0048b4)
+2026-10-09T19:36:54.6969142Z 
+2026-10-09T19:36:54.6969225Z running 3 tests
+2026-10-09T19:36:54.6971649Z test keys_follow_value_order_and_preserve_duplicate_values ... ok
+2026-10-09T19:36:54.6972156Z test row_roundtrip_boundaries_null_and_unicode ... ok
+2026-10-09T19:36:54.6975665Z test malformed_rows_are_rejected_without_panics ... ok
+2026-10-09T19:36:54.6975841Z 
+2026-10-09T19:36:54.6975982Z test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T19:36:54.6976173Z 
+2026-10-09T19:36:54.6977809Z      Running tests/transactions.rs (target/debug/deps/transactions-6ac4800715c67d6f)
+2026-10-09T19:36:54.6985624Z 
+2026-10-09T19:36:54.6985720Z running 9 tests
+2026-10-09T19:36:54.7122515Z test bounded_admission_and_oversized_command_abort_before_copying_payloads ... ok
+2026-10-09T19:36:54.7191170Z test explicit_rollback_aborted_errors_and_disconnect_leave_no_partial_changes ... ok
+2026-10-09T19:36:54.8300619Z test lock_timeout_and_cancellation_remove_waiters_without_starving_later_clients ... ok
+2026-10-09T19:36:54.9438249Z test idle_and_lifetime_expiry_and_active_cancellation_release_locks_without_client_commands ... ok
+2026-10-09T19:36:54.9542419Z test read_only_rejects_writes_and_upgrade_and_never_changes_wal ... ok
+2026-10-09T19:36:54.9723660Z test shared_readers_block_writers_and_new_readers_cannot_jump_the_waiting_writer ... ok
+2026-10-09T19:36:54.9724980Z test read_only_idle_expiry_and_cancel_release_shared_permits ... ok
+2026-10-09T19:36:55.0936278Z test private_page_limit_failure_aborts_whole_session_and_allows_next_writer ... ok
+2026-10-09T19:36:57.0133360Z test concurrent_acknowledged_histories_are_serial_with_one_two_eight_and_thirty_two_clients ... ok
+2026-10-09T19:36:57.0133623Z 
+2026-10-09T19:36:57.0133773Z test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.31s
+2026-10-09T19:36:57.0133956Z 
+2026-10-09T19:36:57.0141063Z      Running tests/tree_file.rs (target/debug/deps/tree_file-11684270b1d36933)
+2026-10-09T19:36:57.0150815Z 
+2026-10-09T19:36:57.0150897Z running 1 test
+2026-10-09T19:36:59.3840903Z test persistent_data_exceeds_cache_and_reopens_with_a_single_frame ... ok
+2026-10-09T19:36:59.3841218Z 
+2026-10-09T19:36:59.3841819Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.37s
+2026-10-09T19:36:59.3842101Z 
+2026-10-09T19:36:59.3845601Z      Running unittests src/lib.rs (target/debug/deps/kedr_testkit-72be5798cb96a3ab)
+2026-10-09T19:36:59.3854117Z 
+2026-10-09T19:36:59.3854233Z running 0 tests
+2026-10-09T19:36:59.3854453Z 
+2026-10-09T19:36:59.3854771Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T19:36:59.3855071Z 
+2026-10-09T19:36:59.3856402Z      Running unittests src/bin/kedr-crash-fixture.rs (target/debug/deps/kedr_crash_fixture-365d6c1965244179)
+2026-10-09T19:36:59.3863823Z 
+2026-10-09T19:36:59.3863910Z running 0 tests
+2026-10-09T19:36:59.3864092Z 
+2026-10-09T19:36:59.3864314Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T19:36:59.3864496Z 
+2026-10-09T19:36:59.3865954Z      Running unittests src/bin/kedr-db-crash-fixture.rs (target/debug/deps/kedr_db_crash_fixture-ebb71cb7c14b7886)
+2026-10-09T19:36:59.3872278Z 
+2026-10-09T19:36:59.3872350Z running 0 tests
+2026-10-09T19:36:59.3872616Z 
+2026-10-09T19:36:59.3873024Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T19:36:59.3873324Z 
+2026-10-09T19:36:59.3874773Z      Running tests/crash_campaign.rs (target/debug/deps/crash_campaign-96b2cfcfdaaf5aae)
+2026-10-09T19:36:59.3882219Z 
+2026-10-09T19:36:59.3882305Z running 1 test
+2026-10-09T19:37:02.7608318Z test seeded_two_file_crashes_preserve_acknowledgements_or_diagnose_corrupt_tail ... ok
+2026-10-09T19:37:02.7608557Z 
+2026-10-09T19:37:02.7608704Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.37s
+2026-10-09T19:37:02.7608890Z 
+2026-10-09T19:37:02.7611219Z      Running tests/engine_contract.rs (target/debug/deps/engine_contract-d3c56dd43efc58d7)
+2026-10-09T19:37:02.7621916Z 
+2026-10-09T19:37:02.7622000Z running 9 tests
+2026-10-09T19:37:02.7923723Z test cancellation_and_deadline_interrupt_cached_operations_and_prevent_commit ... ok
+2026-10-09T19:37:02.8213320Z test private_limit_failure_rolls_back_without_poisoning_database ... ok
+2026-10-09T19:37:02.9708309Z test dirty_eviction_never_writes_base_before_wal_sync ... ok
+2026-10-09T19:37:02.9794919Z test commit_faults_never_lose_acknowledged_base_and_ambiguous_sync_is_recovered ... ok
+2026-10-09T19:37:02.9903453Z test rollback_drop_aborted_state_and_read_your_writes ... ok
+2026-10-09T19:37:02.9954097Z test truncated_valid_journal_cannot_erase_a_newer_durable_commit ... ok
+2026-10-09T19:37:02.9983794Z test wrong_database_journal_is_rejected_before_touching_source_pages ... ok
+2026-10-09T19:37:03.2797520Z test committed_multiple_pages_recover_repeatedly_after_data_loss ... ok
+2026-10-09T19:37:04.9427936Z test recovery_failure_at_every_io_call_remains_repeatable ... ok
+2026-10-09T19:37:04.9428137Z 
+2026-10-09T19:37:04.9428272Z test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.18s
+2026-10-09T19:37:04.9428494Z 
+2026-10-09T19:37:04.9433237Z      Running tests/file_and_crash.rs (target/debug/deps/file_and_crash-5cd6d3d1c5e72900)
+2026-10-09T19:37:04.9443674Z 
+2026-10-09T19:37:04.9443815Z running 3 tests
+2026-10-09T19:37:04.9457468Z test file_reopen_sparse_write_resize_and_exclusive_creation ... ok
+2026-10-09T19:37:04.9465454Z test synchronized_prefix_survives_real_process_kill ... ok
+2026-10-09T19:37:05.1183467Z test acknowledged_database_transactions_survive_sigkill_during_rotation ... ok
+2026-10-09T19:37:05.1183671Z 
+2026-10-09T19:37:05.1183817Z test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s
+2026-10-09T19:37:05.1183998Z 
+2026-10-09T19:37:05.1185997Z      Running tests/storage_contract.rs (target/debug/deps/storage_contract-448492b3847cdf3d)
+2026-10-09T19:37:05.1194016Z 
+2026-10-09T19:37:05.1194095Z running 13 tests
+2026-10-09T19:37:05.1196315Z test allocation_limit_rejects_mutation_and_sparse_holes_are_zero ... ok
+2026-10-09T19:37:05.1197401Z test broken_backend_byte_counts_are_rejected ... ok
+2026-10-09T19:37:05.1198730Z test eof_reports_actual_progress ... ok
+2026-10-09T19:37:05.1199189Z test errors_after_partial_write_leave_partial_bytes ... ok
+2026-10-09T19:37:05.1199670Z test harness_detects_intentionally_missing_sync ... ok
+2026-10-09T19:37:05.1200177Z test invalid_faults_and_duplicate_call_numbers_are_rejected ... ok
+2026-10-09T19:37:05.1200701Z test exact_helpers_retry_short_io_and_interrupts ... ok
+2026-10-09T19:37:05.1201170Z test range_overflow_is_rejected_before_backend_calls ... ok
+2026-10-09T19:37:05.1201629Z test replay_has_identical_trace_and_bytes ... ok
+2026-10-09T19:37:05.1202049Z test sync_and_crash_include_file_length ... ok
+2026-10-09T19:37:05.1202526Z test sync_failure_can_happen_before_or_after_persistence ... ok
+2026-10-09T19:37:05.1203191Z test zero_write_is_an_error_not_an_infinite_loop ... ok
+2026-10-09T19:37:12.3329047Z test seeded_operations_match_independent_sparse_byte_oracle ... ok
+2026-10-09T19:37:12.3329340Z 
+2026-10-09T19:37:12.3329585Z test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 7.21s
+2026-10-09T19:37:12.3329870Z 
+2026-10-09T19:37:12.3331955Z      Running tests/tree_contract.rs (target/debug/deps/tree_contract-62a1bb6043e64682)
+2026-10-09T19:37:12.3342314Z 
+2026-10-09T19:37:12.3342802Z running 6 tests
+2026-10-09T19:37:12.3403319Z test ambiguous_checkpoint_sync_poison_stops_further_operations ... ok
+2026-10-09T19:37:12.3423154Z test header_and_node_corruption_are_detected ... ok
+2026-10-09T19:37:12.3583276Z test maximum_records_and_logical_failures_preserve_contents ... ok
+2026-10-09T19:37:13.7536613Z test split_range_update_delete_reopen_and_reuse ... ok
+2026-10-09T19:37:14.8322552Z test multi_level_tree_with_variable_length_keys_and_secondary_duplicates ... ok
+2026-10-09T19:37:14.9437998Z test seeded_tree_operations_match_independent_map ... ok
+2026-10-09T19:37:14.9438188Z 
+2026-10-09T19:37:14.9438346Z test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.61s
+2026-10-09T19:37:14.9438570Z 
+2026-10-09T19:37:14.9451103Z      Running tests/wal_contract.rs (target/debug/deps/wal_contract-75a0a3d627051932)
+2026-10-09T19:37:14.9461180Z 
+2026-10-09T19:37:14.9461255Z running 5 tests
+2026-10-09T19:37:14.9487455Z test duplicate_images_and_invalid_lengths_fail_before_any_write ... ok
+2026-10-09T19:37:14.9487917Z test failed_append_is_poisoned_and_sync_before_error_is_ambiguous ... ok
+2026-10-09T19:37:14.9488441Z test damaged_full_records_and_valid_crc_invalid_commits_fail_closed ... ok
+2026-10-09T19:37:14.9489269Z test committed_groups_replay_identically_and_append_continues ... ok
+2026-10-09T19:37:14.9575321Z test partial_eof_and_uncommitted_images_do_not_apply_and_must_be_cleared ... ok
+2026-10-09T19:37:14.9575506Z 
+2026-10-09T19:37:14.9575649Z test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+2026-10-09T19:37:14.9575832Z 
+2026-10-09T19:37:14.9577417Z    Doc-tests kedr_core
+2026-10-09T19:37:14.9884848Z 
+2026-10-09T19:37:14.9885043Z running 0 tests
+2026-10-09T19:37:14.9885299Z 
+2026-10-09T19:37:14.9885636Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T19:37:14.9885826Z 
+2026-10-09T19:37:14.9899304Z    Doc-tests kedr_testkit
+2026-10-09T19:37:15.0050968Z 
+2026-10-09T19:37:15.0051258Z running 0 tests
+2026-10-09T19:37:15.0051377Z 
+2026-10-09T19:37:15.0051529Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T19:37:15.0051723Z 
+2026-10-09T19:37:15.0101064Z ##[group]Run cargo test --workspace --release --locked --offline
+2026-10-09T19:37:15.0101347Z [36;1mcargo test --workspace --release --locked --offline[0m
+2026-10-09T19:37:15.0153948Z shell: /usr/bin/bash -e {0}
+2026-10-09T19:37:15.0154093Z ##[endgroup]
+2026-10-09T19:37:15.0459547Z    Compiling kedr-core v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-core)
+2026-10-09T19:37:15.3927921Z    Compiling kedr-testkit v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-testkit)
+2026-10-09T19:37:26.1894197Z    Compiling kedr v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-cli)
+2026-10-09T19:37:56.6362043Z     Finished `release` profile [optimized] target(s) in 41.59s
+2026-10-09T19:37:56.6369654Z      Running unittests src/main.rs (target/release/deps/kedr-a13f77727c859430)
+2026-10-09T19:37:56.6379195Z 
+2026-10-09T19:37:56.6379349Z running 0 tests
+2026-10-09T19:37:56.6379494Z 
+2026-10-09T19:37:56.6379904Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T19:37:56.6380197Z 
+2026-10-09T19:37:56.6381198Z      Running tests/cli.rs (target/release/deps/cli-37d244b90a2b13d1)
+2026-10-09T19:37:56.6388581Z 
+2026-10-09T19:37:56.6388725Z running 7 tests
+2026-10-09T19:37:56.6399910Z test invalid_arguments_are_reported_as_errors ... ok
+2026-10-09T19:37:56.6400289Z test doctor_reports_actual_capabilities ... ok
+2026-10-09T19:37:56.6415395Z test storage_check_rejects_file_as_directory_without_mutation ... ok
+2026-10-09T19:37:56.6420955Z test storage_check_preserves_existing_files_and_cleans_up ... ok
+2026-10-09T19:37:56.6442753Z test locked_store_rejects_another_process_and_releases_on_close ... ok
+2026-10-09T19:37:56.6500470Z test store_commands_persist_and_integrity_read_preserves_file ... ok
+2026-10-09T19:37:56.6581606Z test database_directory_commands_recover_and_checkpoint_between_processes ... ok
+2026-10-09T19:37:56.6581807Z 
+2026-10-09T19:37:56.6583276Z test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+2026-10-09T19:37:56.6583527Z 
+2026-10-09T19:37:56.6584930Z      Running unittests src/lib.rs (target/release/deps/kedr_core-be080f05c9fe3b86)
+2026-10-09T19:37:56.6591362Z 
+2026-10-09T19:37:56.6591442Z running 2 tests
+2026-10-09T19:37:56.6593291Z test checksum::tests::standard_crc32c_vectors ... ok
+2026-10-09T19:37:56.7326222Z test database::tests::every_checkpoint_lifecycle_step_before_and_after_failure_preserves_acknowledgements ... ok
+2026-10-09T19:37:56.7326663Z 
+2026-10-09T19:37:56.7326914Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.07s
+2026-10-09T19:37:56.7327180Z 
+2026-10-09T19:37:56.7328602Z      Running tests/database_file.rs (target/release/deps/database_file-818c2d1d3b30818b)
+2026-10-09T19:37:56.7338871Z 
+2026-10-09T19:37:56.7339052Z running 4 tests
+2026-10-09T19:37:56.7429112Z test checkpoint_failure_poisoning_can_be_resolved_only_by_reopen ... ok
+2026-10-09T19:37:56.7434525Z test identity_corruption_and_symlink_members_are_rejected_without_changes ... ok
+2026-10-09T19:37:56.7678328Z test incomplete_checkpoint_header_uses_predecessor_but_complete_corruption_fails ... ok
+2026-10-09T19:37:56.7929378Z test rotations_reopen_and_prevent_raw_page_writes_or_a_second_owner ... ok
+2026-10-09T19:37:56.7929686Z 
+2026-10-09T19:37:56.7929895Z test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+2026-10-09T19:37:56.7930170Z 
+2026-10-09T19:37:56.7932388Z      Running tests/pages.rs (target/release/deps/pages-e3a0a0d4902941da)
+2026-10-09T19:37:56.7942570Z 
+2026-10-09T19:37:56.7942648Z running 8 tests
+2026-10-09T19:37:56.7946722Z test deletion_keeps_other_slots_and_clears_payload ... ok
+2026-10-09T19:37:56.7950376Z test explicit_little_endian_format_and_roundtrip ... ok
+2026-10-09T19:37:56.7950879Z test corruption_and_truncation_are_rejected ... ok
+2026-10-09T19:37:56.7951537Z test slot_table_exhaustion_with_empty_records ... ok
+2026-10-09T19:37:56.7952481Z test record_and_capacity_limits_are_atomic ... ok
+2026-10-09T19:37:56.7953197Z test encoded_page_survives_file_sync_and_reopen ... ok
+2026-10-09T19:37:56.7962058Z test valid_checksum_does_not_bypass_structural_checks ... ok
+2026-10-09T19:37:57.1667793Z test seeded_sequences_match_an_independent_record_model ... ok
+2026-10-09T19:37:57.1667994Z 
+2026-10-09T19:37:57.1668137Z test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.37s
+2026-10-09T19:37:57.1668322Z 
+2026-10-09T19:37:57.1670461Z      Running tests/records.rs (target/release/deps/records-49a7ed5cc1033f8e)
+2026-10-09T19:37:57.1680456Z 
+2026-10-09T19:37:57.1680542Z running 3 tests
+2026-10-09T19:37:57.1683335Z test keys_follow_value_order_and_preserve_duplicate_values ... ok
+2026-10-09T19:37:57.1683734Z test row_roundtrip_boundaries_null_and_unicode ... ok
+2026-10-09T19:37:57.1684071Z test malformed_rows_are_rejected_without_panics ... ok
+2026-10-09T19:37:57.1684275Z 
+2026-10-09T19:37:57.1684511Z test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T19:37:57.1684740Z 
+2026-10-09T19:37:57.1685221Z      Running tests/transactions.rs (target/release/deps/transactions-8082ebde7451f90c)
+2026-10-09T19:37:57.1692554Z 
+2026-10-09T19:37:57.1692703Z running 9 tests
+2026-10-09T19:37:57.1743810Z test bounded_admission_and_oversized_command_abort_before_copying_payloads ... ok
+2026-10-09T19:37:57.1769741Z test explicit_rollback_aborted_errors_and_disconnect_leave_no_partial_changes ... ok
+2026-10-09T19:37:57.2534964Z test private_page_limit_failure_aborts_whole_session_and_allows_next_writer ... ok
+2026-10-09T19:37:57.2897195Z test lock_timeout_and_cancellation_remove_waiters_without_starving_later_clients ... ok
+2026-10-09T19:37:57.2934652Z test read_only_rejects_writes_and_upgrade_and_never_changes_wal ... ok
+2026-10-09T19:37:57.3018377Z test shared_readers_block_writers_and_new_readers_cannot_jump_the_waiting_writer ... ok
+2026-10-09T19:37:57.3771612Z test read_only_idle_expiry_and_cancel_release_shared_permits ... ok
+2026-10-09T19:37:57.3979980Z test idle_and_lifetime_expiry_and_active_cancellation_release_locks_without_client_commands ... ok
+2026-10-09T19:37:57.9339345Z test concurrent_acknowledged_histories_are_serial_with_one_two_eight_and_thirty_two_clients ... ok
+2026-10-09T19:37:57.9339720Z 
+2026-10-09T19:37:57.9339939Z test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.76s
+2026-10-09T19:37:57.9340219Z 
+2026-10-09T19:37:57.9346423Z      Running tests/tree_file.rs (target/release/deps/tree_file-8ac2bb7d387e2025)
+2026-10-09T19:37:57.9356321Z 
+2026-10-09T19:37:57.9356405Z running 1 test
+2026-10-09T19:37:58.5859412Z test persistent_data_exceeds_cache_and_reopens_with_a_single_frame ... ok
+2026-10-09T19:37:58.5859719Z 
+2026-10-09T19:37:58.5859936Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.65s
+2026-10-09T19:37:58.5862671Z      Running unittests src/lib.rs (target/release/deps/kedr_testkit-cc766dbcf076543b)
+2026-10-09T19:37:58.5864146Z 
+2026-10-09T19:37:58.5873415Z 
+2026-10-09T19:37:58.5873667Z running 0 tests
+2026-10-09T19:37:58.5874582Z 
+2026-10-09T19:37:58.5874797Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T19:37:58.5875062Z 
+2026-10-09T19:37:58.5875819Z      Running unittests src/bin/kedr-crash-fixture.rs (target/release/deps/kedr_crash_fixture-0910086ba6944a6f)
+2026-10-09T19:37:58.5884291Z 
+2026-10-09T19:37:58.5884503Z running 0 tests
+2026-10-09T19:37:58.5885918Z 
+2026-10-09T19:37:58.5886152Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T19:37:58.5886468Z 
+2026-10-09T19:37:58.5887168Z      Running unittests src/bin/kedr-db-crash-fixture.rs (target/release/deps/kedr_db_crash_fixture-5b209db68fcb6e83)
+2026-10-09T19:37:58.5893792Z 
+2026-10-09T19:37:58.5893868Z running 0 tests
+2026-10-09T19:37:58.5894030Z 
+2026-10-09T19:37:58.5894337Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T19:37:58.5895034Z 
+2026-10-09T19:37:58.5895769Z      Running tests/crash_campaign.rs (target/release/deps/crash_campaign-d75c2699acf440ee)
+2026-10-09T19:37:58.5903375Z 
+2026-10-09T19:37:58.5903513Z running 1 test
+2026-10-09T19:37:59.2429605Z test seeded_two_file_crashes_preserve_acknowledgements_or_diagnose_corrupt_tail ... ok
+2026-10-09T19:37:59.2429959Z 
+2026-10-09T19:37:59.2430202Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.65s
+2026-10-09T19:37:59.2430484Z 
+2026-10-09T19:37:59.2432301Z      Running tests/engine_contract.rs (target/release/deps/engine_contract-184e66d10bd40859)
+2026-10-09T19:37:59.2442613Z 
+2026-10-09T19:37:59.2442697Z running 9 tests
+2026-10-09T19:37:59.2513455Z test cancellation_and_deadline_interrupt_cached_operations_and_prevent_commit ... ok
+2026-10-09T19:37:59.2533227Z test private_limit_failure_rolls_back_without_poisoning_database ... ok
+2026-10-09T19:37:59.2696357Z test dirty_eviction_never_writes_base_before_wal_sync ... ok
+2026-10-09T19:37:59.2723780Z test commit_faults_never_lose_acknowledged_base_and_ambiguous_sync_is_recovered ... ok
+2026-10-09T19:37:59.2724367Z test rollback_drop_aborted_state_and_read_your_writes ... ok
+2026-10-09T19:37:59.2753504Z test truncated_valid_journal_cannot_erase_a_newer_durable_commit ... ok
+2026-10-09T19:37:59.2754112Z test wrong_database_journal_is_rejected_before_touching_source_pages ... ok
+2026-10-09T19:37:59.3312764Z test committed_multiple_pages_recover_repeatedly_after_data_loss ... ok
+2026-10-09T19:37:59.6401282Z test recovery_failure_at_every_io_call_remains_repeatable ... ok
+2026-10-09T19:37:59.6401541Z 
+2026-10-09T19:37:59.6401736Z test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.40s
+2026-10-09T19:37:59.6402007Z 
+2026-10-09T19:37:59.6409855Z      Running tests/file_and_crash.rs (target/release/deps/file_and_crash-47559c16001cdd48)
+2026-10-09T19:37:59.6420114Z 
+2026-10-09T19:37:59.6420226Z running 3 tests
+2026-10-09T19:37:59.6436704Z test file_reopen_sparse_write_resize_and_exclusive_creation ... ok
+2026-10-09T19:37:59.6442444Z test synchronized_prefix_survives_real_process_kill ... ok
+2026-10-09T19:37:59.7198383Z test acknowledged_database_transactions_survive_sigkill_during_rotation ... ok
+2026-10-09T19:37:59.7198631Z 
+2026-10-09T19:37:59.7198787Z test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+2026-10-09T19:37:59.7199004Z 
+2026-10-09T19:37:59.7201034Z      Running tests/storage_contract.rs (target/release/deps/storage_contract-e6c698bdb79f92e6)
+2026-10-09T19:37:59.7211123Z 
+2026-10-09T19:37:59.7211253Z running 13 tests
+2026-10-09T19:37:59.7213471Z test allocation_limit_rejects_mutation_and_sparse_holes_are_zero ... ok
+2026-10-09T19:37:59.7214170Z test broken_backend_byte_counts_are_rejected ... ok
+2026-10-09T19:37:59.7214991Z test exact_helpers_retry_short_io_and_interrupts ... ok
+2026-10-09T19:37:59.7215291Z test eof_reports_actual_progress ... ok
+2026-10-09T19:37:59.7215693Z test harness_detects_intentionally_missing_sync ... ok
+2026-10-09T19:37:59.7216062Z test errors_after_partial_write_leave_partial_bytes ... ok
+2026-10-09T19:37:59.7216460Z test invalid_faults_and_duplicate_call_numbers_are_rejected ... ok
+2026-10-09T19:37:59.7217146Z test replay_has_identical_trace_and_bytes ... ok
+2026-10-09T19:37:59.7217787Z test sync_and_crash_include_file_length ... ok
+2026-10-09T19:37:59.7218273Z test range_overflow_is_rejected_before_backend_calls ... ok
+2026-10-09T19:37:59.7218769Z test zero_write_is_an_error_not_an_infinite_loop ... ok
+2026-10-09T19:37:59.7224162Z test sync_failure_can_happen_before_or_after_persistence ... ok
+2026-10-09T19:38:00.1763301Z test seeded_operations_match_independent_sparse_byte_oracle ... ok
+2026-10-09T19:38:00.1763563Z 
+2026-10-09T19:38:00.1763710Z test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.46s
+2026-10-09T19:38:00.1763937Z 
+2026-10-09T19:38:00.1765912Z      Running tests/tree_contract.rs (target/release/deps/tree_contract-265c15b5b9bf125c)
+2026-10-09T19:38:00.1776829Z 
+2026-10-09T19:38:00.1776932Z running 6 tests
+2026-10-09T19:38:00.1782091Z test ambiguous_checkpoint_sync_poison_stops_further_operations ... ok
+2026-10-09T19:38:00.1784473Z test header_and_node_corruption_are_detected ... ok
+2026-10-09T19:38:00.1805873Z test maximum_records_and_logical_failures_preserve_contents ... ok
+2026-10-09T19:38:00.3506996Z test split_range_update_delete_reopen_and_reuse ... ok
+2026-10-09T19:38:00.6208969Z test multi_level_tree_with_variable_length_keys_and_secondary_duplicates ... ok
+2026-10-09T19:38:00.6350853Z test seeded_tree_operations_match_independent_map ... ok
+2026-10-09T19:38:00.6351120Z 
+2026-10-09T19:38:00.6351262Z test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.46s
+2026-10-09T19:38:00.6351450Z 
+2026-10-09T19:38:00.6363853Z      Running tests/wal_contract.rs (target/release/deps/wal_contract-54a9d201f8a83345)
+2026-10-09T19:38:00.6374210Z 
+2026-10-09T19:38:00.6374319Z running 5 tests
+2026-10-09T19:38:00.6381175Z test committed_groups_replay_identically_and_append_continues ... ok
+2026-10-09T19:38:00.6381756Z test damaged_full_records_and_valid_crc_invalid_commits_fail_closed ... ok
+2026-10-09T19:38:00.6382286Z test duplicate_images_and_invalid_lengths_fail_before_any_write ... ok
+2026-10-09T19:38:00.6383477Z test failed_append_is_poisoned_and_sync_before_error_is_ambiguous ... ok
+2026-10-09T19:38:00.6399732Z test partial_eof_and_uncommitted_images_do_not_apply_and_must_be_cleared ... ok
+2026-10-09T19:38:00.6400026Z 
+2026-10-09T19:38:00.6400233Z test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T19:38:00.6400515Z 
+2026-10-09T19:38:00.6402251Z    Doc-tests kedr_core
+2026-10-09T19:38:00.6733953Z 
+2026-10-09T19:38:00.6734388Z running 0 tests
+2026-10-09T19:38:00.6734611Z 
+2026-10-09T19:38:00.6734781Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T19:38:00.6734989Z 
+2026-10-09T19:38:00.6747215Z    Doc-tests kedr_testkit
+2026-10-09T19:38:00.6899763Z 
+2026-10-09T19:38:00.6902516Z running 0 tests
+2026-10-09T19:38:00.6902664Z 
+2026-10-09T19:38:00.6902845Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T19:38:00.6903214Z 
+2026-10-09T19:38:00.6960521Z ##[group]Run cargo test -p kedr-testkit --test tree_contract --release --locked --offline seeded_tree_operations_match_independent_map -- --exact --nocapture
+2026-10-09T19:38:00.6961115Z [36;1mcargo test -p kedr-testkit --test tree_contract --release --locked --offline seeded_tree_operations_match_independent_map -- --exact --nocapture[0m
+2026-10-09T19:38:00.7016266Z shell: /usr/bin/bash -e {0}
+2026-10-09T19:38:00.7016473Z env:
+2026-10-09T19:38:00.7016647Z   KEDR_TREE_SEEDS: 100
+2026-10-09T19:38:00.7016831Z   KEDR_TREE_STEPS: 10000
+2026-10-09T19:38:00.7017023Z ##[endgroup]
+2026-10-09T19:38:00.7330214Z     Finished `release` profile [optimized] target(s) in 0.00s
+2026-10-09T19:38:00.7331157Z      Running tests/tree_contract.rs (target/release/deps/tree_contract-265c15b5b9bf125c)
+2026-10-09T19:38:00.7340927Z 
+2026-10-09T19:38:00.7341080Z running 1 test
+2026-10-09T19:38:24.0113570Z tree campaign: 20/100 seeds, 10000 operations per seed
+2026-10-09T19:38:47.4390450Z tree campaign: 40/100 seeds, 10000 operations per seed
+2026-10-09T19:39:00.7343741Z test seeded_tree_operations_match_independent_map has been running for over 60 seconds
+2026-10-09T19:39:11.0010286Z tree campaign: 60/100 seeds, 10000 operations per seed
+2026-10-09T19:39:34.9453186Z tree campaign: 80/100 seeds, 10000 operations per seed
+2026-10-09T19:39:58.1349511Z tree campaign: 100/100 seeds, 10000 operations per seed
+2026-10-09T19:39:58.1350441Z test seeded_tree_operations_match_independent_map ... ok
+2026-10-09T19:39:58.1350644Z 
+2026-10-09T19:39:58.1350856Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 117.40s
+2026-10-09T19:39:58.1351142Z 
+2026-10-09T19:39:58.1409840Z ##[group]Run cargo build --workspace --release --locked --offline
+2026-10-09T19:39:58.1410127Z [36;1mcargo build --workspace --release --locked --offline[0m
+2026-10-09T19:39:58.1462424Z shell: /usr/bin/bash -e {0}
+2026-10-09T19:39:58.1462571Z ##[endgroup]
+2026-10-09T19:39:58.1763152Z     Finished `release` profile [optimized] target(s) in 0.00s
+2026-10-09T19:39:58.1798891Z ##[group]Run cargo test -p kedr-testkit --test crash_campaign --release --locked --offline -- --nocapture
+2026-10-09T19:39:58.1799294Z [36;1mcargo test -p kedr-testkit --test crash_campaign --release --locked --offline -- --nocapture[0m
+2026-10-09T19:39:58.1850279Z shell: /usr/bin/bash -e {0}
+2026-10-09T19:39:58.1850417Z env:
+2026-10-09T19:39:58.1850529Z   KEDR_CRASH_CASES: 10000
+2026-10-09T19:39:58.1850656Z ##[endgroup]
+2026-10-09T19:39:58.2141108Z     Finished `release` profile [optimized] target(s) in 0.00s
+2026-10-09T19:39:58.2141760Z      Running tests/crash_campaign.rs (target/release/deps/crash_campaign-d75c2699acf440ee)
+2026-10-09T19:39:58.2150276Z 
+2026-10-09T19:39:58.2150438Z running 1 test
+2026-10-09T19:40:39.0849704Z seed=4b45445243524153 random_cases=10000 deterministic_io_cuts=24 successful_recoveries=19464 corrupt_tail_diagnostics=586 acknowledged_cases=1
+2026-10-09T19:40:39.0853039Z test seeded_two_file_crashes_preserve_acknowledgements_or_diagnose_corrupt_tail ... ok
+2026-10-09T19:40:39.0853308Z 
+2026-10-09T19:40:39.0853460Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 40.87s
+2026-10-09T19:40:39.0853676Z 
+2026-10-09T19:40:39.0893709Z ##[group]Run target/release/kedr doctor && target/release/kedr storage-check "$RUNNER_TEMP"
+2026-10-09T19:40:39.0894080Z [36;1mtarget/release/kedr doctor && target/release/kedr storage-check "$RUNNER_TEMP"[0m
+2026-10-09T19:40:39.0947343Z shell: /usr/bin/bash -e {0}
+2026-10-09T19:40:39.0947492Z ##[endgroup]
+2026-10-09T19:40:39.1023708Z KedrDB 0.1.0
+2026-10-09T19:40:39.1023918Z Platform: linux/x86_64
+2026-10-09T19:40:39.1024197Z License: Apache-2.0; storage: positional file I/O + sync_all.
+2026-10-09T19:40:39.1024494Z Slotted-page codec and CRC32C: available.
+2026-10-09T19:40:39.1024714Z B+ tree, bounded page cache, typed row codec and integrity check: available.
+2026-10-09T19:40:39.1024987Z Single-owner storage transactions, WAL redo and checkpoints: available.
+2026-10-09T19:40:39.1025258Z Local concurrent sessions, fair locks and transaction timeouts: available.
+2026-10-09T19:40:39.1025516Z SQL server and network protocol: not implemented.
+2026-10-09T19:40:39.1037671Z Storage check passed: positional write, sync, reopen, exact read, cleanup.
+2026-10-09T19:40:39.1038087Z This checks file I/O only; database recovery is tested separately.
+2026-10-09T19:40:39.1113260Z Post job cleanup.
+2026-10-09T19:40:39.1691041Z [command]/usr/bin/git version
+2026-10-09T19:40:39.1727789Z git version 2.55.0
+2026-10-09T19:40:39.1754639Z Temporarily overriding HOME='/home/runner/work/_temp/0dd4863f-e6dd-49e5-a131-eed3259176dc' before making global git config changes
+2026-10-09T19:40:39.1755348Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-09T19:40:39.1758485Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/kedrdb/kedrdb
+2026-10-09T19:40:39.1790626Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-09T19:40:39.1823710Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-09T19:40:39.2025751Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-09T19:40:39.2051254Z http.https://github.com/.extraheader
+2026-10-09T19:40:39.2061443Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-09T19:40:39.2091878Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-09T19:40:39.2294042Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-09T19:40:39.2324075Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-09T19:40:39.2631273Z Cleaning up orphan processes
+2026-10-09T19:40:39.2837387Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

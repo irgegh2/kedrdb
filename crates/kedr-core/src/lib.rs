@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: Apache-2.0
-//! Core storage contracts for KedrDB. SQL and transactions are later milestones.
+//! Storage, WAL, concurrent sessions and bounded SQL for KedrDB.
 
 pub mod checksum;
 #[cfg(unix)]
@@ -9,6 +9,8 @@ pub mod error;
 mod interrupt;
 pub mod page;
 pub mod record;
+#[cfg(unix)]
+pub mod sql;
 pub mod storage;
 #[cfg(unix)]
 pub mod transaction;

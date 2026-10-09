@@ -234,3 +234,90 @@ fn database_directory_commands_recover_and_checkpoint_between_processes() {
             .success()
     );
 }
+
+#[test]
+fn local_sql_commands_persist_and_raw_commands_cannot_damage_sql_namespace() {
+    let root = ScratchDir::new();
+    let path = root.0.join("sql-db");
+    assert!(
+        cli()
+            .arg("create-db")
+            .arg(&path)
+            .output()
+            .unwrap()
+            .status
+            .success()
+    );
+    for query in [
+        "CREATE TABLE t (id BIGINT PRIMARY KEY,s TEXT)",
+        "INSERT INTO t (id,s) VALUES (1,'Кедр')",
+    ] {
+        let output = cli().arg("sql").arg(&path).arg(query).output().unwrap();
+        assert!(
+            output.status.success(),
+            "{}",
+            String::from_utf8_lossy(&output.stderr)
+        );
+    }
+    let output = cli()
+        .arg("sql")
+        .arg(&path)
+        .arg("SELECT id,s FROM t ORDER BY id")
+        .output()
+        .unwrap();
+    assert!(output.status.success());
+    assert!(
+        String::from_utf8(output.stdout)
+            .unwrap()
+            .contains("\"rows\":[[1,\"Кедр\"]]")
+    );
+    for command in ["put", "get", "delete"] {
+        let mut cmd = cli();
+        cmd.arg(command).arg(&path).arg("1");
+        if command == "put" {
+            cmd.arg("forbidden");
+        }
+        let output = cmd.output().unwrap();
+        assert!(!output.status.success());
+        assert!(
+            String::from_utf8(output.stderr)
+                .unwrap()
+                .contains("raw key/value commands are disabled")
+        );
+    }
+    assert!(
+        cli()
+            .arg("integrity-check")
+            .arg(&path)
+            .output()
+            .unwrap()
+            .status
+            .success()
+    );
+    use std::io::Write;
+    let mut child = cli()
+        .arg("sql-stream")
+        .arg(&path)
+        .stdin(std::process::Stdio::piped())
+        .stdout(std::process::Stdio::piped())
+        .spawn()
+        .unwrap();
+    child
+        .stdin
+        .take()
+        .unwrap()
+        .write_all(
+            b"BEGIN\nUPDATE t SET s='private' WHERE id=1\nROLLBACK\nSELECT s FROM t WHERE id=1\n",
+        )
+        .unwrap();
+    let output = child.wait_with_output().unwrap();
+    assert!(output.status.success());
+    assert_eq!(
+        String::from_utf8(output.stdout)
+            .unwrap()
+            .lines()
+            .last()
+            .unwrap(),
+        "{\"columns\":[{\"name\":\"s\",\"type\":\"text\"}],\"rows\":[[\"Кедр\"]],\"affected\":1,\"tag\":\"SELECT\"}"
+    );
+}

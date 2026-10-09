@@ -208,6 +208,26 @@ Run 37972206964, commit `94d75b38024b64b21ba491b1e8570c7a9a10a717`: Ubuntu и ma
 
 71 debug + 71 release tests, format, Clippy и build пройдены на macOS ARM64. Проверены истории 1/2/8/32 клиентов, aborted, rollback/disconnect, READ ONLY, fairness, cancellation, lock/lifetime/idle timeouts и лимиты. [Снимок и логи](milestones/results/2026-10-09-stage4/summary.json). До результата Linux/macOS этап 4 не закрываем. По прежнему поручению пользователя начинаем этап 5 во время CI. Документы для преподавателя подготовлены, минимальный scope Kedr Studio сохранен.
 
+## D027. Облачная приемка этапа 4
+
+Дата: 9 октября 2026 года. Статус: **подтверждено CI**.
+
+Ревизия 33ec418422e522bc516debaf28bb3a06b78566e5, run 37981389313: Ubuntu/macOS success, по 71 debug + 71 release tests, миллион операций дерева и 10 000 crash points. [Сохраненные логи](milestones/results/2026-10-09-stage4-ci/summary.json). Этап 4 принят; SQL-этап 5 продолжается. Предыдущие записи ожидания CI сохраняются как история.
+
+## D028. Начальная SQL-реализация и зависимости
+
+Дата: 9 октября 2026 года. Статус: **реализуется, не принята**.
+
+Добавлены catalog и SQL через транзакционный worker, локальные команды sql/sql-stream. sqlparser 0.63.0 используется для tokenizer с std без recursive-protection; собственная grammar ограничивает глубину и явно отклоняет лишние конструкции. Cargo.lock закрепляет sqlparser/log, CI fetch выполняется перед offline checks. [ADR 006](decisions/006-bounded-sql-and-transactional-catalog.md), [компоненты и лицензии](../THIRD_PARTY.md). Документы преподавателю обновлены: начальные таблицы доступны локально, приемка SQL еще идет; сервер/GUI не объявляются готовыми.
+
+## D029. Локальная приемка SQL и начало этапа 6
+
+Дата: 9 октября 2026 года. Статус: **локальная приемка пройдена, CI ожидается**.
+
+82 debug + 82 release tests, format/Clippy/build; SDK matrix 1000 parameterized cases; 1/2/8/32 SQL clients с catalog/indices/FK; реальные SIGKILL во время rotation и повторное recovery. Полный PostgreSQL oracle: 1025 подготовленных + 33 contract + 100000 случайных SQL queries, 19 idle SIGKILL/reopens, 101181 сравнений без необъясненных различий. [Отчет](milestones/05.md). Первый расширенный run остановлен для исправления лишнего lookup при cancellation check, он не выдается за успешную кампанию.
+
+По прежнему порядку пользователя начинаем этап 6, пока идет CI, не закрывая этап 5 до успешных jobs. Минимальный Kedr Studio и состав серверной проверки сохранены.
+
 ## Открытые вопросы
 
 - Реальные пилотные пользователи, требования к задержке/обслуживанию и спрос.

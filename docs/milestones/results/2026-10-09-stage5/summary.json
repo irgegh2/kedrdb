@@ -1,0 +1,111 @@
+{
+  "stage": 5,
+  "status": "local_acceptance_passed_remote_pending",
+  "platform": "Darwin arm64",
+  "toolchain": "1.94.1",
+  "checks": {
+    "format": {
+      "passed": true
+    },
+    "clippy": {
+      "passed": true
+    },
+    "debug-tests": {
+      "passed": true,
+      "tests_passed": 82
+    },
+    "release-tests": {
+      "passed": true,
+      "tests_passed": 82
+    },
+    "build": {
+      "passed": true
+    }
+  },
+  "sql": {
+    "typed_parameter_cases": 1000,
+    "concurrent_clients": [
+      1,
+      2,
+      8,
+      32
+    ],
+    "sql_acknowledgements": [
+      2,
+      4,
+      16,
+      64
+    ],
+    "sigkill_ack_targets": [
+      0,
+      4,
+      24
+    ],
+    "recovery_passes_per_target": 2
+  },
+  "source_sha256": {
+    ".github/workflows/ci.yml": "d0b37b48b96268ec7375564b4e7a2c193a678f94cd6d75a9012120ab9ed2fa72",
+    "Cargo.lock": "f5ece591d2187a9c837ff6b902c7118b3d8de778fd0a88fcc6c6ad786aa1f541",
+    "Cargo.toml": "42fe279052a16fcb18547eeeff133d5f517820ef0b1c68b7d9b44ee8bd3d809b",
+    "crates/kedr-cli/Cargo.toml": "18591eb1054dc6e47bbb34536b662a9a7b13cfb9ca005982678064bc8b0aef3a",
+    "crates/kedr-cli/src/main.rs": "cdb0610a6d1a8c38f779f1c95ddf6d40d07eeec123074e50fb26ad4c1c4f887a",
+    "crates/kedr-cli/src/sql.rs": "a3f00fec219eee11f93fe523b09a441ea4777feb955a7fdd3cc1679bdee1ca49",
+    "crates/kedr-cli/tests/cli.rs": "65f5d36a6936668de4306ba350dcbe2286f5074a59534551aae214c57788cd63",
+    "crates/kedr-core/Cargo.toml": "49160e746aece33883bb4efd39b9d6d59cf03120ffbd13c75cf5cbdbed45a774",
+    "crates/kedr-core/src/checksum.rs": "988a6f8eab53851fe455dd642b067d7f23b02209d77b1d4ee7cabe6095790543",
+    "crates/kedr-core/src/database.rs": "4d4e5e58dde45192afea37cebf36e6035350dc621f33fc9e46782d14bb4b4f3d",
+    "crates/kedr-core/src/engine/private_io.rs": "69d4994b25d37997c3da85bef0038f37a2589510d53e68ba3342fc87320820ff",
+    "crates/kedr-core/src/engine.rs": "874856fc9190f348871d99064c7e65a1a8dad69f0163a66856594af520de6bcb",
+    "crates/kedr-core/src/error.rs": "6ffde558e8d62012505e16adac0a8ed974aff1e809b379a1f3e68d9033edb901",
+    "crates/kedr-core/src/interrupt.rs": "95cf895d729cba3d85bd9ec5712db6247143c79e31410163b4b68fb27ef02700",
+    "crates/kedr-core/src/lib.rs": "4b2841fef2cac2a591f2aac53976e7644a4b4c3c87f25fcb371f89b7a1739dda",
+    "crates/kedr-core/src/page.rs": "4ba48457d25d58f2750fe61793970b49516a59cc5ad4a1a0e6979db23a03ad89",
+    "crates/kedr-core/src/record.rs": "b3678c914407caaf42f4b864471398cc7b7e30d2397f94921fd1543fb6552bf1",
+    "crates/kedr-core/src/sql/catalog.rs": "f2c706ad22914398b8552aeb1966deaf8581aa285f7e91bc7c2e01cbffe17790",
+    "crates/kedr-core/src/sql/executor.rs": "ba0fa1f24c34e68380f3e584d8f565371cb0cb928d2d682934fbe1928bdb90ab",
+    "crates/kedr-core/src/sql/expression.rs": "eac9a561ce0c6a70ee212af2bf4ff4c30e444081e85a4841bce1fcd59f23272d",
+    "crates/kedr-core/src/sql/keywords.rs": "bf102e5e81b62cfa6f71bfcb025fe6eaf57bcaff48f2d5be8526db56a784c189",
+    "crates/kedr-core/src/sql/parser.rs": "e426e1bce882def82f86c9c06d2d7edc47b1e0f3f3a224b35e9365897f5725da",
+    "crates/kedr-core/src/sql.rs": "5978bb8f2479919a1c0c5140cda9060f1da87aa4cd2b0afe18ccbd9922efd2b4",
+    "crates/kedr-core/src/storage/file.rs": "e9be687f800a2df9e344c555e130ce816ae2584368ff3038d552dfc0587b569d",
+    "crates/kedr-core/src/storage.rs": "80c47b7cf01fd067224c77f152b8f34f6e001d6c3817c01e2c4a4e379acc208e",
+    "crates/kedr-core/src/transaction/lock.rs": "9358f22085af41cbf0b8a81b309f65051881dbb7bbf171b456d71ef3ca9f0c88",
+    "crates/kedr-core/src/transaction.rs": "d07db41c85f05da898aae260fd5e1af5e6431a7503ca15315d437164425cf401",
+    "crates/kedr-core/src/tree/format.rs": "ffad0cce4caa66703307deeb589861cf4de80b69e292a649d066938efecf1571",
+    "crates/kedr-core/src/tree/store.rs": "37c3a8de34207659fc6aabba890b262f3e3fd48f026226164f778ef7bf56e56c",
+    "crates/kedr-core/src/tree.rs": "42863b1d84e1d998e0165e9c2e7ac4de8e65d7e9c9dd224eb64c4c5a0dd953c0",
+    "crates/kedr-core/src/wal.rs": "e4934df3ab5ebe27e210491967635c6d915803a123bcfed9a4245f6df963a479",
+    "crates/kedr-core/tests/database_file.rs": "a8d36466bebf609552208f9247c7706e73cfed32bc0dcbeeca2493915f8ad663",
+    "crates/kedr-core/tests/pages.rs": "d6df810f8ae1df58c40249a6898e87261d7482e1c4280eaa311154c552b843b2",
+    "crates/kedr-core/tests/records.rs": "f0ef3d14d28446101592987ab5ecf2a9e0bd4e06b109aacd7abbaf804a8e5eb3",
+    "crates/kedr-core/tests/sql.rs": "bfbecf6a665192d10f915ff719adf89baeb4baa0da88d3034f27f13f69d7b636",
+    "crates/kedr-core/tests/transactions.rs": "72f521f0ff7e8ccae3f810266dcc63ed258990c6033e87f464a486840d108d99",
+    "crates/kedr-core/tests/tree_file.rs": "e066b1bf7045929f91ed76fd707bb9c0f2ab30f3e536e8f527386892a4010c42",
+    "crates/kedr-testkit/Cargo.toml": "3da09af67a02a0c3dcb59796bb90d5274a3abbb44622c3881fa8ff92d4c22fd1",
+    "crates/kedr-testkit/src/bin/kedr-crash-fixture.rs": "90040f5eb1f6cc3674fd30e35180e3bfcd56c778350df9ae2e5566a83b9b3010",
+    "crates/kedr-testkit/src/bin/kedr-db-crash-fixture.rs": "df5ada69bde69b72807b387772425d355ccaa9bd32cd0ff257f296456d1975f2",
+    "crates/kedr-testkit/src/bin/kedr-sql-crash-fixture.rs": "4f45f1707f40c6163eb04b9c6ab6f2936873831bdd3e7d69c5e0dc05ab3c9cb9",
+    "crates/kedr-testkit/src/crash.rs": "5b0f1c5e8ce76d711ff980a892d49e65ef0ebd5cfcbfb0a90da84d285901e944",
+    "crates/kedr-testkit/src/lib.rs": "ea61acfd40f1a67fff7e52af3795d888d6ed66e985b74d83b93e5c905e9704bf",
+    "crates/kedr-testkit/tests/crash_campaign.rs": "6f084e67708708f7fac8ce2b41824aafdc463873ff4cef479addbe84c6c94821",
+    "crates/kedr-testkit/tests/engine_contract.rs": "5f98020cab0d47d9bc11ca81464fc653c858886f1183ea9a5eecc50068a2fd38",
+    "crates/kedr-testkit/tests/file_and_crash.rs": "1fbad37504101157eb1b68bbc1160984b5b9cec76a9e07ec111e25022223c1a7",
+    "crates/kedr-testkit/tests/sql_crash.rs": "71e1c498036cfe3752a7edb0fefa05d19a4bf85290c1d529581fd9aeec50f0f3",
+    "crates/kedr-testkit/tests/storage_contract.rs": "d4d6bf87cbcbc14a89692148340aaaf68a35ce7e93e5d92b4076ec84974aace1",
+    "crates/kedr-testkit/tests/tree_contract.rs": "360b0a7c5a44756bb3b3a011fe62e50eb0ba10931886b8c885753790fa42f25f",
+    "crates/kedr-testkit/tests/wal_contract.rs": "b522f00239bafaad6b3c407431065e0a43acaa02ade4bf99be30b52cbe37d2a2",
+    "rust-toolchain.toml": "c07cdb6cac85a9e5a7d9b832145d791c04ffb58e8e45859942363f2bffed3ebc",
+    "tools/check_stage5_sql.py": "255c21646311082c76c58901f548bc62f74393bc0f5bde81490db1d2159650cd"
+  },
+  "sql_differential": {
+    "seed": 20261009,
+    "manual_matched": 1025,
+    "contract_matched": 33,
+    "generated_matched": 100000,
+    "restarts": 19,
+    "matched": 101181,
+    "transcript_sha256": "be706c5eb5f3686e4e423b9cf79bfb4bdd3eeb85914ba9f9356d03c92701cccc",
+    "postgres_version": "18.2 (Homebrew)",
+    "psycopg_version": "3.3.2"
+  }
+}

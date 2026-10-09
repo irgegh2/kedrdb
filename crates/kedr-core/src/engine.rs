@@ -190,6 +190,10 @@ pub struct StorageTransaction<'a, D: StorageIo, W: StorageIo> {
     aborted: bool,
 }
 impl<D: StorageIo, W: StorageIo> StorageTransaction<'_, D, W> {
+    #[cfg(unix)]
+    pub(crate) fn check_interrupt(&mut self) -> Result<()> {
+        self.apply(|tree| tree.io_mut().check_interrupt())
+    }
     pub fn set_interrupt(&mut self, cancelled: Arc<AtomicBool>, deadline: Instant) {
         self.tree
             .as_mut()
@@ -280,6 +284,9 @@ pub(crate) struct ReadView<I: StorageIo> {
     tree: BPlusTree<PrivateIo<I>>,
 }
 impl<I: StorageIo> ReadView<I> {
+    pub(crate) fn check_interrupt(&mut self) -> Result<()> {
+        self.tree.io_mut().check_interrupt()
+    }
     pub fn open(mut io: I, cache_budget: usize) -> Result<Self> {
         let length = io.len()?;
         Ok(Self {

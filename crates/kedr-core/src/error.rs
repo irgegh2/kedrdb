@@ -99,6 +99,10 @@ pub enum Error {
     Cancelled,
     TransactionTimeout,
     InvalidTransactionState,
+    Sql {
+        state: &'static str,
+        message: String,
+    },
 }
 
 impl Error {
@@ -134,6 +138,7 @@ impl Error {
             Self::Cancelled => "KD4004",
             Self::TransactionTimeout => "KD4005",
             Self::InvalidTransactionState => "KD4006",
+            Self::Sql { .. } => "KD5001",
         }
     }
 
@@ -202,6 +207,7 @@ impl fmt::Display for Error {
                 f.write_str("transaction lifetime or idle timeout exceeded")
             }
             Self::InvalidTransactionState => f.write_str("invalid transaction state"),
+            Self::Sql { state, message } => write!(f, "SQLSTATE {state}: {message}"),
         }
     }
 }

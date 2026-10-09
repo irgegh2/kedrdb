@@ -6,6 +6,7 @@ use crate::{
     Error, Result,
     database::FileDatabase,
     engine::{ReadView, StorageTransaction},
+    sql::{QueryResult, Store},
     storage::FileStorage,
     tree::KeyValue,
 };
@@ -147,18 +148,31 @@ enum Command {
     Delete(Vec<u8>),
     Range(Option<Vec<u8>>, Option<Vec<u8>>, usize),
     Fail(Error),
+    Sql(bool, SqlOperation),
 }
+type SqlOperation = Box<dyn FnOnce(&mut dyn Store) -> Result<QueryResult> + Send>;
 enum Response {
     Done,
     Value(Option<Vec<u8>>),
     Deleted(bool),
     Rows(Vec<KeyValue>),
+    Sql(QueryResult),
 }
 struct Request {
     command: Command,
     reply: SyncSender<Result<Response>>,
 }
 impl Session {
+    pub(crate) fn execute_sql(
+        &mut self,
+        read_only: bool,
+        operation: impl FnOnce(&mut dyn Store) -> Result<QueryResult> + Send + 'static,
+    ) -> Result<QueryResult> {
+        match self.request(Command::Sql(read_only, Box::new(operation)))? {
+            Response::Sql(result) => Ok(result),
+            _ => unreachable!("response contract"),
+        }
+    }
     fn validate_key(&mut self, key: &[u8]) -> Result<()> {
         if key.is_empty() || key.len() > crate::record::MAX_KEY_SIZE {
             return self.fail(Error::InvalidArgument {
@@ -265,6 +279,8 @@ fn reply(request: Request, result: Result<Response>) {
 }
 fn read_command(view: &mut ReadView<FileStorage>, command: Command) -> Result<Response> {
     match command {
+        Command::Sql(true, operation) => operation(view).map(Response::Sql),
+        Command::Sql(false, _) => Err(Error::ReadOnlyTransaction),
         Command::Get(key) => view.get(&key).map(Response::Value),
         Command::Range(start, end, limit) => view
             .range(start.as_deref(), end.as_deref(), limit)
@@ -281,6 +297,7 @@ fn write_command(
     command: Command,
 ) -> Result<Response> {
     match command {
+        Command::Sql(_, operation) => operation(tx).map(Response::Sql),
         Command::Get(key) => tx.get(&key).map(Response::Value),
         Command::Range(start, end, limit) => tx
             .range(start.as_deref(), end.as_deref(), limit)
@@ -562,6 +579,7 @@ fn worker_loop(inner: &Inner, receiver: &Receiver<Request>, cancelled: &Arc<Atom
         let mode = match request.command {
             Command::Begin(mode) => mode,
             Command::Get(..) | Command::Range(..) => Mode::ReadOnly,
+            Command::Sql(true, _) => Mode::ReadOnly,
             _ => Mode::ReadWrite,
         };
         let permit =

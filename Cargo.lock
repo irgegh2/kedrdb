@@ -12,10 +12,28 @@ dependencies = [
 [[package]]
 name = "kedr-core"
 version = "0.1.0"
+dependencies = [
+ "sqlparser",
+]
 
 [[package]]
 name = "kedr-testkit"
 version = "0.1.0"
 dependencies = [
  "kedr-core",
+]
+
+[[package]]
+name = "log"
+version = "0.4.34"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f9f8bd3e56ce4dfc153cf470fffbfa98c7620958b312ca5c3a4b8d5181fd13c6"
+
+[[package]]
+name = "sqlparser"
+version = "0.63.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3679862809bd1f92e563cf6fd820e28f39135303668001c10331d5027183e8b4"
+dependencies = [
+ "log",
 ]
