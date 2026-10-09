@@ -1,0 +1,12 @@
+   Compiling kedr-core v0.1.0 (<workspace>/crates/kedr-core)
+   Compiling kedr-testkit v0.1.0 (<workspace>/crates/kedr-testkit)
+    Finished `release` profile [optimized] target(s) in 10.15s
+     Running tests/crash_campaign.rs (target/release/deps/crash_campaign-ff09ed87a6c5fb88)
+
+running 1 test
+test seeded_two_file_crashes_preserve_acknowledgements_or_diagnose_corrupt_tail has been running for over 60 seconds
+seed=4b45445243524153 random_cases=10000 deterministic_io_cuts=24 successful_recoveries=19464 corrupt_tail_diagnostics=586 acknowledged_cases=1
+test seeded_two_file_crashes_preserve_acknowledgements_or_diagnose_corrupt_tail ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 111.49s
+

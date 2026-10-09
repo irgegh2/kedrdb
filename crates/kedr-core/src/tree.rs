@@ -12,6 +12,7 @@ use crate::{
     storage::StorageIo,
 };
 use format::{Entry, Node};
+pub(crate) use store::read_frontier;
 pub use store::{CacheStats, PageStore};
 
 const MAX_DEPTH: usize = 64;
@@ -52,6 +53,9 @@ impl<I: StorageIo> BPlusTree<I> {
     }
     pub fn database_id(&self) -> [u8; 16] {
         self.store.database_id()
+    }
+    pub fn checkpoint_lsn(&self) -> u64 {
+        self.store.checkpoint_lsn()
     }
     pub fn checkpoint(&mut self) -> Result<()> {
         self.store.checkpoint()

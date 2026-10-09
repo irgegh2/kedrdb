@@ -12,6 +12,10 @@ pub use file::FileStorage;
 /// synchronize its parent directory or certify hardware power-loss behavior.
 /// A sync error does not imply that no bytes reached durable storage.
 pub trait StorageIo {
+    /// Only the private transaction backend may open WAL-protected data pages.
+    fn allows_wal_pages(&self) -> bool {
+        false
+    }
     fn read_at(&mut self, offset: u64, buffer: &mut [u8]) -> Result<usize>;
     fn write_at(&mut self, offset: u64, bytes: &[u8]) -> Result<usize>;
     fn sync(&mut self) -> Result<()>;
@@ -20,6 +24,27 @@ pub trait StorageIo {
 
     fn is_empty(&mut self) -> Result<bool> {
         Ok(self.len()? == 0)
+    }
+}
+
+impl<I: StorageIo + ?Sized> StorageIo for &mut I {
+    fn allows_wal_pages(&self) -> bool {
+        (**self).allows_wal_pages()
+    }
+    fn read_at(&mut self, offset: u64, buffer: &mut [u8]) -> Result<usize> {
+        (**self).read_at(offset, buffer)
+    }
+    fn write_at(&mut self, offset: u64, bytes: &[u8]) -> Result<usize> {
+        (**self).write_at(offset, bytes)
+    }
+    fn sync(&mut self) -> Result<()> {
+        (**self).sync()
+    }
+    fn set_len(&mut self, length: u64) -> Result<()> {
+        (**self).set_len(length)
+    }
+    fn len(&mut self) -> Result<u64> {
+        (**self).len()
     }
 }
 

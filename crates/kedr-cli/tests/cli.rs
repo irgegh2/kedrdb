@@ -43,7 +43,10 @@ fn doctor_reports_actual_capabilities() {
             "B+ tree, bounded page cache, typed row codec and integrity check: available."
         )
     );
-    assert!(text.contains("SQL server, WAL and transactions: not implemented."));
+    assert!(
+        text.contains("Single-owner storage transactions, WAL redo and checkpoints: available.")
+    );
+    assert!(text.contains("SQL server and concurrent sessions: not implemented."));
 }
 
 #[test]
@@ -177,6 +180,51 @@ fn locked_store_rejects_another_process_and_releases_on_close() {
             .arg("put")
             .arg(&path)
             .args(["1", "now works"])
+            .output()
+            .unwrap()
+            .status
+            .success()
+    );
+}
+
+#[test]
+fn database_directory_commands_recover_and_checkpoint_between_processes() {
+    let dir = ScratchDir::new();
+    let path = dir.0.join("db");
+    for args in [
+        vec!["create-db"],
+        vec!["put", "-42", "Кедр 🌲"],
+        vec!["checkpoint"],
+        vec!["integrity-check"],
+    ] {
+        let mut command = cli();
+        command.arg(args[0]).arg(&path).args(&args[1..]);
+        let output = command.output().unwrap();
+        assert!(
+            output.status.success(),
+            "{}",
+            String::from_utf8_lossy(&output.stderr)
+        );
+    }
+    let output = cli().arg("get").arg(&path).arg("-42").output().unwrap();
+    assert!(output.status.success());
+    assert_eq!(String::from_utf8(output.stdout).unwrap(), "Кедр 🌲\n");
+    assert!(
+        !cli()
+            .arg("create-db")
+            .arg(&path)
+            .output()
+            .unwrap()
+            .status
+            .success()
+    );
+    let output = cli().arg("get").arg(&path).arg("-42").output().unwrap();
+    assert_eq!(String::from_utf8(output.stdout).unwrap(), "Кедр 🌲\n");
+    assert!(
+        cli()
+            .arg("delete")
+            .arg(&path)
+            .arg("-42")
             .output()
             .unwrap()
             .status

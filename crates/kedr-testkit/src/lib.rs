@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 //! Deterministic single-file simulation, not a model of every filesystem failure.
 use std::{collections::BTreeMap, io};
+pub mod crash;
 
 use kedr_core::{
     Error, Operation, Result,

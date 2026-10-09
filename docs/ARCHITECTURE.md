@@ -1,6 +1,6 @@
 # Предварительная архитектура
 
-Статус: архитектурный план с частичной реализацией. Есть файловый I/O, harness, codecs страниц/строк, файл базы, bounded cache и B+ tree. WAL, транзакции, SQL и сервер еще не реализованы. Рабочие решения: [I/O](decisions/001-storage-and-failures.md), [проект commit](decisions/002-format-and-transactions.md), [реализованный tree store](decisions/003-tree-file-format.md). Реальный store этапа 2 пока не обеспечивает no-steal/atomic commit; это требование следующего этапа.
+Статус: архитектурный план с частичной реализацией. Есть файловый I/O, harness, codecs, bounded cache, B+ tree, WAL/private writes/storage transactions и файловый checkpoint. Этап 3 проходит приемку. SQL, конкурентные сессии и сервер впереди. Решения: [I/O](decisions/001-storage-and-failures.md), [tree format](decisions/003-tree-file-format.md), [WAL](decisions/004-wal-and-private-writes.md). Текущие гарантии и ограничения — в [DURABILITY.md](DURABILITY.md).
 
 ## 1. Поток запроса
 

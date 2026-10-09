@@ -104,3 +104,53 @@ fn synchronized_prefix_survives_real_process_kill() {
     // Unsynced bytes may survive a process kill through the OS cache. No claim
     // about their disappearance or about power failure is made by this test.
 }
+
+#[test]
+fn acknowledged_database_transactions_survive_sigkill_during_rotation() {
+    use kedr_core::{database::FileDatabase, page::PAGE_SIZE, record::primary_key};
+    for stop in [0, 3, 15] {
+        let dir = ScratchDir::new();
+        let path = dir.0.join("database");
+        let child = Command::new(env!("CARGO_BIN_EXE_kedr-db-crash-fixture"))
+            .arg(&path)
+            .stdout(Stdio::piped())
+            .stderr(Stdio::inherit())
+            .spawn()
+            .unwrap();
+        let mut child = ChildGuard(child);
+        let stdout = child.0.stdout.take().unwrap();
+        let (sender, receiver) = mpsc::channel();
+        let reader = std::thread::spawn(move || {
+            for line in BufReader::new(stdout).lines() {
+                if sender.send(line).is_err() {
+                    break;
+                }
+            }
+        });
+        for key in 0..=stop {
+            let ack = receiver
+                .recv_timeout(Duration::from_secs(20))
+                .expect("commit acknowledgement timeout")
+                .unwrap();
+            assert_eq!(ack, format!("ACK {key}"));
+        }
+        child.0.kill().unwrap();
+        assert!(!child.0.wait().unwrap().success());
+        drop(receiver);
+        reader.join().unwrap();
+        let mut db = FileDatabase::open(&path, 4 * PAGE_SIZE).unwrap();
+        for key in 0..=stop {
+            for row in [key * 2, key * 2 + 1] {
+                assert_eq!(
+                    db.get(&primary_key(row)).unwrap(),
+                    Some(vec![key as u8; 4096])
+                );
+            }
+        }
+        let report = db.integrity_check().unwrap();
+        assert_eq!(report.records % 2, 0, "partial unacknowledged transaction");
+        drop(db);
+        let mut db = FileDatabase::open(path, 4 * PAGE_SIZE).unwrap();
+        assert_eq!(db.integrity_check().unwrap().records, report.records);
+    }
+}

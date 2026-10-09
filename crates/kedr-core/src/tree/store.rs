@@ -22,12 +22,14 @@ struct Metadata {
     root: u64,
     count: u64,
     free: u64,
+    wal_protected: bool,
+    checkpoint_lsn: u64,
 }
 impl Metadata {
     fn encode(&self) -> [u8; PAGE_SIZE] {
         let mut bytes = [0; PAGE_SIZE];
         bytes[..8].copy_from_slice(b"KEDRFILE");
-        put16(&mut bytes, 8, 1);
+        put16(&mut bytes, 8, if self.wal_protected { 2 } else { 1 });
         put16(&mut bytes, 10, 96);
         bytes[12..16].copy_from_slice(&(PAGE_SIZE as u32).to_le_bytes());
         bytes[16..32].copy_from_slice(&self.database_id);
@@ -35,6 +37,8 @@ impl Metadata {
         put64(&mut bytes, 40, self.root);
         put64(&mut bytes, 48, self.count);
         put64(&mut bytes, 56, self.free);
+        put64(&mut bytes, 64, self.checkpoint_lsn);
+        put64(&mut bytes, 72, u64::from(self.wal_protected));
         let checksum = crc32c(&bytes);
         bytes[80..84].copy_from_slice(&checksum.to_le_bytes());
         bytes
@@ -42,17 +46,23 @@ impl Metadata {
     fn decode(bytes: &[u8; PAGE_SIZE]) -> Result<Self> {
         let bad = |reason| Error::CorruptStore { reason };
         if &bytes[..8] != b"KEDRFILE"
-            || get16(bytes, 8) != 1
             || get16(bytes, 10) != 96
             || u32::from_le_bytes(bytes[12..16].try_into().expect("width")) != PAGE_SIZE as u32
         {
             return Err(bad("file header version, magic or size"));
         }
-        if bytes[64..80]
-            .iter()
-            .chain(bytes[84..].iter())
-            .any(|b| *b != 0)
+        let version = get16(bytes, 8);
+        if !matches!(version, 1 | 2) {
+            return Err(Error::UnsupportedFormat { version });
+        }
+        let protected = version == 2;
+        if get64(bytes, 72) != u64::from(protected)
+            || protected && get64(bytes, 64) == 0
+            || !protected && get64(bytes, 64) != 0
         {
+            return Err(bad("WAL protection flags or checkpoint LSN"));
+        }
+        if bytes[84..].iter().any(|b| *b != 0) {
             return Err(bad("file header reserved fields"));
         }
         let mut clean = *bytes;
@@ -66,6 +76,8 @@ impl Metadata {
             root: get64(bytes, 40),
             count: get64(bytes, 48),
             free: get64(bytes, 56),
+            wal_protected: protected,
+            checkpoint_lsn: get64(bytes, 64),
         };
         if metadata.database_id == [0; 16]
             || metadata.generation == 0
@@ -158,6 +170,8 @@ impl<I: StorageIo> PageStore<I> {
             root: 2,
             count: 3,
             free: 0,
+            wal_protected: false,
+            checkpoint_lsn: 0,
         };
         let bytes = metadata.encode();
         write_all_at(&mut io, 0, &bytes)?;
@@ -192,6 +206,8 @@ impl<I: StorageIo> PageStore<I> {
         read_exact_at(&mut io, PAGE_SIZE as u64, &mut bytes1)?;
         let (metadata, active_header) = match (Metadata::decode(&bytes0), Metadata::decode(&bytes1))
         {
+            (Err(error @ Error::UnsupportedFormat { .. }), _)
+            | (_, Err(error @ Error::UnsupportedFormat { .. })) => return Err(error),
             (Ok(a), Ok(b)) => {
                 if a.database_id != b.database_id || a.generation == b.generation && a != b {
                     return Err(Error::CorruptStore {
@@ -212,6 +228,11 @@ impl<I: StorageIo> PageStore<I> {
                 });
             }
         };
+        if metadata.wal_protected && !io.allows_wal_pages() {
+            return Err(Error::InvalidArgument {
+                message: "WAL-protected file requires the transactional engine",
+            });
+        }
         if metadata.count.checked_mul(PAGE_SIZE as u64) != Some(length) {
             return Err(Error::CorruptStore {
                 reason: "file length differs from checkpoint; recovery required",
@@ -229,6 +250,9 @@ impl<I: StorageIo> PageStore<I> {
     }
     pub fn database_id(&self) -> [u8; 16] {
         self.metadata.database_id
+    }
+    pub fn checkpoint_lsn(&self) -> u64 {
+        self.metadata.checkpoint_lsn
     }
     pub fn page_count(&self) -> u64 {
         self.metadata.count
@@ -408,4 +432,33 @@ impl<I: StorageIo> PageStore<I> {
         }
         result
     }
+}
+
+pub(crate) fn read_frontier<I: StorageIo>(io: &mut I) -> Result<Option<([u8; 16], u64)>> {
+    if io.len()? < 2 * PAGE_SIZE as u64 {
+        return Ok(None);
+    }
+    let mut frontier: Option<([u8; 16], u64)> = None;
+    for id in 0..2 {
+        let mut bytes = [0; PAGE_SIZE];
+        read_exact_at(io, id * PAGE_SIZE as u64, &mut bytes)?;
+        match Metadata::decode(&bytes) {
+            Ok(metadata) => {
+                if frontier.is_some_and(|(uuid, _)| uuid != metadata.database_id) {
+                    return Err(Error::CorruptStore {
+                        reason: "metadata identity mismatch",
+                    });
+                }
+                frontier = Some((
+                    metadata.database_id,
+                    frontier.map_or(metadata.checkpoint_lsn, |(_, lsn)| {
+                        lsn.max(metadata.checkpoint_lsn)
+                    }),
+                ));
+            }
+            Err(error @ Error::UnsupportedFormat { .. }) => return Err(error),
+            Err(_) => {}
+        }
+    }
+    Ok(frontier)
 }

@@ -84,6 +84,15 @@ pub enum Error {
     InvalidRecord {
         reason: &'static str,
     },
+    CorruptWal {
+        reason: &'static str,
+    },
+    UnsupportedFormat {
+        version: u16,
+    },
+    CommitUncertain {
+        source: Box<Error>,
+    },
 }
 
 impl Error {
@@ -110,6 +119,9 @@ impl Error {
             Self::RecoveryRequired => "KD2006",
             Self::DuplicateKey => "KD2007",
             Self::InvalidRecord { .. } => "KD2008",
+            Self::CorruptWal { .. } => "KD3001",
+            Self::UnsupportedFormat { .. } => "KD2009",
+            Self::CommitUncertain { .. } => "KD3002",
         }
     }
 
@@ -163,6 +175,13 @@ impl fmt::Display for Error {
             Self::RecoveryRequired => f.write_str("store is poisoned; recovery required"),
             Self::DuplicateKey => f.write_str("duplicate key"),
             Self::InvalidRecord { reason } => write!(f, "invalid record: {reason}"),
+            Self::CorruptWal { reason } => write!(f, "invalid WAL: {reason}"),
+            Self::UnsupportedFormat { version } => {
+                write!(f, "unsupported data file format {version}")
+            }
+            Self::CommitUncertain { source } => {
+                write!(f, "commit outcome uncertain; recovery required: {source}")
+            }
         }
     }
 }
@@ -171,6 +190,7 @@ impl std::error::Error for Error {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match self {
             Self::Io { source, .. } => Some(source),
+            Self::CommitUncertain { source } => Some(source.as_ref()),
             _ => None,
         }
     }

@@ -1,0 +1,171 @@
+   Compiling kedr-core v0.1.0 (<workspace>/crates/kedr-core)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.61s
+     Running unittests src/main.rs (target/debug/deps/kedr-2d2d0925ad2ba550)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/debug/deps/cli-15234b1776fcd629)
+
+running 7 tests
+test storage_check_rejects_file_as_directory_without_mutation ... ok
+test invalid_arguments_are_reported_as_errors ... ok
+test doctor_reports_actual_capabilities ... ok
+test storage_check_preserves_existing_files_and_cleans_up ... ok
+test locked_store_rejects_another_process_and_releases_on_close ... ok
+test store_commands_persist_and_integrity_read_preserves_file ... ok
+test database_directory_commands_recover_and_checkpoint_between_processes ... ok
+
+test result: ok. 7 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.53s
+
+     Running unittests src/lib.rs (target/debug/deps/kedr_core-f9176ccf611894a1)
+
+running 2 tests
+test checksum::tests::standard_crc32c_vectors ... ok
+test database::tests::every_checkpoint_lifecycle_step_before_and_after_failure_preserves_acknowledgements ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.27s
+
+     Running tests/database_file.rs (target/debug/deps/database_file-f1f5c3ff9bbbdb7a)
+
+running 4 tests
+test checkpoint_failure_poisoning_can_be_resolved_only_by_reopen ... ok
+test identity_corruption_and_symlink_members_are_rejected_without_changes ... ok
+test incomplete_checkpoint_header_uses_predecessor_but_complete_corruption_fails ... ok
+test rotations_reopen_and_prevent_raw_page_writes_or_a_second_owner ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.11s
+
+     Running tests/pages.rs (target/debug/deps/pages-e9a803f41fe69222)
+
+running 8 tests
+test deletion_keeps_other_slots_and_clears_payload ... ok
+test explicit_little_endian_format_and_roundtrip ... ok
+test corruption_and_truncation_are_rejected ... ok
+test record_and_capacity_limits_are_atomic ... ok
+test slot_table_exhaustion_with_empty_records ... ok
+test encoded_page_survives_file_sync_and_reopen ... ok
+test valid_checksum_does_not_bypass_structural_checks ... ok
+test seeded_sequences_match_an_independent_record_model ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.00s
+
+     Running tests/records.rs (target/debug/deps/records-be7295676b43cd36)
+
+running 3 tests
+test keys_follow_value_order_and_preserve_duplicate_values ... ok
+test row_roundtrip_boundaries_null_and_unicode ... ok
+test malformed_rows_are_rejected_without_panics ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/tree_file.rs (target/debug/deps/tree_file-9e89a8c0006b79ac)
+
+running 1 test
+test persistent_data_exceeds_cache_and_reopens_with_a_single_frame ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.68s
+
+     Running unittests src/lib.rs (target/debug/deps/kedr_testkit-f4e7d9bc86425362)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/kedr-crash-fixture.rs (target/debug/deps/kedr_crash_fixture-5e90a9d5f9ae0ce7)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/kedr-db-crash-fixture.rs (target/debug/deps/kedr_db_crash_fixture-04f390a918563896)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/crash_campaign.rs (target/debug/deps/crash_campaign-7300329f86ee8e0c)
+
+running 1 test
+test seeded_two_file_crashes_preserve_acknowledgements_or_diagnose_corrupt_tail ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 13.03s
+
+     Running tests/engine_contract.rs (target/debug/deps/engine_contract-511e0b5d927a31d3)
+
+running 8 tests
+test wrong_database_journal_is_rejected_before_touching_source_pages ... ok
+test truncated_valid_journal_cannot_erase_a_newer_durable_commit ... ok
+test rollback_drop_aborted_state_and_read_your_writes ... ok
+test private_limit_failure_rolls_back_without_poisoning_database ... ok
+test dirty_eviction_never_writes_base_before_wal_sync ... ok
+test commit_faults_never_lose_acknowledged_base_and_ambiguous_sync_is_recovered ... ok
+test committed_multiple_pages_recover_repeatedly_after_data_loss ... ok
+test recovery_failure_at_every_io_call_remains_repeatable ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 8.00s
+
+     Running tests/file_and_crash.rs (target/debug/deps/file_and_crash-2bbdba1fded309b5)
+
+running 3 tests
+test file_reopen_sparse_write_resize_and_exclusive_creation ... ok
+test synchronized_prefix_survives_real_process_kill ... ok
+test acknowledged_database_transactions_survive_sigkill_during_rotation ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.22s
+
+     Running tests/storage_contract.rs (target/debug/deps/storage_contract-85af7fe302195653)
+
+running 13 tests
+test broken_backend_byte_counts_are_rejected ... ok
+test eof_reports_actual_progress ... ok
+test harness_detects_intentionally_missing_sync ... ok
+test allocation_limit_rejects_mutation_and_sparse_holes_are_zero ... ok
+test range_overflow_is_rejected_before_backend_calls ... ok
+test invalid_faults_and_duplicate_call_numbers_are_rejected ... ok
+test exact_helpers_retry_short_io_and_interrupts ... ok
+test replay_has_identical_trace_and_bytes ... ok
+test errors_after_partial_write_leave_partial_bytes ... ok
+test sync_and_crash_include_file_length ... ok
+test sync_failure_can_happen_before_or_after_persistence ... ok
+test zero_write_is_an_error_not_an_infinite_loop ... ok
+test seeded_operations_match_independent_sparse_byte_oracle ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 38.20s
+
+     Running tests/tree_contract.rs (target/debug/deps/tree_contract-21bbc2cafa8803e2)
+
+running 6 tests
+test ambiguous_checkpoint_sync_poison_stops_further_operations ... ok
+test header_and_node_corruption_are_detected ... ok
+test maximum_records_and_logical_failures_preserve_contents ... ok
+test split_range_update_delete_reopen_and_reuse ... ok
+test multi_level_tree_with_variable_length_keys_and_secondary_duplicates ... ok
+test seeded_tree_operations_match_independent_map ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 10.11s
+
+     Running tests/wal_contract.rs (target/debug/deps/wal_contract-e1815e0419164582)
+
+running 5 tests
+test duplicate_images_and_invalid_lengths_fail_before_any_write ... ok
+test failed_append_is_poisoned_and_sync_before_error_is_ambiguous ... ok
+test committed_groups_replay_identically_and_append_continues ... ok
+test damaged_full_records_and_valid_crc_invalid_commits_fail_closed ... ok
+test partial_eof_and_uncommitted_images_do_not_apply_and_must_be_cleared ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+
+   Doc-tests kedr_core
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests kedr_testkit
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

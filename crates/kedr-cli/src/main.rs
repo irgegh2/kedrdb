@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 use kedr_core::{
     Error, Operation, Result,
+    database::FileDatabase,
     record::primary_key,
     storage::{FileStorage, StorageIo, read_exact_at, write_all_at},
     tree::BPlusTree,
@@ -14,7 +15,7 @@ use std::{
 
 const PAYLOAD: &[u8] = b"KedrDB stage 1 storage check\n";
 const CACHE_BUDGET: usize = 4 * 16 * 1024;
-const USAGE: &str = "Usage: kedr --version | doctor | storage-check <directory> | create-store <new-file> | put <file> <bigint-key> <text> | get <file> <bigint-key> | delete <file> <bigint-key> | integrity-check <file>";
+const USAGE: &str = "Usage: kedr --version | doctor | storage-check <directory> | create-db <new-directory> | create-store <new-file> | put <database> <bigint-key> <text> | get <database> <bigint-key> | delete <database> <bigint-key> | integrity-check <database> | checkpoint <database-directory>";
 
 fn open_tree(path: &Path) -> Result<BPlusTree<FileStorage>> {
     let file = FileStorage::open_existing(path)?;
@@ -30,12 +31,16 @@ fn key(argument: &std::ffi::OsStr) -> Result<[u8; 8]> {
         })?;
     Ok(primary_key(value))
 }
-fn create_store(path: &Path) -> Result<()> {
+fn random_id() -> Result<[u8; 16]> {
     use std::io::Read;
     let mut id = [0; 16];
     std::fs::File::open("/dev/urandom")
         .and_then(|mut f| f.read_exact(&mut id))
         .map_err(|e| Error::io(Operation::Read, e))?;
+    Ok(id)
+}
+fn create_store(path: &Path) -> Result<()> {
+    let id = random_id()?;
     let file = FileStorage::create_new(path)?;
     file.try_lock_exclusive()?;
     let _tree = BPlusTree::create(file, id, CACHE_BUDGET)?;
@@ -91,7 +96,7 @@ fn storage_check(directory: &Path) -> Result<()> {
     std::fs::remove_file(&path).map_err(|error| Error::io(Operation::Write, error))?;
     scratch.0 = None;
     println!("Storage check passed: positional write, sync, reopen, exact read, cleanup.");
-    println!("This is a file I/O check; SQL and transaction recovery are not implemented.");
+    println!("This checks file I/O only; database recovery is tested separately.");
     Ok(())
 }
 
@@ -109,40 +114,72 @@ fn run() -> Result<()> {
             println!(
                 "B+ tree, bounded page cache, typed row codec and integrity check: available."
             );
-            println!("SQL server, WAL and transactions: not implemented.");
+            println!("Single-owner storage transactions, WAL redo and checkpoints: available.");
+            println!("SQL server and concurrent sessions: not implemented.");
         }
         [command, directory] if command == "storage-check" => storage_check(Path::new(directory))?,
         [command, path] if command == "create-store" => create_store(Path::new(path))?,
+        [command, path] if command == "create-db" => {
+            FileDatabase::create(Path::new(path), random_id()?, CACHE_BUDGET)?;
+            println!(
+                "Created development database with WAL recovery. SQL tables are not available yet."
+            );
+        }
         [command, path, key_arg, value] if command == "put" => {
             let key = key(key_arg)?;
             let value = value.to_str().ok_or(Error::InvalidArgument {
                 message: "value must be UTF-8",
             })?;
-            let mut tree = open_tree(Path::new(path))?;
-            tree.replace(&key, value.as_bytes())?;
-            tree.checkpoint()?;
-            println!("Stored (clean checkpoint; stage 2 has no crash-atomic transactions).");
+            if Path::new(path).is_dir() {
+                FileDatabase::open(Path::new(path), CACHE_BUDGET)?
+                    .transaction(|tx| tx.replace(&key, value.as_bytes()))?;
+                println!("Stored (durable commit).");
+            } else {
+                let mut tree = open_tree(Path::new(path))?;
+                tree.replace(&key, value.as_bytes())?;
+                tree.checkpoint()?;
+                println!("Stored (legacy stage 2 file without WAL).");
+            }
         }
         [command, path, key_arg] if command == "get" => {
-            let mut tree = open_tree(Path::new(path))?;
-            match tree.get(&key(key_arg)?)? {
+            let key = key(key_arg)?;
+            let result = if Path::new(path).is_dir() {
+                FileDatabase::open(Path::new(path), CACHE_BUDGET)?.get(&key)?
+            } else {
+                open_tree(Path::new(path))?.get(&key)?
+            };
+            match result {
                 Some(bytes) => println!("{}", String::from_utf8_lossy(&bytes)),
                 None => println!("Key not found."),
             }
         }
         [command, path, key_arg] if command == "delete" => {
-            let mut tree = open_tree(Path::new(path))?;
-            let deleted = tree.delete(&key(key_arg)?)?;
-            tree.checkpoint()?;
+            let key = key(key_arg)?;
+            let deleted = if Path::new(path).is_dir() {
+                FileDatabase::open(Path::new(path), CACHE_BUDGET)?
+                    .transaction(|tx| tx.delete(&key))?
+            } else {
+                let mut tree = open_tree(Path::new(path))?;
+                let deleted = tree.delete(&key)?;
+                tree.checkpoint()?;
+                deleted
+            };
             println!("Deleted: {deleted}");
         }
         [command, path] if command == "integrity-check" => {
-            let mut tree = open_tree(Path::new(path))?;
-            let report = tree.integrity_check()?;
+            let report = if Path::new(path).is_dir() {
+                FileDatabase::open(Path::new(path), CACHE_BUDGET)?.integrity_check()?
+            } else {
+                open_tree(Path::new(path))?.integrity_check()?
+            };
             println!(
                 "Integrity check passed: {} records, {} tree pages, {} free pages, height {}.",
                 report.records, report.tree_pages, report.free_pages, report.height
             );
+        }
+        [command, path] if command == "checkpoint" => {
+            FileDatabase::open(Path::new(path), CACHE_BUDGET)?.checkpoint()?;
+            println!("Checkpoint complete.");
         }
         [] => println!("{USAGE}"),
         [arg] if arg == "--help" || arg == "-h" => {

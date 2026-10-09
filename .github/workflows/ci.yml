@@ -32,5 +32,9 @@ jobs:
         run: cargo test -p kedr-testkit --test tree_contract --release --locked --offline seeded_tree_operations_match_independent_map -- --exact --nocapture
       - name: Build CLI
         run: cargo build --workspace --release --locked --offline
+      - name: Ten-thousand-point crash campaign
+        env:
+          KEDR_CRASH_CASES: 10000
+        run: cargo test -p kedr-testkit --test crash_campaign --release --locked --offline -- --nocapture
       - name: File I/O smoke check
         run: target/release/kedr doctor && target/release/kedr storage-check "$RUNNER_TEMP"
