@@ -1,0 +1,2 @@
+    Checking kedr-studio v0.1.0 (/Users/irgegh/Documents/ChatGPT/бд/crates/kedr-studio)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.83s

@@ -1,0 +1,405 @@
+{
+  "stage": 6,
+  "status": "passed",
+  "code_commit": "012170fb6af902370af3e4be0cf8cc4ec8bbb9aa",
+  "run_id": 38004804844,
+  "run_url": "https://github.com/irgegh2/kedrdb/actions/runs/38004804844",
+  "local_platform": "macOS ARM64",
+  "local_checks": {
+    "debug-tests.txt": {
+      "sha256": "b908dbf1751ad70a1ae00d83614dc40cb1639cb8b1bad6176ec14aaa959b6a80",
+      "passed": 95
+    },
+    "release-tests.txt": {
+      "sha256": "30b1b89c79ec25cf01573d083224c2a161a34b6bed50b274db82643b5fa81670",
+      "passed": 95
+    },
+    "clippy.txt": {
+      "sha256": "26aa48e3d00f9463ddbd3aeb8fe91c8b1b70f571a6949671ef8c945831fefb47"
+    },
+    "format.txt": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "build.txt": {
+      "sha256": "ee45657af5be0962fb0cb2e5e658a686691b37c1c8a62e7b611fa3bbd3f39130"
+    },
+    "integration-tests.txt": {
+      "sha256": "c08794033730e9e85ef49d613cc0255f7c6d357f2978c8208b54a51a14f056f6",
+      "passed": 12
+    },
+    "studio-real-test.txt": {
+      "sha256": "dfbbe4beeb69aa1908b615ca5c5b45bfa5ceeb28ebeb96c92c3190586836acb7",
+      "passed": 1
+    },
+    "clients.txt": {
+      "sha256": "f7a6cea3f6917eb7fb7a8a039812a686a632a95d28206dec778cb4641db3d045"
+    }
+  },
+  "native_clients": {
+    "macos": {
+      "server": "KedrDB 0.1.0",
+      "checks": [
+        "SCRAM verifier permissions",
+        "psql verified TLS CRUD/transaction/NULL/catalog",
+        "psql rejects untrusted CA",
+        "psql rejects certificate hostname mismatch",
+        "remote listener requires TLS",
+        "psycopg verified TLS binary parameters/CRUD/NULL",
+        "native Studio authenticated TLS catalog/query screenshot",
+        "SIGTERM releases lock and durable rows reopen"
+      ],
+      "psql": "psql (PostgreSQL) 18.2 (Homebrew)",
+      "psycopg": "3.3.2"
+    },
+    "ubuntu": {
+      "server": "KedrDB 0.1.0",
+      "checks": [
+        "SCRAM verifier permissions",
+        "psql verified TLS CRUD/transaction/NULL/catalog",
+        "psql rejects untrusted CA",
+        "psql rejects certificate hostname mismatch",
+        "remote listener requires TLS",
+        "psycopg verified TLS binary parameters/CRUD/NULL",
+        "native Studio authenticated TLS catalog/query screenshot",
+        "SIGTERM releases lock and durable rows reopen"
+      ],
+      "psql": "psql (PostgreSQL) 16.15 (Ubuntu 16.15-1.pgdg24.04+2)",
+      "psycopg": "3.1.17"
+    }
+  },
+  "screenshots": {
+    "clients": {
+      "sha256": "1bffdeb43c73d677c496ae18edd7798c6174f89a4bd5d939c49941c4ff684c47",
+      "bytes": 196214
+    },
+    "linux-clients": {
+      "sha256": "66aad741831e975cfe28103dcb22d19ce7db2619f74ff3ce0499d0ac3ee71bbb",
+      "bytes": 70294
+    }
+  },
+  "limits": "Supported SQL and protocol subset. Correctness checks, not benchmark or market 1.0. Driver success does not imply Django/ORM compatibility.",
+  "linux_sql_oracle": {
+    "status": "passed",
+    "postgres_version": "16.15 (Ubuntu 16.15-1.pgdg24.04+2)",
+    "psycopg_version": "3.1.17",
+    "matched": 101181,
+    "manual_matched": 1025,
+    "generated_matched": 100000,
+    "contract_matched": 33,
+    "restarts": 19,
+    "transcript_sha256": "be706c5eb5f3686e4e423b9cf79bfb4bdd3eeb85914ba9f9356d03c92701cccc"
+  },
+  "stopped_exploratory_runs": [
+    "Old release CLI oracle was stopped before acceptance; not evidence.",
+    "Redundant local debug SQL oracle stopped after successful full Linux CI oracle; incomplete run not counted.",
+    "Native UI automation could not reliably address egui controls; native connected screenshots and backend tests are the recorded UI acceptance evidence."
+  ],
+  "jobs": [
+    {
+      "id": 114071014523,
+      "name": "check (ubuntu-24.04)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 38004804844,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Install pinned Rust",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Format",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Fetch locked dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Install desktop build libraries (Linux)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Lint",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Debug tests",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Release tests",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Million-operation tree campaign",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Build CLI",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Ten-thousand-point crash campaign",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12
+        },
+        {
+          "name": "File I/O smoke check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13
+        },
+        {
+          "name": "Install PostgreSQL SQL oracle (Linux)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14
+        },
+        {
+          "name": "SQL differential campaign (Linux)",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 30
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 31
+        }
+      ]
+    },
+    {
+      "id": 114071014881,
+      "name": "check (macos-15)",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 38004804844,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Install pinned Rust",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Format",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Fetch locked dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Install desktop build libraries (Linux)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 6
+        },
+        {
+          "name": "Lint",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Debug tests",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8
+        },
+        {
+          "name": "Release tests",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9
+        },
+        {
+          "name": "Million-operation tree campaign",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 10
+        },
+        {
+          "name": "Build CLI",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 11
+        },
+        {
+          "name": "Ten-thousand-point crash campaign",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12
+        },
+        {
+          "name": "File I/O smoke check",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13
+        },
+        {
+          "name": "Install PostgreSQL SQL oracle (Linux)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 14
+        },
+        {
+          "name": "SQL differential campaign (Linux)",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 15
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 30
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 31
+        }
+      ]
+    },
+    {
+      "id": 114071014894,
+      "name": "studio-integration",
+      "status": "completed",
+      "conclusion": "success",
+      "run_id": 38004804844,
+      "logs_url": null,
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Install pinned Rust",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Install native/client test dependencies",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Build actual server and Studio",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Native Studio and client acceptance",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Save native acceptance artifacts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15
+        }
+      ]
+    }
+  ],
+  "ci_logs": {
+    "ci-linux.txt": {
+      "sha256": "97eef96f3ec7750767311f673310c0f9d4d002fdbd955287118e8bb9ae4ec00b",
+      "bytes": 188478,
+      "debug_tests": 95,
+      "release_tests": 95
+    },
+    "ci-macos.txt": {
+      "sha256": "6b52c6bea11e8c087c71870c3fae4ae012eb50a5d448c0fd53e3abf80520413f",
+      "bytes": 129925,
+      "debug_tests": 95,
+      "release_tests": 95
+    },
+    "ci-native-linux.txt": {
+      "sha256": "b02d0c265ee4e60aef8efbe5503497d0836f9d32ccd44bfb46f9db34075a3d91",
+      "bytes": 83283
+    }
+  }
+}

@@ -1,0 +1,2634 @@
+﻿2026-10-09T23:31:02.8339554Z Current runner version: '2.337.0'
+2026-10-09T23:31:02.8357860Z ##[group]Runner Image Provisioner
+2026-10-09T23:31:02.8358498Z Hosted Compute Agent
+2026-10-09T23:31:02.8358909Z Version: 20261002.596
+2026-10-09T23:31:02.8359399Z Commit: c3d12f3313a95f25162a1503be624f3b0617f8c0
+2026-10-09T23:31:02.8359826Z Build Date: 2026-10-02T22:28:27Z
+2026-10-09T23:31:02.8360228Z Worker ID: {fff98609-7741-45f7-ac1f-213020d5726e}
+2026-10-09T23:31:02.8360698Z Region: southcentralus
+2026-10-09T23:31:02.8361047Z Cloud: Azure
+2026-10-09T23:31:02.8361426Z ##[endgroup]
+2026-10-09T23:31:02.8362679Z ##[group]Operating System
+2026-10-09T23:31:02.8363054Z Ubuntu
+2026-10-09T23:31:02.8363428Z 24.04.5
+2026-10-09T23:31:02.8363784Z LTS
+2026-10-09T23:31:02.8364418Z ##[endgroup]
+2026-10-09T23:31:02.8364770Z ##[group]Runner Image
+2026-10-09T23:31:02.8365124Z Image: ubuntu-24.04
+2026-10-09T23:31:02.8365500Z Version: 20261004.327.1
+2026-10-09T23:31:02.8366289Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261004.327/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-09T23:31:02.8367202Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261004.327
+2026-10-09T23:31:02.8367761Z ##[endgroup]
+2026-10-09T23:31:02.8368458Z ##[group]GITHUB_TOKEN Permissions
+2026-10-09T23:31:02.8369839Z Contents: read
+2026-10-09T23:31:02.8370242Z Metadata: read
+2026-10-09T23:31:02.8370583Z ##[endgroup]
+2026-10-09T23:31:02.8371861Z Secret source: Actions
+2026-10-09T23:31:02.8372733Z Cache mode: write
+2026-10-09T23:31:02.8373140Z Prepare workflow directory
+2026-10-09T23:31:02.8586809Z Prepare all required actions
+2026-10-09T23:31:02.8630345Z Getting action download info
+2026-10-09T23:31:03.0906721Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-09T23:31:03.2301347Z Complete job name: check (ubuntu-24.04)
+2026-10-09T23:31:03.2786976Z ##[group]Run actions/checkout@v4
+2026-10-09T23:31:03.2787383Z with:
+2026-10-09T23:31:03.2787624Z   repository: irgegh2/kedrdb
+2026-10-09T23:31:03.2789594Z   token: ***
+2026-10-09T23:31:03.2789830Z   ssh-strict: true
+2026-10-09T23:31:03.2790071Z   ssh-user: git
+2026-10-09T23:31:03.2790318Z   persist-credentials: true
+2026-10-09T23:31:03.2790583Z   clean: true
+2026-10-09T23:31:03.2790832Z   sparse-checkout-cone-mode: true
+2026-10-09T23:31:03.2791113Z   fetch-depth: 1
+2026-10-09T23:31:03.2791349Z   fetch-tags: false
+2026-10-09T23:31:03.2791596Z   show-progress: true
+2026-10-09T23:31:03.2791843Z   lfs: false
+2026-10-09T23:31:03.2792305Z   submodules: false
+2026-10-09T23:31:03.2792574Z   set-safe-directory: true
+2026-10-09T23:31:03.2792854Z   allow-unsafe-pr-checkout: false
+2026-10-09T23:31:03.2793225Z ##[endgroup]
+2026-10-09T23:31:03.4475527Z Syncing repository: irgegh2/kedrdb
+2026-10-09T23:31:03.4476670Z ##[group]Getting Git version info
+2026-10-09T23:31:03.4477104Z Working directory is '/home/runner/work/kedrdb/kedrdb'
+2026-10-09T23:31:03.4477683Z [command]/usr/bin/git version
+2026-10-09T23:31:03.4477954Z git version 2.55.0
+2026-10-09T23:31:03.4478813Z ##[endgroup]
+2026-10-09T23:31:03.4481560Z Temporarily overriding HOME='/home/runner/work/_temp/164cb5e3-ce6a-443b-a0c8-aabf8aaf3033' before making global git config changes
+2026-10-09T23:31:03.4482507Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-09T23:31:03.4483077Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/kedrdb/kedrdb
+2026-10-09T23:31:03.4724636Z Deleting the contents of '/home/runner/work/kedrdb/kedrdb'
+2026-10-09T23:31:03.4732712Z ##[group]Initializing the repository
+2026-10-09T23:31:03.4758163Z [command]/usr/bin/git init /home/runner/work/kedrdb/kedrdb
+2026-10-09T23:31:03.5120357Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-09T23:31:03.5121259Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-09T23:31:03.5122152Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-09T23:31:03.5122556Z hint: call:
+2026-10-09T23:31:03.5123036Z hint:
+2026-10-09T23:31:03.5123495Z hint: 	git config --global init.defaultBranch <name>
+2026-10-09T23:31:03.5124029Z hint:
+2026-10-09T23:31:03.5124512Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-09T23:31:03.5125304Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-09T23:31:03.5125915Z hint:
+2026-10-09T23:31:03.5126245Z hint: 	git branch -m <name>
+2026-10-09T23:31:03.5126622Z hint:
+2026-10-09T23:31:03.5127122Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-09T23:31:03.5127950Z Initialized empty Git repository in /home/runner/work/kedrdb/kedrdb/.git/
+2026-10-09T23:31:03.5132897Z [command]/usr/bin/git remote add origin https://github.com/irgegh2/kedrdb
+2026-10-09T23:31:03.5310079Z ##[endgroup]
+2026-10-09T23:31:03.5310949Z ##[group]Disabling automatic garbage collection
+2026-10-09T23:31:03.5313077Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-09T23:31:03.5527322Z ##[endgroup]
+2026-10-09T23:31:03.5527835Z ##[group]Setting up auth
+2026-10-09T23:31:03.5533568Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-09T23:31:03.5563698Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-09T23:31:03.5856973Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-09T23:31:03.5885440Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-09T23:31:03.6058844Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-09T23:31:03.6085663Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-09T23:31:03.6258418Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-09T23:31:03.6613229Z ##[endgroup]
+2026-10-09T23:31:03.6614145Z ##[group]Fetching the repository
+2026-10-09T23:31:03.6629048Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +012170fb6af902370af3e4be0cf8cc4ec8bbb9aa:refs/remotes/origin/codex/server-and-studio
+2026-10-09T23:31:04.5455690Z From https://github.com/irgegh2/kedrdb
+2026-10-09T23:31:04.5457309Z  * [new ref]         012170fb6af902370af3e4be0cf8cc4ec8bbb9aa -> origin/codex/server-and-studio
+2026-10-09T23:31:04.5460580Z ##[endgroup]
+2026-10-09T23:31:04.5461805Z ##[group]Determining the checkout info
+2026-10-09T23:31:04.5463344Z ##[endgroup]
+2026-10-09T23:31:04.5466042Z [command]/usr/bin/git sparse-checkout disable
+2026-10-09T23:31:04.5710629Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-09T23:31:04.5791974Z ##[group]Checking out the ref
+2026-10-09T23:31:04.5794963Z [command]/usr/bin/git checkout --progress --force -B codex/server-and-studio refs/remotes/origin/codex/server-and-studio
+2026-10-09T23:31:04.6005982Z Switched to a new branch 'codex/server-and-studio'
+2026-10-09T23:31:04.6011297Z branch 'codex/server-and-studio' set up to track 'origin/codex/server-and-studio'.
+2026-10-09T23:31:04.6016770Z ##[endgroup]
+2026-10-09T23:31:04.6051604Z [command]/usr/bin/git log -1 --format=%H
+2026-10-09T23:31:04.6073600Z 012170fb6af902370af3e4be0cf8cc4ec8bbb9aa
+2026-10-09T23:31:04.6312285Z ##[group]Run rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy
+2026-10-09T23:31:04.6313990Z [36;1mrustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy[0m
+2026-10-09T23:31:04.6566843Z shell: /usr/bin/bash -e {0}
+2026-10-09T23:31:04.6567581Z ##[endgroup]
+2026-10-09T23:31:04.7278548Z info: syncing channel updates for 1.94.1-x86_64-unknown-linux-gnu
+2026-10-09T23:31:05.1699557Z info: latest update on 2026-03-26 for version 1.94.1 (e408947bf 2026-03-25)
+2026-10-09T23:31:05.1700439Z info: downloading 5 components
+2026-10-09T23:31:11.9728278Z 
+2026-10-09T23:31:11.9788855Z   1.94.1-x86_64-unknown-linux-gnu installed - rustc 1.94.1 (e408947bf 2026-03-25)
+2026-10-09T23:31:11.9789255Z 
+2026-10-09T23:31:11.9882445Z ##[group]Run cargo fmt --all -- --check
+2026-10-09T23:31:11.9882703Z [36;1mcargo fmt --all -- --check[0m
+2026-10-09T23:31:11.9935926Z shell: /usr/bin/bash -e {0}
+2026-10-09T23:31:11.9936096Z ##[endgroup]
+2026-10-09T23:31:12.1555732Z ##[group]Run cargo fetch --locked
+2026-10-09T23:31:12.1556123Z [36;1mcargo fetch --locked[0m
+2026-10-09T23:31:12.1609069Z shell: /usr/bin/bash -e {0}
+2026-10-09T23:31:12.1609261Z ##[endgroup]
+2026-10-09T23:31:12.1945593Z     Updating crates.io index
+2026-10-09T23:31:13.4276444Z  Downloading crates ...
+2026-10-09T23:31:13.6783914Z   Downloaded zeroize_derive v1.5.0
+2026-10-09T23:31:13.6937358Z   Downloaded zeroize v1.9.1
+2026-10-09T23:31:13.6994776Z   Downloaded tokio-rustls v0.26.6
+2026-10-09T23:31:13.7027457Z   Downloaded quote v1.0.47
+2026-10-09T23:31:13.7076286Z   Downloaded unicode-ident v1.0.26
+2026-10-09T23:31:13.7107946Z   Downloaded tokio-macros v2.7.2
+2026-10-09T23:31:13.7125837Z   Downloaded proc-macro2 v1.0.107
+2026-10-09T23:31:13.7196859Z   Downloaded block-buffer v0.12.1
+2026-10-09T23:31:13.7218275Z   Downloaded crypto-common v0.2.2
+2026-10-09T23:31:13.7249017Z   Downloaded windows-link v0.2.1
+2026-10-09T23:31:13.7293427Z   Downloaded cmov v0.5.4
+2026-10-09T23:31:13.7318798Z   Downloaded flagset v0.4.7
+2026-10-09T23:31:13.7339808Z   Downloaded wasm-bindgen-macro v0.2.129
+2026-10-09T23:31:13.7356589Z   Downloaded spki v0.7.3
+2026-10-09T23:31:13.7380433Z   Downloaded phf_generator v0.13.1
+2026-10-09T23:31:13.7398803Z   Downloaded der_derive v0.7.3
+2026-10-09T23:31:13.7421788Z   Downloaded tinyvec v1.13.3
+2026-10-09T23:31:13.7460527Z   Downloaded fallible-iterator v0.2.0
+2026-10-09T23:31:13.7480393Z   Downloaded percent-encoding v2.3.2
+2026-10-09T23:31:13.7498314Z   Downloaded libredox v0.1.25
+2026-10-09T23:31:13.7514604Z   Downloaded siphasher v1.0.4
+2026-10-09T23:31:13.7534780Z   Downloaded tokio-postgres-rustls v0.14.0
+2026-10-09T23:31:13.7566335Z   Downloaded digest v0.10.7
+2026-10-09T23:31:13.7592184Z   Downloaded scopeguard v1.2.0
+2026-10-09T23:31:13.7610417Z   Downloaded rand_chacha v0.3.1
+2026-10-09T23:31:13.7627839Z   Downloaded plain v0.2.3
+2026-10-09T23:31:13.7643982Z   Downloaded slab v0.4.12
+2026-10-09T23:31:13.7668372Z   Downloaded wasm-bindgen-futures v0.4.79
+2026-10-09T23:31:13.7686394Z   Downloaded rand_core v0.10.1
+2026-10-09T23:31:13.7708476Z   Downloaded subtle v2.6.1
+2026-10-09T23:31:13.7726376Z   Downloaded rustversion v1.0.23
+2026-10-09T23:31:13.7766815Z   Downloaded dlib v0.5.3
+2026-10-09T23:31:13.7783936Z   Downloaded scoped-tls v1.0.1
+2026-10-09T23:31:13.7800207Z   Downloaded gethostname v1.1.0
+2026-10-09T23:31:13.7817523Z   Downloaded digest v0.11.3
+2026-10-09T23:31:13.7844693Z   Downloaded const-oid v0.10.2
+2026-10-09T23:31:13.7884576Z   Downloaded wayland-cursor v0.31.14
+2026-10-09T23:31:13.7900173Z   Downloaded smol_str v0.2.2
+2026-10-09T23:31:13.7919133Z   Downloaded getrandom v0.2.17
+2026-10-09T23:31:13.7954773Z   Downloaded as-raw-xcb-connection v1.0.1
+2026-10-09T23:31:13.7983794Z   Downloaded wayland-protocols-wlr v0.3.12
+2026-10-09T23:31:13.8007823Z   Downloaded serde_core v1.0.229
+2026-10-09T23:31:13.8036299Z   Downloaded rustls-pki-types v1.15.1
+2026-10-09T23:31:13.8088421Z   Downloaded jni-sys v0.3.1
+2026-10-09T23:31:13.8107265Z   Downloaded raw-window-handle v0.6.2
+2026-10-09T23:31:13.8131001Z   Downloaded hermit-abi v0.5.3
+2026-10-09T23:31:13.8155474Z   Downloaded objc2-contacts v0.2.2
+2026-10-09T23:31:13.8200920Z   Downloaded objc2-uniform-type-identifiers v0.2.2
+2026-10-09T23:31:13.8220401Z   Downloaded foreign-types-macros v0.2.4
+2026-10-09T23:31:13.8238920Z   Downloaded ndk-context v0.1.1
+2026-10-09T23:31:13.8248517Z   Downloaded pin-project v1.1.13
+2026-10-09T23:31:13.8392649Z   Downloaded android-properties v0.2.2
+2026-10-09T23:31:13.8410954Z   Downloaded linebender_resource_handle v0.1.1
+2026-10-09T23:31:13.8422967Z   Downloaded cgl v0.3.2
+2026-10-09T23:31:13.8433529Z   Downloaded glutin_egl_sys v0.7.1
+2026-10-09T23:31:13.8442990Z   Downloaded glutin_glx_sys v0.6.1
+2026-10-09T23:31:13.8462554Z   Downloaded glutin_wgl_sys v0.6.1
+2026-10-09T23:31:13.8494879Z   Downloaded stable_deref_trait v1.2.1
+2026-10-09T23:31:13.8507468Z   Downloaded writeable v0.6.4
+2026-10-09T23:31:13.8525342Z   Downloaded utf8_iter v1.0.4
+2026-10-09T23:31:13.8535793Z   Downloaded ecolor v0.35.0
+2026-10-09T23:31:13.8589322Z   Downloaded calloop-wayland-source v0.4.1
+2026-10-09T23:31:13.8619093Z   Downloaded potential_utf v0.1.6
+2026-10-09T23:31:13.8634370Z   Downloaded litemap v0.8.3
+2026-10-09T23:31:13.8691207Z   Downloaded icu_provider v2.3.1
+2026-10-09T23:31:13.8735197Z   Downloaded windows-collections v0.3.2
+2026-10-09T23:31:13.8775032Z   Downloaded async-task v4.7.1
+2026-10-09T23:31:13.8816192Z   Downloaded futures-io v0.3.34
+2026-10-09T23:31:13.8837046Z   Downloaded zbus_names v4.3.4
+2026-10-09T23:31:13.8863242Z   Downloaded zbus-lockstep-macros v0.5.2
+2026-10-09T23:31:13.8884132Z   Downloaded rustc-hash v2.1.3
+2026-10-09T23:31:13.8902582Z   Downloaded wgpu-core-deps-windows-linux-android v29.0.4
+2026-10-09T23:31:13.8913044Z   Downloaded litrs v1.0.0
+2026-10-09T23:31:13.8946481Z   Downloaded codespan-reporting v0.13.1
+2026-10-09T23:31:13.9008772Z   Downloaded bit-vec v0.9.1
+2026-10-09T23:31:13.9027590Z   Downloaded accesskit_consumer v0.36.0
+2026-10-09T23:31:13.9044908Z   Downloaded wgpu-naga-bridge v29.0.4
+2026-10-09T23:31:13.9056496Z   Downloaded portable-atomic-util v0.2.8
+2026-10-09T23:31:13.9076166Z   Downloaded zbus v5.19.0
+2026-10-09T23:31:13.9153443Z   Downloaded accesskit_windows v0.32.1
+2026-10-09T23:31:13.9173372Z   Downloaded wgpu v29.0.4
+2026-10-09T23:31:13.9286747Z   Downloaded async-io v2.6.0
+2026-10-09T23:31:13.9310401Z   Downloaded hex v0.4.3
+2026-10-09T23:31:13.9325326Z   Downloaded event-listener-strategy v0.5.4
+2026-10-09T23:31:13.9335791Z   Downloaded objc2-foundation v0.3.2
+2026-10-09T23:31:13.9483533Z   Downloaded serde_repr v0.1.21
+2026-10-09T23:31:13.9509256Z   Downloaded skrifa v0.42.1
+2026-10-09T23:31:13.9581555Z   Downloaded unicode-width v0.2.2
+2026-10-09T23:31:13.9624072Z   Downloaded simd_cesu8 v1.2.0
+2026-10-09T23:31:13.9658117Z   Downloaded egui v0.35.0
+2026-10-09T23:31:13.9751268Z   Downloaded windows_aarch64_gnullvm v0.53.1
+2026-10-09T23:31:13.9836597Z   Downloaded wgpu-core v29.0.4
+2026-10-09T23:31:13.9909174Z   Downloaded windows_aarch64_msvc v0.52.6
+2026-10-09T23:31:13.9998497Z   Downloaded windows_i686_msvc v0.52.6
+2026-10-09T23:31:14.0090579Z   Downloaded read-fonts v0.39.2
+2026-10-09T23:31:14.0223976Z   Downloaded libc v0.2.190
+2026-10-09T23:31:14.0582365Z   Downloaded hashbrown v0.16.1
+2026-10-09T23:31:14.0621493Z   Downloaded wgpu-hal v29.0.4
+2026-10-09T23:31:14.0702290Z   Downloaded windows_aarch64_msvc v0.53.1
+2026-10-09T23:31:14.0790532Z   Downloaded atspi-common v0.13.0
+2026-10-09T23:31:14.0838335Z   Downloaded windows_i686_gnu v0.52.6
+2026-10-09T23:31:14.0986666Z   Downloaded wgpu-types v29.0.4
+2026-10-09T23:31:14.1016152Z   Downloaded jni v0.22.4
+2026-10-09T23:31:14.1076295Z   Downloaded zvariant v5.15.0
+2026-10-09T23:31:14.1129326Z   Downloaded clipboard-win v5.4.1
+2026-10-09T23:31:14.1142283Z   Downloaded rustc-hash v1.1.0
+2026-10-09T23:31:14.1150429Z   Downloaded accesskit_macos v0.26.3
+2026-10-09T23:31:14.1163103Z   Downloaded zbus-lockstep v0.5.2
+2026-10-09T23:31:14.1171822Z   Downloaded windows_x86_64_gnullvm v0.53.1
+2026-10-09T23:31:14.1255451Z   Downloaded naga v29.0.4
+2026-10-09T23:31:14.1406512Z   Downloaded windows_i686_gnullvm v0.53.1
+2026-10-09T23:31:14.1496248Z   Downloaded windows_x86_64_msvc v0.53.1
+2026-10-09T23:31:14.1582222Z   Downloaded async-lock v3.4.2
+2026-10-09T23:31:14.1600013Z   Downloaded smithay-client-toolkit v0.20.0
+2026-10-09T23:31:14.1650112Z   Downloaded windows_i686_msvc v0.53.1
+2026-10-09T23:31:14.1742236Z   Downloaded ring v0.17.14
+2026-10-09T23:31:14.2048119Z   Downloaded windows_i686_gnu v0.53.1
+2026-10-09T23:31:14.2190344Z   Downloaded orbclient v0.3.55
+2026-10-09T23:31:14.2315573Z   Downloaded windows_x86_64_gnu v0.53.1
+2026-10-09T23:31:14.2454824Z   Downloaded itertools v0.14.0
+2026-10-09T23:31:14.2506328Z   Downloaded accesskit_consumer v0.38.0
+2026-10-09T23:31:14.2519265Z   Downloaded async-executor v1.14.0
+2026-10-09T23:31:14.2533810Z   Downloaded async-signal v0.2.14
+2026-10-09T23:31:14.2544648Z   Downloaded zerovec v0.11.8
+2026-10-09T23:31:14.2588137Z   Downloaded linux-raw-sys v0.12.1
+2026-10-09T23:31:14.3026300Z   Downloaded windows_x86_64_gnu v0.52.6
+2026-10-09T23:31:14.3154600Z   Downloaded windows_x86_64_msvc v0.52.6
+2026-10-09T23:31:14.3235772Z   Downloaded renderdoc-sys v1.1.0
+2026-10-09T23:31:14.3243558Z   Downloaded egui-wgpu v0.35.0
+2026-10-09T23:31:14.3257607Z   Downloaded accesskit_atspi_common v0.18.1
+2026-10-09T23:31:14.3271070Z   Downloaded blocking v1.7.0
+2026-10-09T23:31:14.3280315Z   Downloaded uds_windows v1.2.1
+2026-10-09T23:31:14.3292358Z   Downloaded objc2-ui-kit v0.3.2
+2026-10-09T23:31:14.3555167Z   Downloaded winnow v1.0.4
+2026-10-09T23:31:14.3623890Z   Downloaded objc2-app-kit v0.2.2
+2026-10-09T23:31:14.3790482Z   Downloaded zbus_macros v5.19.0
+2026-10-09T23:31:14.3802330Z   Downloaded icu_normalizer v2.3.0
+2026-10-09T23:31:14.3867823Z   Downloaded icu_properties v2.3.0
+2026-10-09T23:31:14.3890240Z   Downloaded web-sys v0.3.106
+2026-10-09T23:31:14.4710327Z   Downloaded tokio v1.53.2
+2026-10-09T23:31:14.5024427Z   Downloaded type-map v0.5.1
+2026-10-09T23:31:14.5031690Z   Downloaded document-features v0.2.12
+2026-10-09T23:31:14.5041245Z   Downloaded bit-set v0.9.1
+2026-10-09T23:31:14.5052573Z   Downloaded hexf-parse v0.2.1
+2026-10-09T23:31:14.5059647Z   Downloaded zbus_xml v5.2.1
+2026-10-09T23:31:14.5078874Z   Downloaded atspi v0.29.0
+2026-10-09T23:31:14.5087322Z   Downloaded async-broadcast v0.7.2
+2026-10-09T23:31:14.5098423Z   Downloaded async-process v2.5.0
+2026-10-09T23:31:14.5110781Z   Downloaded async-channel v2.5.0
+2026-10-09T23:31:14.5119580Z   Downloaded piper v0.2.5
+2026-10-09T23:31:14.5130990Z   Downloaded windows-sys v0.60.2
+2026-10-09T23:31:14.5598570Z   Downloaded event-listener v5.4.2
+2026-10-09T23:31:14.5613556Z   Downloaded parking v2.2.1
+2026-10-09T23:31:14.5622366Z   Downloaded futures-lite v2.6.1
+2026-10-09T23:31:14.5635384Z   Downloaded tempfile v3.27.0
+2026-10-09T23:31:14.5655546Z   Downloaded accesskit_unix v0.21.1
+2026-10-09T23:31:14.5670951Z   Downloaded windows-numerics v0.3.1
+2026-10-09T23:31:14.5680257Z   Downloaded euclid v0.22.14
+2026-10-09T23:31:14.5704378Z   Downloaded windows-sys v0.61.2
+2026-10-09T23:31:14.6176237Z   Downloaded glutin v0.32.3
+2026-10-09T23:31:14.6204838Z   Downloaded atspi-proxies v0.13.0
+2026-10-09T23:31:14.6221908Z   Downloaded async-recursion v1.2.0
+2026-10-09T23:31:14.6250535Z   Downloaded icu_properties_data v2.3.0
+2026-10-09T23:31:14.6329049Z   Downloaded linux-raw-sys v0.4.15
+2026-10-09T23:31:14.6651917Z   Downloaded color v0.3.3
+2026-10-09T23:31:14.6673052Z   Downloaded windows-core v0.62.2
+2026-10-09T23:31:14.6695174Z   Downloaded error-code v3.4.0
+2026-10-09T23:31:14.6703737Z   Downloaded uuid v1.27.0
+2026-10-09T23:31:14.6729427Z   Downloaded epaint_default_fonts v0.35.0
+2026-10-09T23:31:14.6788428Z   Downloaded windows-sys v0.59.0
+2026-10-09T23:31:14.7242225Z   Downloaded windows-sys v0.52.0
+2026-10-09T23:31:14.7710886Z   Downloaded toml_edit v0.25.17+spec-1.1.0
+2026-10-09T23:31:14.7739236Z   Downloaded objc2-ui-kit v0.2.2
+2026-10-09T23:31:14.7946481Z   Downloaded rustix v0.38.44
+2026-10-09T23:31:14.8132719Z   Downloaded ordered-stream v0.2.0
+2026-10-09T23:31:14.8141062Z   Downloaded endi v1.1.1
+2026-10-09T23:31:14.8149126Z   Downloaded enumflags2_derive v0.7.12
+2026-10-09T23:31:14.8154919Z   Downloaded enumflags2 v0.7.12
+2026-10-09T23:31:14.8164568Z   Downloaded zcheapstr v1.1.0
+2026-10-09T23:31:14.8176433Z   Downloaded zvariant_derive v5.15.0
+2026-10-09T23:31:14.8184620Z   Downloaded zvariant_utils v4.2.0
+2026-10-09T23:31:14.8197869Z   Downloaded accesskit_consumer v0.35.0
+2026-10-09T23:31:14.8209301Z   Downloaded windows-implement v0.60.2
+2026-10-09T23:31:14.8216710Z   Downloaded calloop v0.14.5
+2026-10-09T23:31:14.8241381Z   Downloaded khronos_api v3.1.0
+2026-10-09T23:31:14.8370811Z   Downloaded objc2-app-kit v0.3.2
+2026-10-09T23:31:14.8561827Z   Downloaded indexmap v2.14.2
+2026-10-09T23:31:14.8591811Z   Downloaded pxfm v0.1.30
+2026-10-09T23:31:14.8764819Z   Downloaded windows-interface v0.59.3
+2026-10-09T23:31:14.8771575Z   Downloaded windows-strings v0.5.1
+2026-10-09T23:31:14.8783314Z   Downloaded accesskit_winit v0.32.2
+2026-10-09T23:31:14.8796143Z   Downloaded arboard v3.6.1
+2026-10-09T23:31:14.8815018Z   Downloaded icu_normalizer_data v2.3.0
+2026-10-09T23:31:14.8829908Z   Downloaded icu_collections v2.3.0
+2026-10-09T23:31:14.8874600Z   Downloaded icu_locale_core v2.3.0
+2026-10-09T23:31:14.8924318Z   Downloaded harfrust v0.7.0
+2026-10-09T23:31:14.8983449Z   Downloaded unicode-general-category v1.1.0
+2026-10-09T23:31:14.8994542Z   Downloaded font-types v0.11.3
+2026-10-09T23:31:14.9007432Z   Downloaded glifo v0.1.1
+2026-10-09T23:31:14.9022200Z   Downloaded egui_glow v0.35.0
+2026-10-09T23:31:14.9035687Z   Downloaded slotmap v1.1.1
+2026-10-09T23:31:14.9050817Z   Downloaded semver v1.0.28
+2026-10-09T23:31:14.9067716Z   Downloaded hashbrown v0.17.1
+2026-10-09T23:31:14.9106029Z   Downloaded ndk v0.9.0
+2026-10-09T23:31:14.9128896Z   Downloaded tracing v0.1.44
+2026-10-09T23:31:14.9245758Z   Downloaded winit v0.30.13
+2026-10-09T23:31:14.9403713Z   Downloaded windows_x86_64_gnullvm v0.52.6
+2026-10-09T23:31:14.9469442Z   Downloaded windows-threading v0.2.1
+2026-10-09T23:31:14.9477350Z   Downloaded windows-future v0.3.2
+2026-10-09T23:31:14.9488460Z   Downloaded windows-result v0.4.1
+2026-10-09T23:31:14.9498547Z   Downloaded windows-targets v0.53.5
+2026-10-09T23:31:14.9505409Z   Downloaded wayland-protocols-experimental v20250721.0.1
+2026-10-09T23:31:14.9517946Z   Downloaded wayland-protocols-misc v0.3.12
+2026-10-09T23:31:14.9527240Z   Downloaded smithay-clipboard v0.7.3
+2026-10-09T23:31:14.9539017Z   Downloaded form_urlencoded v1.2.2
+2026-10-09T23:31:14.9544969Z   Downloaded zerotrie v0.2.5
+2026-10-09T23:31:14.9573769Z   Downloaded yoke v0.8.3
+2026-10-09T23:31:14.9586864Z   Downloaded synstructure v0.14.0
+2026-10-09T23:31:14.9594445Z   Downloaded zerofrom-derive v0.1.8
+2026-10-09T23:31:14.9602219Z   Downloaded zerofrom v0.1.8
+2026-10-09T23:31:14.9609144Z   Downloaded zerovec-derive v0.11.6
+2026-10-09T23:31:14.9622135Z   Downloaded idna_adapter v1.2.2
+2026-10-09T23:31:14.9628966Z   Downloaded idna v1.1.0
+2026-10-09T23:31:14.9654333Z   Downloaded url v2.5.8
+2026-10-09T23:31:14.9672968Z   Downloaded fearless_simd v0.4.1
+2026-10-09T23:31:14.9723008Z   Downloaded guillotiere v0.7.0
+2026-10-09T23:31:14.9732313Z   Downloaded nohash-hasher v0.2.0
+2026-10-09T23:31:14.9738930Z   Downloaded memoffset v0.9.1
+2026-10-09T23:31:14.9747982Z   Downloaded profiling v1.0.18
+2026-10-09T23:31:14.9756693Z   Downloaded r-efi v5.3.0
+2026-10-09T23:31:14.9792896Z   Downloaded jni-macros v0.22.4
+2026-10-09T23:31:14.9806287Z   Downloaded ndk-sys v0.6.0+11769913
+2026-10-09T23:31:14.9854771Z   Downloaded x11rb-protocol v0.13.2
+2026-10-09T23:31:14.9943321Z   Downloaded sqlparser v0.63.0
+2026-10-09T23:31:15.0007861Z   Downloaded kurbo v0.13.1
+2026-10-09T23:31:15.0045200Z   Downloaded glutin-winit v0.5.0
+2026-10-09T23:31:15.0052392Z   Downloaded static_assertions v1.1.0
+2026-10-09T23:31:15.0062770Z   Downloaded getrandom v0.3.4
+2026-10-09T23:31:15.0086994Z   Downloaded simdutf8 v0.1.5
+2026-10-09T23:31:15.0103684Z   Downloaded walkdir v2.5.0
+2026-10-09T23:31:15.0116605Z   Downloaded android-activity v0.6.1
+2026-10-09T23:31:15.0175042Z   Downloaded rustix v1.1.5
+2026-10-09T23:31:15.0370378Z   Downloaded vello_common v0.0.9
+2026-10-09T23:31:15.0400187Z   Downloaded vello_cpu v0.0.9
+2026-10-09T23:31:15.0432382Z   Downloaded epaint v0.35.0
+2026-10-09T23:31:15.0464215Z   Downloaded glow v0.17.0
+2026-10-09T23:31:15.0496528Z   Downloaded combine v4.6.8
+2026-10-09T23:31:15.0521562Z   Downloaded tinystr v0.8.4
+2026-10-09T23:31:15.0536351Z   Downloaded egui-winit v0.35.0
+2026-10-09T23:31:15.0549161Z   Downloaded objc2-core-graphics v0.3.2
+2026-10-09T23:31:15.0585994Z   Downloaded rustc_version v0.4.1
+2026-10-09T23:31:15.0595341Z   Downloaded same-file v1.0.6
+2026-10-09T23:31:15.0604982Z   Downloaded winapi-util v0.1.11
+2026-10-09T23:31:15.0615338Z   Downloaded atomic-waker v1.1.2
+2026-10-09T23:31:15.0623901Z   Downloaded cfg_aliases v0.2.2
+2026-10-09T23:31:15.0631180Z   Downloaded core-foundation-sys v0.8.7
+2026-10-09T23:31:15.0653133Z   Downloaded jni-sys v0.4.1
+2026-10-09T23:31:15.0660571Z   Downloaded objc2-metal v0.2.2
+2026-10-09T23:31:15.0700981Z   Downloaded objc2 v0.5.3
+2026-10-09T23:31:15.0751743Z   Downloaded objc2-foundation v0.2.2
+2026-10-09T23:31:15.0875452Z   Downloaded x11rb v0.13.2
+2026-10-09T23:31:15.0933800Z   Downloaded image v0.25.10
+2026-10-09T23:31:15.0998394Z   Downloaded zerocopy v0.8.62
+2026-10-09T23:31:15.1190801Z   Downloaded windows_aarch64_gnullvm v0.52.6
+2026-10-09T23:31:15.1244786Z   Downloaded windows_i686_gnullvm v0.52.6
+2026-10-09T23:31:15.1302361Z   Downloaded rustls v0.23.45
+2026-10-09T23:31:15.1389432Z   Downloaded displaydoc v0.2.7
+2026-10-09T23:31:15.1405079Z   Downloaded webbrowser v1.2.4
+2026-10-09T23:31:15.1436345Z   Downloaded accesskit v0.24.1
+2026-10-09T23:31:15.1445568Z   Downloaded foreign-types-shared v0.3.1
+2026-10-09T23:31:15.1451074Z   Downloaded core-graphics v0.23.2
+2026-10-09T23:31:15.1466587Z   Downloaded dpi v0.1.2
+2026-10-09T23:31:15.1474441Z   Downloaded toml_datetime v1.1.2+spec-1.1.0
+2026-10-09T23:31:15.1483855Z   Downloaded emath v0.35.0
+2026-10-09T23:31:15.1499293Z   Downloaded self_cell v1.3.0
+2026-10-09T23:31:15.1507138Z   Downloaded arrayvec v0.7.8
+2026-10-09T23:31:15.1522374Z   Downloaded polycool v0.4.0
+2026-10-09T23:31:15.1534266Z   Downloaded peniko v0.6.1
+2026-10-09T23:31:15.1544403Z   Downloaded xml-rs v0.8.29
+2026-10-09T23:31:15.1565653Z   Downloaded foreign-types v0.5.0
+2026-10-09T23:31:15.1572314Z   Downloaded foldhash v0.2.0
+2026-10-09T23:31:15.1581509Z   Downloaded toml_parser v1.1.5+spec-1.1.0
+2026-10-09T23:31:15.1597863Z   Downloaded num_enum_derive v0.7.6
+2026-10-09T23:31:15.1607980Z   Downloaded num_enum v0.7.6
+2026-10-09T23:31:15.1650524Z   Downloaded objc2-cloud-kit v0.2.2
+2026-10-09T23:31:15.1680725Z   Downloaded quick-xml v0.41.0
+2026-10-09T23:31:15.1723311Z   Downloaded zlib-rs v0.6.8
+2026-10-09T23:31:15.1762630Z   Downloaded libm v0.2.16
+2026-10-09T23:31:15.1842896Z   Downloaded yoke-derive v0.8.4
+2026-10-09T23:31:15.1851206Z   Downloaded either v1.19.0
+2026-10-09T23:31:15.1861945Z   Downloaded gl_generator v0.14.0
+2026-10-09T23:31:15.1874138Z   Downloaded proc-macro-crate v3.5.0
+2026-10-09T23:31:15.1883689Z   Downloaded objc2 v0.6.5
+2026-10-09T23:31:15.1957680Z   Downloaded objc2-io-surface v0.3.2
+2026-10-09T23:31:15.1968429Z   Downloaded block2 v0.6.2
+2026-10-09T23:31:15.1980253Z   Downloaded ahash v0.8.12
+2026-10-09T23:31:15.1997085Z   Downloaded jni-sys-macros v0.4.1
+2026-10-09T23:31:15.2002266Z   Downloaded objc2-core-image v0.2.2
+2026-10-09T23:31:15.2020035Z   Downloaded objc2-quartz-core v0.2.2
+2026-10-09T23:31:15.2040605Z   Downloaded objc-sys v0.3.5
+2026-10-09T23:31:15.2054848Z   Downloaded pin-project-internal v1.1.13
+2026-10-09T23:31:15.2066049Z   Downloaded smithay-client-toolkit v0.19.2
+2026-10-09T23:31:15.2111886Z   Downloaded wayland-protocols v0.32.13
+2026-10-09T23:31:15.2175146Z   Downloaded eframe v0.35.0
+2026-10-09T23:31:15.2205492Z   Downloaded moxcms v0.8.1
+2026-10-09T23:31:15.2281642Z   Downloaded png v0.18.1
+2026-10-09T23:31:15.2310251Z   Downloaded zerocopy-derive v0.8.62
+2026-10-09T23:31:15.2401680Z   Downloaded rsasl v2.3.1
+2026-10-09T23:31:15.2444086Z   Downloaded serde_json v1.0.151
+2026-10-09T23:31:15.2496868Z   Downloaded futures-util v0.3.34
+2026-10-09T23:31:15.2593509Z   Downloaded syn v3.0.6
+2026-10-09T23:31:15.2672354Z   Downloaded block2 v0.5.1
+2026-10-09T23:31:15.2682386Z   Downloaded calloop v0.13.0
+2026-10-09T23:31:15.2705988Z   Downloaded core-foundation v0.9.4
+2026-10-09T23:31:15.2722163Z   Downloaded core-graphics-types v0.1.3
+2026-10-09T23:31:15.2728582Z   Downloaded equivalent v1.0.2
+2026-10-09T23:31:15.2735912Z   Downloaded xkeysym v0.2.1
+2026-10-09T23:31:15.2755597Z   Downloaded tiff v0.11.3
+2026-10-09T23:31:15.2786976Z   Downloaded objc2-core-data v0.2.2
+2026-10-09T23:31:15.2819398Z   Downloaded dispatch v0.2.0
+2026-10-09T23:31:15.2827995Z   Downloaded thiserror-impl v1.0.69
+2026-10-09T23:31:15.2837751Z   Downloaded unicode-segmentation v1.13.3
+2026-10-09T23:31:15.2859002Z   Downloaded wayland-protocols-plasma v0.3.12
+2026-10-09T23:31:15.2892571Z   Downloaded x11-dl v2.21.0
+2026-10-09T23:31:15.2915407Z   Downloaded miniz_oxide v0.8.9
+2026-10-09T23:31:15.2933988Z   Downloaded miniz_oxide v0.9.1
+2026-10-09T23:31:15.2952181Z   Downloaded half v2.7.1
+2026-10-09T23:31:15.2971701Z   Downloaded zune-jpeg v0.5.15
+2026-10-09T23:31:15.2997775Z   Downloaded rand v0.8.8
+2026-10-09T23:31:15.3021280Z   Downloaded serde v1.0.229
+2026-10-09T23:31:15.3047567Z   Downloaded base64 v0.22.1
+2026-10-09T23:31:15.3075499Z   Downloaded tokio-util v0.7.20
+2026-10-09T23:31:15.3134049Z   Downloaded objc2-core-foundation v0.3.2
+2026-10-09T23:31:15.3185903Z   Downloaded tokio-postgres v0.7.18
+2026-10-09T23:31:15.3224562Z   Downloaded objc2-core-location v0.2.2
+2026-10-09T23:31:15.3243126Z   Downloaded objc2-user-notifications v0.2.2
+2026-10-09T23:31:15.3256714Z   Downloaded crossbeam-utils v0.8.23
+2026-10-09T23:31:15.3277147Z   Downloaded polling v3.11.0
+2026-10-09T23:31:15.3299608Z   Downloaded memmap2 v0.9.11
+2026-10-09T23:31:15.3312835Z   Downloaded tracing-core v0.1.36
+2026-10-09T23:31:15.3334622Z   Downloaded typenum v1.20.1
+2026-10-09T23:31:15.3360542Z   Downloaded concurrent-queue v2.5.0
+2026-10-09T23:31:15.3373241Z   Downloaded bytemuck v1.25.2
+2026-10-09T23:31:15.3396725Z   Downloaded flate2 v1.1.10
+2026-10-09T23:31:15.3433088Z   Downloaded num-traits v0.2.19
+2026-10-09T23:31:15.3452255Z   Downloaded zune-core v0.5.3
+2026-10-09T23:31:15.3469082Z   Downloaded calloop-wayland-source v0.3.0
+2026-10-09T23:31:15.3478160Z   Downloaded serde_derive v1.0.229
+2026-10-09T23:31:15.3500576Z   Downloaded byteorder v1.5.0
+2026-10-09T23:31:15.3512271Z   Downloaded redox_syscall v0.4.1
+2026-10-09T23:31:15.3530317Z   Downloaded thiserror v1.0.69
+2026-10-09T23:31:15.3571939Z   Downloaded cursor-icon v1.2.0
+2026-10-09T23:31:15.3581318Z   Downloaded crc32fast v1.5.2
+2026-10-09T23:31:15.3597196Z   Downloaded hmac v0.12.1
+2026-10-09T23:31:15.3611441Z   Downloaded pbkdf2 v0.12.2
+2026-10-09T23:31:15.3621118Z   Downloaded rustls-pemfile v2.2.0
+2026-10-09T23:31:15.3639002Z   Downloaded parking_lot v0.12.5
+2026-10-09T23:31:15.3657559Z   Downloaded memchr v2.8.3
+2026-10-09T23:31:15.3698124Z   Downloaded unicode-normalization v0.1.25
+2026-10-09T23:31:15.3723199Z   Downloaded windows v0.62.2
+2026-10-09T23:31:15.8494481Z   Downloaded rand v0.10.3
+2026-10-09T23:31:15.8522322Z   Downloaded wasm-bindgen-macro-support v0.2.129
+2026-10-09T23:31:15.8540458Z   Downloaded cc v1.6.0
+2026-10-09T23:31:15.8565454Z   Downloaded objc2-link-presentation v0.2.2
+2026-10-09T23:31:15.8574297Z   Downloaded objc2-symbols v0.2.2
+2026-10-09T23:31:15.8580944Z   Downloaded bitflags v1.3.2
+2026-10-09T23:31:15.8605319Z   Downloaded wayland-csd-frame v0.3.0
+2026-10-09T23:31:15.8612686Z   Downloaded portable-atomic v1.15.0
+2026-10-09T23:31:15.8665763Z   Downloaded xcursor v0.3.11
+2026-10-09T23:31:15.8671539Z   Downloaded wayland-backend v0.3.17
+2026-10-09T23:31:15.8700616Z   Downloaded wayland-scanner v0.31.11
+2026-10-09T23:31:15.8715730Z   Downloaded web-time v1.1.0
+2026-10-09T23:31:15.8727449Z   Downloaded pkg-config v0.3.34
+2026-10-09T23:31:15.8738329Z   Downloaded libloading v0.8.9
+2026-10-09T23:31:15.8754854Z   Downloaded xkbcommon-dl v0.4.2
+2026-10-09T23:31:15.8762866Z   Downloaded byteorder-lite v0.1.0
+2026-10-09T23:31:15.8770031Z   Downloaded autocfg v1.5.1
+2026-10-09T23:31:15.8783241Z   Downloaded rand_core v0.6.4
+2026-10-09T23:31:15.8792708Z   Downloaded wasip2 v1.0.4+wasi-0.2.12
+2026-10-09T23:31:15.8822773Z   Downloaded x509-cert v0.2.5
+2026-10-09T23:31:15.8870327Z   Downloaded rustls-webpki v0.103.15
+2026-10-09T23:31:15.8891735Z   Downloaded bytes v1.12.1
+2026-10-09T23:31:15.8917093Z   Downloaded tracing-attributes v0.1.31
+2026-10-09T23:31:15.8936045Z   Downloaded wayland-client v0.31.15
+2026-10-09T23:31:15.8950376Z   Downloaded bytemuck_derive v1.12.1
+2026-10-09T23:31:15.8959836Z   Downloaded quick-error v2.0.1
+2026-10-09T23:31:15.8968817Z   Downloaded weezl v0.1.12
+2026-10-09T23:31:15.8986266Z   Downloaded rtoolbox v0.0.6
+2026-10-09T23:31:15.8997118Z   Downloaded rpassword v7.5.4
+2026-10-09T23:31:15.9014446Z   Downloaded ppv-lite86 v0.2.21
+2026-10-09T23:31:15.9023657Z   Downloaded thiserror-impl v2.0.21
+2026-10-09T23:31:15.9033640Z   Downloaded version_check v0.9.5
+2026-10-09T23:31:15.9042319Z   Downloaded futures-channel v0.3.34
+2026-10-09T23:31:15.9055726Z   Downloaded bitflags v2.13.2
+2026-10-09T23:31:15.9087993Z   Downloaded js-sys v0.3.106
+2026-10-09T23:31:15.9109741Z   Downloaded wasm-bindgen v0.2.129
+2026-10-09T23:31:15.9129148Z   Downloaded fdeflate v0.3.7
+2026-10-09T23:31:15.9140927Z   Downloaded adler2 v2.0.1
+2026-10-09T23:31:15.9149558Z   Downloaded simd-adler32 v0.3.10
+2026-10-09T23:31:15.9162868Z   Downloaded crunchy v0.2.4
+2026-10-09T23:31:15.9168683Z   Downloaded thiserror v2.0.21
+2026-10-09T23:31:15.9216001Z   Downloaded block-buffer v0.10.4
+2026-10-09T23:31:15.9223449Z   Downloaded smallvec v1.16.2
+2026-10-09T23:31:15.9232773Z   Downloaded base64ct v1.8.3
+2026-10-09T23:31:15.9251116Z   Downloaded itoa v1.0.18
+2026-10-09T23:31:15.9261275Z   Downloaded zmij v1.0.23
+2026-10-09T23:31:15.9273992Z   Downloaded lock_api v0.4.14
+2026-10-09T23:31:15.9282948Z   Downloaded phf_macros v0.13.1
+2026-10-09T23:31:15.9289994Z   Downloaded der v0.7.10
+2026-10-09T23:31:15.9328983Z   Downloaded getrandom v0.4.3
+2026-10-09T23:31:15.9356592Z   Downloaded socket2 v0.6.5
+2026-10-09T23:31:15.9369554Z   Downloaded syn v2.0.119
+2026-10-09T23:31:15.9445682Z   Downloaded fax v0.2.7
+2026-10-09T23:31:15.9460028Z   Downloaded cpufeatures v0.2.17
+2026-10-09T23:31:15.9469777Z   Downloaded generic-array v0.14.7
+2026-10-09T23:31:15.9479776Z   Downloaded unicode-bidi v0.3.18
+2026-10-09T23:31:15.9496979Z   Downloaded postgres-types v0.2.14
+2026-10-09T23:31:15.9516063Z   Downloaded cpufeatures v0.3.1
+2026-10-09T23:31:15.9526307Z   Downloaded dispatch2 v0.3.1
+2026-10-09T23:31:15.9543942Z   Downloaded futures-task v0.3.34
+2026-10-09T23:31:15.9552298Z   Downloaded bumpalo v3.20.3
+2026-10-09T23:31:15.9570840Z   Downloaded mio v1.2.4
+2026-10-09T23:31:15.9614922Z   Downloaded unicode-properties v0.1.4
+2026-10-09T23:31:15.9629000Z   Downloaded errno v0.3.14
+2026-10-09T23:31:15.9639834Z   Downloaded sha2 v0.10.9
+2026-10-09T23:31:15.9658248Z   Downloaded log v0.4.34
+2026-10-09T23:31:15.9675961Z   Downloaded sha2 v0.11.0
+2026-10-09T23:31:15.9702840Z   Downloaded const-oid v0.9.6
+2026-10-09T23:31:15.9716121Z   Downloaded find-msvc-tools v0.1.14
+2026-10-09T23:31:15.9727838Z   Downloaded downcast-rs v1.2.1
+2026-10-09T23:31:15.9737128Z   Downloaded wayland-sys v0.31.11
+2026-10-09T23:31:15.9745722Z   Downloaded crypto-common v0.1.7
+2026-10-09T23:31:15.9752156Z   Downloaded parking_lot_core v0.9.12
+2026-10-09T23:31:15.9766988Z   Downloaded hmac v0.13.0
+2026-10-09T23:31:15.9781879Z   Downloaded ctutils v0.4.3
+2026-10-09T23:31:15.9795915Z   Downloaded stringprep v0.1.5
+2026-10-09T23:31:15.9806406Z   Downloaded redox_syscall v0.9.4
+2026-10-09T23:31:15.9820531Z   Downloaded objc2-encode v4.1.0
+2026-10-09T23:31:15.9829113Z   Downloaded whoami v2.1.3
+2026-10-09T23:31:15.9844113Z   Downloaded tls_codec_derive v0.4.2
+2026-10-09T23:31:15.9856444Z   Downloaded shlex v2.0.1
+2026-10-09T23:31:15.9865717Z   Downloaded windows-targets v0.52.6
+2026-10-09T23:31:15.9871570Z   Downloaded signal-hook-registry v1.4.8
+2026-10-09T23:31:15.9879942Z   Downloaded r-efi v6.0.0
+2026-10-09T23:31:15.9915821Z   Downloaded futures-core v0.3.34
+2026-10-09T23:31:15.9925463Z   Downloaded futures-sink v0.3.34
+2026-10-09T23:31:15.9931260Z   Downloaded redox_syscall v0.5.18
+2026-10-09T23:31:15.9949480Z   Downloaded phf v0.13.1
+2026-10-09T23:31:15.9958165Z   Downloaded hybrid-array v0.4.15
+2026-10-09T23:31:15.9975593Z   Downloaded wasi v0.14.7+wasi-0.2.4
+2026-10-09T23:31:15.9990649Z   Downloaded wasite v1.0.2
+2026-10-09T23:31:15.9995774Z   Downloaded wasi v0.11.1+wasi-snapshot-preview1
+2026-10-09T23:31:16.0007360Z   Downloaded async-trait v0.1.92
+2026-10-09T23:31:16.0037236Z   Downloaded fastrand v2.5.0
+2026-10-09T23:31:16.0047188Z   Downloaded tls_codec v0.4.2
+2026-10-09T23:31:16.0059990Z   Downloaded cfg-if v1.0.5
+2026-10-09T23:31:16.0069245Z   Downloaded wit-bindgen v0.57.1
+2026-10-09T23:31:16.0095208Z   Downloaded futures-macro v0.3.34
+2026-10-09T23:31:16.0102785Z   Downloaded untrusted v0.9.0
+2026-10-09T23:31:16.0114686Z   Downloaded phf_shared v0.13.1
+2026-10-09T23:31:16.0121165Z   Downloaded objc2-system-configuration v0.3.2
+2026-10-09T23:31:16.0138064Z   Downloaded md-5 v0.11.0
+2026-10-09T23:31:16.0149752Z   Downloaded chacha20 v0.10.2
+2026-10-09T23:31:16.0166587Z   Downloaded once_cell v1.21.4
+2026-10-09T23:31:16.0184493Z   Downloaded jobserver v0.1.35
+2026-10-09T23:31:16.0197757Z   Downloaded postgres-protocol v0.6.12
+2026-10-09T23:31:16.0212316Z   Downloaded pin-project-lite v0.2.17
+2026-10-09T23:31:16.0254559Z   Downloaded wasm-bindgen-shared v0.2.129
+2026-10-09T23:31:16.3219079Z ##[group]Run sudo apt-get update
+2026-10-09T23:31:16.3219286Z [36;1msudo apt-get update[0m
+2026-10-09T23:31:16.3219668Z [36;1msudo apt-get install -y libxkbcommon-dev libxkbcommon-x11-dev libegl1-mesa-dev libwayland-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev xvfb xauth[0m
+2026-10-09T23:31:16.3271189Z shell: /usr/bin/bash -e {0}
+2026-10-09T23:31:16.3271339Z ##[endgroup]
+2026-10-09T23:31:16.4031710Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-09T23:31:16.4442998Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+2026-10-09T23:31:16.4638187Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-10-09T23:31:16.4648590Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-10-09T23:31:16.4743086Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-10-09T23:31:16.4753065Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-10-09T23:31:16.5608946Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1375 kB]
+2026-10-09T23:31:16.5803504Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [306 kB]
+2026-10-09T23:31:16.6053206Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1702 kB]
+2026-10-09T23:31:16.6053966Z Get:15 https://packages.microsoft.com/ubuntu/24.04/prod noble/main armhf Packages [12.3 kB]
+2026-10-09T23:31:16.6157914Z Get:16 https://packages.microsoft.com/ubuntu/24.04/prod noble/main all Packages [640 B]
+2026-10-09T23:31:16.6232886Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [342 kB]
+2026-10-09T23:31:16.6247348Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1761 kB]
+2026-10-09T23:31:16.6370701Z Get:17 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [492 kB]
+2026-10-09T23:31:16.6440744Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [401 kB]
+2026-10-09T23:31:16.6537728Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [55.0 kB]
+2026-10-09T23:31:16.6545376Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [14.3 kB]
+2026-10-09T23:31:16.6566145Z Get:18 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [548 kB]
+2026-10-09T23:31:16.6832594Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1121 kB]
+2026-10-09T23:31:16.6929742Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [228 kB]
+2026-10-09T23:31:16.7390483Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1220 kB]
+2026-10-09T23:31:16.8433054Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [245 kB]
+2026-10-09T23:31:16.8640696Z Get:23 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1669 kB]
+2026-10-09T23:31:16.9124057Z Get:24 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [383 kB]
+2026-10-09T23:31:16.9626739Z Get:25 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [49.8 kB]
+2026-10-09T23:31:16.9636415Z Get:26 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse Translation-en [12.4 kB]
+2026-10-09T23:31:22.2179067Z Fetched 12.3 MB in 1s (12.4 MB/s)
+2026-10-09T23:31:22.7601493Z Reading package lists...
+2026-10-09T23:31:22.7834223Z Reading package lists...
+2026-10-09T23:31:22.9366041Z Building dependency tree...
+2026-10-09T23:31:22.9371339Z Reading state information...
+2026-10-09T23:31:23.0497931Z xvfb is already the newest version (2:21.1.12-1ubuntu1.8).
+2026-10-09T23:31:23.0498209Z xauth is already the newest version (1:1.1.2-1build1).
+2026-10-09T23:31:23.0498415Z xauth set to manually installed.
+2026-10-09T23:31:23.0498587Z The following additional packages will be installed:
+2026-10-09T23:31:23.0499338Z   libegl-dev libegl-mesa0 libegl1 libgl-dev libgles-dev libgles1 libgles2
+2026-10-09T23:31:23.0499994Z   libglvnd-core-dev libglvnd-dev libglx-dev libopengl-dev libopengl0
+2026-10-09T23:31:23.0502660Z   libpthread-stubs0-dev libwayland-bin libwayland-server0 libxau-dev
+2026-10-09T23:31:23.0503044Z   libxcb-xkb-dev libxcb-xkb1 libxcb1-dev libxdmcp-dev libxext-dev
+2026-10-09T23:31:23.0503406Z   libxfixes-dev libxkbcommon-x11-0 libxrender-dev x11proto-dev
+2026-10-09T23:31:23.0503703Z   xorg-sgml-doctools xtrans-dev
+2026-10-09T23:31:23.0508108Z Suggested packages:
+2026-10-09T23:31:23.0508322Z   libwayland-doc libx11-doc libxcb-doc libxext-doc
+2026-10-09T23:31:23.0673519Z The following NEW packages will be installed:
+2026-10-09T23:31:23.0673932Z   libegl-dev libegl-mesa0 libegl1 libegl1-mesa-dev libgl-dev libgles-dev
+2026-10-09T23:31:23.0674375Z   libgles1 libgles2 libglvnd-core-dev libglvnd-dev libglx-dev libopengl-dev
+2026-10-09T23:31:23.0674796Z   libopengl0 libpthread-stubs0-dev libwayland-bin libwayland-dev
+2026-10-09T23:31:23.0675174Z   libwayland-server0 libx11-dev libxau-dev libxcb-xkb-dev libxcb-xkb1
+2026-10-09T23:31:23.0675473Z   libxcb1-dev libxcursor-dev libxdmcp-dev libxext-dev libxfixes-dev libxi-dev
+2026-10-09T23:31:23.0675932Z   libxkbcommon-dev libxkbcommon-x11-0 libxkbcommon-x11-dev libxrandr-dev
+2026-10-09T23:31:23.0676313Z   libxrender-dev x11proto-dev xorg-sgml-doctools xtrans-dev
+2026-10-09T23:31:23.0812982Z 0 upgraded, 35 newly installed, 0 to remove and 23 not upgraded.
+2026-10-09T23:31:23.0813340Z Need to get 2632 kB of archives.
+2026-10-09T23:31:23.0813587Z After this operation, 12.1 MB of additional disk space will be used.
+2026-10-09T23:31:23.0813816Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-09T23:31:23.2143759Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libegl-mesa0 amd64 25.2.8-0ubuntu0.24.04.4 [117 kB]
+2026-10-09T23:31:23.8462530Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libegl1 amd64 1.7.0-1build1 [28.7 kB]
+2026-10-09T23:31:24.1560524Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xorg-sgml-doctools all 1:1.11-1.1 [10.9 kB]
+2026-10-09T23:31:24.3330886Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 x11proto-dev all 2023.2-1 [602 kB]
+2026-10-09T23:31:27.1818294Z Get:6 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxau-dev amd64 1:1.0.9-1build6 [9570 B]
+2026-10-09T23:31:27.4027652Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxdmcp-dev amd64 1:1.1.3-0ubuntu6 [26.5 kB]
+2026-10-09T23:31:27.6209958Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xtrans-dev all 1.4.0-1 [68.9 kB]
+2026-10-09T23:31:28.0687182Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libpthread-stubs0-dev amd64 0.4-1build3 [4746 B]
+2026-10-09T23:31:28.2079123Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxcb1-dev amd64 1.15-1ubuntu2 [85.8 kB]
+2026-10-09T23:31:28.6800887Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libx11-dev amd64 2:1.8.7-1build1 [732 kB]
+2026-10-09T23:31:31.9759078Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libglx-dev amd64 1.7.0-1build1 [14.2 kB]
+2026-10-09T23:31:32.1606494Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libgl-dev amd64 1.7.0-1build1 [102 kB]
+2026-10-09T23:31:32.7398356Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libegl-dev amd64 1.7.0-1build1 [18.2 kB]
+2026-10-09T23:31:32.9352299Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libglvnd-core-dev amd64 1.7.0-1build1 [13.6 kB]
+2026-10-09T23:31:33.1199212Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libgles1 amd64 1.7.0-1build1 [11.6 kB]
+2026-10-09T23:31:33.2895207Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libgles2 amd64 1.7.0-1build1 [17.1 kB]
+2026-10-09T23:31:33.4813283Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libgles-dev amd64 1.7.0-1build1 [50.5 kB]
+2026-10-09T23:31:33.8103680Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libopengl0 amd64 1.7.0-1build1 [32.8 kB]
+2026-10-09T23:31:34.0923977Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libopengl-dev amd64 1.7.0-1build1 [3454 B]
+2026-10-09T23:31:34.2281096Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libglvnd-dev amd64 1.7.0-1build1 [3198 B]
+2026-10-09T23:31:34.3740559Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libegl1-mesa-dev amd64 25.2.8-0ubuntu0.24.04.4 [26.8 kB]
+2026-10-09T23:31:34.6442381Z Get:23 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libwayland-server0 amd64 1.22.0-2.1build1 [33.9 kB]
+2026-10-09T23:31:34.9285578Z Get:24 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxcb-xkb1 amd64 1.15-1ubuntu2 [32.3 kB]
+2026-10-09T23:31:35.1842206Z Get:25 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxcb-xkb-dev amd64 1.15-1ubuntu2 [42.5 kB]
+2026-10-09T23:31:35.4853565Z Get:26 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxrender-dev amd64 1:0.9.10-1.1build1 [26.3 kB]
+2026-10-09T23:31:35.7176481Z Get:27 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxfixes-dev amd64 1:6.0.0-2build1 [12.1 kB]
+2026-10-09T23:31:35.8712581Z Get:28 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxcursor-dev amd64 1:1.2.1-1build1 [31.8 kB]
+2026-10-09T23:31:36.1140832Z Get:29 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxext-dev amd64 2:1.3.4-1build2 [83.5 kB]
+2026-10-09T23:31:36.5609909Z Get:30 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxi-dev amd64 2:1.8.1-1build1 [194 kB]
+2026-10-09T23:31:37.5043192Z Get:31 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxkbcommon-dev amd64 1.6.0-1build1 [56.3 kB]
+2026-10-09T23:31:37.8658862Z Get:32 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxkbcommon-x11-0 amd64 1.6.0-1build1 [14.5 kB]
+2026-10-09T23:31:38.0484631Z Get:33 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxrandr-dev amd64 2:1.5.2-2build1 [26.4 kB]
+2026-10-09T23:31:38.2865187Z Get:34 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libwayland-bin amd64 1.22.0-2.1build1 [20.6 kB]
+2026-10-09T23:31:38.4916359Z Get:35 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libwayland-dev amd64 1.22.0-2.1build1 [71.3 kB]
+2026-10-09T23:31:38.9188691Z Get:36 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxkbcommon-x11-dev amd64 1.6.0-1build1 [5586 B]
+2026-10-09T23:31:39.1646604Z Fetched 2632 kB in 16s (166 kB/s)
+2026-10-09T23:31:39.1871943Z Selecting previously unselected package libegl-mesa0:amd64.
+2026-10-09T23:31:39.2123802Z (Reading database ... 
+2026-10-09T23:31:39.2124062Z (Reading database ... 5%
+2026-10-09T23:31:39.2124213Z (Reading database ... 10%
+2026-10-09T23:31:39.2124352Z (Reading database ... 15%
+2026-10-09T23:31:39.2124918Z (Reading database ... 20%
+2026-10-09T23:31:39.2125059Z (Reading database ... 25%
+2026-10-09T23:31:39.2125465Z (Reading database ... 30%
+2026-10-09T23:31:39.2125593Z (Reading database ... 35%
+2026-10-09T23:31:39.2125735Z (Reading database ... 40%
+2026-10-09T23:31:39.2125862Z (Reading database ... 45%
+2026-10-09T23:31:39.2125997Z (Reading database ... 50%
+2026-10-09T23:31:39.2168578Z (Reading database ... 55%
+2026-10-09T23:31:39.2833357Z (Reading database ... 60%
+2026-10-09T23:31:39.4902133Z (Reading database ... 65%
+2026-10-09T23:31:39.6918292Z (Reading database ... 70%
+2026-10-09T23:31:39.8716517Z (Reading database ... 75%
+2026-10-09T23:31:39.9923941Z (Reading database ... 80%
+2026-10-09T23:31:40.1299923Z (Reading database ... 85%
+2026-10-09T23:31:40.2858345Z (Reading database ... 90%
+2026-10-09T23:31:40.4233960Z (Reading database ... 95%
+2026-10-09T23:31:40.4234297Z (Reading database ... 100%
+2026-10-09T23:31:40.4234609Z (Reading database ... 203191 files and directories currently installed.)
+2026-10-09T23:31:40.4272650Z Preparing to unpack .../00-libegl-mesa0_25.2.8-0ubuntu0.24.04.4_amd64.deb ...
+2026-10-09T23:31:40.4297831Z Unpacking libegl-mesa0:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+2026-10-09T23:31:40.4496620Z Selecting previously unselected package libegl1:amd64.
+2026-10-09T23:31:40.4594096Z Preparing to unpack .../01-libegl1_1.7.0-1build1_amd64.deb ...
+2026-10-09T23:31:40.4600278Z Unpacking libegl1:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:40.4764528Z Selecting previously unselected package xorg-sgml-doctools.
+2026-10-09T23:31:40.4861665Z Preparing to unpack .../02-xorg-sgml-doctools_1%3a1.11-1.1_all.deb ...
+2026-10-09T23:31:40.4867832Z Unpacking xorg-sgml-doctools (1:1.11-1.1) ...
+2026-10-09T23:31:40.5070319Z Selecting previously unselected package x11proto-dev.
+2026-10-09T23:31:40.5171200Z Preparing to unpack .../03-x11proto-dev_2023.2-1_all.deb ...
+2026-10-09T23:31:40.5177163Z Unpacking x11proto-dev (2023.2-1) ...
+2026-10-09T23:31:40.5553993Z Selecting previously unselected package libxau-dev:amd64.
+2026-10-09T23:31:40.5651383Z Preparing to unpack .../04-libxau-dev_1%3a1.0.9-1build6_amd64.deb ...
+2026-10-09T23:31:40.5656808Z Unpacking libxau-dev:amd64 (1:1.0.9-1build6) ...
+2026-10-09T23:31:40.5872424Z Selecting previously unselected package libxdmcp-dev:amd64.
+2026-10-09T23:31:40.5968594Z Preparing to unpack .../05-libxdmcp-dev_1%3a1.1.3-0ubuntu6_amd64.deb ...
+2026-10-09T23:31:40.5974096Z Unpacking libxdmcp-dev:amd64 (1:1.1.3-0ubuntu6) ...
+2026-10-09T23:31:40.6246004Z Selecting previously unselected package xtrans-dev.
+2026-10-09T23:31:40.6340748Z Preparing to unpack .../06-xtrans-dev_1.4.0-1_all.deb ...
+2026-10-09T23:31:40.6347087Z Unpacking xtrans-dev (1.4.0-1) ...
+2026-10-09T23:31:40.6539968Z Selecting previously unselected package libpthread-stubs0-dev:amd64.
+2026-10-09T23:31:40.6634852Z Preparing to unpack .../07-libpthread-stubs0-dev_0.4-1build3_amd64.deb ...
+2026-10-09T23:31:40.6640885Z Unpacking libpthread-stubs0-dev:amd64 (0.4-1build3) ...
+2026-10-09T23:31:40.6798100Z Selecting previously unselected package libxcb1-dev:amd64.
+2026-10-09T23:31:40.6894964Z Preparing to unpack .../08-libxcb1-dev_1.15-1ubuntu2_amd64.deb ...
+2026-10-09T23:31:40.6901177Z Unpacking libxcb1-dev:amd64 (1.15-1ubuntu2) ...
+2026-10-09T23:31:40.7620405Z Selecting previously unselected package libx11-dev:amd64.
+2026-10-09T23:31:40.7717389Z Preparing to unpack .../09-libx11-dev_2%3a1.8.7-1build1_amd64.deb ...
+2026-10-09T23:31:40.7773200Z Unpacking libx11-dev:amd64 (2:1.8.7-1build1) ...
+2026-10-09T23:31:40.8729047Z Selecting previously unselected package libglx-dev:amd64.
+2026-10-09T23:31:40.8826229Z Preparing to unpack .../10-libglx-dev_1.7.0-1build1_amd64.deb ...
+2026-10-09T23:31:40.8832689Z Unpacking libglx-dev:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:40.9227046Z Selecting previously unselected package libgl-dev:amd64.
+2026-10-09T23:31:40.9323369Z Preparing to unpack .../11-libgl-dev_1.7.0-1build1_amd64.deb ...
+2026-10-09T23:31:40.9329567Z Unpacking libgl-dev:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:40.9878594Z Selecting previously unselected package libegl-dev:amd64.
+2026-10-09T23:31:40.9975335Z Preparing to unpack .../12-libegl-dev_1.7.0-1build1_amd64.deb ...
+2026-10-09T23:31:41.0024921Z Unpacking libegl-dev:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:41.0642130Z Selecting previously unselected package libglvnd-core-dev:amd64.
+2026-10-09T23:31:41.0739607Z Preparing to unpack .../13-libglvnd-core-dev_1.7.0-1build1_amd64.deb ...
+2026-10-09T23:31:41.0745132Z Unpacking libglvnd-core-dev:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:41.1116315Z Selecting previously unselected package libgles1:amd64.
+2026-10-09T23:31:41.1212388Z Preparing to unpack .../14-libgles1_1.7.0-1build1_amd64.deb ...
+2026-10-09T23:31:41.1218649Z Unpacking libgles1:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:41.1396015Z Selecting previously unselected package libgles2:amd64.
+2026-10-09T23:31:41.1490901Z Preparing to unpack .../15-libgles2_1.7.0-1build1_amd64.deb ...
+2026-10-09T23:31:41.1497151Z Unpacking libgles2:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:41.1662407Z Selecting previously unselected package libgles-dev:amd64.
+2026-10-09T23:31:41.1780164Z Preparing to unpack .../16-libgles-dev_1.7.0-1build1_amd64.deb ...
+2026-10-09T23:31:41.1791584Z Unpacking libgles-dev:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:41.2102373Z Selecting previously unselected package libopengl0:amd64.
+2026-10-09T23:31:41.2200940Z Preparing to unpack .../17-libopengl0_1.7.0-1build1_amd64.deb ...
+2026-10-09T23:31:41.2207950Z Unpacking libopengl0:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:41.2383669Z Selecting previously unselected package libopengl-dev:amd64.
+2026-10-09T23:31:41.2480636Z Preparing to unpack .../18-libopengl-dev_1.7.0-1build1_amd64.deb ...
+2026-10-09T23:31:41.2487990Z Unpacking libopengl-dev:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:41.2661447Z Selecting previously unselected package libglvnd-dev:amd64.
+2026-10-09T23:31:41.2759832Z Preparing to unpack .../19-libglvnd-dev_1.7.0-1build1_amd64.deb ...
+2026-10-09T23:31:41.2765885Z Unpacking libglvnd-dev:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:41.2932993Z Selecting previously unselected package libegl1-mesa-dev:amd64.
+2026-10-09T23:31:41.3029491Z Preparing to unpack .../20-libegl1-mesa-dev_25.2.8-0ubuntu0.24.04.4_amd64.deb ...
+2026-10-09T23:31:41.3037200Z Unpacking libegl1-mesa-dev:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+2026-10-09T23:31:41.3407873Z Selecting previously unselected package libwayland-server0:amd64.
+2026-10-09T23:31:41.3511039Z Preparing to unpack .../21-libwayland-server0_1.22.0-2.1build1_amd64.deb ...
+2026-10-09T23:31:41.3517634Z Unpacking libwayland-server0:amd64 (1.22.0-2.1build1) ...
+2026-10-09T23:31:41.3698869Z Selecting previously unselected package libxcb-xkb1:amd64.
+2026-10-09T23:31:41.3796357Z Preparing to unpack .../22-libxcb-xkb1_1.15-1ubuntu2_amd64.deb ...
+2026-10-09T23:31:41.3803273Z Unpacking libxcb-xkb1:amd64 (1.15-1ubuntu2) ...
+2026-10-09T23:31:41.3972794Z Selecting previously unselected package libxcb-xkb-dev:amd64.
+2026-10-09T23:31:41.4070700Z Preparing to unpack .../23-libxcb-xkb-dev_1.15-1ubuntu2_amd64.deb ...
+2026-10-09T23:31:41.4076570Z Unpacking libxcb-xkb-dev:amd64 (1.15-1ubuntu2) ...
+2026-10-09T23:31:41.4255864Z Selecting previously unselected package libxrender-dev:amd64.
+2026-10-09T23:31:41.4365511Z Preparing to unpack .../24-libxrender-dev_1%3a0.9.10-1.1build1_amd64.deb ...
+2026-10-09T23:31:41.4371659Z Unpacking libxrender-dev:amd64 (1:0.9.10-1.1build1) ...
+2026-10-09T23:31:41.4547836Z Selecting previously unselected package libxfixes-dev:amd64.
+2026-10-09T23:31:41.4648861Z Preparing to unpack .../25-libxfixes-dev_1%3a6.0.0-2build1_amd64.deb ...
+2026-10-09T23:31:41.4654151Z Unpacking libxfixes-dev:amd64 (1:6.0.0-2build1) ...
+2026-10-09T23:31:41.4824248Z Selecting previously unselected package libxcursor-dev:amd64.
+2026-10-09T23:31:41.4922187Z Preparing to unpack .../26-libxcursor-dev_1%3a1.2.1-1build1_amd64.deb ...
+2026-10-09T23:31:41.4928147Z Unpacking libxcursor-dev:amd64 (1:1.2.1-1build1) ...
+2026-10-09T23:31:41.5143372Z Selecting previously unselected package libxext-dev:amd64.
+2026-10-09T23:31:41.5240761Z Preparing to unpack .../27-libxext-dev_2%3a1.3.4-1build2_amd64.deb ...
+2026-10-09T23:31:41.5247296Z Unpacking libxext-dev:amd64 (2:1.3.4-1build2) ...
+2026-10-09T23:31:41.5622229Z Selecting previously unselected package libxi-dev:amd64.
+2026-10-09T23:31:41.5721416Z Preparing to unpack .../28-libxi-dev_2%3a1.8.1-1build1_amd64.deb ...
+2026-10-09T23:31:41.5727717Z Unpacking libxi-dev:amd64 (2:1.8.1-1build1) ...
+2026-10-09T23:31:41.5972186Z Selecting previously unselected package libxkbcommon-dev:amd64.
+2026-10-09T23:31:41.6070642Z Preparing to unpack .../29-libxkbcommon-dev_1.6.0-1build1_amd64.deb ...
+2026-10-09T23:31:41.6077323Z Unpacking libxkbcommon-dev:amd64 (1.6.0-1build1) ...
+2026-10-09T23:31:41.6263646Z Selecting previously unselected package libxkbcommon-x11-0:amd64.
+2026-10-09T23:31:41.6361399Z Preparing to unpack .../30-libxkbcommon-x11-0_1.6.0-1build1_amd64.deb ...
+2026-10-09T23:31:41.6367472Z Unpacking libxkbcommon-x11-0:amd64 (1.6.0-1build1) ...
+2026-10-09T23:31:41.6538214Z Selecting previously unselected package libxrandr-dev:amd64.
+2026-10-09T23:31:41.6638290Z Preparing to unpack .../31-libxrandr-dev_2%3a1.5.2-2build1_amd64.deb ...
+2026-10-09T23:31:41.6644914Z Unpacking libxrandr-dev:amd64 (2:1.5.2-2build1) ...
+2026-10-09T23:31:41.6846363Z Selecting previously unselected package libwayland-bin.
+2026-10-09T23:31:41.6946443Z Preparing to unpack .../32-libwayland-bin_1.22.0-2.1build1_amd64.deb ...
+2026-10-09T23:31:41.6953173Z Unpacking libwayland-bin (1.22.0-2.1build1) ...
+2026-10-09T23:31:41.7141738Z Selecting previously unselected package libwayland-dev:amd64.
+2026-10-09T23:31:41.7240331Z Preparing to unpack .../33-libwayland-dev_1.22.0-2.1build1_amd64.deb ...
+2026-10-09T23:31:41.7246470Z Unpacking libwayland-dev:amd64 (1.22.0-2.1build1) ...
+2026-10-09T23:31:41.7443844Z Selecting previously unselected package libxkbcommon-x11-dev:amd64.
+2026-10-09T23:31:41.7540283Z Preparing to unpack .../34-libxkbcommon-x11-dev_1.6.0-1build1_amd64.deb ...
+2026-10-09T23:31:41.7707624Z Unpacking libxkbcommon-x11-dev:amd64 (1.6.0-1build1) ...
+2026-10-09T23:31:41.8159649Z Setting up libwayland-server0:amd64 (1.22.0-2.1build1) ...
+2026-10-09T23:31:41.8179036Z Setting up libglvnd-core-dev:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:41.8193486Z Setting up libxkbcommon-dev:amd64 (1.6.0-1build1) ...
+2026-10-09T23:31:41.8207966Z Setting up libpthread-stubs0-dev:amd64 (0.4-1build3) ...
+2026-10-09T23:31:41.8221594Z Setting up libopengl0:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:41.8239690Z Setting up libxcb-xkb1:amd64 (1.15-1ubuntu2) ...
+2026-10-09T23:31:41.8253295Z Setting up xtrans-dev (1.4.0-1) ...
+2026-10-09T23:31:41.8267936Z Setting up libwayland-bin (1.22.0-2.1build1) ...
+2026-10-09T23:31:41.8282494Z Setting up libegl-mesa0:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+2026-10-09T23:31:41.8297133Z Setting up libgles2:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:41.8312201Z Setting up libgles1:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:41.8327167Z Setting up libxkbcommon-x11-0:amd64 (1.6.0-1build1) ...
+2026-10-09T23:31:41.8346391Z Setting up libegl1:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:41.8364511Z Setting up xorg-sgml-doctools (1:1.11-1.1) ...
+2026-10-09T23:31:41.8381559Z Setting up libopengl-dev:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:41.8395940Z Setting up libwayland-dev:amd64 (1.22.0-2.1build1) ...
+2026-10-09T23:31:41.8469630Z Processing triggers for sgml-base (1.31) ...
+2026-10-09T23:31:41.8567750Z Setting up x11proto-dev (2023.2-1) ...
+2026-10-09T23:31:41.8584065Z Setting up libxau-dev:amd64 (1:1.0.9-1build6) ...
+2026-10-09T23:31:41.8603066Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+2026-10-09T23:31:42.0547767Z Processing triggers for man-db (2.12.0-4build2) ...
+2026-10-09T23:31:42.0569904Z Not building database; man-db/auto-update is not 'true'.
+2026-10-09T23:31:42.0579652Z Setting up libxdmcp-dev:amd64 (1:1.1.3-0ubuntu6) ...
+2026-10-09T23:31:42.0610518Z Setting up libxcb1-dev:amd64 (1.15-1ubuntu2) ...
+2026-10-09T23:31:42.0630207Z Setting up libxcb-xkb-dev:amd64 (1.15-1ubuntu2) ...
+2026-10-09T23:31:42.0645159Z Setting up libx11-dev:amd64 (2:1.8.7-1build1) ...
+2026-10-09T23:31:42.0664729Z Setting up libxfixes-dev:amd64 (1:6.0.0-2build1) ...
+2026-10-09T23:31:42.0680923Z Setting up libxext-dev:amd64 (2:1.3.4-1build2) ...
+2026-10-09T23:31:42.0696983Z Setting up libglx-dev:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:42.0714763Z Setting up libxi-dev:amd64 (2:1.8.1-1build1) ...
+2026-10-09T23:31:42.0732916Z Setting up libxrender-dev:amd64 (1:0.9.10-1.1build1) ...
+2026-10-09T23:31:42.0750426Z Setting up libgl-dev:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:42.0765432Z Setting up libxkbcommon-x11-dev:amd64 (1.6.0-1build1) ...
+2026-10-09T23:31:42.0785357Z Setting up libegl-dev:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:42.0799672Z Setting up libxcursor-dev:amd64 (1:1.2.1-1build1) ...
+2026-10-09T23:31:42.0818883Z Setting up libxrandr-dev:amd64 (2:1.5.2-2build1) ...
+2026-10-09T23:31:42.0841462Z Setting up libgles-dev:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:42.0861513Z Setting up libglvnd-dev:amd64 (1.7.0-1build1) ...
+2026-10-09T23:31:42.0878740Z Setting up libegl1-mesa-dev:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+2026-10-09T23:31:42.9368758Z 
+2026-10-09T23:31:42.9369262Z Running kernel seems to be up-to-date.
+2026-10-09T23:31:42.9369509Z 
+2026-10-09T23:31:42.9369945Z No services need to be restarted.
+2026-10-09T23:31:42.9370100Z 
+2026-10-09T23:31:42.9370192Z No containers need to be restarted.
+2026-10-09T23:31:42.9370347Z 
+2026-10-09T23:31:42.9370454Z No user sessions are running outdated binaries.
+2026-10-09T23:31:42.9370631Z 
+2026-10-09T23:31:42.9370794Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-10-09T23:31:43.5957253Z ##[group]Run cargo clippy --workspace --all-targets --all-features --locked --offline -- -D warnings
+2026-10-09T23:31:43.5957657Z [36;1mcargo clippy --workspace --all-targets --all-features --locked --offline -- -D warnings[0m
+2026-10-09T23:31:43.6008987Z shell: /usr/bin/bash -e {0}
+2026-10-09T23:31:43.6009126Z ##[endgroup]
+2026-10-09T23:31:43.8226348Z    Compiling proc-macro2 v1.0.107
+2026-10-09T23:31:43.8226667Z    Compiling quote v1.0.47
+2026-10-09T23:31:43.8226856Z    Compiling unicode-ident v1.0.26
+2026-10-09T23:31:43.8227007Z     Checking cfg-if v1.0.5
+2026-10-09T23:31:43.8483170Z     Checking log v0.4.34
+2026-10-09T23:31:43.8665205Z    Compiling libc v0.2.190
+2026-10-09T23:31:43.9155056Z     Checking once_cell v1.21.4
+2026-10-09T23:31:43.9600727Z     Checking bitflags v2.13.2
+2026-10-09T23:31:43.9860002Z     Checking smallvec v1.16.2
+2026-10-09T23:31:44.0333208Z     Checking pin-project-lite v0.2.17
+2026-10-09T23:31:44.0580887Z    Compiling rustix v1.1.5
+2026-10-09T23:31:44.0736263Z     Checking linux-raw-sys v0.12.1
+2026-10-09T23:31:44.4103180Z    Compiling syn v3.0.6
+2026-10-09T23:31:44.4343413Z    Compiling syn v2.0.119
+2026-10-09T23:31:44.7242998Z    Compiling find-msvc-tools v0.1.14
+2026-10-09T23:31:44.8422903Z    Compiling shlex v2.0.1
+2026-10-09T23:31:44.9253176Z    Compiling cc v1.6.0
+2026-10-09T23:31:45.9123136Z    Compiling serde v1.0.229
+2026-10-09T23:31:46.0423414Z    Compiling serde_core v1.0.229
+2026-10-09T23:31:46.1843726Z     Checking sqlparser v0.63.0
+2026-10-09T23:31:47.0143358Z    Compiling autocfg v1.5.1
+2026-10-09T23:31:47.4017247Z    Compiling pkg-config v0.3.34
+2026-10-09T23:31:47.6646651Z    Compiling serde_derive v1.0.229
+2026-10-09T23:31:47.8163198Z    Compiling version_check v0.9.5
+2026-10-09T23:31:47.9663174Z     Checking futures-core v0.3.34
+2026-10-09T23:31:48.0293210Z     Checking libloading v0.8.9
+2026-10-09T23:31:48.3801064Z     Checking typenum v1.20.1
+2026-10-09T23:31:48.9739872Z    Compiling winnow v1.0.4
+2026-10-09T23:31:49.4893297Z     Checking slab v0.4.12
+2026-10-09T23:31:49.5703132Z    Compiling equivalent v1.0.2
+2026-10-09T23:31:49.5907581Z    Compiling hashbrown v0.17.1
+2026-10-09T23:31:49.7487826Z    Compiling toml_parser v1.1.5+spec-1.1.0
+2026-10-09T23:31:49.9062978Z     Checking dlib v0.5.3
+2026-10-09T23:31:49.9343063Z    Compiling wayland-sys v0.31.11
+2026-10-09T23:31:49.9583387Z    Compiling indexmap v2.14.2
+2026-10-09T23:31:50.0197649Z     Checking errno v0.3.14
+2026-10-09T23:31:50.0703839Z    Compiling toml_datetime v1.1.2+spec-1.1.0
+2026-10-09T23:31:50.1853249Z     Checking signal-hook-registry v1.4.8
+2026-10-09T23:31:50.2683816Z    Compiling bytemuck_derive v1.12.1
+2026-10-09T23:31:50.4563808Z    Compiling toml_edit v0.25.17+spec-1.1.0
+2026-10-09T23:31:50.5283191Z    Compiling enumflags2_derive v0.7.12
+2026-10-09T23:31:50.8043313Z     Checking polling v3.11.0
+2026-10-09T23:31:50.8783511Z    Compiling proc-macro-crate v3.5.0
+2026-10-09T23:31:51.0173243Z     Checking bytemuck v1.25.2
+2026-10-09T23:31:51.1493117Z    Compiling zvariant_utils v4.2.0
+2026-10-09T23:31:51.1651081Z    Compiling wayland-backend v0.3.17
+2026-10-09T23:31:51.1813221Z    Compiling zerocopy v0.8.62
+2026-10-09T23:31:51.2608350Z     Checking parking v2.2.1
+2026-10-09T23:31:51.3098017Z    Compiling synstructure v0.14.0
+2026-10-09T23:31:51.3893071Z     Checking downcast-rs v1.2.1
+2026-10-09T23:31:51.4102845Z    Compiling memchr v2.8.3
+2026-10-09T23:31:51.6693236Z     Checking scoped-tls v1.0.1
+2026-10-09T23:31:51.7834250Z    Compiling zvariant_derive v5.15.0
+2026-10-09T23:31:51.8113701Z    Compiling quick-xml v0.41.0
+2026-10-09T23:31:52.0732999Z    Compiling wayland-client v0.31.15
+2026-10-09T23:31:52.1453123Z    Compiling crossbeam-utils v0.8.23
+2026-10-09T23:31:52.1748863Z     Checking kedr-core v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-core)
+2026-10-09T23:31:52.2747960Z    Compiling zerofrom-derive v0.1.8
+2026-10-09T23:31:52.4198376Z    Compiling wayland-scanner v0.31.11
+2026-10-09T23:31:53.0453412Z    Compiling thiserror v2.0.21
+2026-10-09T23:31:53.2323579Z     Checking zerofrom v0.1.8
+2026-10-09T23:31:53.2913185Z    Compiling yoke-derive v0.8.4
+2026-10-09T23:31:53.4123421Z    Compiling thiserror-impl v2.0.21
+2026-10-09T23:31:53.8833243Z    Compiling tracing-attributes v0.1.31
+2026-10-09T23:31:54.1363213Z     Checking tracing-core v0.1.36
+2026-10-09T23:31:54.1423084Z     Checking futures-io v0.3.34
+2026-10-09T23:31:54.1554407Z     Checking fastrand v2.5.0
+2026-10-09T23:31:54.1803516Z     Checking stable_deref_trait v1.2.1
+2026-10-09T23:31:54.1969457Z     Checking yoke v0.8.3
+2026-10-09T23:31:54.2553113Z     Checking concurrent-queue v2.5.0
+2026-10-09T23:31:54.3178550Z     Checking event-listener v5.4.2
+2026-10-09T23:31:54.3383208Z    Compiling enumflags2 v0.7.12
+2026-10-09T23:31:54.3663480Z    Compiling zcheapstr v1.1.0
+2026-10-09T23:31:54.4243085Z    Compiling endi v1.1.1
+2026-10-09T23:31:54.4302509Z     Checking event-listener-strategy v0.5.4
+2026-10-09T23:31:54.4699696Z    Compiling zvariant v5.15.0
+2026-10-09T23:31:54.4804134Z     Checking futures-lite v2.6.1
+2026-10-09T23:31:54.6211741Z     Checking tracing v0.1.44
+2026-10-09T23:31:54.7143068Z    Compiling async-trait v0.1.92
+2026-10-09T23:31:54.8883194Z    Compiling zerovec-derive v0.11.6
+2026-10-09T23:31:55.2223033Z    Compiling num-traits v0.2.19
+2026-10-09T23:31:55.2973481Z     Checking getrandom v0.2.17
+2026-10-09T23:31:55.5133518Z    Compiling siphasher v1.0.4
+2026-10-09T23:31:55.6003179Z     Checking percent-encoding v2.3.2
+2026-10-09T23:31:55.6493163Z    Compiling parking_lot_core v0.9.12
+2026-10-09T23:31:55.7483180Z    Compiling phf_shared v0.13.1
+2026-10-09T23:31:55.8863215Z    Compiling zbus_names v4.3.4
+2026-10-09T23:31:55.9607495Z     Checking zerovec v0.11.8
+2026-10-09T23:31:56.1858159Z     Checking hybrid-array v0.4.15
+2026-10-09T23:31:56.2593010Z     Checking uuid v1.27.0
+2026-10-09T23:31:56.2665871Z    Compiling generic-array v0.14.7
+2026-10-09T23:31:56.2742867Z    Compiling displaydoc v0.2.7
+2026-10-09T23:31:56.3404952Z    Compiling async-io v2.6.0
+2026-10-09T23:31:56.4183204Z     Checking subtle v2.6.1
+2026-10-09T23:31:56.4623502Z     Checking foldhash v0.2.0
+2026-10-09T23:31:56.4863203Z     Checking scopeguard v1.2.0
+2026-10-09T23:31:56.5101615Z     Checking lock_api v0.4.14
+2026-10-09T23:31:56.5413237Z    Compiling phf_generator v0.13.1
+2026-10-09T23:31:56.6603158Z     Checking wayland-protocols v0.32.13
+2026-10-09T23:31:56.7327987Z    Compiling ring v0.17.14
+2026-10-09T23:31:56.9803149Z    Compiling cfg_aliases v0.2.2
+2026-10-09T23:31:56.9919567Z     Checking futures-sink v0.3.34
+2026-10-09T23:31:57.0225042Z    Compiling khronos_api v3.1.0
+2026-10-09T23:31:57.0703709Z     Checking async-task v4.7.1
+2026-10-09T23:31:57.1203151Z     Checking cmov v0.5.4
+2026-10-09T23:31:57.1659494Z     Checking tinyvec v1.13.3
+2026-10-09T23:31:57.2083180Z     Checking bytes v1.12.1
+2026-10-09T23:31:57.3663449Z     Checking unicode-normalization v0.1.25
+2026-10-09T23:31:57.4832822Z     Checking ctutils v0.4.3
+2026-10-09T23:31:57.6899072Z     Checking parking_lot v0.12.5
+2026-10-09T23:31:57.9435044Z    Compiling phf_macros v0.13.1
+2026-10-09T23:31:58.1368975Z     Checking block-buffer v0.12.1
+2026-10-09T23:31:58.2034808Z     Checking crypto-common v0.2.2
+2026-10-09T23:31:58.3588407Z     Checking async-channel v2.5.0
+2026-10-09T23:31:58.4454095Z     Checking kedr-testkit v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-testkit)
+2026-10-09T23:31:58.5271854Z     Checking zeroize v1.9.1
+2026-10-09T23:31:58.5553152Z     Checking const-oid v0.10.2
+2026-10-09T23:31:58.5734556Z     Checking unicode-bidi v0.3.18
+2026-10-09T23:31:58.6163938Z     Checking atomic-waker v1.1.2
+2026-10-09T23:31:58.6443279Z     Checking unicode-properties v0.1.4
+2026-10-09T23:31:58.7278362Z    Compiling getrandom v0.3.4
+2026-10-09T23:31:58.8537762Z     Checking stringprep v0.1.5
+2026-10-09T23:31:58.9133488Z     Checking piper v0.2.5
+2026-10-09T23:31:58.9433886Z     Checking digest v0.11.3
+2026-10-09T23:31:58.9603592Z     Checking rustls-pki-types v1.15.1
+2026-10-09T23:31:59.0063158Z     Checking phf v0.13.1
+2026-10-09T23:31:59.0623386Z     Checking async-signal v0.2.14
+2026-10-09T23:31:59.1203296Z     Checking tinystr v0.8.4
+2026-10-09T23:31:59.1593270Z    Compiling zbus_xml v5.2.1
+2026-10-09T23:31:59.1923357Z     Checking async-lock v3.4.2
+2026-10-09T23:31:59.4199688Z    Compiling ahash v0.8.12
+2026-10-09T23:31:59.4859032Z    Compiling tokio-macros v2.7.2
+2026-10-09T23:31:59.5763096Z    Compiling futures-macro v0.3.34
+2026-10-09T23:31:59.7244927Z     Checking mio v1.2.4
+2026-10-09T23:31:59.8098934Z     Checking socket2 v0.6.5
+2026-10-09T23:31:59.8670084Z     Checking untrusted v0.9.0
+2026-10-09T23:31:59.9322732Z     Checking writeable v0.6.4
+2026-10-09T23:31:59.9370797Z     Checking cpufeatures v0.3.1
+2026-10-09T23:31:59.9553341Z     Checking litemap v0.8.3
+2026-10-09T23:31:59.9767809Z    Compiling xml-rs v0.8.29
+2026-10-09T23:32:00.0128923Z     Checking rand_core v0.10.1
+2026-10-09T23:32:00.0357691Z    Compiling rustix v0.38.44
+2026-10-09T23:32:00.0643580Z     Checking futures-task v0.3.34
+2026-10-09T23:32:00.1113087Z     Checking base64 v0.22.1
+2026-10-09T23:32:00.1703230Z    Compiling thiserror v1.0.69
+2026-10-09T23:32:00.2395293Z    Compiling getrandom v0.4.3
+2026-10-09T23:32:00.2663656Z     Checking arrayvec v0.7.8
+2026-10-09T23:32:00.3273341Z    Compiling gl_generator v0.14.0
+2026-10-09T23:32:00.3477979Z     Checking polycool v0.4.0
+2026-10-09T23:32:00.4523079Z     Checking futures-util v0.3.34
+2026-10-09T23:32:00.5303144Z     Checking icu_locale_core v2.3.0
+2026-10-09T23:32:00.6393124Z     Checking tokio v1.53.2
+2026-10-09T23:32:00.9837598Z    Compiling zbus-lockstep v0.5.2
+2026-10-09T23:32:01.0495588Z     Checking async-process v2.5.0
+2026-10-09T23:32:01.0743594Z     Checking blocking v1.7.0
+2026-10-09T23:32:01.1783223Z     Checking crypto-common v0.1.7
+2026-10-09T23:32:01.2153540Z     Checking block-buffer v0.10.4
+2026-10-09T23:32:01.2623380Z     Checking async-executor v1.14.0
+2026-10-09T23:32:01.3633462Z     Checking zerotrie v0.2.5
+2026-10-09T23:32:01.4933140Z     Checking potential_utf v0.1.6
+2026-10-09T23:32:01.5333086Z    Compiling zbus_macros v5.19.0
+2026-10-09T23:32:01.5633073Z     Checking async-broadcast v0.7.2
+2026-10-09T23:32:01.6623051Z     Checking ordered-stream v0.2.0
+2026-10-09T23:32:01.7632749Z    Compiling x11-dl v2.21.0
+2026-10-09T23:32:01.8233183Z    Compiling serde_repr v0.1.21
+2026-10-09T23:32:01.8773192Z    Compiling async-recursion v1.2.0
+2026-10-09T23:32:02.0493192Z    Compiling thiserror-impl v1.0.69
+2026-10-09T23:32:02.1713117Z     Checking cursor-icon v1.2.0
+2026-10-09T23:32:02.2113471Z    Compiling rustls v0.23.45
+2026-10-09T23:32:02.2823678Z     Checking xkeysym v0.2.1
+2026-10-09T23:32:02.6077838Z     Checking simd-adler32 v0.3.10
+2026-10-09T23:32:02.6733169Z     Checking utf8_iter v1.0.4
+2026-10-09T23:32:02.7183452Z    Compiling icu_properties_data v2.3.0
+2026-10-09T23:32:02.7373528Z     Checking linux-raw-sys v0.4.15
+2026-10-09T23:32:02.7970329Z     Checking xcursor v0.3.11
+2026-10-09T23:32:02.8653039Z    Compiling icu_normalizer_data v2.3.0
+2026-10-09T23:32:02.8778274Z     Checking hex v0.4.3
+2026-10-09T23:32:02.9406029Z     Checking wayland-cursor v0.31.14
+2026-10-09T23:32:03.0073403Z     Checking icu_collections v2.3.0
+2026-10-09T23:32:03.0310875Z     Checking wayland-csd-frame v0.3.0
+2026-10-09T23:32:03.2002460Z     Checking icu_provider v2.3.1
+2026-10-09T23:32:03.2320392Z     Checking zbus v5.19.0
+2026-10-09T23:32:03.2653052Z     Checking digest v0.10.7
+2026-10-09T23:32:03.3623217Z    Compiling zbus-lockstep-macros v0.5.2
+2026-10-09T23:32:03.4303219Z     Checking rustls-webpki v0.103.15
+2026-10-09T23:32:03.6233182Z     Checking kurbo v0.13.1
+2026-10-09T23:32:03.7520934Z     Checking chacha20 v0.10.2
+2026-10-09T23:32:03.8583238Z     Checking wayland-protocols-wlr v0.3.12
+2026-10-09T23:32:04.1303669Z     Checking euclid v0.22.14
+2026-10-09T23:32:04.4853505Z     Checking accesskit v0.24.1
+2026-10-09T23:32:04.4923127Z     Checking color v0.3.3
+2026-10-09T23:32:04.6843316Z     Checking font-types v0.11.3
+2026-10-09T23:32:04.7523554Z     Checking memmap2 v0.9.11
+2026-10-09T23:32:04.8283223Z    Compiling zmij v1.0.23
+2026-10-09T23:32:04.8724275Z     Checking linebender_resource_handle v0.1.1
+2026-10-09T23:32:04.9103079Z     Checking static_assertions v1.1.0
+2026-10-09T23:32:04.9333021Z     Checking adler2 v2.0.1
+2026-10-09T23:32:04.9413503Z    Compiling crc32fast v1.5.2
+2026-10-09T23:32:04.9736932Z     Checking calloop v0.13.0
+2026-10-09T23:32:04.9844172Z     Checking peniko v0.6.1
+2026-10-09T23:32:05.0493185Z     Checking read-fonts v0.39.2
+2026-10-09T23:32:05.0823544Z     Checking guillotiere v0.7.0
+2026-10-09T23:32:05.1603037Z     Checking rand v0.10.3
+2026-10-09T23:32:06.4163291Z     Checking atspi-common v0.13.0
+2026-10-09T23:32:06.8883420Z     Checking sha2 v0.11.0
+2026-10-09T23:32:07.0545983Z     Checking md-5 v0.11.0
+2026-10-09T23:32:07.1173116Z     Checking hmac v0.13.0
+2026-10-09T23:32:07.2663623Z     Checking rand_core v0.6.4
+2026-10-09T23:32:07.3295916Z     Checking ppv-lite86 v0.2.21
+2026-10-09T23:32:07.4711933Z    Compiling der_derive v0.7.3
+2026-10-09T23:32:07.4963506Z     Checking gethostname v1.1.0
+2026-10-09T23:32:07.5203086Z    Compiling unicode-general-category v1.1.0
+2026-10-09T23:32:07.7004719Z    Compiling smithay-client-toolkit v0.19.2
+2026-10-09T23:32:07.7753346Z     Checking byteorder v1.5.0
+2026-10-09T23:32:07.8629721Z     Checking x11rb-protocol v0.13.2
+2026-10-09T23:32:07.9923369Z     Checking fearless_simd v0.4.1
+2026-10-09T23:32:08.2453638Z     Checking fallible-iterator v0.2.0
+2026-10-09T23:32:08.3993476Z     Checking flagset v0.4.7
+2026-10-09T23:32:08.4412900Z     Checking const-oid v0.9.6
+2026-10-09T23:32:08.5903053Z     Checking as-raw-xcb-connection v1.0.1
+2026-10-09T23:32:08.6142920Z    Compiling serde_json v1.0.151
+2026-10-09T23:32:08.6893154Z     Checking postgres-protocol v0.6.12
+2026-10-09T23:32:08.8943380Z     Checking der v0.7.10
+2026-10-09T23:32:09.1272229Z     Checking rand_chacha v0.3.1
+2026-10-09T23:32:09.2183154Z     Checking icu_normalizer v2.3.0
+2026-10-09T23:32:09.3686181Z     Checking icu_properties v2.3.0
+2026-10-09T23:32:09.3691016Z     Checking tokio-rustls v0.26.6
+2026-10-09T23:32:09.4863094Z     Checking calloop-wayland-source v0.3.0
+2026-10-09T23:32:09.7083652Z     Checking miniz_oxide v0.9.1
+2026-10-09T23:32:09.9182937Z    Compiling winit v0.30.13
+2026-10-09T23:32:09.9563368Z     Checking hashbrown v0.16.1
+2026-10-09T23:32:10.0233684Z     Checking vello_common v0.0.9
+2026-10-09T23:32:10.0743612Z     Checking emath v0.35.0
+2026-10-09T23:32:10.2413032Z     Checking cpufeatures v0.2.17
+2026-10-09T23:32:10.2543125Z     Checking raw-window-handle v0.6.2
+2026-10-09T23:32:10.2602700Z     Checking itoa v1.0.18
+2026-10-09T23:32:10.3332950Z     Checking sha2 v0.10.9
+2026-10-09T23:32:10.4612998Z     Checking accesskit_consumer v0.36.0
+2026-10-09T23:32:10.5181583Z     Checking vello_cpu v0.0.9
+2026-10-09T23:32:10.6693220Z     Checking ecolor v0.35.0
+2026-10-09T23:32:10.7313191Z     Checking idna_adapter v1.2.2
+2026-10-09T23:32:10.7533129Z     Checking flate2 v1.1.10
+2026-10-09T23:32:10.9153289Z     Checking spki v0.7.3
+2026-10-09T23:32:10.9573235Z     Checking rand v0.8.8
+2026-10-09T23:32:11.2533215Z     Checking postgres-types v0.2.14
+2026-10-09T23:32:11.3117966Z     Checking atspi-proxies v0.13.0
+2026-10-09T23:32:11.3193092Z     Checking harfrust v0.7.0
+2026-10-09T23:32:11.3953112Z     Checking skrifa v0.42.1
+2026-10-09T23:32:12.1772914Z     Checking miniz_oxide v0.8.9
+2026-10-09T23:32:12.3873579Z     Checking pbkdf2 v0.12.2
+2026-10-09T23:32:12.4203386Z     Checking hmac v0.12.1
+2026-10-09T23:32:12.4703090Z     Checking tokio-util v0.7.20
+2026-10-09T23:32:12.5822243Z     Checking fdeflate v0.3.7
+2026-10-09T23:32:12.6635655Z     Checking xkbcommon-dl v0.4.2
+2026-10-09T23:32:12.7003272Z    Compiling glutin_egl_sys v0.7.1
+2026-10-09T23:32:12.7073318Z    Compiling glutin_glx_sys v0.6.1
+2026-10-09T23:32:12.7643109Z     Checking wayland-protocols-plasma v0.3.12
+2026-10-09T23:32:13.1594104Z     Checking rustls-pemfile v2.2.0
+2026-10-09T23:32:13.1620268Z     Checking futures-channel v0.3.34
+2026-10-09T23:32:13.2093269Z     Checking calloop v0.14.5
+2026-10-09T23:32:13.2604276Z     Checking whoami v2.1.3
+2026-10-09T23:32:13.3143752Z     Checking x11rb v0.13.2
+2026-10-09T23:32:13.3583120Z     Checking rtoolbox v0.0.6
+2026-10-09T23:32:13.4009765Z     Checking epaint_default_fonts v0.35.0
+2026-10-09T23:32:13.4452875Z     Checking unicode-segmentation v1.13.3
+2026-10-09T23:32:13.5183156Z     Checking smol_str v0.2.2
+2026-10-09T23:32:13.5847440Z     Checking profiling v1.0.18
+2026-10-09T23:32:13.6063520Z     Checking either v1.19.0
+2026-10-09T23:32:13.6293669Z     Checking self_cell v1.3.0
+2026-10-09T23:32:13.6583640Z    Compiling smithay-client-toolkit v0.20.0
+2026-10-09T23:32:13.6963661Z     Checking pxfm v0.1.30
+2026-10-09T23:32:13.7293247Z     Checking dpi v0.1.2
+2026-10-09T23:32:13.8043649Z     Checking nohash-hasher v0.2.0
+2026-10-09T23:32:13.8373802Z     Checking epaint v0.35.0
+2026-10-09T23:32:14.1803099Z     Checking itertools v0.14.0
+2026-10-09T23:32:14.5253680Z     Checking calloop-wayland-source v0.4.1
+2026-10-09T23:32:14.5723222Z     Checking rpassword v7.5.4
+2026-10-09T23:32:14.6293293Z     Checking tokio-postgres v0.7.18
+2026-10-09T23:32:15.0783584Z     Checking moxcms v0.8.1
+2026-10-09T23:32:15.1113000Z     Checking png v0.18.1
+2026-10-09T23:32:15.5563200Z     Checking rsasl v2.3.1
+2026-10-09T23:32:15.6673257Z     Checking atspi v0.29.0
+2026-10-09T23:32:15.6983182Z     Checking x509-cert v0.2.5
+2026-10-09T23:32:15.8673296Z     Checking idna v1.1.0
+2026-10-09T23:32:15.9943326Z     Checking accesskit_atspi_common v0.18.1
+2026-10-09T23:32:16.0293253Z     Checking wayland-protocols-experimental v20250721.0.1
+2026-10-09T23:32:16.1716758Z     Checking wayland-protocols-misc v0.3.12
+2026-10-09T23:32:16.2390248Z    Compiling glutin v0.32.3
+2026-10-09T23:32:16.2423732Z     Checking form_urlencoded v1.2.2
+2026-10-09T23:32:16.2883168Z    Compiling memoffset v0.9.1
+2026-10-09T23:32:16.3723467Z     Checking byteorder-lite v0.1.0
+2026-10-09T23:32:16.4863219Z     Checking url v2.5.8
+2026-10-09T23:32:16.4907666Z     Checking accesskit_unix v0.21.1
+2026-10-09T23:32:16.7323633Z     Checking tokio-postgres-rustls v0.14.0
+2026-10-09T23:32:16.8622354Z     Checking image v0.25.10
+2026-10-09T23:32:16.9145561Z     Checking egui v0.35.0
+2026-10-09T23:32:17.0606101Z    Compiling glutin-winit v0.5.0
+2026-10-09T23:32:17.2563884Z     Checking smithay-clipboard v0.7.3
+2026-10-09T23:32:17.7113637Z     Checking webbrowser v1.2.4
+2026-10-09T23:32:17.7813041Z     Checking arboard v3.6.1
+2026-10-09T23:32:17.8343455Z     Checking kedr-server v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-server)
+2026-10-09T23:32:17.8503158Z     Checking accesskit_winit v0.32.2
+2026-10-09T23:32:17.9313314Z     Checking glow v0.17.0
+2026-10-09T23:32:17.9434218Z    Compiling litrs v1.0.0
+2026-10-09T23:32:18.2579149Z     Checking web-time v1.1.0
+2026-10-09T23:32:18.2903283Z    Compiling document-features v0.2.12
+2026-10-09T23:32:19.1311574Z     Checking egui_glow v0.35.0
+2026-10-09T23:32:19.1460805Z     Checking egui-winit v0.35.0
+2026-10-09T23:32:19.3334133Z     Checking eframe v0.35.0
+2026-10-09T23:32:19.3923779Z     Checking kedr v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-cli)
+2026-10-09T23:32:19.6517440Z     Checking kedr-studio v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-studio)
+2026-10-09T23:32:20.3596338Z     Finished `dev` profile [unoptimized + debuginfo] target(s) in 36.72s
+2026-10-09T23:32:20.3880956Z ##[group]Run cargo test --workspace --all-features --locked --offline
+2026-10-09T23:32:20.3881255Z [36;1mcargo test --workspace --all-features --locked --offline[0m
+2026-10-09T23:32:20.3933557Z shell: /usr/bin/bash -e {0}
+2026-10-09T23:32:20.3933705Z ##[endgroup]
+2026-10-09T23:32:20.5936749Z    Compiling unicode-ident v1.0.26
+2026-10-09T23:32:20.5937191Z    Compiling log v0.4.34
+2026-10-09T23:32:20.5937409Z    Compiling cfg-if v1.0.5
+2026-10-09T23:32:20.5938842Z    Compiling libc v0.2.190
+2026-10-09T23:32:20.6164525Z    Compiling once_cell v1.21.4
+2026-10-09T23:32:20.6367877Z    Compiling proc-macro2 v1.0.107
+2026-10-09T23:32:20.6937557Z    Compiling bitflags v2.13.2
+2026-10-09T23:32:20.7188125Z    Compiling smallvec v1.16.2
+2026-10-09T23:32:20.8213755Z    Compiling pin-project-lite v0.2.17
+2026-10-09T23:32:20.8413214Z    Compiling linux-raw-sys v0.12.1
+2026-10-09T23:32:20.8596923Z    Compiling sqlparser v0.63.0
+2026-10-09T23:32:21.1783189Z    Compiling quote v1.0.47
+2026-10-09T23:32:21.3078955Z    Compiling syn v3.0.6
+2026-10-09T23:32:21.3413131Z    Compiling syn v2.0.119
+2026-10-09T23:32:21.7533185Z    Compiling rustix v1.1.5
+2026-10-09T23:32:24.2604046Z    Compiling memchr v2.8.3
+2026-10-09T23:32:24.5433112Z    Compiling serde_derive v1.0.229
+2026-10-09T23:32:24.7193620Z    Compiling serde_core v1.0.229
+2026-10-09T23:32:24.8763153Z    Compiling futures-core v0.3.34
+2026-10-09T23:32:24.9373206Z    Compiling libloading v0.8.9
+2026-10-09T23:32:25.0335931Z    Compiling winnow v1.0.4
+2026-10-09T23:32:25.8233365Z    Compiling typenum v1.20.1
+2026-10-09T23:32:26.1273179Z    Compiling slab v0.4.12
+2026-10-09T23:32:26.2113233Z    Compiling errno v0.3.14
+2026-10-09T23:32:26.2703209Z    Compiling signal-hook-registry v1.4.8
+2026-10-09T23:32:26.3983701Z    Compiling serde v1.0.229
+2026-10-09T23:32:26.4344118Z    Compiling toml_parser v1.1.5+spec-1.1.0
+2026-10-09T23:32:26.7473515Z    Compiling dlib v0.5.3
+2026-10-09T23:32:26.7673458Z    Compiling toml_edit v0.25.17+spec-1.1.0
+2026-10-09T23:32:26.7903407Z    Compiling bytemuck_derive v1.12.1
+2026-10-09T23:32:26.7942842Z    Compiling enumflags2_derive v0.7.12
+2026-10-09T23:32:27.0723225Z    Compiling polling v3.11.0
+2026-10-09T23:32:27.2137950Z    Compiling proc-macro-crate v3.5.0
+2026-10-09T23:32:27.4713551Z    Compiling wayland-sys v0.31.11
+2026-10-09T23:32:27.4883546Z    Compiling bytemuck v1.25.2
+2026-10-09T23:32:27.5003239Z    Compiling zvariant_utils v4.2.0
+2026-10-09T23:32:27.6243469Z    Compiling parking v2.2.1
+2026-10-09T23:32:27.7053503Z    Compiling zerocopy v0.8.62
+2026-10-09T23:32:27.7173746Z    Compiling synstructure v0.14.0
+2026-10-09T23:32:28.0623290Z    Compiling kedr-core v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-core)
+2026-10-09T23:32:28.4243103Z    Compiling zvariant_derive v5.15.0
+2026-10-09T23:32:28.6203369Z    Compiling scoped-tls v1.0.1
+2026-10-09T23:32:28.6517115Z    Compiling downcast-rs v1.2.1
+2026-10-09T23:32:28.6853144Z    Compiling endi v1.1.1
+2026-10-09T23:32:28.7463192Z    Compiling wayland-backend v0.3.17
+2026-10-09T23:32:29.7203205Z    Compiling quick-xml v0.41.0
+2026-10-09T23:32:30.2746318Z    Compiling zerofrom-derive v0.1.8
+2026-10-09T23:32:30.5513994Z    Compiling wayland-scanner v0.31.11
+2026-10-09T23:32:30.9755063Z    Compiling thiserror-impl v2.0.21
+2026-10-09T23:32:31.0943198Z    Compiling zerofrom v0.1.8
+2026-10-09T23:32:31.1418650Z    Compiling crossbeam-utils v0.8.23
+2026-10-09T23:32:31.2921166Z    Compiling yoke-derive v0.8.4
+2026-10-09T23:32:31.5233835Z    Compiling wayland-client v0.31.15
+2026-10-09T23:32:31.7473736Z    Compiling thiserror v2.0.21
+2026-10-09T23:32:31.7824190Z    Compiling tracing-attributes v0.1.31
+2026-10-09T23:32:31.8953565Z    Compiling tracing-core v0.1.36
+2026-10-09T23:32:32.2783285Z    Compiling fastrand v2.5.0
+2026-10-09T23:32:32.3963412Z    Compiling siphasher v1.0.4
+2026-10-09T23:32:32.5085920Z    Compiling futures-io v0.3.34
+2026-10-09T23:32:32.5155514Z    Compiling stable_deref_trait v1.2.1
+2026-10-09T23:32:32.5423452Z    Compiling yoke v0.8.3
+2026-10-09T23:32:32.5783851Z    Compiling tracing v0.1.44
+2026-10-09T23:32:32.6353234Z    Compiling concurrent-queue v2.5.0
+2026-10-09T23:32:32.7273890Z    Compiling event-listener v5.4.2
+2026-10-09T23:32:32.7381597Z    Compiling enumflags2 v0.7.12
+2026-10-09T23:32:32.8433282Z    Compiling zcheapstr v1.1.0
+2026-10-09T23:32:32.8813922Z    Compiling async-trait v0.1.92
+2026-10-09T23:32:32.9199437Z    Compiling getrandom v0.2.17
+2026-10-09T23:32:32.9333967Z    Compiling percent-encoding v2.3.2
+2026-10-09T23:32:33.0283904Z    Compiling zvariant v5.15.0
+2026-10-09T23:32:33.0353188Z    Compiling event-listener-strategy v0.5.4
+2026-10-09T23:32:33.0959266Z    Compiling futures-lite v2.6.1
+2026-10-09T23:32:33.4592994Z    Compiling phf_shared v0.13.1
+2026-10-09T23:32:33.5752967Z    Compiling hybrid-array v0.4.15
+2026-10-09T23:32:33.6573112Z    Compiling zerovec-derive v0.11.6
+2026-10-09T23:32:34.1873151Z    Compiling subtle v2.6.1
+2026-10-09T23:32:34.2497011Z    Compiling scopeguard v1.2.0
+2026-10-09T23:32:34.2913153Z    Compiling phf_generator v0.13.1
+2026-10-09T23:32:34.3203028Z    Compiling zerovec v0.11.8
+2026-10-09T23:32:34.3743687Z    Compiling lock_api v0.4.14
+2026-10-09T23:32:34.4913814Z    Compiling zbus_names v4.3.4
+2026-10-09T23:32:34.6693208Z    Compiling generic-array v0.14.7
+2026-10-09T23:32:34.8673743Z    Compiling parking_lot_core v0.9.12
+2026-10-09T23:32:34.9273366Z    Compiling kedr-testkit v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-testkit)
+2026-10-09T23:32:35.0873603Z    Compiling uuid v1.27.0
+2026-10-09T23:32:35.0933489Z    Compiling displaydoc v0.2.7
+2026-10-09T23:32:35.1793367Z    Compiling futures-sink v0.3.34
+2026-10-09T23:32:35.2175007Z    Compiling foldhash v0.2.0
+2026-10-09T23:32:35.2993421Z    Compiling tinyvec v1.13.3
+2026-10-09T23:32:35.3613445Z    Compiling bytes v1.12.1
+2026-10-09T23:32:35.5043003Z    Compiling cmov v0.5.4
+2026-10-09T23:32:35.5243405Z    Compiling unicode-normalization v0.1.25
+2026-10-09T23:32:35.6263199Z    Compiling ctutils v0.4.3
+2026-10-09T23:32:35.7413264Z    Compiling parking_lot v0.12.5
+2026-10-09T23:32:35.7913933Z    Compiling num-traits v0.2.19
+2026-10-09T23:32:35.8023444Z    Compiling phf_macros v0.13.1
+2026-10-09T23:32:36.2479887Z    Compiling crypto-common v0.2.2
+2026-10-09T23:32:36.2894111Z    Compiling block-buffer v0.12.1
+2026-10-09T23:32:36.9353136Z    Compiling wayland-protocols v0.32.13
+2026-10-09T23:32:36.9563285Z    Compiling unicode-properties v0.1.4
+2026-10-09T23:32:37.0493311Z    Compiling unicode-bidi v0.3.18
+2026-10-09T23:32:37.4493731Z    Compiling async-task v4.7.1
+2026-10-09T23:32:37.5543115Z    Compiling zeroize v1.9.1
+2026-10-09T23:32:37.6253054Z    Compiling const-oid v0.10.2
+2026-10-09T23:32:37.7353941Z    Compiling digest v0.11.3
+2026-10-09T23:32:37.7412922Z    Compiling rustls-pki-types v1.15.1
+2026-10-09T23:32:38.0923272Z    Compiling stringprep v0.1.5
+2026-10-09T23:32:38.3123075Z    Compiling phf v0.13.1
+2026-10-09T23:32:38.3313409Z    Compiling async-io v2.6.0
+2026-10-09T23:32:38.3959947Z    Compiling block-buffer v0.10.4
+2026-10-09T23:32:38.4563709Z    Compiling crypto-common v0.1.7
+2026-10-09T23:32:38.4934310Z    Compiling async-channel v2.5.0
+2026-10-09T23:32:38.5113213Z    Compiling tokio-macros v2.7.2
+2026-10-09T23:32:38.6333220Z    Compiling futures-macro v0.3.34
+2026-10-09T23:32:38.9143290Z    Compiling mio v1.2.4
+2026-10-09T23:32:38.9643235Z    Compiling socket2 v0.6.5
+2026-10-09T23:32:39.0973795Z    Compiling atomic-waker v1.1.2
+2026-10-09T23:32:39.1473170Z    Compiling rand_core v0.10.1
+2026-10-09T23:32:39.2243383Z    Compiling untrusted v0.9.0
+2026-10-09T23:32:39.2753723Z    Compiling futures-task v0.3.34
+2026-10-09T23:32:39.2813392Z    Compiling cpufeatures v0.3.1
+2026-10-09T23:32:39.3123135Z    Compiling base64 v0.22.1
+2026-10-09T23:32:39.3290578Z    Compiling ring v0.17.14
+2026-10-09T23:32:39.3538639Z    Compiling futures-util v0.3.34
+2026-10-09T23:32:39.5153953Z    Compiling tokio v1.53.2
+2026-10-09T23:32:40.9716215Z    Compiling piper v0.2.5
+2026-10-09T23:32:40.9792985Z    Compiling async-signal v0.2.14
+2026-10-09T23:32:41.0844048Z    Compiling digest v0.10.7
+2026-10-09T23:32:41.0872603Z    Compiling tinystr v0.8.4
+2026-10-09T23:32:41.1885358Z    Compiling zbus_xml v5.2.1
+2026-10-09T23:32:41.1927551Z    Compiling async-lock v3.4.2
+2026-10-09T23:32:41.6004324Z    Compiling arrayvec v0.7.8
+2026-10-09T23:32:41.7093530Z    Compiling writeable v0.6.4
+2026-10-09T23:32:41.8433473Z    Compiling litemap v0.8.3
+2026-10-09T23:32:41.9459552Z    Compiling icu_locale_core v2.3.0
+2026-10-09T23:32:42.0921732Z    Compiling polycool v0.4.0
+2026-10-09T23:32:42.3150999Z    Compiling zbus-lockstep v0.5.2
+2026-10-09T23:32:42.4113896Z    Compiling async-process v2.5.0
+2026-10-09T23:32:42.5623677Z    Compiling blocking v1.7.0
+2026-10-09T23:32:42.7364398Z    Compiling rustls-webpki v0.103.15
+2026-10-09T23:32:42.8083738Z    Compiling getrandom v0.4.3
+2026-10-09T23:32:42.8926507Z    Compiling getrandom v0.3.4
+2026-10-09T23:32:42.9113290Z    Compiling chacha20 v0.10.2
+2026-10-09T23:32:43.0493030Z    Compiling async-executor v1.14.0
+2026-10-09T23:32:43.2784004Z    Compiling zerotrie v0.2.5
+2026-10-09T23:32:43.4483180Z    Compiling zbus_macros v5.19.0
+2026-10-09T23:32:43.5043171Z    Compiling potential_utf v0.1.6
+2026-10-09T23:32:43.5713224Z    Compiling async-broadcast v0.7.2
+2026-10-09T23:32:43.6733156Z    Compiling rand_core v0.6.4
+2026-10-09T23:32:43.6943675Z    Compiling ppv-lite86 v0.2.21
+2026-10-09T23:32:43.7953040Z    Compiling ordered-stream v0.2.0
+2026-10-09T23:32:43.8270768Z    Compiling async-recursion v1.2.0
+2026-10-09T23:32:43.8823976Z    Compiling serde_repr v0.1.21
+2026-10-09T23:32:43.9719849Z    Compiling thiserror-impl v1.0.69
+2026-10-09T23:32:44.1049636Z    Compiling hex v0.4.3
+2026-10-09T23:32:44.1124268Z    Compiling utf8_iter v1.0.4
+2026-10-09T23:32:44.1683689Z    Compiling xcursor v0.3.11
+2026-10-09T23:32:44.2403219Z    Compiling cursor-icon v1.2.0
+2026-10-09T23:32:44.2903754Z    Compiling xkeysym v0.2.1
+2026-10-09T23:32:44.4301717Z    Compiling simd-adler32 v0.3.10
+2026-10-09T23:32:44.5393265Z    Compiling linux-raw-sys v0.4.15
+2026-10-09T23:32:44.6563033Z    Compiling thiserror v1.0.69
+2026-10-09T23:32:44.6963059Z    Compiling wayland-csd-frame v0.3.0
+2026-10-09T23:32:44.7155270Z    Compiling rustix v0.38.44
+2026-10-09T23:32:44.7343788Z    Compiling wayland-cursor v0.31.14
+2026-10-09T23:32:44.8388783Z    Compiling icu_collections v2.3.0
+2026-10-09T23:32:44.9001371Z    Compiling rand_chacha v0.3.1
+2026-10-09T23:32:45.1805828Z    Compiling zbus v5.19.0
+2026-10-09T23:32:45.1843184Z    Compiling icu_provider v2.3.1
+2026-10-09T23:32:45.3183039Z    Compiling rustls v0.23.45
+2026-10-09T23:32:45.3604270Z    Compiling rand v0.10.3
+2026-10-09T23:32:45.8677333Z    Compiling ahash v0.8.12
+2026-10-09T23:32:46.0153922Z    Compiling zbus-lockstep-macros v0.5.2
+2026-10-09T23:32:46.3203286Z    Compiling kurbo v0.13.1
+2026-10-09T23:32:47.4754639Z    Compiling zmij v1.0.23
+2026-10-09T23:32:47.6503212Z    Compiling wayland-protocols-wlr v0.3.12
+2026-10-09T23:32:47.6913669Z    Compiling sha2 v0.11.0
+2026-10-09T23:32:48.2683140Z    Compiling hmac v0.13.0
+2026-10-09T23:32:48.3321470Z    Compiling md-5 v0.11.0
+2026-10-09T23:32:48.4243134Z    Compiling euclid v0.22.14
+2026-10-09T23:32:48.6713462Z    Compiling accesskit v0.24.1
+2026-10-09T23:32:48.7873165Z    Compiling color v0.3.3
+2026-10-09T23:32:48.9523733Z    Compiling font-types v0.11.3
+2026-10-09T23:32:49.1837943Z    Compiling der_derive v0.7.3
+2026-10-09T23:32:49.2123330Z    Compiling memmap2 v0.9.11
+2026-10-09T23:32:49.3302812Z    Compiling static_assertions v1.1.0
+2026-10-09T23:32:49.3613256Z    Compiling cpufeatures v0.2.17
+2026-10-09T23:32:49.3893747Z    Compiling fallible-iterator v0.2.0
+2026-10-09T23:32:49.5733773Z    Compiling byteorder v1.5.0
+2026-10-09T23:32:49.6881198Z    Compiling linebender_resource_handle v0.1.1
+2026-10-09T23:32:49.7203245Z    Compiling itoa v1.0.18
+2026-10-09T23:32:49.7433105Z    Compiling adler2 v2.0.1
+2026-10-09T23:32:49.7953102Z    Compiling flagset v0.4.7
+2026-10-09T23:32:49.8053534Z    Compiling const-oid v0.9.6
+2026-10-09T23:32:49.8543218Z    Compiling serde_json v1.0.151
+2026-10-09T23:32:49.9558649Z    Compiling peniko v0.6.1
+2026-10-09T23:32:50.1373236Z    Compiling postgres-protocol v0.6.12
+2026-10-09T23:32:50.3503098Z    Compiling der v0.7.10
+2026-10-09T23:32:50.5173247Z    Compiling sha2 v0.10.9
+2026-10-09T23:32:50.7393674Z    Compiling atspi-common v0.13.0
+2026-10-09T23:32:50.7631382Z    Compiling read-fonts v0.39.2
+2026-10-09T23:32:51.3373766Z    Compiling guillotiere v0.7.0
+2026-10-09T23:32:51.5613159Z    Compiling tokio-rustls v0.26.6
+2026-10-09T23:32:51.7101747Z    Compiling calloop v0.13.0
+2026-10-09T23:32:52.1923176Z    Compiling x11-dl v2.21.0
+2026-10-09T23:32:53.2061549Z    Compiling rand v0.8.8
+2026-10-09T23:32:53.7034003Z    Compiling icu_normalizer_data v2.3.0
+2026-10-09T23:32:53.7435420Z    Compiling icu_properties_data v2.3.0
+2026-10-09T23:32:53.8223636Z    Compiling pbkdf2 v0.12.2
+2026-10-09T23:32:53.8723272Z    Compiling hmac v0.12.1
+2026-10-09T23:32:53.9323052Z    Compiling hashbrown v0.17.1
+2026-10-09T23:32:54.4243023Z    Compiling gethostname v1.1.0
+2026-10-09T23:32:54.4723361Z    Compiling rtoolbox v0.0.6
+2026-10-09T23:32:54.5893258Z    Compiling as-raw-xcb-connection v1.0.1
+2026-10-09T23:32:54.6231794Z    Compiling x11rb-protocol v0.13.2
+2026-10-09T23:32:54.8433082Z    Compiling fearless_simd v0.4.1
+2026-10-09T23:32:54.8514290Z    Compiling rpassword v7.5.4
+2026-10-09T23:32:55.0343719Z    Compiling rsasl v2.3.1
+2026-10-09T23:32:55.9753236Z    Compiling icu_properties v2.3.0
+2026-10-09T23:32:56.8793333Z    Compiling icu_normalizer v2.3.0
+2026-10-09T23:32:57.1627740Z    Compiling vello_common v0.0.9
+2026-10-09T23:32:57.2923534Z    Compiling calloop-wayland-source v0.3.0
+2026-10-09T23:32:57.3463300Z    Compiling spki v0.7.3
+2026-10-09T23:32:57.4433392Z    Compiling postgres-types v0.2.14
+2026-10-09T23:32:57.7183627Z    Compiling crc32fast v1.5.2
+2026-10-09T23:32:57.8313275Z    Compiling miniz_oxide v0.9.1
+2026-10-09T23:32:57.9593285Z    Compiling tokio-util v0.7.20
+2026-10-09T23:32:58.3262957Z    Compiling rustls-pemfile v2.2.0
+2026-10-09T23:32:58.3364211Z    Compiling hashbrown v0.16.1
+2026-10-09T23:32:58.4187931Z    Compiling futures-channel v0.3.34
+2026-10-09T23:32:58.5433054Z    Compiling emath v0.35.0
+2026-10-09T23:32:58.6201618Z    Compiling whoami v2.1.3
+2026-10-09T23:32:58.7103000Z    Compiling raw-window-handle v0.6.2
+2026-10-09T23:32:58.7973942Z    Compiling tokio-postgres v0.7.18
+2026-10-09T23:32:58.8343690Z    Compiling ecolor v0.35.0
+2026-10-09T23:32:58.9033266Z    Compiling accesskit_consumer v0.36.0
+2026-10-09T23:32:59.0253623Z    Compiling flate2 v1.1.10
+2026-10-09T23:32:59.3024219Z    Compiling vello_cpu v0.0.9
+2026-10-09T23:32:59.7253293Z    Compiling x509-cert v0.2.5
+2026-10-09T23:33:01.0093640Z    Compiling smithay-client-toolkit v0.19.2
+2026-10-09T23:33:01.2233326Z    Compiling idna_adapter v1.2.2
+2026-10-09T23:33:01.2823990Z    Compiling skrifa v0.42.1
+2026-10-09T23:33:02.1693282Z    Compiling x11rb v0.13.2
+2026-10-09T23:33:03.7013189Z    Compiling harfrust v0.7.0
+2026-10-09T23:33:05.1683004Z    Compiling unicode-general-category v1.1.0
+2026-10-09T23:33:05.4493775Z    Compiling atspi-proxies v0.13.0
+2026-10-09T23:33:06.3234203Z    Compiling miniz_oxide v0.8.9
+2026-10-09T23:33:06.5743555Z    Compiling xkbcommon-dl v0.4.2
+2026-10-09T23:33:06.7983192Z    Compiling fdeflate v0.3.7
+2026-10-09T23:33:06.9703200Z    Compiling wayland-protocols-plasma v0.3.12
+2026-10-09T23:33:07.1081222Z    Compiling calloop v0.14.5
+2026-10-09T23:33:07.1148934Z    Compiling unicode-segmentation v1.13.3
+2026-10-09T23:33:07.3803227Z    Compiling smol_str v0.2.2
+2026-10-09T23:33:07.5043182Z    Compiling profiling v1.0.18
+2026-10-09T23:33:07.5373741Z    Compiling pxfm v0.1.30
+2026-10-09T23:33:07.6923099Z    Compiling self_cell v1.3.0
+2026-10-09T23:33:07.7393215Z    Compiling either v1.19.0
+2026-10-09T23:33:07.8675139Z    Compiling nohash-hasher v0.2.0
+2026-10-09T23:33:07.9143246Z    Compiling dpi v0.1.2
+2026-10-09T23:33:08.0203095Z    Compiling epaint_default_fonts v0.35.0
+2026-10-09T23:33:08.0807384Z    Compiling epaint v0.35.0
+2026-10-09T23:33:09.4663182Z    Compiling moxcms v0.8.1
+2026-10-09T23:33:09.7463572Z    Compiling winit v0.30.13
+2026-10-09T23:33:10.1383547Z    Compiling itertools v0.14.0
+2026-10-09T23:33:10.5253201Z    Compiling calloop-wayland-source v0.4.1
+2026-10-09T23:33:10.5796270Z    Compiling png v0.18.1
+2026-10-09T23:33:11.0613381Z    Compiling atspi v0.29.0
+2026-10-09T23:33:11.1003141Z    Compiling idna v1.1.0
+2026-10-09T23:33:11.5603163Z    Compiling tokio-postgres-rustls v0.14.0
+2026-10-09T23:33:11.6953564Z    Compiling accesskit_atspi_common v0.18.1
+2026-10-09T23:33:11.7423946Z    Compiling kedr-server v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-server)
+2026-10-09T23:33:12.4903545Z    Compiling wayland-protocols-misc v0.3.12
+2026-10-09T23:33:12.9033303Z    Compiling wayland-protocols-experimental v20250721.0.1
+2026-10-09T23:33:12.9261668Z    Compiling form_urlencoded v1.2.2
+2026-10-09T23:33:13.0121756Z    Compiling byteorder-lite v0.1.0
+2026-10-09T23:33:13.1558584Z    Compiling image v0.25.10
+2026-10-09T23:33:13.3263913Z    Compiling smithay-client-toolkit v0.20.0
+2026-10-09T23:33:14.5813737Z    Compiling url v2.5.8
+2026-10-09T23:33:14.9818150Z    Compiling accesskit_unix v0.21.1
+2026-10-09T23:33:15.1703146Z    Compiling glutin_egl_sys v0.7.1
+2026-10-09T23:33:15.2439343Z    Compiling glutin_glx_sys v0.6.1
+2026-10-09T23:33:15.3260554Z    Compiling egui v0.35.0
+2026-10-09T23:33:15.4283219Z    Compiling glutin v0.32.3
+2026-10-09T23:33:16.3865307Z    Compiling webbrowser v1.2.4
+2026-10-09T23:33:16.7613191Z    Compiling memoffset v0.9.1
+2026-10-09T23:33:16.7953441Z    Compiling arboard v3.6.1
+2026-10-09T23:33:16.8079144Z    Compiling smithay-clipboard v0.7.3
+2026-10-09T23:33:17.6823302Z    Compiling accesskit_winit v0.32.2
+2026-10-09T23:33:17.8453189Z    Compiling glow v0.17.0
+2026-10-09T23:33:17.9713245Z    Compiling web-time v1.1.0
+2026-10-09T23:33:17.9983183Z    Compiling glutin-winit v0.5.0
+2026-10-09T23:33:18.1763214Z    Compiling egui-winit v0.35.0
+2026-10-09T23:33:19.0714571Z    Compiling egui_glow v0.35.0
+2026-10-09T23:33:19.3353210Z    Compiling eframe v0.35.0
+2026-10-09T23:33:22.8303500Z    Compiling kedr-studio v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-studio)
+2026-10-09T23:33:26.6782189Z    Compiling kedr v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-cli)
+2026-10-09T23:33:29.6937648Z     Finished `test` profile [unoptimized + debuginfo] target(s) in 1m 09s
+2026-10-09T23:33:30.0891811Z      Running unittests src/main.rs (target/debug/deps/kedr-cdf9855f3b5b277a)
+2026-10-09T23:33:30.0905909Z 
+2026-10-09T23:33:30.0906154Z running 0 tests
+2026-10-09T23:33:30.0906311Z 
+2026-10-09T23:33:30.0906552Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:33:30.0906859Z 
+2026-10-09T23:33:30.0907124Z      Running tests/cli.rs (target/debug/deps/cli-83f9e3b82fc0e775)
+2026-10-09T23:33:30.0916276Z 
+2026-10-09T23:33:30.0916426Z running 8 tests
+2026-10-09T23:33:30.0929750Z test invalid_arguments_are_reported_as_errors ... ok
+2026-10-09T23:33:30.0930080Z test doctor_reports_actual_capabilities ... ok
+2026-10-09T23:33:30.3475643Z test storage_check_preserves_existing_files_and_cleans_up ... ok
+2026-10-09T23:33:30.3556282Z test storage_check_rejects_file_as_directory_without_mutation ... ok
+2026-10-09T23:33:30.4154680Z test locked_store_rejects_another_process_and_releases_on_close ... ok
+2026-10-09T23:33:30.8076097Z test store_commands_persist_and_integrity_read_preserves_file ... ok
+2026-10-09T23:33:31.0164459Z test database_directory_commands_recover_and_checkpoint_between_processes ... ok
+2026-10-09T23:33:31.0450661Z test local_sql_commands_persist_and_raw_commands_cannot_damage_sql_namespace ... ok
+2026-10-09T23:33:31.0450900Z 
+2026-10-09T23:33:31.0451051Z test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.95s
+2026-10-09T23:33:31.0451233Z 
+2026-10-09T23:33:31.0453276Z      Running unittests src/lib.rs (target/debug/deps/kedr_core-6e8c4f25496cd52d)
+2026-10-09T23:33:31.0462400Z 
+2026-10-09T23:33:31.0462529Z running 2 tests
+2026-10-09T23:33:31.0469872Z test checksum::tests::standard_crc32c_vectors ... ok
+2026-10-09T23:33:31.2216564Z test database::tests::every_checkpoint_lifecycle_step_before_and_after_failure_preserves_acknowledgements ... ok
+2026-10-09T23:33:31.2216831Z 
+2026-10-09T23:33:31.2216993Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.18s
+2026-10-09T23:33:31.2217181Z 
+2026-10-09T23:33:31.2219743Z      Running tests/database_file.rs (target/debug/deps/database_file-ad7806835d3c2bd9)
+2026-10-09T23:33:31.2229868Z 
+2026-10-09T23:33:31.2229974Z running 4 tests
+2026-10-09T23:33:31.2349817Z test identity_corruption_and_symlink_members_are_rejected_without_changes ... ok
+2026-10-09T23:33:31.2403397Z test checkpoint_failure_poisoning_can_be_resolved_only_by_reopen ... ok
+2026-10-09T23:33:31.2828780Z test incomplete_checkpoint_header_uses_predecessor_but_complete_corruption_fails ... ok
+2026-10-09T23:33:31.3448260Z test rotations_reopen_and_prevent_raw_page_writes_or_a_second_owner ... ok
+2026-10-09T23:33:31.3448604Z 
+2026-10-09T23:33:31.3448847Z test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.12s
+2026-10-09T23:33:31.3449175Z 
+2026-10-09T23:33:31.3451212Z      Running tests/pages.rs (target/debug/deps/pages-f08241ccf78b39d7)
+2026-10-09T23:33:31.3462180Z 
+2026-10-09T23:33:31.3462359Z running 8 tests
+2026-10-09T23:33:31.3482300Z test deletion_keeps_other_slots_and_clears_payload ... ok
+2026-10-09T23:33:31.3482978Z test corruption_and_truncation_are_rejected ... ok
+2026-10-09T23:33:31.3494065Z test explicit_little_endian_format_and_roundtrip ... ok
+2026-10-09T23:33:31.3494941Z test record_and_capacity_limits_are_atomic ... ok
+2026-10-09T23:33:31.3502829Z test slot_table_exhaustion_with_empty_records ... ok
+2026-10-09T23:33:31.3503196Z test encoded_page_survives_file_sync_and_reopen ... ok
+2026-10-09T23:33:31.3603514Z test valid_checksum_does_not_bypass_structural_checks ... ok
+2026-10-09T23:33:33.7431397Z test seeded_sequences_match_an_independent_record_model ... ok
+2026-10-09T23:33:33.7431624Z 
+2026-10-09T23:33:33.7431799Z test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.40s
+2026-10-09T23:33:33.7432180Z 
+2026-10-09T23:33:33.7434297Z      Running tests/records.rs (target/debug/deps/records-716470e9a5f63156)
+2026-10-09T23:33:33.7445117Z 
+2026-10-09T23:33:33.7445231Z running 3 tests
+2026-10-09T23:33:33.7448208Z test keys_follow_value_order_and_preserve_duplicate_values ... ok
+2026-10-09T23:33:33.7448636Z test row_roundtrip_boundaries_null_and_unicode ... ok
+2026-10-09T23:33:33.7452233Z test malformed_rows_are_rejected_without_panics ... ok
+2026-10-09T23:33:33.7452430Z 
+2026-10-09T23:33:33.7452639Z test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:33:33.7452917Z 
+2026-10-09T23:33:33.7454320Z      Running tests/sql.rs (target/debug/deps/sql-43d3a078bff5a318)
+2026-10-09T23:33:33.7462430Z 
+2026-10-09T23:33:33.7462520Z running 10 tests
+2026-10-09T23:33:33.7855506Z test adjacent_operator_signs_and_reserved_names_match_postgres_lexing ... ok
+2026-10-09T23:33:33.7879433Z test describe_and_catalog_share_snapshot_without_executing_writes ... ok
+2026-10-09T23:33:33.9190142Z test binding_checks_empty_tables_and_integer_boundaries ... ok
+2026-10-09T23:33:33.9205617Z test errors_abort_whole_statement_and_explicit_ddl_until_rollback ... ok
+2026-10-09T23:33:34.0417537Z test foreign_keys_join_self_reference_and_atomic_parent_changes ... ok
+2026-10-09T23:33:34.0966361Z test read_only_parser_bounds_and_unsupported_clauses ... ok
+2026-10-09T23:33:34.1874440Z test tables_crud_parameters_nulls_indices_and_reopen ... ok
+2026-10-09T23:33:34.5716920Z test failed_index_build_and_result_memory_bound_preserve_acknowledged_rows ... ok
+2026-10-09T23:33:35.1996752Z test parameterized_type_and_null_matrix_is_checked_before_empty_scan ... ok
+2026-10-09T23:33:40.0652582Z test concurrent_sql_catalog_primary_secondary_and_foreign_histories_are_serial ... ok
+2026-10-09T23:33:40.0652940Z 
+2026-10-09T23:33:40.0653353Z test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.32s
+2026-10-09T23:33:40.0653556Z 
+2026-10-09T23:33:40.0660673Z      Running tests/transactions.rs (target/debug/deps/transactions-ce02b8d0969a9ba4)
+2026-10-09T23:33:40.0671735Z 
+2026-10-09T23:33:40.0671862Z running 9 tests
+2026-10-09T23:33:40.0877606Z test explicit_rollback_aborted_errors_and_disconnect_leave_no_partial_changes ... ok
+2026-10-09T23:33:40.1415540Z test bounded_admission_and_oversized_command_abort_before_copying_payloads ... ok
+2026-10-09T23:33:40.2606738Z test lock_timeout_and_cancellation_remove_waiters_without_starving_later_clients ... ok
+2026-10-09T23:33:40.3152630Z test idle_and_lifetime_expiry_and_active_cancellation_release_locks_without_client_commands ... ok
+2026-10-09T23:33:40.3215138Z test read_only_rejects_writes_and_upgrade_and_never_changes_wal ... ok
+2026-10-09T23:33:40.3400803Z test shared_readers_block_writers_and_new_readers_cannot_jump_the_waiting_writer ... ok
+2026-10-09T23:33:40.3982108Z test read_only_idle_expiry_and_cancel_release_shared_permits ... ok
+2026-10-09T23:33:40.4983227Z test private_page_limit_failure_aborts_whole_session_and_allows_next_writer ... ok
+2026-10-09T23:33:42.5055199Z test concurrent_acknowledged_histories_are_serial_with_one_two_eight_and_thirty_two_clients ... ok
+2026-10-09T23:33:42.5055677Z 
+2026-10-09T23:33:42.5055912Z test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.44s
+2026-10-09T23:33:42.5056225Z 
+2026-10-09T23:33:42.5062316Z      Running tests/tree_file.rs (target/debug/deps/tree_file-6875c48dc6fadf4c)
+2026-10-09T23:33:42.5073418Z 
+2026-10-09T23:33:42.5073512Z running 1 test
+2026-10-09T23:33:45.2743681Z test persistent_data_exceeds_cache_and_reopens_with_a_single_frame ... ok
+2026-10-09T23:33:45.2744028Z 
+2026-10-09T23:33:45.2744185Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.77s
+2026-10-09T23:33:45.2744386Z 
+2026-10-09T23:33:45.2747218Z      Running unittests src/lib.rs (target/debug/deps/kedr_server-728be701782feb58)
+2026-10-09T23:33:45.2759160Z 
+2026-10-09T23:33:45.2759268Z running 3 tests
+2026-10-09T23:33:45.2764503Z test wire::tests::allocation_limits_and_partial_eof ... ok
+2026-10-09T23:33:45.2764918Z test wire::tests::counts_strings_and_binary_are_bounded ... ok
+2026-10-09T23:33:45.8102954Z test credentials::tests::scram_requires_proof_and_validates_libpq_empty_authid ... ok
+2026-10-09T23:33:45.8103172Z 
+2026-10-09T23:33:45.8103317Z test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.53s
+2026-10-09T23:33:45.8106222Z      Running unittests src/main.rs (target/debug/deps/kedr_server-68ff6430ab71d7d7)
+2026-10-09T23:33:45.8106431Z 
+2026-10-09T23:33:45.8117069Z 
+2026-10-09T23:33:45.8117217Z running 0 tests
+2026-10-09T23:33:45.8117358Z 
+2026-10-09T23:33:45.8117573Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:33:45.8117849Z 
+2026-10-09T23:33:45.8118967Z      Running tests/protocol.rs (target/debug/deps/protocol-a2908567de98d10d)
+2026-10-09T23:33:45.8129324Z 
+2026-10-09T23:33:45.8129414Z running 5 tests
+2026-10-09T23:33:46.5206223Z test driver_binary_crud_nulls_transactions_and_reconnect ... ok
+2026-10-09T23:33:46.6923011Z test extended_pipeline_error_rollback_and_portal_suspension ... ok
+2026-10-09T23:33:47.0176178Z test bad_credentials_packets_disconnect_and_authenticated_cancel ... ok
+2026-10-09T23:33:47.2746503Z test wrong_cancel_key_does_not_cancel_another_session ... ok
+2026-10-09T23:33:52.5588041Z test malformed_authenticated_messages_recover_and_partial_frame_times_out ... ok
+2026-10-09T23:33:52.5588288Z 
+2026-10-09T23:33:52.5588431Z test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.75s
+2026-10-09T23:33:52.5588617Z 
+2026-10-09T23:33:52.5610760Z      Running unittests src/main.rs (target/debug/deps/kedr_studio-75de45e6d6b92b70)
+2026-10-09T23:33:52.5624592Z 
+2026-10-09T23:33:52.5624684Z running 4 tests
+2026-10-09T23:33:52.6264842Z test backend::tests::backpressure_and_cancel_allow_subsequent_operation ... ok
+2026-10-09T23:33:52.6629074Z test backend::tests::closing_with_an_unread_reply_does_not_deadlock ... ok
+2026-10-09T23:33:52.6879327Z test backend::tests::preview_cannot_acknowledge_database_writes ... ok
+2026-10-09T23:33:54.8608143Z test network::tests::real_worker_crud_catalog_abort_cancel_limits_disconnect_and_reconnect ... ok
+2026-10-09T23:33:54.8608428Z 
+2026-10-09T23:33:54.8608571Z test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.30s
+2026-10-09T23:33:54.8608759Z 
+2026-10-09T23:33:54.8617589Z      Running unittests src/lib.rs (target/debug/deps/kedr_testkit-5580084816f817d0)
+2026-10-09T23:33:54.8628029Z 
+2026-10-09T23:33:54.8628111Z running 0 tests
+2026-10-09T23:33:54.8628292Z 
+2026-10-09T23:33:54.8628572Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:33:54.8628886Z 
+2026-10-09T23:33:54.8630416Z      Running unittests src/bin/kedr-crash-fixture.rs (target/debug/deps/kedr_crash_fixture-c9b81fe608832843)
+2026-10-09T23:33:54.8638043Z 
+2026-10-09T23:33:54.8638138Z running 0 tests
+2026-10-09T23:33:54.8638252Z 
+2026-10-09T23:33:54.8638477Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:33:54.8638776Z 
+2026-10-09T23:33:54.8640087Z      Running unittests src/bin/kedr-db-crash-fixture.rs (target/debug/deps/kedr_db_crash_fixture-eb8e6d73fe76c332)
+2026-10-09T23:33:54.8647768Z 
+2026-10-09T23:33:54.8647968Z running 0 tests
+2026-10-09T23:33:54.8648105Z 
+2026-10-09T23:33:54.8648274Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:33:54.8648467Z 
+2026-10-09T23:33:54.8649928Z      Running unittests src/bin/kedr-sql-crash-fixture.rs (target/debug/deps/kedr_sql_crash_fixture-30d81eef13ae56b4)
+2026-10-09T23:33:54.8656745Z 
+2026-10-09T23:33:54.8656833Z running 0 tests
+2026-10-09T23:33:54.8657048Z 
+2026-10-09T23:33:54.8657322Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:33:54.8658919Z      Running tests/crash_campaign.rs (target/debug/deps/crash_campaign-4234ac10871c34f3)
+2026-10-09T23:33:54.8659105Z 
+2026-10-09T23:33:54.8666346Z 
+2026-10-09T23:33:54.8666475Z running 1 test
+2026-10-09T23:33:58.3248209Z test seeded_two_file_crashes_preserve_acknowledgements_or_diagnose_corrupt_tail ... ok
+2026-10-09T23:33:58.3248535Z 
+2026-10-09T23:33:58.3248699Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.46s
+2026-10-09T23:33:58.3248893Z 
+2026-10-09T23:33:58.3250861Z      Running tests/engine_contract.rs (target/debug/deps/engine_contract-5c9fd3e0fc895660)
+2026-10-09T23:33:58.3261939Z 
+2026-10-09T23:33:58.3262292Z running 9 tests
+2026-10-09T23:33:58.3574537Z test cancellation_and_deadline_interrupt_cached_operations_and_prevent_commit ... ok
+2026-10-09T23:33:58.3827458Z test private_limit_failure_rolls_back_without_poisoning_database ... ok
+2026-10-09T23:33:58.5207149Z test dirty_eviction_never_writes_base_before_wal_sync ... ok
+2026-10-09T23:33:58.5432208Z test rollback_drop_aborted_state_and_read_your_writes ... ok
+2026-10-09T23:33:58.5552802Z test truncated_valid_journal_cannot_erase_a_newer_durable_commit ... ok
+2026-10-09T23:33:58.5562819Z test commit_faults_never_lose_acknowledged_base_and_ambiguous_sync_is_recovered ... ok
+2026-10-09T23:33:58.5618233Z test wrong_database_journal_is_rejected_before_touching_source_pages ... ok
+2026-10-09T23:33:58.8251468Z test committed_multiple_pages_recover_repeatedly_after_data_loss ... ok
+2026-10-09T23:34:00.6332623Z test recovery_failure_at_every_io_call_remains_repeatable ... ok
+2026-10-09T23:34:00.6332839Z 
+2026-10-09T23:34:00.6332985Z test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.31s
+2026-10-09T23:34:00.6333178Z 
+2026-10-09T23:34:00.6339806Z      Running tests/file_and_crash.rs (target/debug/deps/file_and_crash-a80d3c2103963ef8)
+2026-10-09T23:34:00.6350505Z 
+2026-10-09T23:34:00.6350599Z running 3 tests
+2026-10-09T23:34:00.6493552Z test file_reopen_sparse_write_resize_and_exclusive_creation ... ok
+2026-10-09T23:34:00.6493950Z test synchronized_prefix_survives_real_process_kill ... ok
+2026-10-09T23:34:04.3167707Z test acknowledged_database_transactions_survive_sigkill_during_rotation ... ok
+2026-10-09T23:34:04.3168049Z 
+2026-10-09T23:34:04.3168291Z test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 3.68s
+2026-10-09T23:34:04.3168600Z 
+2026-10-09T23:34:04.3170625Z      Running tests/sql_crash.rs (target/debug/deps/sql_crash-5f9736f858cba0ef)
+2026-10-09T23:34:04.3182447Z 
+2026-10-09T23:34:04.3182538Z running 1 test
+2026-10-09T23:34:04.6904238Z test acknowledged_sql_catalog_rows_indices_and_foreign_keys_survive_sigkill_during_rotation ... ok
+2026-10-09T23:34:04.6904665Z 
+2026-10-09T23:34:04.6904894Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.37s
+2026-10-09T23:34:04.6905190Z 
+2026-10-09T23:34:04.6906721Z      Running tests/storage_contract.rs (target/debug/deps/storage_contract-c656891756893a85)
+2026-10-09T23:34:04.6918031Z 
+2026-10-09T23:34:04.6918332Z running 13 tests
+2026-10-09T23:34:04.6920778Z test broken_backend_byte_counts_are_rejected ... ok
+2026-10-09T23:34:04.6921461Z test allocation_limit_rejects_mutation_and_sparse_holes_are_zero ... ok
+2026-10-09T23:34:04.6921852Z test eof_reports_actual_progress ... ok
+2026-10-09T23:34:04.6922219Z test errors_after_partial_write_leave_partial_bytes ... ok
+2026-10-09T23:34:04.6922448Z test exact_helpers_retry_short_io_and_interrupts ... ok
+2026-10-09T23:34:04.6922828Z test replay_has_identical_trace_and_bytes ... ok
+2026-10-09T23:34:04.6923166Z test harness_detects_intentionally_missing_sync ... ok
+2026-10-09T23:34:04.6932646Z test invalid_faults_and_duplicate_call_numbers_are_rejected ... ok
+2026-10-09T23:34:04.6933070Z test range_overflow_is_rejected_before_backend_calls ... ok
+2026-10-09T23:34:04.6933413Z test sync_and_crash_include_file_length ... ok
+2026-10-09T23:34:04.6933655Z test zero_write_is_an_error_not_an_infinite_loop ... ok
+2026-10-09T23:34:04.6943095Z test sync_failure_can_happen_before_or_after_persistence ... ok
+2026-10-09T23:34:11.9897281Z test seeded_operations_match_independent_sparse_byte_oracle ... ok
+2026-10-09T23:34:11.9897544Z 
+2026-10-09T23:34:11.9897683Z test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 7.30s
+2026-10-09T23:34:11.9897895Z 
+2026-10-09T23:34:11.9899934Z      Running tests/tree_contract.rs (target/debug/deps/tree_contract-935c5f8e03387a3f)
+2026-10-09T23:34:11.9911345Z 
+2026-10-09T23:34:11.9911518Z running 6 tests
+2026-10-09T23:34:11.9942781Z test ambiguous_checkpoint_sync_poison_stops_further_operations ... ok
+2026-10-09T23:34:11.9992395Z test header_and_node_corruption_are_detected ... ok
+2026-10-09T23:34:12.0112587Z test maximum_records_and_logical_failures_preserve_contents ... ok
+2026-10-09T23:34:12.9618137Z test split_range_update_delete_reopen_and_reuse ... ok
+2026-10-09T23:34:14.5699830Z test multi_level_tree_with_variable_length_keys_and_secondary_duplicates ... ok
+2026-10-09T23:34:14.8780897Z test seeded_tree_operations_match_independent_map ... ok
+2026-10-09T23:34:14.8781169Z 
+2026-10-09T23:34:14.8781383Z test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.89s
+2026-10-09T23:34:14.8782320Z 
+2026-10-09T23:34:14.8794651Z      Running tests/wal_contract.rs (target/debug/deps/wal_contract-add9276a673dba16)
+2026-10-09T23:34:14.8805208Z 
+2026-10-09T23:34:14.8805313Z running 5 tests
+2026-10-09T23:34:14.8832947Z test duplicate_images_and_invalid_lengths_fail_before_any_write ... ok
+2026-10-09T23:34:14.8833632Z test failed_append_is_poisoned_and_sync_before_error_is_ambiguous ... ok
+2026-10-09T23:34:14.8837925Z test committed_groups_replay_identically_and_append_continues ... ok
+2026-10-09T23:34:14.8844003Z test damaged_full_records_and_valid_crc_invalid_commits_fail_closed ... ok
+2026-10-09T23:34:14.8919078Z test partial_eof_and_uncommitted_images_do_not_apply_and_must_be_cleared ... ok
+2026-10-09T23:34:14.8919272Z 
+2026-10-09T23:34:14.8919423Z test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+2026-10-09T23:34:14.8919612Z 
+2026-10-09T23:34:14.8920977Z    Doc-tests kedr_core
+2026-10-09T23:34:14.9404605Z 
+2026-10-09T23:34:14.9405060Z running 0 tests
+2026-10-09T23:34:14.9405239Z 
+2026-10-09T23:34:14.9405472Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:34:14.9405760Z 
+2026-10-09T23:34:14.9418826Z    Doc-tests kedr_server
+2026-10-09T23:34:14.9745764Z 
+2026-10-09T23:34:14.9746389Z running 0 tests
+2026-10-09T23:34:14.9746611Z 
+2026-10-09T23:34:14.9746868Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:34:14.9747131Z 
+2026-10-09T23:34:14.9762326Z    Doc-tests kedr_testkit
+2026-10-09T23:34:14.9921223Z 
+2026-10-09T23:34:14.9921691Z running 0 tests
+2026-10-09T23:34:14.9921871Z 
+2026-10-09T23:34:14.9922276Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:34:14.9922485Z 
+2026-10-09T23:34:15.0004573Z ##[group]Run cargo test --workspace --all-features --release --locked --offline
+2026-10-09T23:34:15.0004910Z [36;1mcargo test --workspace --all-features --release --locked --offline[0m
+2026-10-09T23:34:15.0054275Z shell: /usr/bin/bash -e {0}
+2026-10-09T23:34:15.0054422Z ##[endgroup]
+2026-10-09T23:34:15.2061457Z    Compiling proc-macro2 v1.0.107
+2026-10-09T23:34:15.2063934Z    Compiling quote v1.0.47
+2026-10-09T23:34:15.2064164Z    Compiling unicode-ident v1.0.26
+2026-10-09T23:34:15.2064385Z    Compiling log v0.4.34
+2026-10-09T23:34:15.2533740Z    Compiling cfg-if v1.0.5
+2026-10-09T23:34:15.2785566Z    Compiling libc v0.2.190
+2026-10-09T23:34:15.3263547Z    Compiling once_cell v1.21.4
+2026-10-09T23:34:15.3282967Z    Compiling bitflags v2.13.2
+2026-10-09T23:34:15.4446877Z    Compiling smallvec v1.16.2
+2026-10-09T23:34:15.5024482Z    Compiling pin-project-lite v0.2.17
+2026-10-09T23:34:15.5398922Z    Compiling find-msvc-tools v0.1.14
+2026-10-09T23:34:15.6101267Z    Compiling rustix v1.1.5
+2026-10-09T23:34:15.6873388Z    Compiling serde v1.0.229
+2026-10-09T23:34:15.8333273Z    Compiling shlex v2.0.1
+2026-10-09T23:34:15.9236638Z    Compiling syn v3.0.6
+2026-10-09T23:34:15.9280236Z    Compiling syn v2.0.119
+2026-10-09T23:34:15.9308923Z    Compiling cc v1.6.0
+2026-10-09T23:34:16.3483522Z    Compiling linux-raw-sys v0.12.1
+2026-10-09T23:34:17.1123468Z    Compiling sqlparser v0.63.0
+2026-10-09T23:34:19.1357396Z    Compiling serde_core v1.0.229
+2026-10-09T23:34:19.5009914Z    Compiling serde_derive v1.0.229
+2026-10-09T23:34:20.9863226Z    Compiling autocfg v1.5.1
+2026-10-09T23:34:21.2125820Z    Compiling futures-core v0.3.34
+2026-10-09T23:34:21.2793148Z    Compiling pkg-config v0.3.34
+2026-10-09T23:34:21.3553289Z    Compiling version_check v0.9.5
+2026-10-09T23:34:21.5454859Z    Compiling libloading v0.8.9
+2026-10-09T23:34:21.6180443Z    Compiling slab v0.4.12
+2026-10-09T23:34:21.6424306Z    Compiling typenum v1.20.1
+2026-10-09T23:34:21.7413147Z    Compiling winnow v1.0.4
+2026-10-09T23:34:22.3036632Z    Compiling errno v0.3.14
+2026-10-09T23:34:22.3943467Z    Compiling equivalent v1.0.2
+2026-10-09T23:34:22.4203167Z    Compiling hashbrown v0.17.1
+2026-10-09T23:34:22.5383701Z    Compiling toml_parser v1.1.5+spec-1.1.0
+2026-10-09T23:34:22.8013227Z    Compiling indexmap v2.14.2
+2026-10-09T23:34:23.2293330Z    Compiling signal-hook-registry v1.4.8
+2026-10-09T23:34:23.3123739Z    Compiling wayland-sys v0.31.11
+2026-10-09T23:34:23.3903878Z    Compiling dlib v0.5.3
+2026-10-09T23:34:23.4123861Z    Compiling toml_datetime v1.1.2+spec-1.1.0
+2026-10-09T23:34:23.4433654Z    Compiling polling v3.11.0
+2026-10-09T23:34:23.4464489Z    Compiling bytemuck_derive v1.12.1
+2026-10-09T23:34:23.5383124Z    Compiling toml_edit v0.25.17+spec-1.1.0
+2026-10-09T23:34:23.6063011Z    Compiling enumflags2_derive v0.7.12
+2026-10-09T23:34:23.8743745Z    Compiling zerocopy v0.8.62
+2026-10-09T23:34:24.0653044Z    Compiling proc-macro-crate v3.5.0
+2026-10-09T23:34:24.1853158Z    Compiling bytemuck v1.25.2
+2026-10-09T23:34:24.3683359Z    Compiling zvariant_utils v4.2.0
+2026-10-09T23:34:24.3715538Z    Compiling wayland-backend v0.3.17
+2026-10-09T23:34:24.4583735Z    Compiling parking v2.2.1
+2026-10-09T23:34:24.5381624Z    Compiling synstructure v0.14.0
+2026-10-09T23:34:24.8873255Z    Compiling memchr v2.8.3
+2026-10-09T23:34:25.0459076Z    Compiling zvariant_derive v5.15.0
+2026-10-09T23:34:25.2223201Z    Compiling downcast-rs v1.2.1
+2026-10-09T23:34:25.2712984Z    Compiling scoped-tls v1.0.1
+2026-10-09T23:34:25.3293480Z    Compiling quick-xml v0.41.0
+2026-10-09T23:34:25.9500352Z    Compiling thiserror v2.0.21
+2026-10-09T23:34:26.0853145Z    Compiling wayland-client v0.31.15
+2026-10-09T23:34:26.1493756Z    Compiling crossbeam-utils v0.8.23
+2026-10-09T23:34:26.3093443Z    Compiling wayland-scanner v0.31.11
+2026-10-09T23:34:26.7067680Z    Compiling zerofrom-derive v0.1.8
+2026-10-09T23:34:27.2103484Z    Compiling kedr-core v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-core)
+2026-10-09T23:34:27.2679658Z    Compiling thiserror-impl v2.0.21
+2026-10-09T23:34:28.0543625Z    Compiling zerofrom v0.1.8
+2026-10-09T23:34:28.6213087Z    Compiling yoke-derive v0.8.4
+2026-10-09T23:34:29.1733121Z    Compiling tracing-attributes v0.1.31
+2026-10-09T23:34:29.8933157Z    Compiling tracing-core v0.1.36
+2026-10-09T23:34:30.3613221Z    Compiling futures-io v0.3.34
+2026-10-09T23:34:30.4355872Z    Compiling fastrand v2.5.0
+2026-10-09T23:34:30.4973415Z    Compiling stable_deref_trait v1.2.1
+2026-10-09T23:34:30.5225089Z    Compiling yoke v0.8.3
+2026-10-09T23:34:30.6303658Z    Compiling tracing v0.1.44
+2026-10-09T23:34:30.8320148Z    Compiling concurrent-queue v2.5.0
+2026-10-09T23:34:30.8763650Z    Compiling event-listener v5.4.2
+2026-10-09T23:34:30.9584146Z    Compiling enumflags2 v0.7.12
+2026-10-09T23:34:31.0480495Z    Compiling zcheapstr v1.1.0
+2026-10-09T23:34:31.0633682Z    Compiling generic-array v0.14.7
+2026-10-09T23:34:31.1337268Z    Compiling async-trait v0.1.92
+2026-10-09T23:34:31.1338020Z    Compiling getrandom v0.2.17
+2026-10-09T23:34:31.2463278Z    Compiling siphasher v1.0.4
+2026-10-09T23:34:31.3393629Z    Compiling endi v1.1.1
+2026-10-09T23:34:31.4169393Z    Compiling parking_lot_core v0.9.12
+2026-10-09T23:34:31.5074023Z    Compiling percent-encoding v2.3.2
+2026-10-09T23:34:31.6293059Z    Compiling zvariant v5.15.0
+2026-10-09T23:34:31.6713687Z    Compiling phf_shared v0.13.1
+2026-10-09T23:34:31.8003115Z    Compiling event-listener-strategy v0.5.4
+2026-10-09T23:34:31.8604060Z    Compiling futures-lite v2.6.1
+2026-10-09T23:34:32.4123228Z    Compiling hybrid-array v0.4.15
+2026-10-09T23:34:32.7373057Z    Compiling num-traits v0.2.19
+2026-10-09T23:34:32.8083237Z    Compiling zerovec-derive v0.11.6
+2026-10-09T23:34:33.2793313Z    Compiling scopeguard v1.2.0
+2026-10-09T23:34:33.4939705Z    Compiling subtle v2.6.1
+2026-10-09T23:34:33.5673143Z    Compiling zerovec v0.11.8
+2026-10-09T23:34:34.0093299Z    Compiling lock_api v0.4.14
+2026-10-09T23:34:34.1453636Z    Compiling phf_generator v0.13.1
+2026-10-09T23:34:34.2413425Z    Compiling zbus_names v4.3.4
+2026-10-09T23:34:35.2253341Z    Compiling kedr-testkit v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-testkit)
+2026-10-09T23:34:35.5893726Z    Compiling async-io v2.6.0
+2026-10-09T23:34:35.6603356Z    Compiling uuid v1.27.0
+2026-10-09T23:34:35.9833367Z    Compiling displaydoc v0.2.7
+2026-10-09T23:34:36.2954161Z    Compiling ring v0.17.14
+2026-10-09T23:34:36.3683669Z    Compiling futures-sink v0.3.34
+2026-10-09T23:34:36.4983169Z    Compiling cmov v0.5.4
+2026-10-09T23:34:36.5370720Z    Compiling tinyvec v1.13.3
+2026-10-09T23:34:36.6193025Z    Compiling bytes v1.12.1
+2026-10-09T23:34:36.8370257Z    Compiling foldhash v0.2.0
+2026-10-09T23:34:37.0873085Z    Compiling unicode-normalization v0.1.25
+2026-10-09T23:34:37.3913632Z    Compiling ctutils v0.4.3
+2026-10-09T23:34:39.4253402Z    Compiling parking_lot v0.12.5
+2026-10-09T23:34:40.1803137Z    Compiling phf_macros v0.13.1
+2026-10-09T23:34:40.2623195Z    Compiling block-buffer v0.12.1
+2026-10-09T23:34:40.3383510Z    Compiling crypto-common v0.2.2
+2026-10-09T23:34:40.5733925Z    Compiling wayland-protocols v0.32.13
+2026-10-09T23:34:41.0593054Z    Compiling unicode-properties v0.1.4
+2026-10-09T23:34:41.1713350Z    Compiling const-oid v0.10.2
+2026-10-09T23:34:41.8358825Z    Compiling async-task v4.7.1
+2026-10-09T23:34:41.9563079Z    Compiling zeroize v1.9.1
+2026-10-09T23:34:42.0359453Z    Compiling khronos_api v3.1.0
+2026-10-09T23:34:42.1283391Z    Compiling unicode-bidi v0.3.18
+2026-10-09T23:34:42.7493083Z    Compiling cfg_aliases v0.2.2
+2026-10-09T23:34:42.7746939Z    Compiling stringprep v0.1.5
+2026-10-09T23:34:43.3393180Z    Compiling rustls-pki-types v1.15.1
+2026-10-09T23:34:43.7323021Z    Compiling digest v0.11.3
+2026-10-09T23:34:43.8383206Z    Compiling phf v0.13.1
+2026-10-09T23:34:44.5983823Z    Compiling block-buffer v0.10.4
+2026-10-09T23:34:44.6603031Z    Compiling crypto-common v0.1.7
+2026-10-09T23:34:44.7093322Z    Compiling async-channel v2.5.0
+2026-10-09T23:34:44.7403238Z    Compiling futures-macro v0.3.34
+2026-10-09T23:34:44.8283315Z    Compiling tokio-macros v2.7.2
+2026-10-09T23:34:45.1783964Z    Compiling socket2 v0.6.5
+2026-10-09T23:34:45.2063614Z    Compiling mio v1.2.4
+2026-10-09T23:34:45.4913139Z    Compiling rand_core v0.10.1
+2026-10-09T23:34:45.5423287Z    Compiling getrandom v0.4.3
+2026-10-09T23:34:45.5673288Z    Compiling base64 v0.22.1
+2026-10-09T23:34:45.6253238Z    Compiling atomic-waker v1.1.2
+2026-10-09T23:34:45.6693083Z    Compiling untrusted v0.9.0
+2026-10-09T23:34:45.7253527Z    Compiling futures-task v0.3.34
+2026-10-09T23:34:45.8003259Z    Compiling getrandom v0.3.4
+2026-10-09T23:34:45.8332413Z    Compiling cpufeatures v0.3.1
+2026-10-09T23:34:45.8640569Z    Compiling futures-util v0.3.34
+2026-10-09T23:34:46.8443211Z    Compiling piper v0.2.5
+2026-10-09T23:34:46.9703352Z    Compiling tokio v1.53.2
+2026-10-09T23:34:47.5493906Z    Compiling digest v0.10.7
+2026-10-09T23:34:47.7033985Z    Compiling async-signal v0.2.14
+2026-10-09T23:34:47.9153518Z    Compiling tinystr v0.8.4
+2026-10-09T23:34:48.0243311Z    Compiling zbus_xml v5.2.1
+2026-10-09T23:34:48.0993280Z    Compiling async-lock v3.4.2
+2026-10-09T23:34:48.5503809Z    Compiling ahash v0.8.12
+2026-10-09T23:34:48.6283716Z    Compiling rustix v0.38.44
+2026-10-09T23:34:48.7133286Z    Compiling thiserror v1.0.69
+2026-10-09T23:34:48.7813683Z    Compiling litemap v0.8.3
+2026-10-09T23:34:48.8233615Z    Compiling writeable v0.6.4
+2026-10-09T23:34:48.9779899Z    Compiling arrayvec v0.7.8
+2026-10-09T23:34:48.9873521Z    Compiling zmij v1.0.23
+2026-10-09T23:34:49.0930667Z    Compiling rustls v0.23.45
+2026-10-09T23:34:49.1003488Z    Compiling xml-rs v0.8.29
+2026-10-09T23:34:49.1833257Z    Compiling polycool v0.4.0
+2026-10-09T23:34:49.6463239Z    Compiling gl_generator v0.14.0
+2026-10-09T23:34:49.6923012Z    Compiling icu_locale_core v2.3.0
+2026-10-09T23:34:50.0413657Z    Compiling zbus-lockstep v0.5.2
+2026-10-09T23:34:50.1313376Z    Compiling async-process v2.5.0
+2026-10-09T23:34:50.9033178Z    Compiling rustls-webpki v0.103.15
+2026-10-09T23:34:51.1213340Z    Compiling blocking v1.7.0
+2026-10-09T23:34:51.4173469Z    Compiling chacha20 v0.10.2
+2026-10-09T23:34:51.5773195Z    Compiling async-executor v1.14.0
+2026-10-09T23:34:51.8311210Z    Compiling zerotrie v0.2.5
+2026-10-09T23:34:52.0443136Z    Compiling zbus_macros v5.19.0
+2026-10-09T23:34:52.2163208Z    Compiling potential_utf v0.1.6
+2026-10-09T23:34:52.2749210Z    Compiling async-broadcast v0.7.2
+2026-10-09T23:34:52.3543102Z    Compiling rand_core v0.6.4
+2026-10-09T23:34:52.4163567Z    Compiling ppv-lite86 v0.2.21
+2026-10-09T23:34:52.4733684Z    Compiling x11-dl v2.21.0
+2026-10-09T23:34:52.5643042Z    Compiling ordered-stream v0.2.0
+2026-10-09T23:34:52.6393379Z    Compiling async-recursion v1.2.0
+2026-10-09T23:34:52.7623288Z    Compiling serde_repr v0.1.21
+2026-10-09T23:34:52.9050117Z    Compiling thiserror-impl v1.0.69
+2026-10-09T23:34:52.9633497Z    Compiling simd-adler32 v0.3.10
+2026-10-09T23:34:53.1003117Z    Compiling icu_properties_data v2.3.0
+2026-10-09T23:34:53.1663799Z    Compiling hex v0.4.3
+2026-10-09T23:34:53.2722812Z    Compiling linux-raw-sys v0.4.15
+2026-10-09T23:34:53.3223119Z    Compiling xcursor v0.3.11
+2026-10-09T23:34:53.4633243Z    Compiling xkeysym v0.2.1
+2026-10-09T23:34:53.5833753Z    Compiling utf8_iter v1.0.4
+2026-10-09T23:34:53.6423505Z    Compiling icu_normalizer_data v2.3.0
+2026-10-09T23:34:53.6754988Z    Compiling serde_json v1.0.151
+2026-10-09T23:34:53.7094446Z    Compiling cursor-icon v1.2.0
+2026-10-09T23:34:53.7501482Z    Compiling zbus v5.19.0
+2026-10-09T23:34:53.7553565Z    Compiling wayland-csd-frame v0.3.0
+2026-10-09T23:34:53.7653238Z    Compiling icu_collections v2.3.0
+2026-10-09T23:34:54.1253080Z    Compiling wayland-cursor v0.31.14
+2026-10-09T23:34:54.2963044Z    Compiling rand_chacha v0.3.1
+2026-10-09T23:34:54.6103716Z    Compiling icu_provider v2.3.1
+2026-10-09T23:34:54.6303507Z    Compiling rand v0.10.3
+2026-10-09T23:34:55.1083412Z    Compiling zbus-lockstep-macros v0.5.2
+2026-10-09T23:34:55.3443662Z    Compiling kurbo v0.13.1
+2026-10-09T23:34:56.8613098Z    Compiling sha2 v0.11.0
+2026-10-09T23:34:57.2134102Z    Compiling wayland-protocols-wlr v0.3.12
+2026-10-09T23:34:57.8173217Z    Compiling hmac v0.13.0
+2026-10-09T23:34:57.8913509Z    Compiling md-5 v0.11.0
+2026-10-09T23:34:58.0073128Z    Compiling euclid v0.22.14
+2026-10-09T23:34:58.4443409Z    Compiling accesskit v0.24.1
+2026-10-09T23:34:58.7783351Z    Compiling color v0.3.3
+2026-10-09T23:34:59.2353534Z    Compiling font-types v0.11.3
+2026-10-09T23:34:59.4041086Z    Compiling der_derive v0.7.3
+2026-10-09T23:34:59.4619888Z    Compiling memmap2 v0.9.11
+2026-10-09T23:34:59.6003710Z    Compiling itoa v1.0.18
+2026-10-09T23:34:59.7043715Z    Compiling const-oid v0.9.6
+2026-10-09T23:35:00.0023869Z    Compiling fallible-iterator v0.2.0
+2026-10-09T23:35:00.2313740Z    Compiling adler2 v2.0.1
+2026-10-09T23:35:00.2819153Z    Compiling byteorder v1.5.0
+2026-10-09T23:35:00.3083479Z    Compiling linebender_resource_handle v0.1.1
+2026-10-09T23:35:00.3603639Z    Compiling flagset v0.4.7
+2026-10-09T23:35:00.4138707Z    Compiling cpufeatures v0.2.17
+2026-10-09T23:35:00.4210087Z    Compiling crc32fast v1.5.2
+2026-10-09T23:35:00.4440018Z    Compiling static_assertions v1.1.0
+2026-10-09T23:35:00.4763700Z    Compiling atspi-common v0.13.0
+2026-10-09T23:35:00.5470116Z    Compiling sha2 v0.10.9
+2026-10-09T23:35:01.0743436Z    Compiling postgres-protocol v0.6.12
+2026-10-09T23:35:01.6913711Z    Compiling der v0.7.10
+2026-10-09T23:35:02.7348883Z    Compiling peniko v0.6.1
+2026-10-09T23:35:03.0632972Z    Compiling read-fonts v0.39.2
+2026-10-09T23:35:04.1853563Z    Compiling guillotiere v0.7.0
+2026-10-09T23:35:04.4313239Z    Compiling tokio-rustls v0.26.6
+2026-10-09T23:35:04.5923964Z    Compiling calloop v0.13.0
+2026-10-09T23:35:08.1654242Z    Compiling rand v0.8.8
+2026-10-09T23:35:08.5923733Z    Compiling pbkdf2 v0.12.2
+2026-10-09T23:35:08.6393264Z    Compiling hmac v0.12.1
+2026-10-09T23:35:08.7053675Z    Compiling gethostname v1.1.0
+2026-10-09T23:35:08.7443778Z    Compiling rtoolbox v0.0.6
+2026-10-09T23:35:08.8353189Z    Compiling unicode-general-category v1.1.0
+2026-10-09T23:35:08.8743480Z    Compiling smithay-client-toolkit v0.19.2
+2026-10-09T23:35:08.9323149Z    Compiling x11rb-protocol v0.13.2
+2026-10-09T23:35:09.0103046Z    Compiling as-raw-xcb-connection v1.0.1
+2026-10-09T23:35:09.0413489Z    Compiling fearless_simd v0.4.1
+2026-10-09T23:35:09.3973118Z    Compiling rpassword v7.5.4
+2026-10-09T23:35:09.6213652Z    Compiling rsasl v2.3.1
+2026-10-09T23:35:11.0613542Z    Compiling icu_normalizer v2.3.0
+2026-10-09T23:35:11.5703609Z    Compiling icu_properties v2.3.0
+2026-10-09T23:35:11.7953353Z    Compiling vello_common v0.0.9
+2026-10-09T23:35:12.4393327Z    Compiling calloop-wayland-source v0.3.0
+2026-10-09T23:35:12.4960601Z    Compiling spki v0.7.3
+2026-10-09T23:35:12.6182967Z    Compiling postgres-types v0.2.14
+2026-10-09T23:35:13.1323218Z    Compiling miniz_oxide v0.9.1
+2026-10-09T23:35:13.7833550Z    Compiling tokio-util v0.7.20
+2026-10-09T23:35:13.8703238Z    Compiling rustls-pemfile v2.2.0
+2026-10-09T23:35:13.9972693Z    Compiling winit v0.30.13
+2026-10-09T23:35:14.1483193Z    Compiling hashbrown v0.16.1
+2026-10-09T23:35:14.2523337Z    Compiling futures-channel v0.3.34
+2026-10-09T23:35:14.2792925Z    Compiling emath v0.35.0
+2026-10-09T23:35:14.3813163Z    Compiling whoami v2.1.3
+2026-10-09T23:35:14.5293203Z    Compiling raw-window-handle v0.6.2
+2026-10-09T23:35:14.6023235Z    Compiling accesskit_consumer v0.36.0
+2026-10-09T23:35:14.6425305Z    Compiling tokio-postgres v0.7.18
+2026-10-09T23:35:14.7593474Z    Compiling ecolor v0.35.0
+2026-10-09T23:35:14.9493157Z    Compiling flate2 v1.1.10
+2026-10-09T23:35:15.2403639Z    Compiling x509-cert v0.2.5
+2026-10-09T23:35:16.1243358Z    Compiling vello_cpu v0.0.9
+2026-10-09T23:35:17.7613592Z    Compiling x11rb v0.13.2
+2026-10-09T23:35:19.4323710Z    Compiling idna_adapter v1.2.2
+2026-10-09T23:35:19.4823250Z    Compiling skrifa v0.42.1
+2026-10-09T23:35:19.7403696Z    Compiling harfrust v0.7.0
+2026-10-09T23:35:26.4363343Z    Compiling atspi-proxies v0.13.0
+2026-10-09T23:35:26.7943519Z    Compiling miniz_oxide v0.8.9
+2026-10-09T23:35:26.8583948Z    Compiling xkbcommon-dl v0.4.2
+2026-10-09T23:35:27.3133615Z    Compiling fdeflate v0.3.7
+2026-10-09T23:35:27.4511312Z    Compiling glutin_glx_sys v0.6.1
+2026-10-09T23:35:27.6963252Z    Compiling glutin_egl_sys v0.7.1
+2026-10-09T23:35:27.7043366Z    Compiling wayland-protocols-plasma v0.3.12
+2026-10-09T23:35:27.8243192Z    Compiling calloop v0.14.5
+2026-10-09T23:35:28.0633924Z    Compiling smithay-client-toolkit v0.20.0
+2026-10-09T23:35:28.1233621Z    Compiling nohash-hasher v0.2.0
+2026-10-09T23:35:28.1614200Z    Compiling self_cell v1.3.0
+2026-10-09T23:35:28.2043575Z    Compiling dpi v0.1.2
+2026-10-09T23:35:28.2903341Z    Compiling unicode-segmentation v1.13.3
+2026-10-09T23:35:28.5413239Z    Compiling either v1.19.0
+2026-10-09T23:35:28.5733408Z    Compiling profiling v1.0.18
+2026-10-09T23:35:28.5963265Z    Compiling pxfm v0.1.30
+2026-10-09T23:35:28.6673166Z    Compiling epaint_default_fonts v0.35.0
+2026-10-09T23:35:28.7233179Z    Compiling smol_str v0.2.2
+2026-10-09T23:35:28.8453008Z    Compiling epaint v0.35.0
+2026-10-09T23:35:32.0753691Z    Compiling moxcms v0.8.1
+2026-10-09T23:35:33.3623335Z    Compiling itertools v0.14.0
+2026-10-09T23:35:34.5003722Z    Compiling calloop-wayland-source v0.4.1
+2026-10-09T23:35:34.6666268Z    Compiling png v0.18.1
+2026-10-09T23:35:36.0787223Z    Compiling atspi v0.29.0
+2026-10-09T23:35:36.1173273Z    Compiling idna v1.1.0
+2026-10-09T23:35:37.0053279Z    Compiling tokio-postgres-rustls v0.14.0
+2026-10-09T23:35:37.1833725Z    Compiling accesskit_atspi_common v0.18.1
+2026-10-09T23:35:38.0572924Z    Compiling kedr-server v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-server)
+2026-10-09T23:35:38.8573626Z    Compiling wayland-protocols-misc v0.3.12
+2026-10-09T23:35:39.4653495Z    Compiling wayland-protocols-experimental v20250721.0.1
+2026-10-09T23:35:39.7573682Z    Compiling glutin v0.32.3
+2026-10-09T23:35:39.9323238Z    Compiling form_urlencoded v1.2.2
+2026-10-09T23:35:40.0373262Z    Compiling memoffset v0.9.1
+2026-10-09T23:35:40.0990230Z    Compiling byteorder-lite v0.1.0
+2026-10-09T23:35:40.2343754Z    Compiling url v2.5.8
+2026-10-09T23:35:40.2753805Z    Compiling image v0.25.10
+2026-10-09T23:35:41.3753636Z    Compiling accesskit_unix v0.21.1
+2026-10-09T23:35:41.9683448Z    Compiling egui v0.35.0
+2026-10-09T23:35:42.8373508Z    Compiling glutin-winit v0.5.0
+2026-10-09T23:35:43.0313165Z    Compiling smithay-clipboard v0.7.3
+2026-10-09T23:35:45.6713387Z    Compiling accesskit_winit v0.32.2
+2026-10-09T23:35:47.0703082Z    Compiling arboard v3.6.1
+2026-10-09T23:35:48.8283666Z    Compiling webbrowser v1.2.4
+2026-10-09T23:35:48.8913213Z    Compiling web-time v1.1.0
+2026-10-09T23:35:48.9273686Z    Compiling glow v0.17.0
+2026-10-09T23:35:49.8343496Z    Compiling litrs v1.0.0
+2026-10-09T23:35:50.1483410Z    Compiling document-features v0.2.12
+2026-10-09T23:35:50.3813969Z    Compiling egui_glow v0.35.0
+2026-10-09T23:35:50.4463899Z    Compiling egui-winit v0.35.0
+2026-10-09T23:35:51.0843046Z    Compiling eframe v0.35.0
+2026-10-09T23:35:59.5763719Z    Compiling kedr-studio v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-studio)
+2026-10-09T23:36:58.1929114Z    Compiling kedr v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-cli)
+2026-10-09T23:37:41.9072881Z     Finished `release` profile [optimized] target(s) in 3m 26s
+2026-10-09T23:37:41.9274803Z      Running unittests src/main.rs (target/release/deps/kedr-b4617e55958d34ba)
+2026-10-09T23:37:41.9285381Z 
+2026-10-09T23:37:41.9285532Z running 0 tests
+2026-10-09T23:37:41.9285661Z 
+2026-10-09T23:37:41.9286017Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:37:41.9286354Z 
+2026-10-09T23:37:41.9287758Z      Running tests/cli.rs (target/release/deps/cli-f450c40373abff50)
+2026-10-09T23:37:41.9296169Z 
+2026-10-09T23:37:41.9296302Z running 8 tests
+2026-10-09T23:37:41.9309142Z test invalid_arguments_are_reported_as_errors ... ok
+2026-10-09T23:37:41.9309625Z test doctor_reports_actual_capabilities ... ok
+2026-10-09T23:37:41.9330667Z test storage_check_preserves_existing_files_and_cleans_up ... ok
+2026-10-09T23:37:41.9341554Z test storage_check_rejects_file_as_directory_without_mutation ... ok
+2026-10-09T23:37:41.9363062Z test locked_store_rejects_another_process_and_releases_on_close ... ok
+2026-10-09T23:37:41.9440018Z test store_commands_persist_and_integrity_read_preserves_file ... ok
+2026-10-09T23:37:41.9509278Z test database_directory_commands_recover_and_checkpoint_between_processes ... ok
+2026-10-09T23:37:41.9594122Z test local_sql_commands_persist_and_raw_commands_cannot_damage_sql_namespace ... ok
+2026-10-09T23:37:41.9594439Z 
+2026-10-09T23:37:41.9594657Z test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+2026-10-09T23:37:41.9594880Z 
+2026-10-09T23:37:41.9596784Z      Running unittests src/lib.rs (target/release/deps/kedr_core-33023e3054bb7376)
+2026-10-09T23:37:41.9604776Z 
+2026-10-09T23:37:41.9604852Z running 2 tests
+2026-10-09T23:37:41.9606789Z test checksum::tests::standard_crc32c_vectors ... ok
+2026-10-09T23:37:42.0382610Z test database::tests::every_checkpoint_lifecycle_step_before_and_after_failure_preserves_acknowledgements ... ok
+2026-10-09T23:37:42.0383024Z 
+2026-10-09T23:37:42.0383268Z      Running tests/database_file.rs (target/release/deps/database_file-a8f5e16703abe3fb)
+2026-10-09T23:37:42.0383769Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.08s
+2026-10-09T23:37:42.0383994Z 
+2026-10-09T23:37:42.0394001Z 
+2026-10-09T23:37:42.0394267Z running 4 tests
+2026-10-09T23:37:42.0529772Z test checkpoint_failure_poisoning_can_be_resolved_only_by_reopen ... ok
+2026-10-09T23:37:42.0544560Z test identity_corruption_and_symlink_members_are_rejected_without_changes ... ok
+2026-10-09T23:37:42.0765512Z test incomplete_checkpoint_header_uses_predecessor_but_complete_corruption_fails ... ok
+2026-10-09T23:37:42.0982106Z test rotations_reopen_and_prevent_raw_page_writes_or_a_second_owner ... ok
+2026-10-09T23:37:42.0982393Z 
+2026-10-09T23:37:42.0982606Z test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+2026-10-09T23:37:42.0982828Z 
+2026-10-09T23:37:42.0985111Z      Running tests/pages.rs (target/release/deps/pages-121d90da20687d84)
+2026-10-09T23:37:42.0995840Z 
+2026-10-09T23:37:42.0995944Z running 8 tests
+2026-10-09T23:37:42.1000493Z test deletion_keeps_other_slots_and_clears_payload ... ok
+2026-10-09T23:37:42.1001270Z test corruption_and_truncation_are_rejected ... ok
+2026-10-09T23:37:42.1001913Z test explicit_little_endian_format_and_roundtrip ... ok
+2026-10-09T23:37:42.1005660Z test record_and_capacity_limits_are_atomic ... ok
+2026-10-09T23:37:42.1005995Z test slot_table_exhaustion_with_empty_records ... ok
+2026-10-09T23:37:42.1012810Z test encoded_page_survives_file_sync_and_reopen ... ok
+2026-10-09T23:37:42.1016265Z test valid_checksum_does_not_bypass_structural_checks ... ok
+2026-10-09T23:37:42.4761419Z test seeded_sequences_match_an_independent_record_model ... ok
+2026-10-09T23:37:42.4761625Z 
+2026-10-09T23:37:42.4761803Z test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.38s
+2026-10-09T23:37:42.4762135Z 
+2026-10-09T23:37:42.4764287Z      Running tests/records.rs (target/release/deps/records-34c7b08cdfcf0be8)
+2026-10-09T23:37:42.4775386Z 
+2026-10-09T23:37:42.4775733Z running 3 tests
+2026-10-09T23:37:42.4777686Z test keys_follow_value_order_and_preserve_duplicate_values ... ok
+2026-10-09T23:37:42.4778042Z test row_roundtrip_boundaries_null_and_unicode ... ok
+2026-10-09T23:37:42.4779282Z test malformed_rows_are_rejected_without_panics ... ok
+2026-10-09T23:37:42.4779481Z 
+2026-10-09T23:37:42.4779683Z test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:37:42.4779967Z 
+2026-10-09T23:37:42.4780202Z      Running tests/sql.rs (target/release/deps/sql-7dd27585cae5bf81)
+2026-10-09T23:37:42.4787823Z 
+2026-10-09T23:37:42.4787947Z running 10 tests
+2026-10-09T23:37:42.5231299Z test adjacent_operator_signs_and_reserved_names_match_postgres_lexing ... ok
+2026-10-09T23:37:42.5247870Z test binding_checks_empty_tables_and_integer_boundaries ... ok
+2026-10-09T23:37:42.5380616Z test describe_and_catalog_share_snapshot_without_executing_writes ... ok
+2026-10-09T23:37:42.9990408Z test errors_abort_whole_statement_and_explicit_ddl_until_rollback ... ok
+2026-10-09T23:37:43.0139270Z test foreign_keys_join_self_reference_and_atomic_parent_changes ... ok
+2026-10-09T23:37:43.0229937Z test read_only_parser_bounds_and_unsupported_clauses ... ok
+2026-10-09T23:37:43.0463947Z test tables_crud_parameters_nulls_indices_and_reopen ... ok
+2026-10-09T23:37:43.1639944Z test failed_index_build_and_result_memory_bound_preserve_acknowledged_rows ... ok
+2026-10-09T23:37:43.2377455Z test parameterized_type_and_null_matrix_is_checked_before_empty_scan ... ok
+2026-10-09T23:37:43.7744429Z test concurrent_sql_catalog_primary_secondary_and_foreign_histories_are_serial ... ok
+2026-10-09T23:37:43.7744799Z 
+2026-10-09T23:37:43.7745014Z test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.30s
+2026-10-09T23:37:43.7746324Z 
+2026-10-09T23:37:43.7763990Z      Running tests/transactions.rs (target/release/deps/transactions-8961ca51fe60b800)
+2026-10-09T23:37:43.7794056Z 
+2026-10-09T23:37:43.7794453Z running 9 tests
+2026-10-09T23:37:43.7947801Z test bounded_admission_and_oversized_command_abort_before_copying_payloads ... ok
+2026-10-09T23:37:43.8031245Z test explicit_rollback_aborted_errors_and_disconnect_leave_no_partial_changes ... ok
+2026-10-09T23:37:43.8832608Z test private_page_limit_failure_aborts_whole_session_and_allows_next_writer ... ok
+2026-10-09T23:37:43.9168071Z test lock_timeout_and_cancellation_remove_waiters_without_starving_later_clients ... ok
+2026-10-09T23:37:43.9208622Z test read_only_rejects_writes_and_upgrade_and_never_changes_wal ... ok
+2026-10-09T23:37:43.9297637Z test shared_readers_block_writers_and_new_readers_cannot_jump_the_waiting_writer ... ok
+2026-10-09T23:37:44.0063934Z test read_only_idle_expiry_and_cancel_release_shared_permits ... ok
+2026-10-09T23:37:44.0157000Z test idle_and_lifetime_expiry_and_active_cancellation_release_locks_without_client_commands ... ok
+2026-10-09T23:37:44.5481851Z test concurrent_acknowledged_histories_are_serial_with_one_two_eight_and_thirty_two_clients ... ok
+2026-10-09T23:37:44.5482519Z 
+2026-10-09T23:37:44.5482662Z test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.77s
+2026-10-09T23:37:44.5482843Z 
+2026-10-09T23:37:44.5490978Z      Running tests/tree_file.rs (target/release/deps/tree_file-724d4615d665dd6b)
+2026-10-09T23:37:44.5501484Z 
+2026-10-09T23:37:44.5501570Z running 1 test
+2026-10-09T23:37:45.2060607Z test persistent_data_exceeds_cache_and_reopens_with_a_single_frame ... ok
+2026-10-09T23:37:45.2060926Z 
+2026-10-09T23:37:45.2061136Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.66s
+2026-10-09T23:37:45.2061461Z 
+2026-10-09T23:37:45.2063536Z      Running unittests src/lib.rs (target/release/deps/kedr_server-fbc381a0fcb51378)
+2026-10-09T23:37:45.2075604Z 
+2026-10-09T23:37:45.2075881Z running 3 tests
+2026-10-09T23:37:45.2082817Z test wire::tests::allocation_limits_and_partial_eof ... ok
+2026-10-09T23:37:45.2083262Z test wire::tests::counts_strings_and_binary_are_bounded ... ok
+2026-10-09T23:37:45.2174539Z test credentials::tests::scram_requires_proof_and_validates_libpq_empty_authid ... ok
+2026-10-09T23:37:45.2174851Z 
+2026-10-09T23:37:45.2175067Z test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+2026-10-09T23:37:45.2175364Z 
+2026-10-09T23:37:45.2177004Z      Running unittests src/main.rs (target/release/deps/kedr_server-220749f9989d179a)
+2026-10-09T23:37:45.2187046Z 
+2026-10-09T23:37:45.2187130Z running 0 tests
+2026-10-09T23:37:45.2188106Z 
+2026-10-09T23:37:45.2188330Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:37:45.2188603Z 
+2026-10-09T23:37:45.2189333Z      Running tests/protocol.rs (target/release/deps/protocol-2d30a2b71ba7c5b7)
+2026-10-09T23:37:45.2199782Z 
+2026-10-09T23:37:45.2200217Z running 5 tests
+2026-10-09T23:37:45.2719098Z test driver_binary_crud_nulls_transactions_and_reconnect ... ok
+2026-10-09T23:37:45.5072550Z test bad_credentials_packets_disconnect_and_authenticated_cancel ... ok
+2026-10-09T23:37:45.5856059Z test wrong_cancel_key_does_not_cancel_another_session ... ok
+2026-10-09T23:37:45.6194866Z test extended_pipeline_error_rollback_and_portal_suspension ... ok
+2026-10-09T23:37:51.3466023Z test malformed_authenticated_messages_recover_and_partial_frame_times_out ... ok
+2026-10-09T23:37:51.3466281Z 
+2026-10-09T23:37:51.3466424Z test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.13s
+2026-10-09T23:37:51.3466628Z 
+2026-10-09T23:37:51.3479596Z      Running unittests src/main.rs (target/release/deps/kedr_studio-951de9f74a9c0141)
+2026-10-09T23:37:51.3491426Z 
+2026-10-09T23:37:51.3491535Z running 4 tests
+2026-10-09T23:37:51.4132483Z test backend::tests::backpressure_and_cancel_allow_subsequent_operation ... ok
+2026-10-09T23:37:51.4495465Z test backend::tests::closing_with_an_unread_reply_does_not_deadlock ... ok
+2026-10-09T23:37:51.4739295Z test backend::tests::preview_cannot_acknowledge_database_writes ... ok
+2026-10-09T23:37:51.8939624Z test network::tests::real_worker_crud_catalog_abort_cancel_limits_disconnect_and_reconnect ... ok
+2026-10-09T23:37:51.8939990Z 
+2026-10-09T23:37:51.8940193Z test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.54s
+2026-10-09T23:37:51.8940479Z 
+2026-10-09T23:37:51.8947428Z      Running unittests src/lib.rs (target/release/deps/kedr_testkit-ee96fe94031a91b2)
+2026-10-09T23:37:51.8957780Z 
+2026-10-09T23:37:51.8957862Z running 0 tests
+2026-10-09T23:37:51.8957980Z 
+2026-10-09T23:37:51.8958293Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:37:51.8958582Z 
+2026-10-09T23:37:51.8959808Z      Running unittests src/bin/kedr-crash-fixture.rs (target/release/deps/kedr_crash_fixture-baf00d092cf647af)
+2026-10-09T23:37:51.8967510Z 
+2026-10-09T23:37:51.8967677Z running 0 tests
+2026-10-09T23:37:51.8967807Z 
+2026-10-09T23:37:51.8968018Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:37:51.8968566Z 
+2026-10-09T23:37:51.8969762Z      Running unittests src/bin/kedr-db-crash-fixture.rs (target/release/deps/kedr_db_crash_fixture-f5f58c6f91bf76ac)
+2026-10-09T23:37:51.8976977Z 
+2026-10-09T23:37:51.8977065Z running 0 tests
+2026-10-09T23:37:51.8977193Z 
+2026-10-09T23:37:51.8977507Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:37:51.8977788Z 
+2026-10-09T23:37:51.8979231Z      Running unittests src/bin/kedr-sql-crash-fixture.rs (target/release/deps/kedr_sql_crash_fixture-950dcf9e35671ebe)
+2026-10-09T23:37:51.8986522Z 
+2026-10-09T23:37:51.8986602Z running 0 tests
+2026-10-09T23:37:51.8986775Z 
+2026-10-09T23:37:51.8986960Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:37:51.8987155Z 
+2026-10-09T23:37:51.8988666Z      Running tests/crash_campaign.rs (target/release/deps/crash_campaign-1d6c8f790abc6b9a)
+2026-10-09T23:37:51.8995516Z 
+2026-10-09T23:37:51.8995595Z running 1 test
+2026-10-09T23:37:52.5703141Z test seeded_two_file_crashes_preserve_acknowledgements_or_diagnose_corrupt_tail ... ok
+2026-10-09T23:37:52.5703505Z 
+2026-10-09T23:37:52.5703719Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.67s
+2026-10-09T23:37:52.5704005Z 
+2026-10-09T23:37:52.5705911Z      Running tests/engine_contract.rs (target/release/deps/engine_contract-2a2eb31cec14ef5f)
+2026-10-09T23:37:52.5716817Z 
+2026-10-09T23:37:52.5716926Z running 9 tests
+2026-10-09T23:37:52.5772470Z test cancellation_and_deadline_interrupt_cached_operations_and_prevent_commit ... ok
+2026-10-09T23:37:52.5802622Z test private_limit_failure_rolls_back_without_poisoning_database ... ok
+2026-10-09T23:37:52.5950564Z test dirty_eviction_never_writes_base_before_wal_sync ... ok
+2026-10-09T23:37:52.5982959Z test rollback_drop_aborted_state_and_read_your_writes ... ok
+2026-10-09T23:37:52.5994487Z test truncated_valid_journal_cannot_erase_a_newer_durable_commit ... ok
+2026-10-09T23:37:52.5995077Z test wrong_database_journal_is_rejected_before_touching_source_pages ... ok
+2026-10-09T23:37:52.5995529Z test commit_faults_never_lose_acknowledged_base_and_ambiguous_sync_is_recovered ... ok
+2026-10-09T23:37:52.6539945Z test committed_multiple_pages_recover_repeatedly_after_data_loss ... ok
+2026-10-09T23:37:52.9552697Z test recovery_failure_at_every_io_call_remains_repeatable ... ok
+2026-10-09T23:37:52.9552900Z 
+2026-10-09T23:37:52.9553035Z test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.38s
+2026-10-09T23:37:52.9553217Z 
+2026-10-09T23:37:52.9558928Z      Running tests/file_and_crash.rs (target/release/deps/file_and_crash-88e95db8f86ff2d2)
+2026-10-09T23:37:52.9569589Z 
+2026-10-09T23:37:52.9569690Z running 3 tests
+2026-10-09T23:37:53.2853349Z test file_reopen_sparse_write_resize_and_exclusive_creation ... ok
+2026-10-09T23:37:53.2856881Z test synchronized_prefix_survives_real_process_kill ... ok
+2026-10-09T23:37:53.3506313Z test acknowledged_database_transactions_survive_sigkill_during_rotation ... ok
+2026-10-09T23:37:53.3506536Z 
+2026-10-09T23:37:53.3506696Z test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.39s
+2026-10-09T23:37:53.3506887Z 
+2026-10-09T23:37:53.3508659Z      Running tests/sql_crash.rs (target/release/deps/sql_crash-52a33509fa947fb1)
+2026-10-09T23:37:53.3518846Z 
+2026-10-09T23:37:53.3518929Z running 1 test
+2026-10-09T23:37:53.4565130Z test acknowledged_sql_catalog_rows_indices_and_foreign_keys_survive_sigkill_during_rotation ... ok
+2026-10-09T23:37:53.4565545Z 
+2026-10-09T23:37:53.4565757Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.10s
+2026-10-09T23:37:53.4566007Z 
+2026-10-09T23:37:53.4567189Z      Running tests/storage_contract.rs (target/release/deps/storage_contract-deb61e2ad3ca5af8)
+2026-10-09T23:37:53.4577301Z 
+2026-10-09T23:37:53.4577530Z running 13 tests
+2026-10-09T23:37:53.4579707Z test allocation_limit_rejects_mutation_and_sparse_holes_are_zero ... ok
+2026-10-09T23:37:53.4580129Z test eof_reports_actual_progress ... ok
+2026-10-09T23:37:53.4580679Z test broken_backend_byte_counts_are_rejected ... ok
+2026-10-09T23:37:53.4581039Z test errors_after_partial_write_leave_partial_bytes ... ok
+2026-10-09T23:37:53.4581377Z test exact_helpers_retry_short_io_and_interrupts ... ok
+2026-10-09T23:37:53.4581705Z test harness_detects_intentionally_missing_sync ... ok
+2026-10-09T23:37:53.4583172Z test replay_has_identical_trace_and_bytes ... ok
+2026-10-09T23:37:53.4583509Z test invalid_faults_and_duplicate_call_numbers_are_rejected ... ok
+2026-10-09T23:37:53.4583871Z test range_overflow_is_rejected_before_backend_calls ... ok
+2026-10-09T23:37:53.4584192Z test sync_and_crash_include_file_length ... ok
+2026-10-09T23:37:53.4584511Z test sync_failure_can_happen_before_or_after_persistence ... ok
+2026-10-09T23:37:53.4584854Z test zero_write_is_an_error_not_an_infinite_loop ... ok
+2026-10-09T23:37:53.9063959Z test seeded_operations_match_independent_sparse_byte_oracle ... ok
+2026-10-09T23:37:53.9064233Z 
+2026-10-09T23:37:53.9064377Z test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.45s
+2026-10-09T23:37:53.9064609Z 
+2026-10-09T23:37:53.9066514Z      Running tests/tree_contract.rs (target/release/deps/tree_contract-3e6ba5e2dd21ca40)
+2026-10-09T23:37:53.9077908Z 
+2026-10-09T23:37:53.9078129Z running 6 tests
+2026-10-09T23:37:53.9092424Z test ambiguous_checkpoint_sync_poison_stops_further_operations ... ok
+2026-10-09T23:37:53.9105255Z test header_and_node_corruption_are_detected ... ok
+2026-10-09T23:37:53.9152628Z test maximum_records_and_logical_failures_preserve_contents ... ok
+2026-10-09T23:37:54.0883152Z test split_range_update_delete_reopen_and_reuse ... ok
+2026-10-09T23:37:54.3414864Z test multi_level_tree_with_variable_length_keys_and_secondary_duplicates ... ok
+2026-10-09T23:37:54.3597453Z test seeded_tree_operations_match_independent_map ... ok
+2026-10-09T23:37:54.3597638Z 
+2026-10-09T23:37:54.3597783Z test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.45s
+2026-10-09T23:37:54.3597970Z 
+2026-10-09T23:37:54.3607926Z      Running tests/wal_contract.rs (target/release/deps/wal_contract-78b6376309b56bfc)
+2026-10-09T23:37:54.3619389Z 
+2026-10-09T23:37:54.3619566Z running 5 tests
+2026-10-09T23:37:54.3626172Z test committed_groups_replay_identically_and_append_continues ... ok
+2026-10-09T23:37:54.3626758Z test damaged_full_records_and_valid_crc_invalid_commits_fail_closed ... ok
+2026-10-09T23:37:54.3627359Z test duplicate_images_and_invalid_lengths_fail_before_any_write ... ok
+2026-10-09T23:37:54.3628284Z test failed_append_is_poisoned_and_sync_before_error_is_ambiguous ... ok
+2026-10-09T23:37:54.3644707Z test partial_eof_and_uncommitted_images_do_not_apply_and_must_be_cleared ... ok
+2026-10-09T23:37:54.3645012Z 
+2026-10-09T23:37:54.3645244Z test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:37:54.3645567Z 
+2026-10-09T23:37:54.3646747Z    Doc-tests kedr_core
+2026-10-09T23:37:54.4157474Z 
+2026-10-09T23:37:54.4158011Z running 0 tests
+2026-10-09T23:37:54.4158205Z 
+2026-10-09T23:37:54.4158453Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:37:54.4158751Z 
+2026-10-09T23:37:54.4169057Z    Doc-tests kedr_server
+2026-10-09T23:37:54.4510342Z 
+2026-10-09T23:37:54.4510849Z running 0 tests
+2026-10-09T23:37:54.4511049Z 
+2026-10-09T23:37:54.4511354Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:37:54.4511750Z 
+2026-10-09T23:37:54.4523713Z    Doc-tests kedr_testkit
+2026-10-09T23:37:54.4682891Z 
+2026-10-09T23:37:54.4683373Z running 0 tests
+2026-10-09T23:37:54.4683556Z 
+2026-10-09T23:37:54.4683915Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-09T23:37:54.4684247Z 
+2026-10-09T23:37:54.4798299Z ##[group]Run cargo test -p kedr-testkit --test tree_contract --release --locked --offline seeded_tree_operations_match_independent_map -- --exact --nocapture
+2026-10-09T23:37:54.4799010Z [36;1mcargo test -p kedr-testkit --test tree_contract --release --locked --offline seeded_tree_operations_match_independent_map -- --exact --nocapture[0m
+2026-10-09T23:37:54.4850501Z shell: /usr/bin/bash -e {0}
+2026-10-09T23:37:54.4850642Z env:
+2026-10-09T23:37:54.4850750Z   KEDR_TREE_SEEDS: 100
+2026-10-09T23:37:54.4850875Z   KEDR_TREE_STEPS: 10000
+2026-10-09T23:37:54.4850998Z ##[endgroup]
+2026-10-09T23:37:54.5792157Z    Compiling log v0.4.34
+2026-10-09T23:37:54.6268238Z    Compiling sqlparser v0.63.0
+2026-10-09T23:38:00.6163532Z    Compiling kedr-core v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-core)
+2026-10-09T23:38:01.3792555Z    Compiling kedr-testkit v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-testkit)
+2026-10-09T23:38:23.8423331Z     Finished `release` profile [optimized] target(s) in 29.33s
+2026-10-09T23:38:23.8456995Z      Running tests/tree_contract.rs (target/release/deps/tree_contract-e12d2072c258ba3b)
+2026-10-09T23:38:23.8466791Z 
+2026-10-09T23:38:23.8466995Z running 1 test
+2026-10-09T23:38:47.4768665Z tree campaign: 20/100 seeds, 10000 operations per seed
+2026-10-09T23:39:11.1306179Z tree campaign: 40/100 seeds, 10000 operations per seed
+2026-10-09T23:39:23.8469850Z test seeded_tree_operations_match_independent_map has been running for over 60 seconds
+2026-10-09T23:39:34.8797326Z tree campaign: 60/100 seeds, 10000 operations per seed
+2026-10-09T23:39:58.6869805Z tree campaign: 80/100 seeds, 10000 operations per seed
+2026-10-09T23:40:22.5652519Z tree campaign: 100/100 seeds, 10000 operations per seed
+2026-10-09T23:40:22.5653873Z test seeded_tree_operations_match_independent_map ... ok
+2026-10-09T23:40:22.5654097Z 
+2026-10-09T23:40:22.5654316Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 118.72s
+2026-10-09T23:40:22.5654622Z 
+2026-10-09T23:40:22.5740081Z ##[group]Run cargo build --workspace --release --locked --offline
+2026-10-09T23:40:22.5740376Z [36;1mcargo build --workspace --release --locked --offline[0m
+2026-10-09T23:40:22.5792816Z shell: /usr/bin/bash -e {0}
+2026-10-09T23:40:22.5792969Z ##[endgroup]
+2026-10-09T23:40:22.7831242Z    Compiling kedr-studio v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-studio)
+2026-10-09T23:40:52.9878003Z     Finished `release` profile [optimized] target(s) in 30.38s
+2026-10-09T23:40:53.0177563Z ##[group]Run cargo test -p kedr-testkit --test crash_campaign --release --locked --offline -- --nocapture
+2026-10-09T23:40:53.0177990Z [36;1mcargo test -p kedr-testkit --test crash_campaign --release --locked --offline -- --nocapture[0m
+2026-10-09T23:40:53.0229343Z shell: /usr/bin/bash -e {0}
+2026-10-09T23:40:53.0229573Z env:
+2026-10-09T23:40:53.0229727Z   KEDR_CRASH_CASES: 10000
+2026-10-09T23:40:53.0229857Z ##[endgroup]
+2026-10-09T23:40:53.1155136Z    Compiling kedr-testkit v0.1.0 (/home/runner/work/kedrdb/kedrdb/crates/kedr-testkit)
+2026-10-09T23:40:56.8443877Z     Finished `release` profile [optimized] target(s) in 3.79s
+2026-10-09T23:40:56.8479473Z      Running tests/crash_campaign.rs (target/release/deps/crash_campaign-3d5f454451a9df04)
+2026-10-09T23:40:56.8490616Z 
+2026-10-09T23:40:56.8491092Z running 1 test
+2026-10-09T23:41:38.9552758Z seed=4b45445243524153 random_cases=10000 deterministic_io_cuts=24 successful_recoveries=19464 corrupt_tail_diagnostics=586 acknowledged_cases=1
+2026-10-09T23:41:38.9553577Z test seeded_two_file_crashes_preserve_acknowledgements_or_diagnose_corrupt_tail ... ok
+2026-10-09T23:41:38.9553940Z 
+2026-10-09T23:41:38.9554221Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 42.11s
+2026-10-09T23:41:38.9554550Z 
+2026-10-09T23:41:38.9613232Z ##[group]Run target/release/kedr doctor && target/release/kedr storage-check "$RUNNER_TEMP"
+2026-10-09T23:41:38.9613591Z [36;1mtarget/release/kedr doctor && target/release/kedr storage-check "$RUNNER_TEMP"[0m
+2026-10-09T23:41:38.9663079Z shell: /usr/bin/bash -e {0}
+2026-10-09T23:41:38.9663396Z ##[endgroup]
+2026-10-09T23:41:38.9737382Z KedrDB 0.1.0
+2026-10-09T23:41:38.9737595Z Platform: linux/x86_64
+2026-10-09T23:41:38.9737863Z License: Apache-2.0; storage: positional file I/O + sync_all.
+2026-10-09T23:41:38.9738202Z Slotted-page codec and CRC32C: available.
+2026-10-09T23:41:38.9738524Z B+ tree, bounded page cache, typed row codec and integrity check: available.
+2026-10-09T23:41:38.9738942Z Single-owner storage transactions, WAL redo and checkpoints: available.
+2026-10-09T23:41:38.9739395Z Local concurrent sessions, fair locks and transaction timeouts: available.
+2026-10-09T23:41:38.9739935Z Local SQL tables and bounded SQL execution: in development.
+2026-10-09T23:41:38.9740224Z SQL server and network protocol: not implemented.
+2026-10-09T23:41:38.9751822Z Storage check passed: positional write, sync, reopen, exact read, cleanup.
+2026-10-09T23:41:38.9752345Z This checks file I/O only; database recovery is tested separately.
+2026-10-09T23:41:38.9777596Z ##[group]Run sudo apt-get update
+2026-10-09T23:41:38.9777794Z [36;1msudo apt-get update[0m
+2026-10-09T23:41:38.9777972Z [36;1msudo apt-get install -y postgresql-16 python3-psycopg[0m
+2026-10-09T23:41:38.9827060Z shell: /usr/bin/bash -e {0}
+2026-10-09T23:41:38.9827197Z ##[endgroup]
+2026-10-09T23:41:39.0369775Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-09T23:41:39.1047923Z Hit:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease
+2026-10-09T23:41:39.2034754Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-10-09T23:41:39.2076999Z Hit:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease
+2026-10-09T23:41:39.2084569Z Hit:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease
+2026-10-09T23:41:39.2092954Z Hit:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease
+2026-10-09T23:41:40.0833504Z Reading package lists...
+2026-10-09T23:41:40.1070894Z Reading package lists...
+2026-10-09T23:41:40.2915573Z Building dependency tree...
+2026-10-09T23:41:40.2921399Z Reading state information...
+2026-10-09T23:41:40.4174205Z postgresql-16 is already the newest version (16.15-1.pgdg24.04+2).
+2026-10-09T23:41:40.4174569Z Suggested packages:
+2026-10-09T23:41:40.4174790Z   python3-psycopg-pool python-psycopg-doc
+2026-10-09T23:41:40.4315846Z The following NEW packages will be installed:
+2026-10-09T23:41:40.4316207Z   python3-psycopg
+2026-10-09T23:41:40.4454741Z 0 upgraded, 1 newly installed, 0 to remove and 23 not upgraded.
+2026-10-09T23:41:40.4455133Z Need to get 117 kB of archives.
+2026-10-09T23:41:40.4455448Z After this operation, 681 kB of additional disk space will be used.
+2026-10-09T23:41:40.4455813Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-09T23:41:40.6576896Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 python3-psycopg all 3.1.17-2 [117 kB]
+2026-10-09T23:41:41.3755434Z Fetched 117 kB in 1s (157 kB/s)
+2026-10-09T23:41:41.3900293Z Selecting previously unselected package python3-psycopg.
+2026-10-09T23:41:41.3949025Z (Reading database ... 
+2026-10-09T23:41:41.3949249Z (Reading database ... 5%
+2026-10-09T23:41:41.3949468Z (Reading database ... 10%
+2026-10-09T23:41:41.3949678Z (Reading database ... 15%
+2026-10-09T23:41:41.3949988Z (Reading database ... 20%
+2026-10-09T23:41:41.3950190Z (Reading database ... 25%
+2026-10-09T23:41:41.3950393Z (Reading database ... 30%
+2026-10-09T23:41:41.3950604Z (Reading database ... 35%
+2026-10-09T23:41:41.3950802Z (Reading database ... 40%
+2026-10-09T23:41:41.3950986Z (Reading database ... 45%
+2026-10-09T23:41:41.3951111Z (Reading database ... 50%
+2026-10-09T23:41:41.3966178Z (Reading database ... 55%
+2026-10-09T23:41:41.4064375Z (Reading database ... 60%
+2026-10-09T23:41:41.4086739Z (Reading database ... 65%
+2026-10-09T23:41:41.4103816Z (Reading database ... 70%
+2026-10-09T23:41:41.4137482Z (Reading database ... 75%
+2026-10-09T23:41:41.4166186Z (Reading database ... 80%
+2026-10-09T23:41:41.4295802Z (Reading database ... 85%
+2026-10-09T23:41:41.4495837Z (Reading database ... 90%
+2026-10-09T23:41:41.4598082Z (Reading database ... 95%
+2026-10-09T23:41:41.4598374Z (Reading database ... 100%
+2026-10-09T23:41:41.4598681Z (Reading database ... 203961 files and directories currently installed.)
+2026-10-09T23:41:41.4637086Z Preparing to unpack .../python3-psycopg_3.1.17-2_all.deb ...
+2026-10-09T23:41:41.4650668Z Unpacking python3-psycopg (3.1.17-2) ...
+2026-10-09T23:41:41.5133427Z Setting up python3-psycopg (3.1.17-2) ...
+2026-10-09T23:41:42.0685118Z 
+2026-10-09T23:41:42.0685739Z Running kernel seems to be up-to-date.
+2026-10-09T23:41:42.0686006Z 
+2026-10-09T23:41:42.0686099Z No services need to be restarted.
+2026-10-09T23:41:42.0686259Z 
+2026-10-09T23:41:42.0686347Z No containers need to be restarted.
+2026-10-09T23:41:42.0686500Z 
+2026-10-09T23:41:42.0686604Z No user sessions are running outdated binaries.
+2026-10-09T23:41:42.0686787Z 
+2026-10-09T23:41:42.0686949Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-10-09T23:41:42.9044782Z ##[group]Run /usr/bin/python3 tools/check_stage5_sql.py --pg-bin /usr/lib/postgresql/16/bin --manual 1025 --generated 100000 --output "$RUNNER_TEMP/stage5-sql-oracle"
+2026-10-09T23:41:42.9045846Z [36;1m/usr/bin/python3 tools/check_stage5_sql.py --pg-bin /usr/lib/postgresql/16/bin --manual 1025 --generated 100000 --output "$RUNNER_TEMP/stage5-sql-oracle"[0m
+2026-10-09T23:41:42.9046510Z [36;1mcat "$RUNNER_TEMP/stage5-sql-oracle/summary.json"[0m
+2026-10-09T23:41:42.9112555Z shell: /usr/bin/bash -e {0}
+2026-10-09T23:41:42.9112719Z ##[endgroup]
+2026-10-09T23:41:47.1689061Z SQL differential: 1000/100000 generated matched
+2026-10-09T23:41:48.4357307Z SQL differential: 2000/100000 generated matched
+2026-10-09T23:41:49.6617882Z SQL differential: 3000/100000 generated matched
+2026-10-09T23:41:51.0109626Z SQL differential: 4000/100000 generated matched
+2026-10-09T23:41:52.2119046Z SQL differential: 5000/100000 generated matched
+2026-10-09T23:41:53.5266405Z SQL differential: 6000/100000 generated matched
+2026-10-09T23:41:54.6972774Z SQL differential: 7000/100000 generated matched
+2026-10-09T23:41:55.8535072Z SQL differential: 8000/100000 generated matched
+2026-10-09T23:41:57.0143033Z SQL differential: 9000/100000 generated matched
+2026-10-09T23:41:58.3065659Z SQL differential: 10000/100000 generated matched
+2026-10-09T23:41:59.6016389Z SQL differential: 11000/100000 generated matched
+2026-10-09T23:42:00.9060209Z SQL differential: 12000/100000 generated matched
+2026-10-09T23:42:02.1494409Z SQL differential: 13000/100000 generated matched
+2026-10-09T23:42:03.3738819Z SQL differential: 14000/100000 generated matched
+2026-10-09T23:42:04.5900975Z SQL differential: 15000/100000 generated matched
+2026-10-09T23:42:05.8019072Z SQL differential: 16000/100000 generated matched
+2026-10-09T23:42:07.0190833Z SQL differential: 17000/100000 generated matched
+2026-10-09T23:42:08.2571120Z SQL differential: 18000/100000 generated matched
+2026-10-09T23:42:09.4310143Z SQL differential: 19000/100000 generated matched
+2026-10-09T23:42:10.6758642Z SQL differential: 20000/100000 generated matched
+2026-10-09T23:42:12.0298834Z SQL differential: 21000/100000 generated matched
+2026-10-09T23:42:13.1488522Z SQL differential: 22000/100000 generated matched
+2026-10-09T23:42:14.7838018Z SQL differential: 23000/100000 generated matched
+2026-10-09T23:42:16.0360962Z SQL differential: 24000/100000 generated matched
+2026-10-09T23:42:17.2932924Z SQL differential: 25000/100000 generated matched
+2026-10-09T23:42:18.7200493Z SQL differential: 26000/100000 generated matched
+2026-10-09T23:42:19.9731648Z SQL differential: 27000/100000 generated matched
+2026-10-09T23:42:21.1857853Z SQL differential: 28000/100000 generated matched
+2026-10-09T23:42:22.3080548Z SQL differential: 29000/100000 generated matched
+2026-10-09T23:42:23.5312223Z SQL differential: 30000/100000 generated matched
+2026-10-09T23:42:24.9020962Z SQL differential: 31000/100000 generated matched
+2026-10-09T23:42:26.0182767Z SQL differential: 32000/100000 generated matched
+2026-10-09T23:42:27.2641852Z SQL differential: 33000/100000 generated matched
+2026-10-09T23:42:28.4317222Z SQL differential: 34000/100000 generated matched
+2026-10-09T23:42:29.7706538Z SQL differential: 35000/100000 generated matched
+2026-10-09T23:42:31.3878009Z SQL differential: 36000/100000 generated matched
+2026-10-09T23:42:32.7540770Z SQL differential: 37000/100000 generated matched
+2026-10-09T23:42:33.8691541Z SQL differential: 38000/100000 generated matched
+2026-10-09T23:42:35.2369923Z SQL differential: 39000/100000 generated matched
+2026-10-09T23:42:36.3895949Z SQL differential: 40000/100000 generated matched
+2026-10-09T23:42:37.9694611Z SQL differential: 41000/100000 generated matched
+2026-10-09T23:42:39.0843847Z SQL differential: 42000/100000 generated matched
+2026-10-09T23:42:40.3350550Z SQL differential: 43000/100000 generated matched
+2026-10-09T23:42:41.6938362Z SQL differential: 44000/100000 generated matched
+2026-10-09T23:42:42.8456642Z SQL differential: 45000/100000 generated matched
+2026-10-09T23:42:44.3315589Z SQL differential: 46000/100000 generated matched
+2026-10-09T23:42:45.4195538Z SQL differential: 47000/100000 generated matched
+2026-10-09T23:42:46.5926828Z SQL differential: 48000/100000 generated matched
+2026-10-09T23:42:47.6964655Z SQL differential: 49000/100000 generated matched
+2026-10-09T23:42:48.9795772Z SQL differential: 50000/100000 generated matched
+2026-10-09T23:42:50.5426905Z SQL differential: 51000/100000 generated matched
+2026-10-09T23:42:51.6382462Z SQL differential: 52000/100000 generated matched
+2026-10-09T23:42:52.8903788Z SQL differential: 53000/100000 generated matched
+2026-10-09T23:42:54.0881360Z SQL differential: 54000/100000 generated matched
+2026-10-09T23:42:55.2086590Z SQL differential: 55000/100000 generated matched
+2026-10-09T23:42:56.9222300Z SQL differential: 56000/100000 generated matched
+2026-10-09T23:42:58.1834018Z SQL differential: 57000/100000 generated matched
+2026-10-09T23:42:59.3872739Z SQL differential: 58000/100000 generated matched
+2026-10-09T23:43:00.7821865Z SQL differential: 59000/100000 generated matched
+2026-10-09T23:43:01.8952934Z SQL differential: 60000/100000 generated matched
+2026-10-09T23:43:03.5759801Z SQL differential: 61000/100000 generated matched
+2026-10-09T23:43:04.7543122Z SQL differential: 62000/100000 generated matched
+2026-10-09T23:43:06.0229861Z SQL differential: 63000/100000 generated matched
+2026-10-09T23:43:07.3296697Z SQL differential: 64000/100000 generated matched
+2026-10-09T23:43:08.5541454Z SQL differential: 65000/100000 generated matched
+2026-10-09T23:43:10.1299928Z SQL differential: 66000/100000 generated matched
+2026-10-09T23:43:11.4025904Z SQL differential: 67000/100000 generated matched
+2026-10-09T23:43:12.4647527Z SQL differential: 68000/100000 generated matched
+2026-10-09T23:43:13.5826139Z SQL differential: 69000/100000 generated matched
+2026-10-09T23:43:14.6213944Z SQL differential: 70000/100000 generated matched
+2026-10-09T23:43:16.3402621Z SQL differential: 71000/100000 generated matched
+2026-10-09T23:43:17.4990116Z SQL differential: 72000/100000 generated matched
+2026-10-09T23:43:18.7050217Z SQL differential: 73000/100000 generated matched
+2026-10-09T23:43:19.8510154Z SQL differential: 74000/100000 generated matched
+2026-10-09T23:43:21.0901185Z SQL differential: 75000/100000 generated matched
+2026-10-09T23:43:22.9268622Z SQL differential: 76000/100000 generated matched
+2026-10-09T23:43:24.1907199Z SQL differential: 77000/100000 generated matched
+2026-10-09T23:43:25.3046972Z SQL differential: 78000/100000 generated matched
+2026-10-09T23:43:26.5581246Z SQL differential: 79000/100000 generated matched
+2026-10-09T23:43:27.8444073Z SQL differential: 80000/100000 generated matched
+2026-10-09T23:43:28.9683812Z SQL differential: 81000/100000 generated matched
+2026-10-09T23:43:30.2590021Z SQL differential: 82000/100000 generated matched
+2026-10-09T23:43:31.4270893Z SQL differential: 83000/100000 generated matched
+2026-10-09T23:43:32.6203280Z SQL differential: 84000/100000 generated matched
+2026-10-09T23:43:33.8460151Z SQL differential: 85000/100000 generated matched
+2026-10-09T23:43:35.0199852Z SQL differential: 86000/100000 generated matched
+2026-10-09T23:43:36.1934473Z SQL differential: 87000/100000 generated matched
+2026-10-09T23:43:37.4463512Z SQL differential: 88000/100000 generated matched
+2026-10-09T23:43:38.5929653Z SQL differential: 89000/100000 generated matched
+2026-10-09T23:43:39.7596750Z SQL differential: 90000/100000 generated matched
+2026-10-09T23:43:40.9200156Z SQL differential: 91000/100000 generated matched
+2026-10-09T23:43:42.0522577Z SQL differential: 92000/100000 generated matched
+2026-10-09T23:43:43.1712694Z SQL differential: 93000/100000 generated matched
+2026-10-09T23:43:44.3377311Z SQL differential: 94000/100000 generated matched
+2026-10-09T23:43:45.5511035Z SQL differential: 95000/100000 generated matched
+2026-10-09T23:43:46.8606021Z SQL differential: 96000/100000 generated matched
+2026-10-09T23:43:48.1288964Z SQL differential: 97000/100000 generated matched
+2026-10-09T23:43:49.2637142Z SQL differential: 98000/100000 generated matched
+2026-10-09T23:43:50.3854273Z SQL differential: 99000/100000 generated matched
+2026-10-09T23:43:51.6060543Z SQL differential: 100000/100000 generated matched
+2026-10-09T23:43:51.8407211Z {
+2026-10-09T23:43:51.8407476Z   "stage": 5,
+2026-10-09T23:43:51.8407753Z   "kind": "SQL correctness differential, not a benchmark",
+2026-10-09T23:43:51.8408049Z   "status": "passed",
+2026-10-09T23:43:51.8408232Z   "seed": 20261009,
+2026-10-09T23:43:51.8408412Z   "manual_requested": 1025,
+2026-10-09T23:43:51.8408620Z   "generated_requested": 100000,
+2026-10-09T23:43:51.8408825Z   "matched": 101181,
+2026-10-09T23:43:51.8408999Z   "restarts": 19,
+2026-10-09T23:43:51.8409214Z   "started_at_utc": "2026-10-09T23:41:43.018438+00:00",
+2026-10-09T23:43:51.8409474Z   "psycopg_version": "3.1.17",
+2026-10-09T23:43:51.8409672Z   "source_sha256": {
+2026-10-09T23:43:51.8410029Z     "tools/check_stage5_sql.py": "255c21646311082c76c58901f548bc62f74393bc0f5bde81490db1d2159650cd",
+2026-10-09T23:43:51.8410565Z     "Cargo.lock": "19b8ff626b90341aa7639b5491f35fbdc794cc2f7a637ef9dec35f0ce040d3a4",
+2026-10-09T23:43:51.8411130Z     "crates/kedr-cli/src/main.rs": "cdb0610a6d1a8c38f779f1c95ddf6d40d07eeec123074e50fb26ad4c1c4f887a",
+2026-10-09T23:43:51.8411684Z     "crates/kedr-cli/src/sql.rs": "a3f00fec219eee11f93fe523b09a441ea4777feb955a7fdd3cc1679bdee1ca49",
+2026-10-09T23:43:51.8412397Z     "crates/kedr-cli/tests/cli.rs": "65f5d36a6936668de4306ba350dcbe2286f5074a59534551aae214c57788cd63",
+2026-10-09T23:43:51.8412965Z     "crates/kedr-core/src/checksum.rs": "988a6f8eab53851fe455dd642b067d7f23b02209d77b1d4ee7cabe6095790543",
+2026-10-09T23:43:51.8413551Z     "crates/kedr-core/src/database.rs": "4d4e5e58dde45192afea37cebf36e6035350dc621f33fc9e46782d14bb4b4f3d",
+2026-10-09T23:43:51.8414162Z     "crates/kedr-core/src/engine/private_io.rs": "69d4994b25d37997c3da85bef0038f37a2589510d53e68ba3342fc87320820ff",
+2026-10-09T23:43:51.8414754Z     "crates/kedr-core/src/engine.rs": "874856fc9190f348871d99064c7e65a1a8dad69f0163a66856594af520de6bcb",
+2026-10-09T23:43:51.8415320Z     "crates/kedr-core/src/error.rs": "6ffde558e8d62012505e16adac0a8ed974aff1e809b379a1f3e68d9033edb901",
+2026-10-09T23:43:51.8415903Z     "crates/kedr-core/src/interrupt.rs": "95cf895d729cba3d85bd9ec5712db6247143c79e31410163b4b68fb27ef02700",
+2026-10-09T23:43:51.8416478Z     "crates/kedr-core/src/lib.rs": "4b2841fef2cac2a591f2aac53976e7644a4b4c3c87f25fcb371f89b7a1739dda",
+2026-10-09T23:43:51.8417029Z     "crates/kedr-core/src/page.rs": "4ba48457d25d58f2750fe61793970b49516a59cc5ad4a1a0e6979db23a03ad89",
+2026-10-09T23:43:51.8417583Z     "crates/kedr-core/src/record.rs": "b3678c914407caaf42f4b864471398cc7b7e30d2397f94921fd1543fb6552bf1",
+2026-10-09T23:43:51.8418017Z     "crates/kedr-core/src/sql/catalog.rs": "f2c706ad22914398b8552aeb1966deaf8581aa285f7e91bc7c2e01cbffe17790",
+2026-10-09T23:43:51.8418396Z     "crates/kedr-core/src/sql/describe.rs": "bb79d2d275d04a4405c38ea103e21f33ee8c5888ecb57adaf1c0a5cd6747a040",
+2026-10-09T23:43:51.8418772Z     "crates/kedr-core/src/sql/executor.rs": "e2ec4df009e36e3619a333b6915e98d199d62c255abd7ecb2e287fc38353db7f",
+2026-10-09T23:43:51.8419403Z     "crates/kedr-core/src/sql/expression.rs": "eac9a561ce0c6a70ee212af2bf4ff4c30e444081e85a4841bce1fcd59f23272d",
+2026-10-09T23:43:51.8419789Z     "crates/kedr-core/src/sql/keywords.rs": "bf102e5e81b62cfa6f71bfcb025fe6eaf57bcaff48f2d5be8526db56a784c189",
+2026-10-09T23:43:51.8420166Z     "crates/kedr-core/src/sql/parser.rs": "cb53971ceac2ab9705dc943bceca55ebd75158da4b84a93d4fe7506be730728a",
+2026-10-09T23:43:51.8420520Z     "crates/kedr-core/src/sql.rs": "b34566e62cb0b8998c573597707f7bd6da04520c68e0350006a8e1fa36be0ac3",
+2026-10-09T23:43:51.8420873Z     "crates/kedr-core/src/storage/file.rs": "e9be687f800a2df9e344c555e130ce816ae2584368ff3038d552dfc0587b569d",
+2026-10-09T23:43:51.8421232Z     "crates/kedr-core/src/storage.rs": "80c47b7cf01fd067224c77f152b8f34f6e001d6c3817c01e2c4a4e379acc208e",
+2026-10-09T23:43:51.8421700Z     "crates/kedr-core/src/transaction/lock.rs": "9358f22085af41cbf0b8a81b309f65051881dbb7bbf171b456d71ef3ca9f0c88",
+2026-10-09T23:43:51.8422272Z     "crates/kedr-core/src/transaction.rs": "a341e5eaf8015bd7e5d3ecb1fc3f84ef92dc16ccd0ea0843e5133c908936215c",
+2026-10-09T23:43:51.8422694Z     "crates/kedr-core/src/tree/format.rs": "ffad0cce4caa66703307deeb589861cf4de80b69e292a649d066938efecf1571",
+2026-10-09T23:43:51.8423060Z     "crates/kedr-core/src/tree/store.rs": "37c3a8de34207659fc6aabba890b262f3e3fd48f026226164f778ef7bf56e56c",
+2026-10-09T23:43:51.8423413Z     "crates/kedr-core/src/tree.rs": "42863b1d84e1d998e0165e9c2e7ac4de8e65d7e9c9dd224eb64c4c5a0dd953c0",
+2026-10-09T23:43:51.8423758Z     "crates/kedr-core/src/wal.rs": "e4934df3ab5ebe27e210491967635c6d915803a123bcfed9a4245f6df963a479",
+2026-10-09T23:43:51.8424119Z     "crates/kedr-core/tests/database_file.rs": "a8d36466bebf609552208f9247c7706e73cfed32bc0dcbeeca2493915f8ad663",
+2026-10-09T23:43:51.8424486Z     "crates/kedr-core/tests/pages.rs": "d6df810f8ae1df58c40249a6898e87261d7482e1c4280eaa311154c552b843b2",
+2026-10-09T23:43:51.8424850Z     "crates/kedr-core/tests/records.rs": "f0ef3d14d28446101592987ab5ecf2a9e0bd4e06b109aacd7abbaf804a8e5eb3",
+2026-10-09T23:43:51.8425208Z     "crates/kedr-core/tests/sql.rs": "5cc020f08776fa183ad6cf5d3976ed648bee7dda039f835db13616caf96abbb1",
+2026-10-09T23:43:51.8425573Z     "crates/kedr-core/tests/transactions.rs": "72f521f0ff7e8ccae3f810266dcc63ed258990c6033e87f464a486840d108d99",
+2026-10-09T23:43:51.8425949Z     "crates/kedr-core/tests/tree_file.rs": "e066b1bf7045929f91ed76fd707bb9c0f2ab30f3e536e8f527386892a4010c42",
+2026-10-09T23:43:51.8426326Z     "crates/kedr-server/src/credentials.rs": "0f4bda011fe2a09cca962c2ccbca7ec758b72b7c44b92d40e5ee66ca5eb8ffdd",
+2026-10-09T23:43:51.8426696Z     "crates/kedr-server/src/lib.rs": "55e9aad73d8a0aa6e4dc30368bc851ab60b8fbef4a0a2470c3c81457c1ca1e44",
+2026-10-09T23:43:51.8427049Z     "crates/kedr-server/src/main.rs": "f483912b156a9b6ae803ac8fbaef4014eca2267cf91a206f2079746cac5cc80a",
+2026-10-09T23:43:51.8427408Z     "crates/kedr-server/src/server.rs": "ca1206e05bf89df99ffc8a2ab2e29269bb5275413bd8da502cbf6ef1e7819060",
+2026-10-09T23:43:51.8427766Z     "crates/kedr-server/src/wire.rs": "5634ab20a7bd15e3508c76ffca1ce989a355e757f208be956c4743f33798dd07",
+2026-10-09T23:43:51.8428132Z     "crates/kedr-server/tests/protocol.rs": "727b172f3d4daaa3bba844802b9de7b9f0b4a18143128a9ca2cb9217f2f056cd",
+2026-10-09T23:43:51.8428495Z     "crates/kedr-studio/src/app.rs": "0225582704b673d07ca05ce8dbc1c5978af35141d29d8afdd32c5c2b3942a5e0",
+2026-10-09T23:43:51.8428847Z     "crates/kedr-studio/src/backend.rs": "9442b6fe42cb391ffce43e60a1aacf61fe22277395139bf5dfe7440dc0375f2b",
+2026-10-09T23:43:51.8429202Z     "crates/kedr-studio/src/main.rs": "4922b6657f2b6c7b94eee910c750c309d89b02d329ba393bb5f28688bbac5205",
+2026-10-09T23:43:51.8429555Z     "crates/kedr-studio/src/network.rs": "6a9a01e07d850b8856fdd7b0a6ebcccc7b9114219c22e6228fb00526e6ef86bf",
+2026-10-09T23:43:51.8429957Z     "crates/kedr-testkit/src/bin/kedr-crash-fixture.rs": "90040f5eb1f6cc3674fd30e35180e3bfcd56c778350df9ae2e5566a83b9b3010",
+2026-10-09T23:43:51.8430400Z     "crates/kedr-testkit/src/bin/kedr-db-crash-fixture.rs": "df5ada69bde69b72807b387772425d355ccaa9bd32cd0ff257f296456d1975f2",
+2026-10-09T23:43:51.8430942Z     "crates/kedr-testkit/src/bin/kedr-sql-crash-fixture.rs": "4f45f1707f40c6163eb04b9c6ab6f2936873831bdd3e7d69c5e0dc05ab3c9cb9",
+2026-10-09T23:43:51.8431348Z     "crates/kedr-testkit/src/crash.rs": "5b0f1c5e8ce76d711ff980a892d49e65ef0ebd5cfcbfb0a90da84d285901e944",
+2026-10-09T23:43:51.8431708Z     "crates/kedr-testkit/src/lib.rs": "ea61acfd40f1a67fff7e52af3795d888d6ed66e985b74d83b93e5c905e9704bf",
+2026-10-09T23:43:51.8432218Z     "crates/kedr-testkit/tests/crash_campaign.rs": "6f084e67708708f7fac8ce2b41824aafdc463873ff4cef479addbe84c6c94821",
+2026-10-09T23:43:51.8432626Z     "crates/kedr-testkit/tests/engine_contract.rs": "5f98020cab0d47d9bc11ca81464fc653c858886f1183ea9a5eecc50068a2fd38",
+2026-10-09T23:43:51.8433202Z     "crates/kedr-testkit/tests/file_and_crash.rs": "1fbad37504101157eb1b68bbc1160984b5b9cec76a9e07ec111e25022223c1a7",
+2026-10-09T23:43:51.8433590Z     "crates/kedr-testkit/tests/sql_crash.rs": "71e1c498036cfe3752a7edb0fefa05d19a4bf85290c1d529581fd9aeec50f0f3",
+2026-10-09T23:43:51.8433994Z     "crates/kedr-testkit/tests/storage_contract.rs": "d4d6bf87cbcbc14a89692148340aaaf68a35ce7e93e5d92b4076ec84974aace1",
+2026-10-09T23:43:51.8434394Z     "crates/kedr-testkit/tests/tree_contract.rs": "360b0a7c5a44756bb3b3a011fe62e50eb0ba10931886b8c885753790fa42f25f",
+2026-10-09T23:43:51.8434785Z     "crates/kedr-testkit/tests/wal_contract.rs": "b522f00239bafaad6b3c407431065e0a43acaa02ade4bf99be30b52cbe37d2a2"
+2026-10-09T23:43:51.8435045Z   },
+2026-10-09T23:43:51.8435187Z   "postgres_version": "16.15 (Ubuntu 16.15-1.pgdg24.04+2)",
+2026-10-09T23:43:51.8435368Z   "contract_matched": 33,
+2026-10-09T23:43:51.8435498Z   "manual_matched": 1025,
+2026-10-09T23:43:51.8435629Z   "generated_matched": 100000,
+2026-10-09T23:43:51.8435854Z   "transcript_sha256": "be706c5eb5f3686e4e423b9cf79bfb4bdd3eeb85914ba9f9356d03c92701cccc",
+2026-10-09T23:43:51.8436116Z   "finished_at_utc": "2026-10-09T23:43:51.607110+00:00"
+2026-10-09T23:43:51.8436272Z }
+2026-10-09T23:43:51.8511387Z Post job cleanup.
+2026-10-09T23:43:51.9072967Z [command]/usr/bin/git version
+2026-10-09T23:43:51.9086876Z git version 2.55.0
+2026-10-09T23:43:51.9114480Z Temporarily overriding HOME='/home/runner/work/_temp/87d046fd-97bb-49e2-a3b1-848ab798f399' before making global git config changes
+2026-10-09T23:43:51.9114892Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-09T23:43:51.9117448Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/kedrdb/kedrdb
+2026-10-09T23:43:51.9148020Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-09T23:43:51.9174652Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-09T23:43:51.9369344Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-09T23:43:51.9395210Z http.https://github.com/.extraheader
+2026-10-09T23:43:51.9402906Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-09T23:43:51.9437125Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-09T23:43:51.9665442Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-09T23:43:51.9696621Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-09T23:43:51.9994311Z Cleaning up orphan processes
+2026-10-09T23:43:52.0199978Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

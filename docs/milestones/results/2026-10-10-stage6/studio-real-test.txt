@@ -1,0 +1,9 @@
+   Compiling kedr-studio v0.1.0 (/Users/irgegh/Documents/ChatGPT/бд/crates/kedr-studio)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.39s
+     Running unittests src/main.rs (target/debug/deps/kedr_studio-004adf1d7f9bcdd9)
+
+running 1 test
+test network::tests::real_worker_crud_catalog_abort_cancel_limits_disconnect_and_reconnect ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 4.54s
+

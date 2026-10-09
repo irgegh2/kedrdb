@@ -1,0 +1,45 @@
+   Compiling kedr-server v0.1.0 (/Users/irgegh/Documents/ChatGPT/бд/crates/kedr-server)
+   Compiling kedr-studio v0.1.0 (/Users/irgegh/Documents/ChatGPT/бд/crates/kedr-studio)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 9.95s
+     Running unittests src/lib.rs (target/debug/deps/kedr_server-42fbc82fad857659)
+
+running 3 tests
+test wire::tests::counts_strings_and_binary_are_bounded ... ok
+test wire::tests::allocation_limits_and_partial_eof ... ok
+test credentials::tests::scram_requires_proof_and_validates_libpq_empty_authid ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.43s
+
+     Running unittests src/main.rs (target/debug/deps/kedr_server-fbb1149c1ee8b167)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/protocol.rs (target/debug/deps/protocol-da626878a2a7928d)
+
+running 5 tests
+test extended_pipeline_error_rollback_and_portal_suspension ... ok
+test driver_binary_crud_nulls_transactions_and_reconnect ... ok
+test wrong_cancel_key_does_not_cancel_another_session ... ok
+test bad_credentials_packets_disconnect_and_authenticated_cancel ... ok
+test malformed_authenticated_messages_recover_and_partial_frame_times_out ... ok
+
+test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.20s
+
+     Running unittests src/main.rs (target/debug/deps/kedr_studio-004adf1d7f9bcdd9)
+
+running 4 tests
+test backend::tests::backpressure_and_cancel_allow_subsequent_operation ... ok
+test backend::tests::closing_with_an_unread_reply_does_not_deadlock ... ok
+test backend::tests::preview_cannot_acknowledge_database_writes ... ok
+test network::tests::real_worker_crud_catalog_abort_cancel_limits_disconnect_and_reconnect ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 5.09s
+
+   Doc-tests kedr_server
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
