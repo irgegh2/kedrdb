@@ -115,7 +115,8 @@ fn run() -> Result<()> {
                 "B+ tree, bounded page cache, typed row codec and integrity check: available."
             );
             println!("Single-owner storage transactions, WAL redo and checkpoints: available.");
-            println!("SQL server and concurrent sessions: not implemented.");
+            println!("Local concurrent sessions, fair locks and transaction timeouts: available.");
+            println!("SQL server and network protocol: not implemented.");
         }
         [command, directory] if command == "storage-check" => storage_check(Path::new(directory))?,
         [command, path] if command == "create-store" => create_store(Path::new(path))?,

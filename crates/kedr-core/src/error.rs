@@ -93,6 +93,12 @@ pub enum Error {
     CommitUncertain {
         source: Box<Error>,
     },
+    TransactionAborted,
+    ReadOnlyTransaction,
+    LockTimeout,
+    Cancelled,
+    TransactionTimeout,
+    InvalidTransactionState,
 }
 
 impl Error {
@@ -122,6 +128,12 @@ impl Error {
             Self::CorruptWal { .. } => "KD3001",
             Self::UnsupportedFormat { .. } => "KD2009",
             Self::CommitUncertain { .. } => "KD3002",
+            Self::TransactionAborted => "KD4001",
+            Self::ReadOnlyTransaction => "KD4002",
+            Self::LockTimeout => "KD4003",
+            Self::Cancelled => "KD4004",
+            Self::TransactionTimeout => "KD4005",
+            Self::InvalidTransactionState => "KD4006",
         }
     }
 
@@ -182,6 +194,14 @@ impl fmt::Display for Error {
             Self::CommitUncertain { source } => {
                 write!(f, "commit outcome uncertain; recovery required: {source}")
             }
+            Self::TransactionAborted => f.write_str("transaction aborted; rollback required"),
+            Self::ReadOnlyTransaction => f.write_str("write forbidden in read-only transaction"),
+            Self::LockTimeout => f.write_str("transaction lock wait timed out"),
+            Self::Cancelled => f.write_str("operation cancelled"),
+            Self::TransactionTimeout => {
+                f.write_str("transaction lifetime or idle timeout exceeded")
+            }
+            Self::InvalidTransactionState => f.write_str("invalid transaction state"),
         }
     }
 }

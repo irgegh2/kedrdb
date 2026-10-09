@@ -46,7 +46,10 @@ fn doctor_reports_actual_capabilities() {
     assert!(
         text.contains("Single-owner storage transactions, WAL redo and checkpoints: available.")
     );
-    assert!(text.contains("SQL server and concurrent sessions: not implemented."));
+    assert!(
+        text.contains("Local concurrent sessions, fair locks and transaction timeouts: available.")
+    );
+    assert!(text.contains("SQL server and network protocol: not implemented."));
 }
 
 #[test]

@@ -6,9 +6,12 @@ pub mod checksum;
 pub mod database;
 pub mod engine;
 pub mod error;
+mod interrupt;
 pub mod page;
 pub mod record;
 pub mod storage;
+#[cfg(unix)]
+pub mod transaction;
 pub mod tree;
 pub mod wal;
 

@@ -160,6 +160,53 @@ fn wrong_database_journal_is_rejected_before_touching_source_pages() {
 }
 
 #[test]
+fn cancellation_and_deadline_interrupt_cached_operations_and_prevent_commit() {
+    use std::{
+        sync::atomic::{AtomicBool, Ordering},
+        time::{Duration, Instant},
+    };
+    for timeout in [false, true] {
+        let (data, wal) = initial();
+        let mut engine = recover(&data, &wal);
+        let flag = Arc::new(AtomicBool::new(false));
+        let mut tx = engine.begin().unwrap();
+        tx.insert(&primary_key(1), b"private").unwrap();
+        assert!(tx.get(&primary_key(1)).unwrap().is_some());
+        let deadline = if timeout {
+            Instant::now() - Duration::from_millis(1)
+        } else {
+            Instant::now() + Duration::from_secs(5)
+        };
+        tx.set_interrupt(flag.clone(), deadline);
+        if !timeout {
+            flag.store(true, Ordering::Release);
+        }
+        let result = tx.get(&primary_key(1));
+        if timeout {
+            assert!(matches!(result, Err(Error::TransactionTimeout)));
+        } else {
+            assert!(matches!(result, Err(Error::Cancelled)));
+        }
+        assert!(matches!(tx.commit(), Err(Error::TransactionAborted)));
+        assert_eq!(engine.get(&primary_key(1)).unwrap(), None);
+        let (d, w) = engine.into_io();
+        assert_eq!(d.visible_bytes(), data);
+        assert_eq!(w.visible_bytes(), wal);
+    }
+    let (data, wal) = initial();
+    let mut engine = recover(&data, &wal);
+    let flag = Arc::new(AtomicBool::new(false));
+    let mut tx = engine.begin().unwrap();
+    tx.insert(&primary_key(1), b"cancel before COMMIT").unwrap();
+    tx.set_interrupt(flag.clone(), Instant::now() + Duration::from_secs(5));
+    flag.store(true, Ordering::Release);
+    assert!(matches!(tx.commit(), Err(Error::Cancelled)));
+    let (d, w) = engine.into_io();
+    assert_eq!(d.visible_bytes(), data);
+    assert_eq!(w.visible_bytes(), wal);
+}
+
+#[test]
 fn recovery_failure_at_every_io_call_remains_repeatable() {
     let (data, wal) = initial();
     let mut engine = recover(&data, &wal);

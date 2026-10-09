@@ -1,0 +1,86 @@
+{
+  "stage": 4,
+  "status": "local_acceptance_passed_remote_pending",
+  "platform": "Darwin arm64",
+  "toolchain": "1.94.1",
+  "checks": {
+    "format": {
+      "passed": true
+    },
+    "clippy": {
+      "passed": true
+    },
+    "debug-tests": {
+      "passed": true,
+      "tests_passed": 71
+    },
+    "release-tests": {
+      "passed": true,
+      "tests_passed": 71
+    },
+    "concurrency-histories": {
+      "passed": true
+    },
+    "build": {
+      "passed": true
+    }
+  },
+  "histories": {
+    "clients": [
+      1,
+      2,
+      8,
+      32
+    ],
+    "acknowledged_commits": [
+      6,
+      12,
+      48,
+      192
+    ],
+    "scope": "Serial physical key-space histories, rollback/cancel/disconnect; SQL catalog and secondary indexes checked in stage 5. Local lock wait smoke measurements are not database benchmarks."
+  },
+  "source_sha256": {
+    ".github/workflows/ci.yml": "d7d3a25588431f0c5751004da7acb49a7cff6393268712befd2dfa2ed8aa9a29",
+    "Cargo.lock": "2bd66f0b6fe5e7d38b3117d39ac555a425da9af0d48e69b558c27f4ed32457c5",
+    "Cargo.toml": "42fe279052a16fcb18547eeeff133d5f517820ef0b1c68b7d9b44ee8bd3d809b",
+    "crates/kedr-cli/Cargo.toml": "18591eb1054dc6e47bbb34536b662a9a7b13cfb9ca005982678064bc8b0aef3a",
+    "crates/kedr-cli/src/main.rs": "57c520178471e07fddb6b297750d870e1f7db287b4987534200db52691ee875f",
+    "crates/kedr-cli/tests/cli.rs": "b7de78c3ad8dfc1f93df297840d7136ee8272453bd41143753ca7752e957ef69",
+    "crates/kedr-core/Cargo.toml": "6d5ccdc1b774892faeb2167deef992e67b584989dd4c95594c14b6816f97f782",
+    "crates/kedr-core/src/checksum.rs": "988a6f8eab53851fe455dd642b067d7f23b02209d77b1d4ee7cabe6095790543",
+    "crates/kedr-core/src/database.rs": "4d4e5e58dde45192afea37cebf36e6035350dc621f33fc9e46782d14bb4b4f3d",
+    "crates/kedr-core/src/engine/private_io.rs": "69d4994b25d37997c3da85bef0038f37a2589510d53e68ba3342fc87320820ff",
+    "crates/kedr-core/src/engine.rs": "a5cc5c4498798c67a5fe277e05cf65c69dd75eded4bfe08d0ee158c14e726684",
+    "crates/kedr-core/src/error.rs": "21a5e5d4b8eb9083edf5f7caf9ef137dc1ece5ce65f462a9adf300fd1e26b09c",
+    "crates/kedr-core/src/interrupt.rs": "95cf895d729cba3d85bd9ec5712db6247143c79e31410163b4b68fb27ef02700",
+    "crates/kedr-core/src/lib.rs": "43e24edc12423aaf91a787da6d7a40f37bf673adc2bcaaed4acdb8c9544c4b91",
+    "crates/kedr-core/src/page.rs": "4ba48457d25d58f2750fe61793970b49516a59cc5ad4a1a0e6979db23a03ad89",
+    "crates/kedr-core/src/record.rs": "b3678c914407caaf42f4b864471398cc7b7e30d2397f94921fd1543fb6552bf1",
+    "crates/kedr-core/src/storage/file.rs": "e9be687f800a2df9e344c555e130ce816ae2584368ff3038d552dfc0587b569d",
+    "crates/kedr-core/src/storage.rs": "80c47b7cf01fd067224c77f152b8f34f6e001d6c3817c01e2c4a4e379acc208e",
+    "crates/kedr-core/src/transaction/lock.rs": "9358f22085af41cbf0b8a81b309f65051881dbb7bbf171b456d71ef3ca9f0c88",
+    "crates/kedr-core/src/transaction.rs": "a5d8586ca99afdfd1f98c01fb682be7eedfc3a0f4a61bd3514f5dd1065257a34",
+    "crates/kedr-core/src/tree/format.rs": "ffad0cce4caa66703307deeb589861cf4de80b69e292a649d066938efecf1571",
+    "crates/kedr-core/src/tree/store.rs": "37c3a8de34207659fc6aabba890b262f3e3fd48f026226164f778ef7bf56e56c",
+    "crates/kedr-core/src/tree.rs": "42863b1d84e1d998e0165e9c2e7ac4de8e65d7e9c9dd224eb64c4c5a0dd953c0",
+    "crates/kedr-core/src/wal.rs": "e4934df3ab5ebe27e210491967635c6d915803a123bcfed9a4245f6df963a479",
+    "crates/kedr-core/tests/database_file.rs": "a8d36466bebf609552208f9247c7706e73cfed32bc0dcbeeca2493915f8ad663",
+    "crates/kedr-core/tests/pages.rs": "d6df810f8ae1df58c40249a6898e87261d7482e1c4280eaa311154c552b843b2",
+    "crates/kedr-core/tests/records.rs": "f0ef3d14d28446101592987ab5ecf2a9e0bd4e06b109aacd7abbaf804a8e5eb3",
+    "crates/kedr-core/tests/transactions.rs": "72f521f0ff7e8ccae3f810266dcc63ed258990c6033e87f464a486840d108d99",
+    "crates/kedr-core/tests/tree_file.rs": "e066b1bf7045929f91ed76fd707bb9c0f2ab30f3e536e8f527386892a4010c42",
+    "crates/kedr-testkit/Cargo.toml": "3da09af67a02a0c3dcb59796bb90d5274a3abbb44622c3881fa8ff92d4c22fd1",
+    "crates/kedr-testkit/src/bin/kedr-crash-fixture.rs": "90040f5eb1f6cc3674fd30e35180e3bfcd56c778350df9ae2e5566a83b9b3010",
+    "crates/kedr-testkit/src/bin/kedr-db-crash-fixture.rs": "df5ada69bde69b72807b387772425d355ccaa9bd32cd0ff257f296456d1975f2",
+    "crates/kedr-testkit/src/crash.rs": "5b0f1c5e8ce76d711ff980a892d49e65ef0ebd5cfcbfb0a90da84d285901e944",
+    "crates/kedr-testkit/src/lib.rs": "ea61acfd40f1a67fff7e52af3795d888d6ed66e985b74d83b93e5c905e9704bf",
+    "crates/kedr-testkit/tests/crash_campaign.rs": "6f084e67708708f7fac8ce2b41824aafdc463873ff4cef479addbe84c6c94821",
+    "crates/kedr-testkit/tests/engine_contract.rs": "5f98020cab0d47d9bc11ca81464fc653c858886f1183ea9a5eecc50068a2fd38",
+    "crates/kedr-testkit/tests/file_and_crash.rs": "1fbad37504101157eb1b68bbc1160984b5b9cec76a9e07ec111e25022223c1a7",
+    "crates/kedr-testkit/tests/storage_contract.rs": "d4d6bf87cbcbc14a89692148340aaaf68a35ce7e93e5d92b4076ec84974aace1",
+    "crates/kedr-testkit/tests/tree_contract.rs": "360b0a7c5a44756bb3b3a011fe62e50eb0ba10931886b8c885753790fa42f25f",
+    "crates/kedr-testkit/tests/wal_contract.rs": "b522f00239bafaad6b3c407431065e0a43acaa02ade4bf99be30b52cbe37d2a2",
+    "rust-toolchain.toml": "c07cdb6cac85a9e5a7d9b832145d791c04ffb58e8e45859942363f2bffed3ebc"
+  }
+}

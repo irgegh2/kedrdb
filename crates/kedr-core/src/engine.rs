@@ -11,6 +11,10 @@ use crate::{
     wal::{MAX_IMAGES, PageImage, RecoverySummary, WalConfig, WalLog},
 };
 use private_io::PrivateIo;
+use std::{
+    sync::{Arc, atomic::AtomicBool},
+    time::Instant,
+};
 
 pub struct StorageEngine<D: StorageIo, W: StorageIo> {
     data: D,
@@ -186,16 +190,32 @@ pub struct StorageTransaction<'a, D: StorageIo, W: StorageIo> {
     aborted: bool,
 }
 impl<D: StorageIo, W: StorageIo> StorageTransaction<'_, D, W> {
+    pub fn set_interrupt(&mut self, cancelled: Arc<AtomicBool>, deadline: Instant) {
+        self.tree
+            .as_mut()
+            .expect("active transaction")
+            .io_mut()
+            .interrupt = Some(crate::interrupt::Interrupt {
+            cancelled,
+            deadline,
+        });
+    }
+    pub fn abort(&mut self) {
+        self.aborted = true;
+    }
     fn apply<T>(
         &mut self,
         operation: impl FnOnce(&mut BPlusTree<PrivateIo<&mut D>>) -> Result<T>,
     ) -> Result<T> {
         if self.aborted {
-            return Err(Error::InvalidArgument {
-                message: "transaction aborted; rollback required",
-            });
+            return Err(Error::TransactionAborted);
         }
-        let result = operation(self.tree.as_mut().expect("active transaction"));
+        let tree = self.tree.as_mut().expect("active transaction");
+        let result = tree
+            .io_mut()
+            .check_interrupt()
+            .and_then(|()| operation(tree))
+            .and_then(|value| tree.io_mut().check_interrupt().map(|()| value));
         if result.is_err() {
             self.aborted = true;
         }
@@ -227,15 +247,14 @@ impl<D: StorageIo, W: StorageIo> StorageTransaction<'_, D, W> {
     pub fn rollback(self) {} // Dropping the private overlay performs no base writes.
     pub fn commit(mut self) -> Result<u64> {
         if self.aborted {
-            return Err(Error::InvalidArgument {
-                message: "cannot commit aborted transaction",
-            });
+            return Err(Error::TransactionAborted);
         }
         let mut tree = self.tree.take().expect("active transaction");
         tree.checkpoint()?; // May fail safely before any durable WAL write.
         let mut private = tree.into_io();
         let commit_lsn = self.wal.planned_commit_lsn(private.images.len())?;
         stamp_metadata(&mut private.images, commit_lsn);
+        private.check_interrupt()?; // Last cancellable point, before any WAL append.
         let tx = self.wal.next_transaction_id()?;
         let lsn = match self.wal.commit(tx, &private.images, private.length) {
             Ok(lsn) => lsn,
@@ -254,6 +273,41 @@ impl<D: StorageIo, W: StorageIo> StorageTransaction<'_, D, W> {
             return Err(uncertain(error));
         }
         Ok(lsn)
+    }
+}
+
+pub(crate) struct ReadView<I: StorageIo> {
+    tree: BPlusTree<PrivateIo<I>>,
+}
+impl<I: StorageIo> ReadView<I> {
+    pub fn open(mut io: I, cache_budget: usize) -> Result<Self> {
+        let length = io.len()?;
+        Ok(Self {
+            tree: BPlusTree::open(PrivateIo::new(io, length, 1)?, cache_budget)?,
+        })
+    }
+    pub fn set_interrupt(&mut self, cancelled: Arc<AtomicBool>, deadline: Instant) {
+        self.tree.io_mut().interrupt = Some(crate::interrupt::Interrupt {
+            cancelled,
+            deadline,
+        });
+    }
+    pub fn get(&mut self, key: &[u8]) -> Result<Option<Vec<u8>>> {
+        self.tree.io_mut().check_interrupt()?;
+        let result = self.tree.get(key)?;
+        self.tree.io_mut().check_interrupt()?;
+        Ok(result)
+    }
+    pub fn range(
+        &mut self,
+        start: Option<&[u8]>,
+        end: Option<&[u8]>,
+        limit: usize,
+    ) -> Result<Vec<KeyValue>> {
+        self.tree.io_mut().check_interrupt()?;
+        let result = self.tree.range(start, end, limit)?;
+        self.tree.io_mut().check_interrupt()?;
+        Ok(result)
     }
 }
 fn uncertain(source: Error) -> Error {

@@ -12,6 +12,7 @@ pub(super) struct PrivateIo<I: StorageIo> {
     pub length: u64,
     base_length: u64,
     limit: usize,
+    pub interrupt: Option<crate::interrupt::Interrupt>,
 }
 impl<I: StorageIo> PrivateIo<I> {
     pub fn new(base: I, length: u64, limit: usize) -> Result<Self> {
@@ -26,14 +27,22 @@ impl<I: StorageIo> PrivateIo<I> {
             length,
             base_length: length,
             limit,
+            interrupt: None,
         })
     }
 }
 impl<I: StorageIo> StorageIo for PrivateIo<I> {
+    fn check_interrupt(&self) -> Result<()> {
+        if let Some(policy) = &self.interrupt {
+            policy.check()?;
+        }
+        Ok(())
+    }
     fn allows_wal_pages(&self) -> bool {
         true
     }
     fn read_at(&mut self, offset: u64, buffer: &mut [u8]) -> Result<usize> {
+        self.check_interrupt()?;
         if offset >= self.length || buffer.is_empty() {
             return Ok(0);
         }
@@ -55,6 +64,7 @@ impl<I: StorageIo> StorageIo for PrivateIo<I> {
         Ok(count)
     }
     fn write_at(&mut self, offset: u64, bytes: &[u8]) -> Result<usize> {
+        self.check_interrupt()?;
         if !offset.is_multiple_of(PAGE_SIZE as u64) || bytes.len() != PAGE_SIZE {
             return Err(Error::InvalidArgument {
                 message: "private writes must be full aligned pages",
@@ -98,9 +108,11 @@ impl<I: StorageIo> StorageIo for PrivateIo<I> {
         Ok(bytes.len())
     }
     fn sync(&mut self) -> Result<()> {
+        self.check_interrupt()?;
         Ok(())
     } // Deliberately does not persist base.
     fn set_len(&mut self, length: u64) -> Result<()> {
+        self.check_interrupt()?;
         if !length.is_multiple_of(PAGE_SIZE as u64) {
             return Err(Error::InvalidArgument {
                 message: "private length must be page aligned",
@@ -112,6 +124,7 @@ impl<I: StorageIo> StorageIo for PrivateIo<I> {
         Ok(())
     }
     fn len(&mut self) -> Result<u64> {
+        self.check_interrupt()?;
         Ok(self.length)
     }
 }

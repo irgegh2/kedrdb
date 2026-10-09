@@ -28,6 +28,9 @@ pub struct BPlusTree<I: StorageIo> {
 }
 
 impl<I: StorageIo> BPlusTree<I> {
+    pub(crate) fn io_mut(&mut self) -> &mut I {
+        self.store.io_mut()
+    }
     pub fn create(io: I, database_id: [u8; 16], cache_budget: usize) -> Result<Self> {
         Ok(Self {
             store: PageStore::create(io, database_id, cache_budget)?,
@@ -65,6 +68,7 @@ impl<I: StorageIo> BPlusTree<I> {
     }
 
     fn node(&mut self, id: u64) -> Result<Node> {
+        self.store.io_mut().check_interrupt()?;
         let guard = self.store.pin(id)?;
         Node::decode(guard.bytes(), id, guard.page_count())
     }

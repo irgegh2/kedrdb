@@ -1,0 +1,20 @@
+    Finished `release` profile [optimized] target(s) in 0.00s
+     Running tests/transactions.rs (target/release/deps/transactions-9a603da111ae361f)
+
+running 9 tests
+test read_only_rejects_writes_and_upgrade_and_never_changes_wal ... ok
+test bounded_admission_and_oversized_command_abort_before_copying_payloads ... ok
+test explicit_rollback_aborted_errors_and_disconnect_leave_no_partial_changes ... ok
+test shared_readers_block_writers_and_new_readers_cannot_jump_the_waiting_writer ... ok
+test lock_timeout_and_cancellation_remove_waiters_without_starving_later_clients ... ok
+clients=1 acknowledged=6 grants=33 total_wait_ns=8963 max_wait_ns=1500
+test private_page_limit_failure_aborts_whole_session_and_allows_next_writer ... ok
+test read_only_idle_expiry_and_cancel_release_shared_permits ... ok
+test idle_and_lifetime_expiry_and_active_cancellation_release_locks_without_client_commands ... ok
+clients=2 acknowledged=12 grants=63 total_wait_ns=170437087 max_wait_ns=17979167
+clients=8 acknowledged=48 grants=243 total_wait_ns=3920395084 max_wait_ns=80801459
+clients=32 acknowledged=192 grants=963 total_wait_ns=76155370419 max_wait_ns=410276625
+test concurrent_acknowledged_histories_are_serial_with_one_two_eight_and_thirty_two_clients ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.08s
+

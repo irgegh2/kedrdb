@@ -26,6 +26,13 @@ pub struct FileDatabase {
     segment_bytes: u64,
 }
 impl FileDatabase {
+    pub(crate) fn read_view(&mut self) -> Result<crate::engine::ReadView<FileStorage>> {
+        self.engine()?;
+        crate::engine::ReadView::open(
+            regular_file(&self.root.join("data.kdr"))?,
+            self.cache_budget,
+        )
+    }
     /// The parent directory must already exist. Existing paths are preserved.
     /// A failed creation leaves a diagnostic incomplete directory, never deletes it.
     pub fn create(path: impl AsRef<Path>, id: [u8; 16], cache_budget: usize) -> Result<Self> {

@@ -130,6 +130,9 @@ impl<I: StorageIo> Drop for PageGuard<'_, I> {
 }
 
 impl<I: StorageIo> PageStore<I> {
+    pub(crate) fn io_mut(&mut self) -> &mut I {
+        &mut self.io
+    }
     fn frames(budget: usize) -> Result<Vec<Frame>> {
         let count = budget / std::mem::size_of::<Frame>();
         if count == 0 || count > 65536 {

@@ -12,6 +12,10 @@ pub use file::FileStorage;
 /// synchronize its parent directory or certify hardware power-loss behavior.
 /// A sync error does not imply that no bytes reached durable storage.
 pub trait StorageIo {
+    /// Cached access must check this too, so cancellation does not depend on I/O.
+    fn check_interrupt(&self) -> Result<()> {
+        Ok(())
+    }
     /// Only the private transaction backend may open WAL-protected data pages.
     fn allows_wal_pages(&self) -> bool {
         false
@@ -28,6 +32,9 @@ pub trait StorageIo {
 }
 
 impl<I: StorageIo + ?Sized> StorageIo for &mut I {
+    fn check_interrupt(&self) -> Result<()> {
+        (**self).check_interrupt()
+    }
     fn allows_wal_pages(&self) -> bool {
         (**self).allows_wal_pages()
     }
