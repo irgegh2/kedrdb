@@ -25,6 +25,11 @@ jobs:
         run: cargo test --workspace --locked --offline
       - name: Release tests
         run: cargo test --workspace --release --locked --offline
+      - name: Million-operation tree campaign
+        env:
+          KEDR_TREE_SEEDS: 100
+          KEDR_TREE_STEPS: 10000
+        run: cargo test -p kedr-testkit --test tree_contract --release --locked --offline seeded_tree_operations_match_independent_map -- --exact --nocapture
       - name: Build CLI
         run: cargo build --workspace --release --locked --offline
       - name: File I/O smoke check

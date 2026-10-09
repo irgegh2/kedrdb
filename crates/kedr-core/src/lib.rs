@@ -4,6 +4,8 @@
 pub mod checksum;
 pub mod error;
 pub mod page;
+pub mod record;
 pub mod storage;
+pub mod tree;
 
 pub use error::{Error, Operation, Result};

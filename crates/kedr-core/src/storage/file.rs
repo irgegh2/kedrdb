@@ -17,6 +17,19 @@ pub struct FileStorage {
 }
 
 impl FileStorage {
+    /// Advisory OS lock; callers owning a database must hold it for its lifetime.
+    pub fn try_lock_exclusive(&self) -> Result<()> {
+        self.file.try_lock().map_err(|error| {
+            let source = match error {
+                std::fs::TryLockError::WouldBlock => std::io::Error::new(
+                    std::io::ErrorKind::WouldBlock,
+                    "database file is already locked",
+                ),
+                std::fs::TryLockError::Error(source) => source,
+            };
+            Error::io(Operation::Open, source)
+        })
+    }
     /// Creates a fresh file; existing files are never overwritten.
     pub fn create_new(path: impl AsRef<Path>) -> Result<Self> {
         let file = OpenOptions::new()

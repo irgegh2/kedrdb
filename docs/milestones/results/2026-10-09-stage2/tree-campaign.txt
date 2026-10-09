@@ -1,0 +1,16 @@
+   Compiling kedr-core v0.1.0 (<workspace>/crates/kedr-core)
+   Compiling kedr-testkit v0.1.0 (<workspace>/crates/kedr-testkit)
+    Finished `release` profile [optimized] target(s) in 6.51s
+     Running tests/tree_contract.rs (target/release/deps/tree_contract-a5e86fe5003f7c8d)
+
+running 1 test
+tree campaign: 20/100 seeds, 10000 operations per seed
+test seeded_tree_operations_match_independent_map has been running for over 60 seconds
+tree campaign: 40/100 seeds, 10000 operations per seed
+tree campaign: 60/100 seeds, 10000 operations per seed
+tree campaign: 80/100 seeds, 10000 operations per seed
+tree campaign: 100/100 seeds, 10000 operations per seed
+test seeded_tree_operations_match_independent_map ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 237.09s
+

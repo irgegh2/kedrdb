@@ -1,0 +1,122 @@
+   Compiling kedr-core v0.1.0 (<workspace>/crates/kedr-core)
+   Compiling kedr-testkit v0.1.0 (<workspace>/crates/kedr-testkit)
+   Compiling kedr v0.1.0 (<workspace>/crates/kedr-cli)
+    Finished `release` profile [optimized] target(s) in 25.25s
+     Running unittests src/main.rs (target/release/deps/kedr-0cb03ab5a352677a)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/cli.rs (target/release/deps/cli-149513c825bea2b2)
+
+running 6 tests
+test invalid_arguments_are_reported_as_errors ... ok
+test doctor_reports_actual_capabilities ... ok
+test storage_check_rejects_file_as_directory_without_mutation ... ok
+test storage_check_preserves_existing_files_and_cleans_up ... ok
+test locked_store_rejects_another_process_and_releases_on_close ... ok
+test store_commands_persist_and_integrity_read_preserves_file ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.40s
+
+     Running unittests src/lib.rs (target/release/deps/kedr_core-8243f419704dfc66)
+
+running 1 test
+test checksum::tests::standard_crc32c_vectors ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/pages.rs (target/release/deps/pages-996459f832fb8a9c)
+
+running 8 tests
+test deletion_keeps_other_slots_and_clears_payload ... ok
+test explicit_little_endian_format_and_roundtrip ... ok
+test slot_table_exhaustion_with_empty_records ... ok
+test corruption_and_truncation_are_rejected ... ok
+test record_and_capacity_limits_are_atomic ... ok
+test valid_checksum_does_not_bypass_structural_checks ... ok
+test encoded_page_survives_file_sync_and_reopen ... ok
+test seeded_sequences_match_an_independent_record_model ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.75s
+
+     Running tests/records.rs (target/release/deps/records-4631c1ca4cfdbaa6)
+
+running 3 tests
+test keys_follow_value_order_and_preserve_duplicate_values ... ok
+test row_roundtrip_boundaries_null_and_unicode ... ok
+test malformed_rows_are_rejected_without_panics ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/tree_file.rs (target/release/deps/tree_file-e8341456a86e5ca1)
+
+running 1 test
+test persistent_data_exceeds_cache_and_reopens_with_a_single_frame ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 1.10s
+
+     Running unittests src/lib.rs (target/release/deps/kedr_testkit-7142e545d6258753)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/kedr-crash-fixture.rs (target/release/deps/kedr_crash_fixture-de58bab4c5b7ee1c)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/file_and_crash.rs (target/release/deps/file_and_crash-8aac00bb74031b6a)
+
+running 2 tests
+test file_reopen_sparse_write_resize_and_exclusive_creation ... ok
+test synchronized_prefix_survives_real_process_kill ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.37s
+
+     Running tests/storage_contract.rs (target/release/deps/storage_contract-8ffbd626a6a4e158)
+
+running 13 tests
+test allocation_limit_rejects_mutation_and_sparse_holes_are_zero ... ok
+test broken_backend_byte_counts_are_rejected ... ok
+test errors_after_partial_write_leave_partial_bytes ... ok
+test exact_helpers_retry_short_io_and_interrupts ... ok
+test eof_reports_actual_progress ... ok
+test range_overflow_is_rejected_before_backend_calls ... ok
+test harness_detects_intentionally_missing_sync ... ok
+test replay_has_identical_trace_and_bytes ... ok
+test invalid_faults_and_duplicate_call_numbers_are_rejected ... ok
+test sync_and_crash_include_file_length ... ok
+test sync_failure_can_happen_before_or_after_persistence ... ok
+test zero_write_is_an_error_not_an_infinite_loop ... ok
+test seeded_operations_match_independent_sparse_byte_oracle ... ok
+
+test result: ok. 13 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.79s
+
+     Running tests/tree_contract.rs (target/release/deps/tree_contract-a5e86fe5003f7c8d)
+
+running 6 tests
+test ambiguous_checkpoint_sync_poison_stops_further_operations ... ok
+test header_and_node_corruption_are_detected ... ok
+test maximum_records_and_logical_failures_preserve_contents ... ok
+test split_range_update_delete_reopen_and_reuse ... ok
+test multi_level_tree_with_variable_length_keys_and_secondary_duplicates ... ok
+test seeded_tree_operations_match_independent_map ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.88s
+
+   Doc-tests kedr_core
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests kedr_testkit
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

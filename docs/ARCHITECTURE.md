@@ -1,6 +1,6 @@
 # Предварительная архитектура
 
-Статус: архитектурный план. В этапе 1 реализованы Rust workspace, файловый I/O и начальный harness. Страницы, деревья, WAL, транзакции, SQL и сервер еще не реализованы. Принятые рабочие решения: [граница хранения и отказы](decisions/001-storage-and-failures.md), [проект формата и транзакций](decisions/002-format-and-transactions.md). Изменения записываются с причиной и влиянием на проверки.
+Статус: архитектурный план с частичной реализацией. Есть файловый I/O, harness, codecs страниц/строк, файл базы, bounded cache и B+ tree. WAL, транзакции, SQL и сервер еще не реализованы. Рабочие решения: [I/O](decisions/001-storage-and-failures.md), [проект commit](decisions/002-format-and-transactions.md), [реализованный tree store](decisions/003-tree-file-format.md). Реальный store этапа 2 пока не обеспечивает no-steal/atomic commit; это требование следующего этапа.
 
 ## 1. Поток запроса
 

@@ -76,6 +76,14 @@ pub enum Error {
         slot: u16,
         count: u16,
     },
+    CorruptStore {
+        reason: &'static str,
+    },
+    RecoveryRequired,
+    DuplicateKey,
+    InvalidRecord {
+        reason: &'static str,
+    },
 }
 
 impl Error {
@@ -98,6 +106,10 @@ impl Error {
             Self::PageFull => "KD2002",
             Self::RecordTooLarge { .. } => "KD2003",
             Self::InvalidSlot { .. } => "KD2004",
+            Self::CorruptStore { .. } => "KD2005",
+            Self::RecoveryRequired => "KD2006",
+            Self::DuplicateKey => "KD2007",
+            Self::InvalidRecord { .. } => "KD2008",
         }
     }
 
@@ -147,6 +159,10 @@ impl fmt::Display for Error {
             Self::InvalidSlot { slot, count } => {
                 write!(f, "slot {slot} is outside slot count {count}")
             }
+            Self::CorruptStore { reason } => write!(f, "invalid store: {reason}"),
+            Self::RecoveryRequired => f.write_str("store is poisoned; recovery required"),
+            Self::DuplicateKey => f.write_str("duplicate key"),
+            Self::InvalidRecord { reason } => write!(f, "invalid record: {reason}"),
         }
     }
 }

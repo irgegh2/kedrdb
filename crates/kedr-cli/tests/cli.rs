@@ -39,8 +39,11 @@ fn doctor_reports_actual_capabilities() {
     assert!(text.contains("Apache-2.0"));
     assert!(text.contains("Slotted-page codec and CRC32C: available."));
     assert!(
-        text.contains("SQL server, page store, indexes, WAL and transactions: not implemented.")
+        text.contains(
+            "B+ tree, bounded page cache, typed row codec and integrity check: available."
+        )
     );
+    assert!(text.contains("SQL server, WAL and transactions: not implemented."));
 }
 
 #[test]
@@ -82,4 +85,101 @@ fn storage_check_rejects_file_as_directory_without_mutation() {
             .starts_with("KD1009:")
     );
     assert_eq!(std::fs::read(path).unwrap(), b"do not change");
+}
+
+#[test]
+fn store_commands_persist_and_integrity_read_preserves_file() {
+    let dir = ScratchDir::new();
+    let path = dir.0.join("data.kdr");
+    let output = cli().arg("create-store").arg(&path).output().unwrap();
+    assert!(
+        output.status.success(),
+        "{}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    let output = cli()
+        .arg("put")
+        .arg(&path)
+        .args(["-42", "Кедр 🌲"])
+        .output()
+        .unwrap();
+    assert!(
+        output.status.success(),
+        "{}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    let output = cli().arg("get").arg(&path).arg("-42").output().unwrap();
+    assert!(output.status.success());
+    assert_eq!(String::from_utf8(output.stdout).unwrap(), "Кедр 🌲\n");
+    let before = std::fs::read(&path).unwrap();
+    let output = cli().arg("integrity-check").arg(&path).output().unwrap();
+    assert!(output.status.success());
+    assert!(
+        String::from_utf8(output.stdout)
+            .unwrap()
+            .contains("1 records")
+    );
+    assert_eq!(std::fs::read(&path).unwrap(), before);
+    let output = cli().arg("create-store").arg(&path).output().unwrap();
+    assert!(!output.status.success());
+    assert_eq!(std::fs::read(&path).unwrap(), before);
+    let output = cli()
+        .arg("put")
+        .arg(&path)
+        .args(["9223372036854775808", "overflow"])
+        .output()
+        .unwrap();
+    assert!(!output.status.success());
+    assert_eq!(std::fs::read(&path).unwrap(), before);
+    let output = cli().arg("delete").arg(&path).arg("-42").output().unwrap();
+    assert!(output.status.success());
+    let output = cli().arg("get").arg(&path).arg("-42").output().unwrap();
+    assert!(
+        String::from_utf8(output.stdout)
+            .unwrap()
+            .contains("Key not found")
+    );
+}
+
+#[test]
+fn locked_store_rejects_another_process_and_releases_on_close() {
+    use kedr_core::storage::FileStorage;
+    let dir = ScratchDir::new();
+    let path = dir.0.join("locked.kdr");
+    assert!(
+        cli()
+            .arg("create-store")
+            .arg(&path)
+            .output()
+            .unwrap()
+            .status
+            .success()
+    );
+    let before = std::fs::read(&path).unwrap();
+    let owner = FileStorage::open_existing(&path).unwrap();
+    owner.try_lock_exclusive().unwrap();
+    let output = cli()
+        .arg("put")
+        .arg(&path)
+        .args(["1", "must fail"])
+        .output()
+        .unwrap();
+    assert!(!output.status.success());
+    assert!(
+        String::from_utf8(output.stderr)
+            .unwrap()
+            .contains("already locked")
+    );
+    assert_eq!(std::fs::read(&path).unwrap(), before);
+    drop(owner);
+    assert!(
+        cli()
+            .arg("put")
+            .arg(&path)
+            .args(["1", "now works"])
+            .output()
+            .unwrap()
+            .status
+            .success()
+    );
 }
