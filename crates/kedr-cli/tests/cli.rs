@@ -37,7 +37,10 @@ fn doctor_reports_actual_capabilities() {
     assert!(output.status.success());
     let text = String::from_utf8(output.stdout).unwrap();
     assert!(text.contains("Apache-2.0"));
-    assert!(text.contains("SQL server, pages, WAL and transactions: not implemented."));
+    assert!(text.contains("Slotted-page codec and CRC32C: available."));
+    assert!(
+        text.contains("SQL server, page store, indexes, WAL and transactions: not implemented.")
+    );
 }
 
 #[test]

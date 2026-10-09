@@ -64,6 +64,18 @@ pub enum Error {
     InvalidArgument {
         message: &'static str,
     },
+    CorruptPage {
+        reason: &'static str,
+    },
+    PageFull,
+    RecordTooLarge {
+        length: usize,
+        limit: usize,
+    },
+    InvalidSlot {
+        slot: u16,
+        count: u16,
+    },
 }
 
 impl Error {
@@ -82,6 +94,10 @@ impl Error {
             Self::InvalidBackend { .. } => "KD1007",
             Self::InvalidFault { .. } => "KD1008",
             Self::InvalidArgument { .. } => "KD1009",
+            Self::CorruptPage { .. } => "KD2001",
+            Self::PageFull => "KD2002",
+            Self::RecordTooLarge { .. } => "KD2003",
+            Self::InvalidSlot { .. } => "KD2004",
         }
     }
 
@@ -123,6 +139,14 @@ impl fmt::Display for Error {
                 write!(f, "fault action is incompatible with {operation}")
             }
             Self::InvalidArgument { message } => f.write_str(message),
+            Self::CorruptPage { reason } => write!(f, "invalid page: {reason}"),
+            Self::PageFull => f.write_str("page has insufficient contiguous free space"),
+            Self::RecordTooLarge { length, limit } => {
+                write!(f, "record length {length} exceeds {limit}")
+            }
+            Self::InvalidSlot { slot, count } => {
+                write!(f, "slot {slot} is outside slot count {count}")
+            }
         }
     }
 }

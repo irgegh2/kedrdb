@@ -67,7 +67,8 @@ fn run() -> Result<()> {
             println!("KedrDB {}", env!("CARGO_PKG_VERSION"));
             println!("Platform: {}/{}", env::consts::OS, env::consts::ARCH);
             println!("License: Apache-2.0; storage: positional file I/O + sync_all.");
-            println!("SQL server, pages, WAL and transactions: not implemented.");
+            println!("Slotted-page codec and CRC32C: available.");
+            println!("SQL server, page store, indexes, WAL and transactions: not implemented.");
         }
         [command, directory] if command == "storage-check" => storage_check(Path::new(directory))?,
         [] => println!("Usage: kedr --version | doctor | storage-check <existing-directory>"),
