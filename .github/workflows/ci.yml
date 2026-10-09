@@ -7,7 +7,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   check:
-    timeout-minutes: 30
+    timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
@@ -21,6 +21,11 @@ jobs:
         run: cargo fmt --all -- --check
       - name: Fetch locked dependencies
         run: cargo fetch --locked
+      - name: Install desktop build libraries (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxkbcommon-dev libegl1-mesa-dev libwayland-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev xvfb
       - name: Lint
         run: cargo clippy --workspace --all-targets --locked --offline -- -D warnings
       - name: Debug tests
@@ -34,6 +39,15 @@ jobs:
         run: cargo test -p kedr-testkit --test tree_contract --release --locked --offline seeded_tree_operations_match_independent_map -- --exact --nocapture
       - name: Build CLI
         run: cargo build --workspace --release --locked --offline
+      - name: Native Studio preview (Linux)
+        if: runner.os == 'Linux'
+        env:
+          LIBGL_ALWAYS_SOFTWARE: 1
+          EFRAME_SCREENSHOT_TO: ${{ runner.temp }}/kedr-studio-preview.png
+        run: |
+          cargo build -p kedr-studio --features screenshot --locked --offline
+          timeout 30s xvfb-run -a target/debug/kedr-studio --preview-results
+          test -s "$EFRAME_SCREENSHOT_TO"
       - name: Ten-thousand-point crash campaign
         env:
           KEDR_CRASH_CASES: 10000

@@ -1,0 +1,23 @@
+{
+  "stage": 5,
+  "status": "passed",
+  "commit": "71037ceed8acedf7764a9ba50b83f81d78b73ce7",
+  "run_id": 37985525528,
+  "run_url": "https://github.com/irgegh2/kedrdb/actions/runs/37985525528",
+  "jobs": [
+    {"platform": "ubuntu-24.04", "job_id": 114006433649, "conclusion": "success", "debug_tests": 82, "release_tests": 82, "million_tree_operations": true, "random_crash_points": 10000},
+    {"platform": "macos-15", "job_id": 114006434007, "conclusion": "success", "debug_tests": 82, "release_tests": 82, "million_tree_operations": true, "random_crash_points": 10000}
+  ],
+  "linux_sql_oracle": {
+    "status": "passed",
+    "postgres_version": "16.15 (Ubuntu 16.15-1.pgdg24.04+2)",
+    "psycopg_version": "3.1.17",
+    "matched": 101181,
+    "generated": 100000,
+    "manual": 1025,
+    "contract_cases": 33,
+    "idle_kill_restarts": 19,
+    "transcript_sha256": "be706c5eb5f3686e4e423b9cf79bfb4bdd3eeb85914ba9f9356d03c92701cccc"
+  },
+  "limits": "Correctness on the supported SQL subset; not a performance benchmark, network server acceptance, or market release."
+}
