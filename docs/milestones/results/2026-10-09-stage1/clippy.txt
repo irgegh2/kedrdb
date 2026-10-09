@@ -1,0 +1,4 @@
+    Checking kedr-core v0.1.0 (<temporary-snapshot>/source/crates/kedr-core)
+    Checking kedr-testkit v0.1.0 (<temporary-snapshot>/source/crates/kedr-testkit)
+    Checking kedr v0.1.0 (<temporary-snapshot>/source/crates/kedr-cli)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.65s

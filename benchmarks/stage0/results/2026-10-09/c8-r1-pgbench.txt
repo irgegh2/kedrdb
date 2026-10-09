@@ -1,0 +1,33 @@
+pgbench (18.0)
+transaction type: <workspace>/benchmarks/stage0/mixed.pgbench
+scaling factor: 1
+query mode: prepared
+number of clients: 8
+number of threads: 4
+maximum number of tries: 5
+duration: 5 s
+number of transactions actually processed: 720962
+number of failed transactions: 0 (0.000%)
+number of serialization failures: 0 (0.000%)
+number of deadlock failures: 0 (0.000%)
+number of transactions retried: 4 (0.001%)
+total number of retries: 4
+latency average = 0.055 ms
+initial connection time = 5.467 ms
+tps = 144171.985247 (without initial connection time)
+statement latencies in milliseconds, failures and retries:
+         0.000           0          0 \set seq :seq + 1
+         0.000           0          0 \set product_id random(1, :product_count)
+         0.000           0          0 \set operation random(1, 100)
+         0.000           0          0 \if :operation <= 95
+         0.045           0          0 SELECT id, name, price_cents, stock, active FROM products WHERE id = :product_id;
+         0.000           0          0 \else
+         0.000           0          0 \set actor_id random(1, :user_count)
+         0.000           0          0 \set new_stock random(0, 1000)
+         0.000           0          0 \set event_id (:client_id + 1) * 1000000000000 + :seq
+         0.029           0          0 BEGIN ISOLATION LEVEL SERIALIZABLE;
+         0.046           0          2 UPDATE products SET stock = :new_stock WHERE id = :product_id;
+         0.050           0          1 INSERT INTO inventory_events (id, product_id, actor_id, new_stock)
+         0.082           0          1 COMMIT;
+         0.000           0          0 \endif
+pgbench: setting random seed to 20261009

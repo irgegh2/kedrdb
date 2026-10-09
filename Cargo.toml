@@ -1,0 +1,22 @@
+# SPDX-License-Identifier: Apache-2.0
+[workspace]
+members = ["crates/kedr-core", "crates/kedr-testkit", "crates/kedr-cli"]
+resolver = "3"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.94"
+license = "Apache-2.0"
+publish = false
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+all = "warn"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+

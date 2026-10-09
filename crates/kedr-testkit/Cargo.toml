@@ -1,0 +1,15 @@
+[package]
+name = "kedr-testkit"
+description = "Deterministic storage fault and crash harness for KedrDB"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[dependencies]
+kedr-core = { path = "../kedr-core" }
+
+[lints]
+workspace = true
+

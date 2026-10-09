@@ -1,0 +1,129 @@
+{
+  "platform": "macOS-26.4-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "source_sha256": {
+    "Cargo.toml": "42fe279052a16fcb18547eeeff133d5f517820ef0b1c68b7d9b44ee8bd3d809b",
+    "Cargo.lock": "2bd66f0b6fe5e7d38b3117d39ac555a425da9af0d48e69b558c27f4ed32457c5",
+    "rust-toolchain.toml": "c07cdb6cac85a9e5a7d9b832145d791c04ffb58e8e45859942363f2bffed3ebc",
+    "LICENSE": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    ".github/workflows/ci.yml": "d1432cbd9880d2878512c37079b6b832ac4a0c9ac7884f212c617bb4cfcedf9b",
+    "tools/check_stage1_snapshot.py": "b23f25faa5e6732d9ea02bd5474494545969636bae8757a823ce02fe842f1374",
+    "crates/kedr-cli/Cargo.toml": "18591eb1054dc6e47bbb34536b662a9a7b13cfb9ca005982678064bc8b0aef3a",
+    "crates/kedr-cli/src/main.rs": "abb8e91ed7fca15e771ea6e32ffab573e08d934b56e001ffe72ea22bbf193646",
+    "crates/kedr-cli/tests/cli.rs": "dfc076b34c1a839a163ff9f1017846a91af4cce9fdba8807b213f762e19f37d7",
+    "crates/kedr-core/Cargo.toml": "6d5ccdc1b774892faeb2167deef992e67b584989dd4c95594c14b6816f97f782",
+    "crates/kedr-core/src/error.rs": "668a181676416022f98f561e186e077d97cb00242a56d9e8fe3b005daf8cb28c",
+    "crates/kedr-core/src/lib.rs": "ee62948b0b248506e07086aa9934255b0b04f5a57f9d94476c93d9f9bfe96d32",
+    "crates/kedr-core/src/storage/file.rs": "97e36d69196f51f2ff3938c82a9e71dbd51d1d669a59b342b411e7a219789993",
+    "crates/kedr-core/src/storage.rs": "91fa517c8d1342d305fb659b2bdec7a3f4ea8cfeec2c327f0d9988469fd2ae9f",
+    "crates/kedr-testkit/Cargo.toml": "3da09af67a02a0c3dcb59796bb90d5274a3abbb44622c3881fa8ff92d4c22fd1",
+    "crates/kedr-testkit/src/bin/kedr-crash-fixture.rs": "90040f5eb1f6cc3674fd30e35180e3bfcd56c778350df9ae2e5566a83b9b3010",
+    "crates/kedr-testkit/src/lib.rs": "9a6ef2426647003187f5aabd1412142b16a04e1727bf98d336b1e363433abfd3",
+    "crates/kedr-testkit/tests/file_and_crash.rs": "3a4f0505e4ff71a3e21b4442fddb455372750e92e55c0b27376a2d559d41b31f",
+    "crates/kedr-testkit/tests/storage_contract.rs": "d4d6bf87cbcbc14a89692148340aaaf68a35ce7e93e5d92b4076ec84974aace1"
+  },
+  "runs": [
+    {
+      "name": "toolchain",
+      "command": [
+        "rustc",
+        "-Vv"
+      ],
+      "exit_code": 0,
+      "seconds": 0.194
+    },
+    {
+      "name": "format",
+      "command": [
+        "cargo",
+        "fmt",
+        "--all",
+        "--",
+        "--check"
+      ],
+      "exit_code": 0,
+      "seconds": 0.149
+    },
+    {
+      "name": "clippy",
+      "command": [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--locked",
+        "--offline",
+        "--",
+        "-D",
+        "warnings"
+      ],
+      "exit_code": 0,
+      "seconds": 0.702
+    },
+    {
+      "name": "debug-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "seconds": 13.549
+    },
+    {
+      "name": "release-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--workspace",
+        "--release",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "seconds": 12.792
+    },
+    {
+      "name": "release-build",
+      "command": [
+        "cargo",
+        "build",
+        "--workspace",
+        "--release",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "seconds": 0.028
+    },
+    {
+      "name": "doctor",
+      "command": [
+        "<temporary-snapshot>/target/release/kedr",
+        "doctor"
+      ],
+      "exit_code": 0,
+      "seconds": 0.107
+    },
+    {
+      "name": "storage-check",
+      "command": [
+        "<temporary-snapshot>/target/release/kedr",
+        "storage-check",
+        "<temporary-snapshot>/source"
+      ],
+      "exit_code": 0,
+      "seconds": 0.008
+    }
+  ],
+  "linux_executed": false,
+  "all_passed": true,
+  "scope": "stage 1 file I/O foundation; not SQL, WAL, durability certification or database benchmark",
+  "scratch_file_cleaned": true,
+  "temporary_snapshot_removed": true,
+  "publication_redactions": [
+    "Local workspace and temporary directory paths replaced; test and benchmark numbers unchanged."
+  ]
+}

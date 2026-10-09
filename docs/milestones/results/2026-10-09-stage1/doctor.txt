@@ -1,0 +1,4 @@
+KedrDB 0.1.0
+Platform: macos/aarch64
+License: Apache-2.0; storage: positional file I/O + sync_all.
+SQL server, pages, WAL and transactions: not implemented.

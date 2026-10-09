@@ -1,0 +1,28 @@
+pgbench (18.0)
+transaction type: <workspace>/benchmarks/stage0/mixed.pgbench
+scaling factor: 1
+query mode: prepared
+number of clients: 8
+number of threads: 4
+maximum number of tries: 1
+duration: 5 s
+number of transactions actually processed: 534024
+number of failed transactions: 1 (0.000%)
+latency average = 0.075 ms (including failures)
+initial connection time = 4.832 ms
+tps = 106061.057441 (without initial connection time)
+statement latencies in milliseconds and failures:
+         0.000           0 \set seq :seq + 1
+         0.000           0 \set product_id random(1, :product_count)
+         0.000           0 \set operation random(1, 100)
+         0.000           0 \if :operation <= 95
+         0.059           0 SELECT id, name, price_cents, stock, active FROM products WHERE id = :product_id;
+         0.000           0 \else
+         0.000           0 \set actor_id random(1, :user_count)
+         0.000           0 \set new_stock random(0, 1000)
+         0.000           0 \set event_id (:client_id + 1) * 1000000000000 + :seq
+         0.039           0 BEGIN ISOLATION LEVEL SERIALIZABLE;
+         0.068           0 UPDATE products SET stock = :new_stock WHERE id = :product_id;
+         0.078           0 INSERT INTO inventory_events (id, product_id, actor_id, new_stock)
+         0.151           1 COMMIT;
+         0.000           0 \endif

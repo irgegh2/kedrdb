@@ -1,0 +1,155 @@
+{
+  "kind": "preliminary-development-baseline-not-a-competitive-ranking",
+  "status": "completed",
+  "started_at_utc": "2026-10-09T02:15:16.944079+00:00",
+  "platform": "macOS-26.4-arm64-arm-64bit-Mach-O",
+  "postgresql_client_version": "psql (PostgreSQL) 18.0",
+  "configuration": {
+    "products": 100000,
+    "users": 10000,
+    "payload_bytes": 128,
+    "seconds": 5,
+    "repeats": 3,
+    "clients": [
+      1,
+      8
+    ],
+    "random_seed": 20261009,
+    "max_tries": 5
+  },
+  "source_checksums": {
+    "tools/run_stage0_baseline.py": "d273a0ad0c428a9504230d8ccbf6733a04e6d9a845033a6552caf21bca7ea7d0",
+    "benchmarks/stage0/mixed.pgbench": "68f9cd03d33c3985840a9dc738deb8994912afa635de7395edd07f6da6968efe",
+    "benchmarks/stage0/read.pgbench": "8142a7bfe91d55d2df2d253a2b5d6a385087849a659a1a33a8a9bcc9dfb7e8c4",
+    "benchmarks/stage0/schema.sql": "6666d4af1495dd78f6281579d7284322d2d77ea57c4c946b86fa515783f97b90",
+    "benchmarks/stage0/verify.sql": "7dd1934ad3fe08cbc9f985e0e2d0f4d9912511286008ef0d06587fb1c0d0b373"
+  },
+  "limitations": [
+    "short closed-loop runs",
+    "macOS development environment",
+    "existing installed PostgreSQL version",
+    "not a tuned comparison",
+    "p99 and open-loop saturation not measured",
+    "other local processes are running"
+  ],
+  "runs": [
+    {
+      "clients": 1,
+      "repeat": 1,
+      "tps": 50057.364374,
+      "latency_average_ms": 0.02,
+      "failed_transactions": 0,
+      "total_retries": 0,
+      "checks": {
+        "products": 100000,
+        "users": 10000,
+        "events": 12714,
+        "invalid_stock": 0,
+        "invalid_event_stock": 0,
+        "orphaned_events": 0,
+        "database_bytes": 39360191
+      }
+    },
+    {
+      "clients": 1,
+      "repeat": 2,
+      "tps": 66854.698296,
+      "latency_average_ms": 0.015,
+      "failed_transactions": 0,
+      "total_retries": 0,
+      "checks": {
+        "products": 100000,
+        "users": 10000,
+        "events": 16962,
+        "invalid_stock": 0,
+        "invalid_event_stock": 0,
+        "orphaned_events": 0,
+        "database_bytes": 39777983
+      }
+    },
+    {
+      "clients": 1,
+      "repeat": 3,
+      "tps": 67117.005937,
+      "latency_average_ms": 0.015,
+      "failed_transactions": 0,
+      "total_retries": 0,
+      "checks": {
+        "products": 100000,
+        "users": 10000,
+        "events": 17025,
+        "invalid_stock": 0,
+        "invalid_event_stock": 0,
+        "orphaned_events": 0,
+        "database_bytes": 39786175
+      }
+    },
+    {
+      "clients": 8,
+      "repeat": 1,
+      "tps": 144171.985247,
+      "latency_average_ms": 0.055,
+      "failed_transactions": 0,
+      "total_retries": 4,
+      "checks": {
+        "products": 100000,
+        "users": 10000,
+        "events": 36135,
+        "invalid_stock": 0,
+        "invalid_event_stock": 0,
+        "orphaned_events": 0,
+        "database_bytes": 42407615
+      }
+    },
+    {
+      "clients": 8,
+      "repeat": 2,
+      "tps": 146453.159737,
+      "latency_average_ms": 0.055,
+      "failed_transactions": 0,
+      "total_retries": 0,
+      "checks": {
+        "products": 100000,
+        "users": 10000,
+        "events": 36694,
+        "invalid_stock": 0,
+        "invalid_event_stock": 0,
+        "orphaned_events": 0,
+        "database_bytes": 42423999
+      }
+    },
+    {
+      "clients": 8,
+      "repeat": 3,
+      "tps": 145351.396606,
+      "latency_average_ms": 0.055,
+      "failed_transactions": 0,
+      "total_retries": 1,
+      "checks": {
+        "products": 100000,
+        "users": 10000,
+        "events": 36425,
+        "invalid_stock": 0,
+        "invalid_event_stock": 0,
+        "orphaned_events": 0,
+        "database_bytes": 42415807
+      }
+    }
+  ],
+  "server_version": "18.0",
+  "settings": {
+    "checkpoint_timeout": "300",
+    "default_transaction_isolation": "serializable",
+    "fsync": "on",
+    "full_page_writes": "on",
+    "listen_addresses": "",
+    "max_connections": "64",
+    "server_version": "18.0",
+    "shared_buffers": "32768",
+    "synchronous_commit": "on",
+    "wal_sync_method": "open_datasync",
+    "work_mem": "4096"
+  },
+  "temporary_cluster_stopped_and_removed": true,
+  "completed_at_utc": "2026-10-09T02:15:59.691819+00:00"
+}

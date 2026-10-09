@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+data/
+*.lock
+!/Cargo.lock
+*.tmp
+.DS_Store
+/target/
+/artifacts/

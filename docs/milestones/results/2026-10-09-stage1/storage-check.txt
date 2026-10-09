@@ -1,0 +1,2 @@
+Storage check passed: positional write, sync, reopen, exact read, cleanup.
+This is a file I/O check; SQL and transaction recovery are not implemented.

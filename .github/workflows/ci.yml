@@ -1,0 +1,31 @@
+name: Rust foundation
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+concurrency:
+  group: foundation-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  check:
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned Rust
+        run: rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy
+      - name: Format
+        run: cargo fmt --all -- --check
+      - name: Lint
+        run: cargo clippy --workspace --all-targets --locked --offline -- -D warnings
+      - name: Debug tests
+        run: cargo test --workspace --locked --offline
+      - name: Release tests
+        run: cargo test --workspace --release --locked --offline
+      - name: Build CLI
+        run: cargo build --workspace --release --locked --offline
+      - name: File I/O smoke check
+        run: target/release/kedr doctor && target/release/kedr storage-check "$RUNNER_TEMP"

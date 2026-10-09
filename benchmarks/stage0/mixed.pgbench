@@ -1,0 +1,19 @@
+-- One script iteration is one read or one atomic stock-update + audit event.
+-- Explicit SERIALIZABLE matches the proposed serial transaction semantics.
+-- Warm-up uses read.pgbench, so client counters cannot collide with existing events.
+\set seq :seq + 1
+\set product_id random(1, :product_count)
+\set operation random(1, 100)
+\if :operation <= 95
+  SELECT id, name, price_cents, stock, active FROM products WHERE id = :product_id;
+\else
+  \set actor_id random(1, :user_count)
+  \set new_stock random(0, 1000)
+  \set event_id (:client_id + 1) * 1000000000000 + :seq
+  BEGIN ISOLATION LEVEL SERIALIZABLE;
+  UPDATE products SET stock = :new_stock WHERE id = :product_id;
+  INSERT INTO inventory_events (id, product_id, actor_id, new_stock)
+    VALUES (:event_id, :product_id, :actor_id, :new_stock);
+  COMMIT;
+\endif
+
