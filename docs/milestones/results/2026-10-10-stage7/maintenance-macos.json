@@ -1,0 +1,19 @@
+{
+  "stage": 7,
+  "postgres_version": 180002,
+  "psycopg": "3.3.2",
+  "checks": [
+    "PG snapshot: all schema/value bytes directly compared, nulls/unicode/quotes/boundaries/self-FK",
+    "source rows unchanged",
+    "unsupported schema refused before destination creation",
+    "SHARE table lock blocks writes",
+    "physical backup/restore exact full schema/data export and offline diagnostics",
+    "stage6 binary reads/writes completed stage7 format and new binary reopens it",
+    "equal counts with one changed value rejected, partial migration inaccessible"
+  ],
+  "rows": 5,
+  "tables": 3,
+  "snapshot_ms": 224,
+  "elapsed_s": 11.465,
+  "performance_benchmark": false
+}

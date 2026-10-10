@@ -1,0 +1,23 @@
+{"event":"import_complete","rows":5,"sha256":"090032ee4c9c72f9bbe7e00629de24854ff2708a8e1cb3a561eda6530ee01230","statements":9}
+{"comparison":"all_canonical_schema_and_value_bytes","event":"migration_verified","rows":5}
+{"state": "snapshot_complete", "rows": 5, "tables": 3, "source_version": 180002, "snapshot_ms": 224}
+{"event": "migration_complete", "rows": 5, "tables": 3, "application_verified": false}
+{
+  "stage": 7,
+  "postgres_version": 180002,
+  "psycopg": "3.3.2",
+  "checks": [
+    "PG snapshot: all schema/value bytes directly compared, nulls/unicode/quotes/boundaries/self-FK",
+    "source rows unchanged",
+    "unsupported schema refused before destination creation",
+    "SHARE table lock blocks writes",
+    "physical backup/restore exact full schema/data export and offline diagnostics",
+    "stage6 binary reads/writes completed stage7 format and new binary reopens it",
+    "equal counts with one changed value rejected, partial migration inaccessible"
+  ],
+  "rows": 5,
+  "tables": 3,
+  "snapshot_ms": 224,
+  "elapsed_s": 11.465,
+  "performance_benchmark": false
+}

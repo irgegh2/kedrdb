@@ -1,0 +1,307 @@
+{
+  "kind": "development-diagnostic-not-a-competitive-ranking",
+  "started_utc": "2026-10-10T01:03:41.742092+00:00",
+  "status": "completed",
+  "code_commit": "39b7742b97f6189f8d62ab0b669179f317e1b00c",
+  "platform": "macOS-26.4-arm64-arm-64bit-Mach-O",
+  "psycopg": "3.3.2",
+  "postgres": "postgres (PostgreSQL) 18.6",
+  "configuration": {
+    "products": 100,
+    "users": 10,
+    "payload_bytes": 128,
+    "seconds": 1,
+    "repeats": 1,
+    "clients": "1",
+    "seed": 20261010
+  },
+  "binary_sha256": {
+    "kedr": "40e6e2076e99672f84e3b8d67312c6c98b1d1f55a00e1ed3af492fb90c93c146",
+    "kedr-server": "9d512ff4257cbabba2b0795ded4f988d1a185660f5d3ca96e6a0934399be6008",
+    "postgres": "5864dac38029b1609096dbe07d33f998e92485faff7840f9a680ec3ec2386ecf"
+  },
+  "source_sha256": {
+    "tools/benchmark_stage8.py": "5cad65e83b910bf4bbf1f53f746361e1d0e560a2dd2b906edc0a279183aaf7c2",
+    "tools/migrate_postgres.py": "38991c054f42505aa25e44c5e3fe4a9629be820dacdba1cedbfe09990728f4b7"
+  },
+  "limitations": [
+    "macOS development environment, other applications may run",
+    "closed-loop, not saturation/open-loop acceptance",
+    "small dataset; no 512 MiB/4 CPU hard isolation",
+    "warm process reads; OS cache is not flushed",
+    "short runs cannot establish background-maintenance behavior",
+    "only PostgreSQL, no MySQL/MariaDB yet",
+    "client Python/GIL may cap throughput; client CPU is recorded",
+    "no cold cache or larger-than-RAM test",
+    "private PostgreSQL instance remains idle during Kedr trials"
+  ],
+  "runs": [
+    {
+      "clients": 1,
+      "repeat": 1,
+      "transactions": 15145,
+      "errors": 0,
+      "successful_tps": 15144.806282524312,
+      "elapsed_s": 1.0000127910170704,
+      "p50_ms": 0.048125,
+      "p95_ms": 0.206458,
+      "p99_ms": 0.277583,
+      "retries": 0,
+      "writes": 757,
+      "raw_samples": "postgres-c1-r1.jsonl",
+      "validation": {
+        "static_tables_all_values": true,
+        "audit_all_acknowledged_values": true,
+        "products_all_static_values_and_committed_stock_domain": true,
+        "audit_rows": 757,
+        "limitation": "Final stock is checked against committed values, not reconstructed global commit order; concurrency/atomicity have separate correctness tests.",
+        "passed": true
+      },
+      "resources": {
+        "server_processes_before": {
+          "27520": {
+            "rss_kib": 16496,
+            "cpu_s": 0.02
+          },
+          "27521": {
+            "rss_kib": 3504,
+            "cpu_s": 0.0
+          },
+          "27523": {
+            "rss_kib": 10880,
+            "cpu_s": 0.0
+          },
+          "27524": {
+            "rss_kib": 4224,
+            "cpu_s": 0.0
+          },
+          "27525": {
+            "rss_kib": 3840,
+            "cpu_s": 0.0
+          },
+          "27538": {
+            "rss_kib": 11152,
+            "cpu_s": 0.01
+          },
+          "27516": {
+            "rss_kib": 25280,
+            "cpu_s": 0.02
+          },
+          "27517": {
+            "rss_kib": 14272,
+            "cpu_s": 0.01
+          },
+          "27518": {
+            "rss_kib": 3296,
+            "cpu_s": 0.0
+          },
+          "27519": {
+            "rss_kib": 2416,
+            "cpu_s": 0.0
+          }
+        },
+        "server_processes_after": {
+          "27520": {
+            "rss_kib": 16496,
+            "cpu_s": 0.02
+          },
+          "27521": {
+            "rss_kib": 3520,
+            "cpu_s": 0.0
+          },
+          "27523": {
+            "rss_kib": 10880,
+            "cpu_s": 0.0
+          },
+          "27524": {
+            "rss_kib": 4224,
+            "cpu_s": 0.0
+          },
+          "27525": {
+            "rss_kib": 3840,
+            "cpu_s": 0.0
+          },
+          "27538": {
+            "rss_kib": 13824,
+            "cpu_s": 0.44
+          },
+          "27516": {
+            "rss_kib": 25280,
+            "cpu_s": 0.02
+          },
+          "27517": {
+            "rss_kib": 14272,
+            "cpu_s": 0.01
+          },
+          "27518": {
+            "rss_kib": 3296,
+            "cpu_s": 0.0
+          },
+          "27519": {
+            "rss_kib": 2416,
+            "cpu_s": 0.0
+          }
+        },
+        "client_cpu_s": 0.454377,
+        "note": "RSS is per-process; summing PostgreSQL RSS double-counts shared memory. This is not PSS or a hard memory budget.",
+        "pg_database_bytes": 8230591
+      },
+      "valid": true,
+      "meets_20ms_in_this_closed_loop_trial": true,
+      "engine": "postgres",
+      "label": "postgres-c1-r1"
+    },
+    {
+      "clients": 1,
+      "repeat": 1,
+      "transactions": 85,
+      "errors": 0,
+      "successful_tps": 84.23925975514139,
+      "elapsed_s": 1.0090307090431452,
+      "p50_ms": 11.530208,
+      "p95_ms": 15.355042,
+      "p99_ms": 16.298542,
+      "retries": 0,
+      "writes": 4,
+      "raw_samples": "kedr-c1-r1.jsonl",
+      "validation": {
+        "static_tables_all_values": true,
+        "audit_all_acknowledged_values": true,
+        "products_all_static_values_and_committed_stock_domain": true,
+        "audit_rows": 4,
+        "limitation": "Final stock is checked against committed values, not reconstructed global commit order; concurrency/atomicity have separate correctness tests.",
+        "passed": true
+      },
+      "resources": {
+        "server_processes_before": {
+          "27545": {
+            "rss_kib": 20624,
+            "cpu_s": 0.04
+          }
+        },
+        "server_processes_after": {
+          "27545": {
+            "rss_kib": 20880,
+            "cpu_s": 0.3
+          }
+        },
+        "client_cpu_s": 0.025285000000000002,
+        "note": "RSS is per-process; summing PostgreSQL RSS double-counts shared memory. This is not PSS or a hard memory budget.",
+        "kedr_metrics": {
+          "active_sessions": 1,
+          "authentication_errors": 0,
+          "connections_rejected": 0,
+          "connections_total": 2,
+          "latency_bucket_counts": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            91,
+            22,
+            4,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "latency_bucket_upper_us": [
+            10,
+            25,
+            50,
+            100,
+            250,
+            500,
+            1000,
+            2500,
+            5000,
+            10000,
+            25000,
+            50000,
+            100000,
+            250000,
+            500000,
+            1000000,
+            5000000,
+            18446744073709551615
+          ],
+          "locks": {
+            "grants": 116,
+            "max_wait_ns": 9250,
+            "readers": 0,
+            "total_wait_ns": 50167,
+            "waiting": 0,
+            "writer": false
+          },
+          "metrics_version": 1,
+          "p50_upper_us": 2500,
+          "p95_upper_us": 5000,
+          "p99_upper_us": 10000,
+          "protocol_errors": 0,
+          "queries": 117,
+          "query_errors": 0,
+          "query_total_us": 258000,
+          "scope": "process_cumulative",
+          "storage": {
+            "checkpoint_errors": 0,
+            "checkpoint_ns": 0,
+            "checkpoints": 0,
+            "data_write_bytes": 1835008,
+            "fsync_calls": 212,
+            "fsync_ns": 935076497,
+            "io_errors": 0,
+            "read_bytes": 8962464,
+            "wal_write_bytes": 1849680
+          },
+          "system": {
+            "data_bytes": 98304,
+            "disk_available_kib": 164738912,
+            "rss_kib": 21088,
+            "wal_bytes": 1849808
+          },
+          "uptime_ms": 1342
+        }
+      },
+      "valid": true,
+      "meets_20ms_in_this_closed_loop_trial": true,
+      "integrity": "Integrity check passed: 271 records, 4 tree pages, 0 free pages, height 2.",
+      "engine": "kedr",
+      "label": "kedr-c1-r1"
+    }
+  ],
+  "hardware": {
+    "hw.memsize": "17179869184",
+    "hw.ncpu": "10",
+    "machdep.cpu.brand_string": "Apple M4"
+  },
+  "postgres_build": "'--prefix=/Users/irgegh/Documents/ChatGPT/бд/artifacts/stage8/postgresql-18.6' '--without-icu' '--without-readline' '--without-zlib'",
+  "pg_settings": {
+    "server_version": "18.6",
+    "fsync": "on",
+    "synchronous_commit": "on",
+    "full_page_writes": "on",
+    "default_transaction_isolation": "serializable",
+    "shared_buffers": "256MB",
+    "wal_sync_method": "open_datasync"
+  },
+  "seed_sql_sha256": "2737722217db5bae008854288a73dc1016d92afdf2feb043b53e8aa8a403a5ae",
+  "trial_order": [
+    [
+      "postgres",
+      1,
+      1
+    ],
+    [
+      "kedr",
+      1,
+      1
+    ]
+  ]
+}

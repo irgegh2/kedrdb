@@ -1,0 +1,13 @@
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.40s
+     Running tests/protocol.rs (target/debug/deps/protocol-cb414a28ec56e397)
+
+running 6 tests
+test extended_pipeline_error_rollback_and_portal_suspension ... ok
+test metrics_work_with_binary_and_simple_protocol_without_transaction_lock ... ok
+test driver_binary_crud_nulls_transactions_and_reconnect ... ok
+test wrong_cancel_key_does_not_cancel_another_session ... ok
+test bad_credentials_packets_disconnect_and_authenticated_cancel ... ok
+test malformed_authenticated_messages_recover_and_partial_frame_times_out ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 6.47s
+

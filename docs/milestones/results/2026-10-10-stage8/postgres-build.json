@@ -1,0 +1,12 @@
+{
+  "source_url": "https://ftp.postgresql.org/pub/source/v18.6/postgresql-18.6.tar.bz2",
+  "source_sha256": "555610c24d53e4316da5b7d3fc25c279d96856d5e0e23ee308c328c5fa881d9f",
+  "configure": [
+    "./configure",
+    "--prefix=/Users/irgegh/Documents/ChatGPT/\u0431\u0434/artifacts/stage8/postgresql-18.6",
+    "--without-icu",
+    "--without-readline",
+    "--without-zlib"
+  ],
+  "server_version": "postgres (PostgreSQL) 18.6"
+}

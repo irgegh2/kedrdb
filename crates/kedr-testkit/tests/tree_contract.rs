@@ -109,6 +109,29 @@ fn multi_level_tree_with_variable_length_keys_and_secondary_duplicates() {
 }
 
 #[test]
+fn large_cache_initializes_only_loaded_pages_and_preserves_reopened_values() {
+    let budget = 16 * 1024 * 1024;
+    let mut tree =
+        BPlusTree::create(MemoryStorage::new(64 * 1024 * 1024), [7; 16], budget).unwrap();
+    tree.insert(b"key", b"value").unwrap();
+    assert_eq!(
+        tree.get(b"key").unwrap().as_deref(),
+        Some(b"value".as_slice())
+    );
+    assert!(tree.cache_stats().frames <= 3);
+    assert!(tree.cache_stats().allocated_bytes <= budget);
+    tree.checkpoint().unwrap();
+    let mut tree = BPlusTree::open(tree.into_io(), budget).unwrap();
+    assert_eq!(
+        tree.get(b"key").unwrap().as_deref(),
+        Some(b"value".as_slice())
+    );
+    assert!(tree.cache_stats().frames <= 3);
+    assert!(tree.cache_stats().allocated_bytes <= budget);
+    tree.integrity_check().unwrap();
+}
+
+#[test]
 fn maximum_records_and_logical_failures_preserve_contents() {
     let mut tree = tree();
     for key in [i64::MIN, -1, 0, i64::MAX] {

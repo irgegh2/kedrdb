@@ -1,0 +1,69 @@
+{"durable_statements":256,"event":"import_progress","total_statements":1308}
+{"durable_statements":512,"event":"import_progress","total_statements":1308}
+{"durable_statements":768,"event":"import_progress","total_statements":1308}
+{"durable_statements":1024,"event":"import_progress","total_statements":1308}
+{"durable_statements":1280,"event":"import_progress","total_statements":1308}
+{"event":"import_complete","rows":1300,"sha256":"35cfdb0428faf43eeb5dcd368baf15158940a5d1ed36064931492fed7effa089","statements":1308}
+{"comparison":"all_canonical_schema_and_value_bytes","event":"migration_verified","rows":1300}
+{"state": "snapshot_complete", "rows": 1300, "tables": 5, "source_version": 180006, "snapshot_ms": 63}
+{"event": "migration_complete", "rows": 1300, "tables": 5, "application_verified": false}
+Measuring postgres-c8-r3
+{"label": "postgres-c8-r3", "successful_tps": 4811.5761625714285, "p99_ms": 16.272042, "errors": 0, "valid": true}
+Measuring kedr-c8-r1
+{"label": "kedr-c8-r1", "successful_tps": 85.57755495469013, "p99_ms": 180.252875, "errors": 0, "valid": true}
+Measuring postgres-c1-r2
+{"label": "postgres-c1-r2", "successful_tps": 10192.950873320753, "p99_ms": 0.632958, "errors": 0, "valid": true}
+Measuring postgres-c8-r1
+{"label": "postgres-c8-r1", "successful_tps": 8085.802813910846, "p99_ms": 5.18875, "errors": 0, "valid": true}
+Measuring postgres-c8-r4
+{"label": "postgres-c8-r4", "successful_tps": 8088.565520565853, "p99_ms": 5.378542, "errors": 0, "valid": true}
+Measuring postgres-c8-r5
+{"label": "postgres-c8-r5", "successful_tps": 4646.8127326329395, "p99_ms": 11.785665999999999, "errors": 0, "valid": true}
+Measuring kedr-c1-r4
+{"label": "kedr-c1-r4", "successful_tps": 55.43886682837215, "p99_ms": 54.744958, "errors": 0, "valid": true}
+Measuring kedr-c1-r3
+{"label": "kedr-c1-r3", "successful_tps": 63.908951940373285, "p99_ms": 36.116584, "errors": 0, "valid": true}
+Measuring postgres-c32-r3
+{"label": "postgres-c32-r3", "successful_tps": 4391.9454672531765, "p99_ms": 42.019125, "errors": 0, "valid": true}
+Measuring postgres-c32-r1
+{"label": "postgres-c32-r1", "successful_tps": 5354.195762242702, "p99_ms": 34.006792000000004, "errors": 0, "valid": true}
+Measuring postgres-c1-r4
+{"label": "postgres-c1-r4", "successful_tps": 10815.965601441885, "p99_ms": 0.5597920000000001, "errors": 0, "valid": true}
+Measuring kedr-c8-r2
+{"label": "kedr-c8-r2", "successful_tps": 78.59380270910205, "p99_ms": 198.700333, "errors": 0, "valid": true}
+Measuring postgres-c1-r1
+{"label": "postgres-c1-r1", "successful_tps": 12771.872281295902, "p99_ms": 0.461416, "errors": 0, "valid": true}
+Measuring postgres-c32-r5
+{"label": "postgres-c32-r5", "successful_tps": 10235.940492889546, "p99_ms": 14.418458000000001, "errors": 0, "valid": true}
+Measuring kedr-c8-r3
+{"label": "kedr-c8-r3", "successful_tps": 87.523029549094, "p99_ms": 147.966042, "errors": 0, "valid": true}
+Measuring kedr-c8-r5
+{"label": "kedr-c8-r5", "successful_tps": 74.72099109039043, "p99_ms": 523.938541, "errors": 0, "valid": true}
+Measuring kedr-c32-r3
+{"label": "kedr-c32-r3", "successful_tps": 85.13542245255812, "p99_ms": 407.56345799999997, "errors": 0, "valid": true}
+Measuring kedr-c32-r1
+{"label": "kedr-c32-r1", "successful_tps": 86.710586757848, "p99_ms": 395.18258399999996, "errors": 0, "valid": true}
+Measuring postgres-c1-r5
+{"label": "postgres-c1-r5", "successful_tps": 15338.884319408222, "p99_ms": 0.321167, "errors": 0, "valid": true}
+Measuring kedr-c32-r5
+{"label": "kedr-c32-r5", "successful_tps": 54.41418294820478, "p99_ms": 1450.084875, "errors": 0, "valid": true}
+Measuring postgres-c32-r4
+{"label": "postgres-c32-r4", "successful_tps": 5387.409135618168, "p99_ms": 38.08525, "errors": 0, "valid": true}
+Measuring postgres-c1-r3
+{"label": "postgres-c1-r3", "successful_tps": 5451.399640334825, "p99_ms": 1.675125, "errors": 0, "valid": true}
+Measuring postgres-c32-r2
+{"label": "postgres-c32-r2", "successful_tps": 5761.344717558745, "p99_ms": 28.558375, "errors": 0, "valid": true}
+Measuring postgres-c8-r2
+{"label": "postgres-c8-r2", "successful_tps": 7796.153038196777, "p99_ms": 5.54775, "errors": 0, "valid": true}
+Measuring kedr-c32-r4
+{"label": "kedr-c32-r4", "successful_tps": 71.2100197767806, "p99_ms": 488.226417, "errors": 0, "valid": true}
+Measuring kedr-c1-r1
+{"label": "kedr-c1-r1", "successful_tps": 69.86957969843452, "p99_ms": 34.521083, "errors": 0, "valid": true}
+Measuring kedr-c1-r5
+{"label": "kedr-c1-r5", "successful_tps": 67.95956876723469, "p99_ms": 29.943167000000003, "errors": 0, "valid": true}
+Measuring kedr-c8-r4
+{"label": "kedr-c8-r4", "successful_tps": 54.26550508438833, "p99_ms": 926.870375, "errors": 0, "valid": true}
+Measuring kedr-c1-r2
+{"label": "kedr-c1-r2", "successful_tps": 56.751566066568586, "p99_ms": 119.988083, "errors": 0, "valid": true}
+Measuring kedr-c32-r2
+{"label": "kedr-c32-r2", "successful_tps": 72.74997529970669, "p99_ms": 547.402083, "errors": 0, "valid": true}

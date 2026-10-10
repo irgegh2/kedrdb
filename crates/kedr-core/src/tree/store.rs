@@ -107,6 +107,7 @@ pub struct PageStore<I: StorageIo> {
     metadata: Metadata,
     active_header: u64,
     frames: Vec<Frame>,
+    frame_limit: usize,
     clock: u64,
     stats: CacheStats,
     poisoned: bool,
@@ -133,7 +134,7 @@ impl<I: StorageIo> PageStore<I> {
     pub(crate) fn io_mut(&mut self) -> &mut I {
         &mut self.io
     }
-    fn frames(budget: usize) -> Result<Vec<Frame>> {
+    fn frames(budget: usize) -> Result<(Vec<Frame>, usize)> {
         let count = budget / std::mem::size_of::<Frame>();
         if count == 0 || count > 65536 {
             return Err(Error::InvalidArgument {
@@ -144,16 +145,8 @@ impl<I: StorageIo> PageStore<I> {
         frames
             .try_reserve_exact(count)
             .map_err(|_| Error::Allocation { requested: budget })?;
-        for _ in 0..count {
-            frames.push(Frame {
-                id: None,
-                dirty: false,
-                pinned: false,
-                stamp: 0,
-                bytes: [0; PAGE_SIZE],
-            });
-        }
-        Ok(frames)
+        // Reserve the bound, but initialize only pages actually requested.
+        Ok((frames, count))
     }
     pub fn create(mut io: I, database_id: [u8; 16], budget: usize) -> Result<Self> {
         if database_id == [0; 16] {
@@ -161,7 +154,7 @@ impl<I: StorageIo> PageStore<I> {
                 message: "database ID must be nonzero",
             });
         }
-        let frames = Self::frames(budget)?;
+        let (frames, frame_limit) = Self::frames(budget)?;
         if io.len()? != 0 {
             return Err(Error::InvalidArgument {
                 message: "new store requires empty exclusive storage",
@@ -190,13 +183,14 @@ impl<I: StorageIo> PageStore<I> {
             metadata,
             active_header: 0,
             frames,
+            frame_limit,
             clock: 0,
             stats: CacheStats::default(),
             poisoned: false,
         })
     }
     pub fn open(mut io: I, budget: usize) -> Result<Self> {
-        let frames = Self::frames(budget)?;
+        let (frames, frame_limit) = Self::frames(budget)?;
         let length = io.len()?;
         if length < 3 * PAGE_SIZE as u64 || length % PAGE_SIZE as u64 != 0 {
             return Err(Error::CorruptStore {
@@ -246,6 +240,7 @@ impl<I: StorageIo> PageStore<I> {
             metadata,
             active_header,
             frames,
+            frame_limit,
             clock: 0,
             stats: CacheStats::default(),
             poisoned: false,
@@ -315,6 +310,17 @@ impl<I: StorageIo> PageStore<I> {
             return Ok(at);
         }
         self.stats.misses += 1;
+        if self.frames.len() < self.frame_limit
+            && !self.frames.iter().any(|frame| frame.id.is_none())
+        {
+            self.frames.push(Frame {
+                id: None,
+                dirty: false,
+                pinned: false,
+                stamp: 0,
+                bytes: [0; PAGE_SIZE],
+            });
+        }
         let at = self
             .frames
             .iter()

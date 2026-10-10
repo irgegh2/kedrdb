@@ -1,0 +1,182 @@
+[
+  {
+    "path": "kedr-c1-r1.jsonl.gz",
+    "uncompressed_sha256": "938f05141263d6ee61671c36b301535c056fb0d87a5e11be8e8830cf2f938104",
+    "compressed_sha256": "15312e6657a13a920035e14ff67b3b2600c6f5bea64e6997a14469ac6dcb6aaa",
+    "bytes": 1739
+  },
+  {
+    "path": "kedr-c1-r2.jsonl.gz",
+    "uncompressed_sha256": "d54c202f424f4ee2cc27bfd2bda77242d0cad2c3fe596b80e0e2dcc66519f87e",
+    "compressed_sha256": "eace0a8109b3eb5bb7c9d704969dd00d910f8790be4d724f76b4705666f98560",
+    "bytes": 1443
+  },
+  {
+    "path": "kedr-c1-r3.jsonl.gz",
+    "uncompressed_sha256": "d7df7abe6d1543a717cee13ccf645624a70bfbf5915e5d9c461ab31717194edf",
+    "compressed_sha256": "d45e62dbc16f4f12b3d85f54df380d4c800e6fcf78afe0d69f630fb999d749af",
+    "bytes": 1604
+  },
+  {
+    "path": "kedr-c1-r4.jsonl.gz",
+    "uncompressed_sha256": "7bb9995f46d2f4dfb85910e5c68b0d72ad0c63548034709c048e56cd7c99f466",
+    "compressed_sha256": "b5c05eaa4f0d3fa3cbc0ede89451537a712a7c88692dd04aeb1841e25b140a70",
+    "bytes": 1450
+  },
+  {
+    "path": "kedr-c1-r5.jsonl.gz",
+    "uncompressed_sha256": "4b423523293dbed857e511d5dc0db3f7556cd706d49444c726c4d51f4c4b519b",
+    "compressed_sha256": "31963568ef23a5978009c1f38d78b8e710481ae8677d414aa892e6f4073a65c3",
+    "bytes": 1676
+  },
+  {
+    "path": "kedr-c32-r1.jsonl.gz",
+    "uncompressed_sha256": "b432d9d773f9c72b61964b9658c5f8551bc9f14ef9c5abc8bfe33ec65634b568",
+    "compressed_sha256": "2d9c99fa3cba7508cf7519ba1c441da492f00e657cee7fe00c93bfe17492e55c",
+    "bytes": 2452
+  },
+  {
+    "path": "kedr-c32-r2.jsonl.gz",
+    "uncompressed_sha256": "3643d5012ab69126a1edb4f7e0d7291109b0bdad8f7fe8d83cbb4110022a29e6",
+    "compressed_sha256": "c69b938550f44c72ebf1082daeb74196c1176f9f26a070e2dddb72f4ecc9d667",
+    "bytes": 2312
+  },
+  {
+    "path": "kedr-c32-r3.jsonl.gz",
+    "uncompressed_sha256": "b5c58194657227db7f85cc4e41ffcafe476a2ae508ab65a0e50881c8efc78af6",
+    "compressed_sha256": "748b2e1dc1ff0225db0a75496cc07590a432b10a457a6eaff250c459e811ae13",
+    "bytes": 2437
+  },
+  {
+    "path": "kedr-c32-r4.jsonl.gz",
+    "uncompressed_sha256": "5ea30deb3f09440bf2cb9d698eea798abdf65e637c30ecdb9c8d935209ceefda",
+    "compressed_sha256": "b73fd9025c67ec1f2e288a944014b8995b102d6e68ce0bc5d6689b7b84da5e5c",
+    "bytes": 2175
+  },
+  {
+    "path": "kedr-c32-r5.jsonl.gz",
+    "uncompressed_sha256": "9606217483159a175c9408ea6100f5fa12d8e31f2b9246cd297491fdbb8af7e1",
+    "compressed_sha256": "b2e5a48d6535a20360ce23bf631756db73daff066d90fba392c6e30543dc570b",
+    "bytes": 1757
+  },
+  {
+    "path": "kedr-c8-r1.jsonl.gz",
+    "uncompressed_sha256": "92a981af176386d577f3df1641fc177b1727c65326914d257722d02624e858bf",
+    "compressed_sha256": "6857fa50c916966c3f2ca19fa34787749485dbd3cbeeb13f6855ef5251ca545a",
+    "bytes": 2218
+  },
+  {
+    "path": "kedr-c8-r2.jsonl.gz",
+    "uncompressed_sha256": "368e464ed63cf29331fd472bf02f32109da55a7d24668dea089fa9492da2c8ed",
+    "compressed_sha256": "80a7488a6aa0d4b5316b96a4e5c33a89552574d06b1525b642cbcc1112aaf708",
+    "bytes": 2050
+  },
+  {
+    "path": "kedr-c8-r3.jsonl.gz",
+    "uncompressed_sha256": "e1a66aeb9d3a51b518ecc527fe4c6b57eb68e6c69ade67f80a1a1519195542eb",
+    "compressed_sha256": "43b152accaff5d0ea5f13a694a5f1b05ef46a3426498811e5cb40afe776d2795",
+    "bytes": 2240
+  },
+  {
+    "path": "kedr-c8-r4.jsonl.gz",
+    "uncompressed_sha256": "13b69569a126fef5d4e78ecfb8660e6238cf762655cf30f732d785a8ea1a7f43",
+    "compressed_sha256": "4983f915fcb97671a62634db621cbf4bbde360f1fdb5ddf084fe0d8cf4beef39",
+    "bytes": 1743
+  },
+  {
+    "path": "kedr-c8-r5.jsonl.gz",
+    "uncompressed_sha256": "dc059471139638a797b6f7c3306ed16cc2a8b6f7ce6314b1e07acad8aa6102af",
+    "compressed_sha256": "84ac28982b2b90949e7cb72f5f6295b90518b41a97540743d714ecaabfb27400",
+    "bytes": 1963
+  },
+  {
+    "path": "postgres-c1-r1.jsonl.gz",
+    "uncompressed_sha256": "d3fe298e135cb1b1b00cd6bb4a2f1cb2ab5d38d2e7761ca19de3371cce417666",
+    "compressed_sha256": "f4d1468e79d0e0f7b44b4f2dd2fa47dac8e6988679511c54178f628ff23f1969",
+    "bytes": 220940
+  },
+  {
+    "path": "postgres-c1-r2.jsonl.gz",
+    "uncompressed_sha256": "35a28235108e368b2ec6bee763ccd16647acdb192ec9d4b113318e9b7e42d7b1",
+    "compressed_sha256": "25bd8b415d58051ee7fd5195e499c3c993a58b0fbe09ef09c00d2765acdb3d02",
+    "bytes": 182879
+  },
+  {
+    "path": "postgres-c1-r3.jsonl.gz",
+    "uncompressed_sha256": "5b76f2ee77314e8dbf041e6a052397216a2470733bea0f15e0d36e5d3d741c66",
+    "compressed_sha256": "89cea0cb0a47c40bf5022da313e8d6f5595537b6de081fd341b1594bd105842f",
+    "bytes": 102983
+  },
+  {
+    "path": "postgres-c1-r4.jsonl.gz",
+    "uncompressed_sha256": "b0b7f54af414993216dffcb2bae38f61e86b54eb749cc728df6acd24cdf02ce3",
+    "compressed_sha256": "c232ce36fe8775f4d29890d184c848f802653c9665dd2010551d53e98f4444b8",
+    "bytes": 191438
+  },
+  {
+    "path": "postgres-c1-r5.jsonl.gz",
+    "uncompressed_sha256": "3644486df247d4f54d78e8cb8df5bdb128a20fec678536912864177ef62c3094",
+    "compressed_sha256": "7fad2ef865428581724b144e118ac5757ae89a46cd624b38df60b95da38e5e42",
+    "bytes": 258012
+  },
+  {
+    "path": "postgres-c32-r1.jsonl.gz",
+    "uncompressed_sha256": "9a1435b0789850f7034027a1e1842e35fdeda875fab3f5294b8c9a8f9c88f57f",
+    "compressed_sha256": "1c993a7424b230bb998ba144b31c4acbf6122b14d8009aa519f684a58b2c06ab",
+    "bytes": 120141
+  },
+  {
+    "path": "postgres-c32-r2.jsonl.gz",
+    "uncompressed_sha256": "b75692bc5039fe96fdf7b9da2babfa495fca8b9999f9ff550e802d8c2f8150b3",
+    "compressed_sha256": "0681a254716cedd42668a9d76fe30d0cf2f6361effb6125a9cfe0f3bef7d3d42",
+    "bytes": 129386
+  },
+  {
+    "path": "postgres-c32-r3.jsonl.gz",
+    "uncompressed_sha256": "b20afe30c290e070ab3cd91831277bd4166e3869764ac95a6864860d375d574e",
+    "compressed_sha256": "3e77602b3e25ac190ceff89e387bff52af92fca0d1aacc6da87b6a4aba2449fa",
+    "bytes": 99882
+  },
+  {
+    "path": "postgres-c32-r4.jsonl.gz",
+    "uncompressed_sha256": "cfb50db301854a2643f89c93bb1c8989f9ba7ca55cd568f137715a7ad059bd51",
+    "compressed_sha256": "da568be79c0cebabfbbe63bd2ff79ecab2872fed09cfe702e70a62a4d1d9251e",
+    "bytes": 120792
+  },
+  {
+    "path": "postgres-c32-r5.jsonl.gz",
+    "uncompressed_sha256": "c4d873ef24158c7b93db9fb65972ba0fcaaf2998225a038f91f9ab0b39dedeac",
+    "compressed_sha256": "765a0fd7d20bdb0e8d09a91537412613d3359c467e2f88572bae3d5672dd0bd0",
+    "bytes": 224088
+  },
+  {
+    "path": "postgres-c8-r1.jsonl.gz",
+    "uncompressed_sha256": "047d07ae7d345dec634e269efc7945c2f3f1803dede86bc5f8e7eeedecd3f2a1",
+    "compressed_sha256": "84b0b94161a04caf2fd712901201c76678a4aff5486cfb6bb50114b9156e9839",
+    "bytes": 168901
+  },
+  {
+    "path": "postgres-c8-r2.jsonl.gz",
+    "uncompressed_sha256": "22ad6437255909afa7302c787cfc17139b2f3620197d143797ae6e770dc33282",
+    "compressed_sha256": "f99caf23b9e9f52ad11015f91beff194e14063b3c2f894f856d24efac005a29c",
+    "bytes": 163039
+  },
+  {
+    "path": "postgres-c8-r3.jsonl.gz",
+    "uncompressed_sha256": "ee1b9626a924d7e1ea83fcaa9a9e4193b261c6a43bce50cfbdba394080bd036c",
+    "compressed_sha256": "c4c08b793740ee6730ac30495ff6de3be52b4541d49b7d10705d0532737a608e",
+    "bytes": 101076
+  },
+  {
+    "path": "postgres-c8-r4.jsonl.gz",
+    "uncompressed_sha256": "2c2f6f928959d2b5a1c2583b96c99d8c73eeb5f06e09f144baf5abc4b1d3de9f",
+    "compressed_sha256": "e2f3457ed17ebc5141bc8a6c3313e7e280e726d3d558fdc55d6a80c4d0fc3033",
+    "bytes": 169032
+  },
+  {
+    "path": "postgres-c8-r5.jsonl.gz",
+    "uncompressed_sha256": "a738fa9b7fd945e89990e55baa93710e9f846f1214ccec8d7efce1921863c560",
+    "compressed_sha256": "1bb649a960e57fe5a629aaaa1ee4b1f0437af763c2d5f8e2366802c410e6b89b",
+    "bytes": 98739
+  }
+]

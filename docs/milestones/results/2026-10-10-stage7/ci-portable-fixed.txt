@@ -1,0 +1,226 @@
+﻿2026-10-10T01:11:49.3345680Z Current runner version: '2.337.0'
+2026-10-10T01:11:49.3364230Z ##[group]Runner Image Provisioner
+2026-10-10T01:11:49.3364920Z Hosted Compute Agent
+2026-10-10T01:11:49.3365330Z Version: 20260828.587
+2026-10-10T01:11:49.3365770Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-10-10T01:11:49.3366280Z Build Date: 2026-08-28T16:44:25Z
+2026-10-10T01:11:49.3366740Z Worker ID: {90af76d0-e507-4464-8f5f-98fbead85e14}
+2026-10-10T01:11:49.3367240Z Azure Region: westus
+2026-10-10T01:11:49.3367640Z ##[endgroup]
+2026-10-10T01:11:49.3368620Z ##[group]Operating System
+2026-10-10T01:11:49.3369060Z macOS
+2026-10-10T01:11:49.3369560Z 15.7.9
+2026-10-10T01:11:49.3369910Z 24G830
+2026-10-10T01:11:49.3370300Z ##[endgroup]
+2026-10-10T01:11:49.3370680Z ##[group]Runner Image
+2026-10-10T01:11:49.3371090Z Image: macos-15-arm64
+2026-10-10T01:11:49.3371500Z Version: 20260907.0337.1
+2026-10-10T01:11:49.3424020Z Included Software: https://github.com/actions/runner-images/blob/macos-15-arm64/20260907.0337/images/macos/macos-15-arm64-Readme.md
+2026-10-10T01:11:49.3425350Z Image Release: https://github.com/actions/runner-images/releases/tag/macos-15-arm64%2F20260907.0337
+2026-10-10T01:11:49.3426020Z ##[endgroup]
+2026-10-10T01:11:49.3426870Z ##[group]GITHUB_TOKEN Permissions
+2026-10-10T01:11:49.3487840Z Contents: read
+2026-10-10T01:11:49.3488490Z Metadata: read
+2026-10-10T01:11:49.3488890Z ##[endgroup]
+2026-10-10T01:11:49.3491220Z Secret source: Actions
+2026-10-10T01:11:49.3491890Z Cache mode: write
+2026-10-10T01:11:49.3492450Z Prepare workflow directory
+2026-10-10T01:11:49.4119550Z Prepare all required actions
+2026-10-10T01:11:49.4528300Z Getting action download info
+2026-10-10T01:11:49.6079400Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-10T01:11:50.0714680Z Download action repository 'actions/download-artifact@v4' (SHA:d3f86a106a0bac45b974a628896c90dbdf5c8093)
+2026-10-10T01:11:51.1415520Z Complete job name: portable-restore
+2026-10-10T01:11:51.1857630Z ##[group]Run actions/checkout@v4
+2026-10-10T01:11:51.1858230Z with:
+2026-10-10T01:11:51.1858580Z   repository: irgegh2/kedrdb
+2026-10-10T01:11:51.1861580Z   token: ***
+2026-10-10T01:11:51.1861920Z   ssh-strict: true
+2026-10-10T01:11:51.1862270Z   ssh-user: git
+2026-10-10T01:11:51.1862620Z   persist-credentials: true
+2026-10-10T01:11:51.1863010Z   clean: true
+2026-10-10T01:11:51.1863360Z   sparse-checkout-cone-mode: true
+2026-10-10T01:11:51.1863770Z   fetch-depth: 1
+2026-10-10T01:11:51.1864100Z   fetch-tags: false
+2026-10-10T01:11:51.1864460Z   show-progress: true
+2026-10-10T01:11:51.1864810Z   lfs: false
+2026-10-10T01:11:51.1865150Z   submodules: false
+2026-10-10T01:11:51.1865520Z   set-safe-directory: true
+2026-10-10T01:11:51.1865920Z   allow-unsafe-pr-checkout: false
+2026-10-10T01:11:51.1866600Z ##[endgroup]
+2026-10-10T01:11:51.5340250Z Syncing repository: irgegh2/kedrdb
+2026-10-10T01:11:51.5341830Z ##[group]Getting Git version info
+2026-10-10T01:11:51.5342500Z Working directory is '/Users/runner/work/kedrdb/kedrdb'
+2026-10-10T01:11:51.5343360Z [command]/opt/homebrew/bin/git version
+2026-10-10T01:11:51.5873240Z git version 2.55.0
+2026-10-10T01:11:51.5877390Z ##[endgroup]
+2026-10-10T01:11:51.5882750Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/3be729c2-420e-43eb-8457-47417234d728/.gitconfig'
+2026-10-10T01:11:51.5884180Z Temporarily overriding HOME='/Users/runner/work/_temp/3be729c2-420e-43eb-8457-47417234d728' before making global git config changes
+2026-10-10T01:11:51.5885340Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-10T01:11:51.5887890Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/kedrdb/kedrdb
+2026-10-10T01:11:51.6005520Z Deleting the contents of '/Users/runner/work/kedrdb/kedrdb'
+2026-10-10T01:11:51.6009090Z ##[group]Initializing the repository
+2026-10-10T01:11:51.6013340Z [command]/opt/homebrew/bin/git init /Users/runner/work/kedrdb/kedrdb
+2026-10-10T01:11:51.6200310Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-10T01:11:51.6202070Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-10T01:11:51.6202930Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-10T01:11:51.6203590Z hint: call:
+2026-10-10T01:11:51.6203910Z hint:
+2026-10-10T01:11:51.6204360Z hint: 	git config --global init.defaultBranch <name>
+2026-10-10T01:11:51.6204870Z hint:
+2026-10-10T01:11:51.6205350Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-10T01:11:51.6206090Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-10T01:11:51.6206670Z hint:
+2026-10-10T01:11:51.6207010Z hint: 	git branch -m <name>
+2026-10-10T01:11:51.6207390Z hint:
+2026-10-10T01:11:51.6207890Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-10T01:11:51.6208710Z Initialized empty Git repository in /Users/runner/work/kedrdb/kedrdb/.git/
+2026-10-10T01:11:51.6214150Z [command]/opt/homebrew/bin/git remote add origin https://github.com/irgegh2/kedrdb
+2026-10-10T01:11:51.6280040Z ##[endgroup]
+2026-10-10T01:11:51.6280700Z ##[group]Disabling automatic garbage collection
+2026-10-10T01:11:51.6282410Z [command]/opt/homebrew/bin/git config --local gc.auto 0
+2026-10-10T01:11:51.6343340Z ##[endgroup]
+2026-10-10T01:11:51.6344060Z ##[group]Setting up auth
+2026-10-10T01:11:51.6347300Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-10T01:11:51.6406500Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-10T01:11:51.7269830Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-10T01:11:51.7338610Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-10T01:11:51.8284280Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-10T01:11:51.8456130Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-10T01:11:52.0163880Z [command]/opt/homebrew/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-10T01:11:52.0289470Z ##[endgroup]
+2026-10-10T01:11:52.0310870Z ##[group]Fetching the repository
+2026-10-10T01:11:52.0317010Z [command]/opt/homebrew/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +885087ec93bf8dc8d5ff6d516cbab2a4ff393e55:refs/remotes/origin/codex/server-and-studio
+2026-10-10T01:11:53.0797710Z From https://github.com/irgegh2/kedrdb
+2026-10-10T01:11:53.0835310Z  * [new ref]         885087ec93bf8dc8d5ff6d516cbab2a4ff393e55 -> origin/codex/server-and-studio
+2026-10-10T01:11:53.0841650Z ##[endgroup]
+2026-10-10T01:11:53.0842780Z ##[group]Determining the checkout info
+2026-10-10T01:11:53.0844700Z ##[endgroup]
+2026-10-10T01:11:53.0845600Z [command]/opt/homebrew/bin/git sparse-checkout disable
+2026-10-10T01:11:53.0855800Z [command]/opt/homebrew/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-10T01:11:53.0925960Z ##[group]Checking out the ref
+2026-10-10T01:11:53.0929520Z [command]/opt/homebrew/bin/git checkout --progress --force -B codex/server-and-studio refs/remotes/origin/codex/server-and-studio
+2026-10-10T01:11:53.1756200Z Switched to a new branch 'codex/server-and-studio'
+2026-10-10T01:11:53.1839310Z branch 'codex/server-and-studio' set up to track 'origin/codex/server-and-studio'.
+2026-10-10T01:11:53.1909590Z ##[endgroup]
+2026-10-10T01:11:53.1985290Z [command]/opt/homebrew/bin/git log -1 --format=%H
+2026-10-10T01:11:53.2063590Z 885087ec93bf8dc8d5ff6d516cbab2a4ff393e55
+2026-10-10T01:11:53.2260430Z ##[group]Run rustup toolchain install 1.94.1 --profile minimal
+2026-10-10T01:11:53.2262330Z [36;1mrustup toolchain install 1.94.1 --profile minimal[0m
+2026-10-10T01:11:53.2313900Z shell: /bin/bash -e {0}
+2026-10-10T01:11:53.2315170Z ##[endgroup]
+2026-10-10T01:11:53.3277460Z info: syncing channel updates for 1.94.1-aarch64-apple-darwin
+2026-10-10T01:11:53.4486490Z info: latest update on 2026-03-26 for version 1.94.1 (e408947bf 2026-03-25)
+2026-10-10T01:11:53.4490610Z info: downloading 3 components
+2026-10-10T01:12:00.2934360Z 
+2026-10-10T01:12:00.5458430Z   1.94.1-aarch64-apple-darwin installed - rustc 1.94.1 (e408947bf 2026-03-25)
+2026-10-10T01:12:00.5459300Z info: self-update is disabled for this build of rustup
+2026-10-10T01:12:00.5459780Z info: any updates to rustup will need to be fetched with your system package manager
+2026-10-10T01:12:00.5460150Z 
+2026-10-10T01:12:00.5741450Z ##[group]Run actions/download-artifact@v4
+2026-10-10T01:12:00.5741710Z with:
+2026-10-10T01:12:00.5742650Z   name: stage7-linux-maintenance
+2026-10-10T01:12:00.5743010Z   path: /Users/runner/work/_temp/stage7-linux-maintenance
+2026-10-10T01:12:00.5743340Z   merge-multiple: false
+2026-10-10T01:12:00.5743520Z   repository: irgegh2/kedrdb
+2026-10-10T01:12:00.5743700Z   run-id: 38012134483
+2026-10-10T01:12:00.5743850Z ##[endgroup]
+2026-10-10T01:12:00.7592460Z Downloading single artifact
+2026-10-10T01:12:00.7873570Z (node:8068) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-10T01:12:00.7878830Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-10T01:12:00.8973510Z Preparing to download the following artifacts:
+2026-10-10T01:12:00.8974230Z - stage7-linux-maintenance (ID: 11653273759, Size: 2942, Expected Digest: sha256:70008632c9168f238cae4bf78a4bd7423822e23f908736b34aec81afb82b81ff)
+2026-10-10T01:12:01.0266770Z Redirecting to blob download url: https://productionresultssa5.blob.core.windows.net/actions-results/1063de83-9c78-8d90-90a1-9990063b216c/workflow-job-run-ab9dc7ec-cc58-557f-984c-dca6faec11ba/artifacts/6e62346bcfb06176ca3dfc78eabfa1080e453184d2cc9d5c86c7ad9356b220e3.zip
+2026-10-10T01:12:01.0267890Z Starting download of artifact to: /Users/runner/work/_temp/stage7-linux-maintenance
+2026-10-10T01:12:01.0670620Z (node:8068) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+2026-10-10T01:12:01.0750660Z SHA256 digest of downloaded artifact is 70008632c9168f238cae4bf78a4bd7423822e23f908736b34aec81afb82b81ff
+2026-10-10T01:12:01.0751980Z Artifact download completed successfully.
+2026-10-10T01:12:01.0752400Z Total of 1 artifact(s) downloaded
+2026-10-10T01:12:01.0759080Z Download artifact has finished successfully
+2026-10-10T01:12:01.0837800Z ##[group]Run cargo build -p kedr --release --locked
+2026-10-10T01:12:01.0838220Z [36;1mcargo build -p kedr --release --locked[0m
+2026-10-10T01:12:01.0881670Z shell: /bin/bash -e {0}
+2026-10-10T01:12:01.0881880Z ##[endgroup]
+2026-10-10T01:12:01.1679540Z info: syncing channel updates for 1.94.1-aarch64-apple-darwin
+2026-10-10T01:12:01.2405240Z info: latest update on 2026-03-26 for version 1.94.1 (e408947bf 2026-03-25)
+2026-10-10T01:12:01.2503270Z info: downloading component clippy
+2026-10-10T01:12:02.3207310Z     Updating crates.io index
+2026-10-10T01:12:03.2665000Z  Downloading crates ...
+2026-10-10T01:12:03.3019200Z   Downloaded sha2 v0.10.9
+2026-10-10T01:12:03.3126120Z   Downloaded block-buffer v0.10.4
+2026-10-10T01:12:03.3183720Z   Downloaded serde_json v1.0.151
+2026-10-10T01:12:03.3441430Z   Downloaded quote v1.0.47
+2026-10-10T01:12:03.3891570Z   Downloaded serde_derive v1.0.229
+2026-10-10T01:12:03.3971360Z   Downloaded serde_core v1.0.229
+2026-10-10T01:12:03.4041570Z   Downloaded version_check v0.9.5
+2026-10-10T01:12:03.4076550Z   Downloaded crypto-common v0.1.7
+2026-10-10T01:12:03.4107970Z   Downloaded unicode-ident v1.0.26
+2026-10-10T01:12:03.4177350Z   Downloaded cpufeatures v0.2.17
+2026-10-10T01:12:03.4254060Z   Downloaded zmij v1.0.23
+2026-10-10T01:12:03.4331140Z   Downloaded serde v1.0.229
+2026-10-10T01:12:03.4417170Z   Downloaded typenum v1.20.1
+2026-10-10T01:12:03.4833980Z   Downloaded log v0.4.34
+2026-10-10T01:12:03.4902830Z   Downloaded generic-array v0.14.7
+2026-10-10T01:12:03.4952150Z   Downloaded syn v3.0.6
+2026-10-10T01:12:03.5195410Z   Downloaded proc-macro2 v1.0.107
+2026-10-10T01:12:03.5254110Z   Downloaded memchr v2.8.3
+2026-10-10T01:12:03.5349430Z   Downloaded digest v0.10.7
+2026-10-10T01:12:03.5709790Z   Downloaded cfg-if v1.0.5
+2026-10-10T01:12:03.5730880Z   Downloaded itoa v1.0.18
+2026-10-10T01:12:03.5760920Z   Downloaded sqlparser v0.63.0
+2026-10-10T01:12:03.5904050Z   Downloaded libc v0.2.190
+2026-10-10T01:12:03.7794210Z    Compiling version_check v0.9.5
+2026-10-10T01:12:03.7799310Z    Compiling proc-macro2 v1.0.107
+2026-10-10T01:12:03.7800100Z    Compiling quote v1.0.47
+2026-10-10T01:12:04.2467930Z    Compiling generic-array v0.14.7
+2026-10-10T01:12:06.8404450Z    Compiling typenum v1.20.1
+2026-10-10T01:12:06.8583120Z    Compiling unicode-ident v1.0.26
+2026-10-10T01:12:06.9331060Z    Compiling libc v0.2.190
+2026-10-10T01:12:07.2843140Z    Compiling serde_core v1.0.229
+2026-10-10T01:12:07.5116950Z    Compiling zmij v1.0.23
+2026-10-10T01:12:07.6660990Z    Compiling syn v3.0.6
+2026-10-10T01:12:07.9031460Z    Compiling block-buffer v0.10.4
+2026-10-10T01:12:07.9807870Z    Compiling crypto-common v0.1.7
+2026-10-10T01:12:08.6694870Z    Compiling serde_json v1.0.151
+2026-10-10T01:12:08.8149820Z    Compiling log v0.4.34
+2026-10-10T01:12:08.9472000Z    Compiling serde v1.0.229
+2026-10-10T01:12:09.1312850Z    Compiling sqlparser v0.63.0
+2026-10-10T01:12:09.5806590Z    Compiling serde_derive v1.0.229
+2026-10-10T01:12:09.9564070Z    Compiling cpufeatures v0.2.17
+2026-10-10T01:12:10.0184520Z    Compiling digest v0.10.7
+2026-10-10T01:12:10.4706800Z    Compiling memchr v2.8.3
+2026-10-10T01:12:10.9517350Z    Compiling itoa v1.0.18
+2026-10-10T01:12:11.0808050Z    Compiling cfg-if v1.0.5
+2026-10-10T01:12:11.1139220Z    Compiling sha2 v0.10.9
+2026-10-10T01:12:21.1332730Z    Compiling kedr-core v0.1.0 (/Users/runner/work/kedrdb/kedrdb/crates/kedr-core)
+2026-10-10T01:12:45.6160690Z    Compiling kedr v0.1.0 (/Users/runner/work/kedrdb/kedrdb/crates/kedr-cli)
+2026-10-10T01:12:55.1046840Z     Finished `release` profile [optimized] target(s) in 52.93s
+2026-10-10T01:12:55.2385900Z ##[group]Run target/release/kedr verify-backup "$RUNNER_TEMP/stage7-linux-maintenance/portable-backup"
+2026-10-10T01:12:55.2386760Z [36;1mtarget/release/kedr verify-backup "$RUNNER_TEMP/stage7-linux-maintenance/portable-backup"[0m
+2026-10-10T01:12:55.2387480Z [36;1mtarget/release/kedr restore "$RUNNER_TEMP/stage7-linux-maintenance/portable-backup" "$RUNNER_TEMP/restored-linux"[0m
+2026-10-10T01:12:55.2388700Z [36;1mtarget/release/kedr integrity-check "$RUNNER_TEMP/restored-linux"[0m
+2026-10-10T01:12:55.2389350Z [36;1mtarget/release/kedr export-sql "$RUNNER_TEMP/restored-linux" "$RUNNER_TEMP/restored-linux.sql"[0m
+2026-10-10T01:12:55.2390070Z [36;1mcmp "$RUNNER_TEMP/restored-linux.sql" "$RUNNER_TEMP/stage7-linux-maintenance/portable.sql"[0m
+2026-10-10T01:12:55.2666260Z shell: /bin/bash -e {0}
+2026-10-10T01:12:55.2669080Z ##[endgroup]
+2026-10-10T01:12:55.3397390Z Backup verified: 13 records, checkpoint LSN 34.
+2026-10-10T01:12:55.4038080Z Restored and verified into a new database directory.
+2026-10-10T01:12:55.4078770Z Integrity check passed: 13 records, 1 tree pages, 0 free pages, height 1.
+2026-10-10T01:12:55.4152160Z Exported 5 rows; SQL file completed and synced.
+2026-10-10T01:12:55.4296160Z Post job cleanup.
+2026-10-10T01:12:55.7743930Z [command]/opt/homebrew/bin/git version
+2026-10-10T01:12:55.7959370Z git version 2.55.0
+2026-10-10T01:12:55.7978180Z Copying '/Users/runner/.gitconfig' to '/Users/runner/work/_temp/b3b10c8b-534d-44f9-836a-b9c460f8edf3/.gitconfig'
+2026-10-10T01:12:55.7986520Z Temporarily overriding HOME='/Users/runner/work/_temp/b3b10c8b-534d-44f9-836a-b9c460f8edf3' before making global git config changes
+2026-10-10T01:12:55.7993280Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-10T01:12:55.7993860Z [command]/opt/homebrew/bin/git config --global --add safe.directory /Users/runner/work/kedrdb/kedrdb
+2026-10-10T01:12:55.8088660Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-10T01:12:55.8147570Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-10T01:12:55.9231940Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-10T01:12:55.9286410Z http.https://github.com/.extraheader
+2026-10-10T01:12:55.9294330Z [command]/opt/homebrew/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-10T01:12:55.9364270Z [command]/opt/homebrew/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-10T01:12:56.0239190Z [command]/opt/homebrew/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-10T01:12:56.0296940Z [command]/opt/homebrew/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-10T01:12:56.1461690Z Cleaning up orphan processes
+2026-10-10T01:12:56.7489610Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/download-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

@@ -1,0 +1,30 @@
+Measuring kedr-c8-r1
+{"label": "kedr-c8-r1", "successful_tps": 393.2190018305109, "p99_ms": 137.627875, "errors": 0, "valid": true}
+Measuring kedr-c1-r4
+{"label": "kedr-c1-r4", "successful_tps": 318.1250850424268, "p99_ms": 24.21275, "errors": 0, "valid": true}
+Measuring kedr-c1-r3
+{"label": "kedr-c1-r3", "successful_tps": 344.52154167106397, "p99_ms": 21.873167000000002, "errors": 0, "valid": true}
+Measuring kedr-c8-r2
+{"label": "kedr-c8-r2", "successful_tps": 366.1396206684995, "p99_ms": 148.78725, "errors": 0, "valid": true}
+Measuring kedr-c8-r3
+{"label": "kedr-c8-r3", "successful_tps": 386.9165364206992, "p99_ms": 141.424792, "errors": 0, "valid": true}
+Measuring kedr-c8-r5
+{"label": "kedr-c8-r5", "successful_tps": 359.88682021474426, "p99_ms": 149.09854199999998, "errors": 0, "valid": true}
+Measuring kedr-c32-r3
+{"label": "kedr-c32-r3", "successful_tps": 327.17709186462116, "p99_ms": 853.259417, "errors": 0, "valid": true}
+Measuring kedr-c32-r1
+{"label": "kedr-c32-r1", "successful_tps": 386.8647555919135, "p99_ms": 565.997, "errors": 0, "valid": true}
+Measuring kedr-c32-r5
+{"label": "kedr-c32-r5", "successful_tps": 299.1110904658908, "p99_ms": 1055.0815, "errors": 0, "valid": true}
+Measuring kedr-c32-r4
+{"label": "kedr-c32-r4", "successful_tps": 396.85815194687035, "p99_ms": 541.276667, "errors": 0, "valid": true}
+Measuring kedr-c1-r1
+{"label": "kedr-c1-r1", "successful_tps": 361.9058793748421, "p99_ms": 21.16, "errors": 0, "valid": true}
+Measuring kedr-c1-r5
+{"label": "kedr-c1-r5", "successful_tps": 346.32922066604095, "p99_ms": 21.404041, "errors": 0, "valid": true}
+Measuring kedr-c8-r4
+{"label": "kedr-c8-r4", "successful_tps": 407.00373399718626, "p99_ms": 140.492875, "errors": 0, "valid": true}
+Measuring kedr-c1-r2
+{"label": "kedr-c1-r2", "successful_tps": 379.1141366265785, "p99_ms": 20.424041000000003, "errors": 0, "valid": true}
+Measuring kedr-c32-r2
+{"label": "kedr-c32-r2", "successful_tps": 349.30019395261417, "p99_ms": 590.964, "errors": 0, "valid": true}

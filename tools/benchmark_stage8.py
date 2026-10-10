@@ -2,8 +2,9 @@
 # SPDX-License-Identifier: Apache-2.0
 """Development OLTP diagnostic, not SMALL_OLTP_V1 acceptance or a market ranking.
 
-Creates only a private synthetic PostgreSQL cluster and fresh KedrDB copies.
-Both servers use reused TCP connections, SCRAM and durable serializable writes.
+The default mode creates a private synthetic PostgreSQL cluster and fresh KedrDB
+copies. --engines kedr reuses a historical reference and never starts PostgreSQL.
+Both engines use reused TCP connections, SCRAM and durable serializable writes.
 All trial orders, raw latencies, errors, retries and acknowledged audit rows survive.
 """
 import argparse
@@ -105,18 +106,22 @@ def verify(connection, args, expected):
 def fixture(connection, args):
     for sql in SCHEMA:
         connection.execute(sql)
-    generators = {
-        "users": ((i, f"user{i}@example.test", f"Пользователь {i}", True) for i in range(1, args.users + 1)),
-        "products": ((i, f"Товар {i}", 1 + i % 100, 100 + i % 100000, 1000, True, "x" * args.payload_bytes) for i in range(1, args.products + 1)),
-        "orders": ((i, i, "created", 2 * (100 + i % 100000)) for i in range(1, args.users + 1)),
-        "order_items": ((i, i, i, 2, 100 + i % 100000) for i in range(1, args.users + 1)),
-    }
+    generators = fixture_rows(args)
     for table, data in generators.items():
         with connection.cursor().copy(f"COPY {table} FROM STDIN") as copy:
             for row in data:
                 copy.write_row(row)
     connection.execute("ANALYZE")
     connection.execute("CHECKPOINT")
+
+
+def fixture_rows(args):
+    return {
+        "users": ((i, f"user{i}@example.test", f"Пользователь {i}", True) for i in range(1, args.users + 1)),
+        "products": ((i, f"Товар {i}", 1 + i % 100, 100 + i % 100000, 1000, True, "x" * args.payload_bytes) for i in range(1, args.products + 1)),
+        "orders": ((i, i, "created", 2 * (100 + i % 100000)) for i in range(1, args.users + 1)),
+        "order_items": ((i, i, i, 2, 100 + i % 100000) for i in range(1, args.users + 1)),
+    }
 
 
 def cpu_memory(pid):
@@ -242,9 +247,77 @@ def trial(parameters, clients, repeat, args, server_pid, path):
             "valid": errors == 0 and not failures, "meets_20ms_in_this_closed_loop_trial": errors == 0 and not failures and percentile(latency, 99) <= 20}
 
 
+def kedr_only(args, summary, save):
+    """Reuse the historical PG reference without starting PostgreSQL at all."""
+    reference = json.loads(args.reference.read_text())
+    if reference.get("status") != "completed":
+        raise ValueError("reference baseline is not complete")
+    for key, value in reference["configuration"].items():
+        if getattr(args, key) != value:
+            raise ValueError("reference workload differs: " + key)
+    summary["previous_reference"] = {"started_utc": reference["started_utc"],
+        "sha256": hashlib.sha256(args.reference.read_bytes()).hexdigest(),
+        "postgres": reference["postgres"], "runs": reference["runs"]}
+    summary["limitations"].append("PostgreSQL numbers are historical, not a contemporaneous rerun")
+    summary["limitations"].remove("private PostgreSQL instance remains idle during Kedr trials")
+    kedr, server = args.bin_dir / "kedr", args.bin_dir / "kedr-server"
+    with tempfile.TemporaryDirectory(prefix="kedr-only-stage8-") as directory:
+        root = Path(directory)
+        builder = root / "builder"; run([kedr, "create-db", builder])
+        commands = list(SCHEMA)
+        columns = {"users": "id,email,name,active", "products": "id,name,category_id,price_cents,stock,active,description",
+                   "orders": "id,user_id,status,total_cents", "order_items": "id,order_id,product_id,quantity,price_cents"}
+        for table, data in fixture_rows(args).items():
+            chunk = []
+            for row in data:
+                chunk.append("INSERT INTO " + table + " (" + columns[table] + ") VALUES (" + ", ".join(migration.literal(v) for v in row) + ")")
+                if len(chunk) == 64:
+                    commands.extend(["BEGIN", *chunk, "COMMIT"]); chunk = []
+            if chunk: commands.extend(["BEGIN", *chunk, "COMMIT"])
+        results = run([kedr, "sql-stream", builder], input="\n".join(commands) + "\n")
+        parsed = [json.loads(line) for line in results.splitlines()]
+        if len(parsed) != len(commands) or any("error" in r for r in parsed):
+            raise RuntimeError("seed SQL failed: " + str(next((r for r in parsed if "error" in r), "response count")))
+        snapshot = root / "seed.sql"; run([kedr, "export-sql", builder, snapshot])
+        digest = hashlib.sha256(snapshot.read_bytes()).hexdigest()
+        if digest != reference["seed_sql_sha256"]:
+            raise ValueError("seed canonical schema/data bytes differ from reference")
+        summary["seed_sql_sha256"] = digest
+        seed = root / "seed"; run([kedr, "import-sql", snapshot, seed])
+        backup = root / "backup"; run([kedr, "backup", seed, backup])
+        password = secrets.token_urlsafe(32)
+        auth = root / "auth"; run([server, "init-auth", auth, "admin"], input=password + "\n")
+        schedule = [row for row in reference["trial_order"] if row[0] == "kedr"]
+        summary["trial_order"] = schedule; save()
+        for engine, count, repeat in schedule:
+            label = f"{engine}-c{count}-r{repeat}"; print("Measuring " + label, flush=True)
+            data = root / label; run([kedr, "restore", backup, data])
+            with (args.output / (label + "-server.log")).open("w") as log:
+                proc = subprocess.Popen([str(server), "serve", "--data", str(data), "--auth", str(auth), "--listen", "127.0.0.1:0"], stdout=subprocess.PIPE, stderr=log, text=True)
+                try:
+                    with selectors.DefaultSelector() as selector:
+                        selector.register(proc.stdout, selectors.EVENT_READ)
+                        if not selector.select(10): raise RuntimeError("Kedr startup timed out")
+                        match = re.search(r"127\.0\.0\.1:(\d+)", proc.stdout.readline())
+                    if not match: raise RuntimeError("Kedr startup failed")
+                    parameters = dict(host="127.0.0.1", port=int(match.group(1)), user="admin", password=password, dbname="kedrdb", sslmode="disable", connect_timeout=5)
+                    result = trial(parameters, count, repeat, args, proc.pid, args.output / (label + ".jsonl"))
+                finally:
+                    proc.terminate()
+                    try: proc.communicate(timeout=15)
+                    except subprocess.TimeoutExpired:
+                        proc.kill(); proc.communicate(timeout=5)
+                if proc.returncode != 0: raise RuntimeError("Kedr exit failed")
+            result.update(engine=engine, label=label, integrity=run([kedr, "integrity-check", data]).strip())
+            summary["runs"].append(result); save()
+            print(json.dumps({k: result[k] for k in ("label", "successful_tps", "p99_ms", "errors", "valid")}), flush=True)
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--pg-bin", type=Path, required=True)
+    p.add_argument("--pg-bin", type=Path)
+    p.add_argument("--engines", choices=("both", "kedr"), default="both")
+    p.add_argument("--reference", type=Path)
     p.add_argument("--bin-dir", type=Path, default=ROOT / "target/release")
     p.add_argument("--output", type=Path, required=True)
     p.add_argument("--products", type=int, default=1000)
@@ -255,17 +328,19 @@ def main():
     p.add_argument("--clients", default="1,8,32")
     p.add_argument("--seed", type=int, default=20261010)
     args = p.parse_args()
+    if args.engines == "both" and not args.pg_bin: p.error("--pg-bin is required for both engines")
+    if args.engines == "kedr" and not args.reference: p.error("--reference is required for Kedr-only measurement")
     clients = list(map(int, args.clients.split(",")))
     if not (0 < args.users <= args.products and 0 < args.payload_bytes <= 4096 and args.seconds > 0 and args.repeats > 0 and clients and all(0 < c <= 32 for c in clients)):
         p.error("invalid dataset/duration/client limits")
     args.output = args.output.resolve(); args.output.mkdir(parents=True, exist_ok=False)
-    args.pg_bin = args.pg_bin.resolve(); args.bin_dir = args.bin_dir.resolve()
+    args.pg_bin = args.pg_bin.resolve() if args.pg_bin else None; args.bin_dir = args.bin_dir.resolve()
     kedr, server = args.bin_dir / "kedr", args.bin_dir / "kedr-server"
     summary = {"kind": "development-diagnostic-not-a-competitive-ranking", "started_utc": datetime.now(timezone.utc).isoformat(),
                "status": "running", "code_commit": run(["git", "rev-parse", "HEAD"]).strip(), "platform": platform.platform(),
-               "psycopg": psycopg.__version__, "postgres": run([args.pg_bin / "postgres", "--version"]).strip(),
-               "configuration": {k: v for k, v in vars(args).items() if k not in ("pg_bin", "bin_dir", "output")},
-               "binary_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in (kedr, server, args.pg_bin / "postgres")},
+               "psycopg": psycopg.__version__, "postgres": run([args.pg_bin / "postgres", "--version"]).strip() if args.engines == "both" else "historical reference only",
+               "configuration": {k: getattr(args, k) for k in ("products", "users", "payload_bytes", "seconds", "repeats", "clients", "seed")},
+               "binary_sha256": {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in ((kedr, server, args.pg_bin / "postgres") if args.engines == "both" else (kedr, server))},
                "source_sha256": {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in (Path(__file__).resolve(), ROOT / "tools/migrate_postgres.py")},
                "limitations": ["macOS development environment, other applications may run", "closed-loop, not saturation/open-loop acceptance",
                                "small dataset; no 512 MiB/4 CPU hard isolation", "warm process reads; OS cache is not flushed", "short runs cannot establish background-maintenance behavior",
@@ -273,10 +348,17 @@ def main():
     summary["hardware"] = {key: run(["/usr/sbin/sysctl", "-n", key]).strip() for key in ("hw.memsize", "hw.ncpu", "machdep.cpu.brand_string")} if platform.system() == "Darwin" else {"cpu_count": os.cpu_count()}
     summary["rust_source_sha256"] = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted((ROOT / "crates").rglob("*.rs"))}
     summary["source_diff"] = run(["git", "diff", "HEAD", "--", "crates"])
-    summary["postgres_build"] = run([args.pg_bin / "pg_config", "--configure"]).strip()
+    if args.engines == "both": summary["postgres_build"] = run([args.pg_bin / "pg_config", "--configure"]).strip()
     def save():
         (args.output / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n")
     save()
+    if args.engines == "kedr":
+        try:
+            kedr_only(args, summary, save)
+            summary["status"] = "completed"; save()
+        except Exception as e:
+            summary["status"] = "failed"; summary["failure_type"] = type(e).__name__; save(); raise
+        return
     old_environment = dict(os.environ)
     with tempfile.TemporaryDirectory(prefix="kedr-stage8-") as directory:
         root = Path(directory); cluster = root / "pg"; sock = root / "socket"; sock.mkdir(mode=0o700)

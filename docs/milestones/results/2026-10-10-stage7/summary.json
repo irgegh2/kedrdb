@@ -1,0 +1,55 @@
+{
+  "stage": 7,
+  "status": "technical-checks-passed-external-pending",
+  "code_commit": "39b7742b97f6189f8d62ab0b669179f317e1b00c",
+  "run_id": 38010868212,
+  "run_url": "https://github.com/irgegh2/kedrdb/actions/runs/38010868212",
+  "local_platform": "macOS ARM64",
+  "local_checks": {
+    "debug-tests.txt": {
+      "sha256": "74a0138a8104c320604dba9e528756f8304f679f40accb13143a3b6ee0bfc515",
+      "passed": 106
+    },
+    "release-tests.txt": {
+      "sha256": "b441e22f297a6cdc532e592329332d591c6cb046c5c67a4ec90c7061069a1b57",
+      "passed": 106
+    },
+    "clippy.txt": {
+      "sha256": "27147fe8998fbb973b04e14c4b34f86a5c16ba6fdc1a7cadeca9ca4fe23dfa6c"
+    },
+    "maintenance-macos.txt": {
+      "sha256": "5aed9931f1a07cae36a3da30b81efe584b423d5a57351ab75dfc73c7ff75f333"
+    },
+    "clients-macos.txt": {
+      "sha256": "eaa3e7e6b53332d0a906f07bffc5ee7a6fc7b39fef3f868bce59982aff653bd4"
+    }
+  },
+  "external_requirements_open": [
+    "independent human fresh install",
+    "real pilot maintenance window"
+  ],
+  "ci": {
+    "source_run": 38010868212,
+    "source_jobs_passed": [
+      114090362942,
+      114090363047,
+      114090363131
+    ],
+    "first_portable_failed": 114093653073,
+    "fix_commit": "885087ec93bf8dc8d5ff6d516cbab2a4ff393e55",
+    "fix_run": 38012134483,
+    "portable_jobs_passed": [
+      114094268080,
+      114094505334
+    ],
+    "rust_source_unchanged_by_fix": true
+  },
+  "ci_log_sha256": {
+    "ci-macos.txt": "852682e94203eb2f32a82a2b40159ee64e68ff695cf176a2a3f804bd8bf21e49",
+    "ci-portable-fixed.txt": "19dd7e1424a50b103263dc24971200a1ac39211e5a042f87bab275331a143bac",
+    "ci-maintenance-fixed.txt": "b11c4952bd4f53d0245cd88e43db0c8d0ccba2b07bd9662ea68607f7ecf4c0c6",
+    "ci-linux.txt": "4acdb67be864efdfed17d2f73f429c53de7204d9649e136539bc4c556b10acd4",
+    "ci-studio.txt": "3dc429364eae3993a8f5705aaf4f81c867d58489509edb4a11ae6d8ddeb243f5",
+    "ci-portable-failed.txt": "b3744cc588f7ae227003420b231056f2a810f767c1a7eca9cebc197b8eed2fe6"
+  }
+}

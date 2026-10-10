@@ -1,0 +1,62 @@
+[
+  {
+    "path": "kedr-c1-r2.jsonl.gz",
+    "sha256": "8464c89f92481d8e46110ce564b76d075765edfc9165649aa3be7c9006195bd6"
+  },
+  {
+    "path": "kedr-c1-r3.jsonl.gz",
+    "sha256": "79a117d0458af36d04d660af23371f50f989d2720862c88a5596576cfbe1c4ee"
+  },
+  {
+    "path": "kedr-c8-r3.jsonl.gz",
+    "sha256": "7517d70bd6b618870ce6f7a16979ad1c472694ef51c55d78e3ccf1758c9eca9b"
+  },
+  {
+    "path": "kedr-c8-r2.jsonl.gz",
+    "sha256": "b54651665c3f5e301da4fb551fabf0d03e076fb3372d412e017729949338de2c"
+  },
+  {
+    "path": "kedr-c32-r2.jsonl.gz",
+    "sha256": "edec6c3e847a3ac4646975e2b51c531227599fe8286b4fb3ff220789ed160236"
+  },
+  {
+    "path": "kedr-c32-r3.jsonl.gz",
+    "sha256": "165b1643d5fec98704e8561eb50c77bba1822641295ff3871bc8ef70e5b05596"
+  },
+  {
+    "path": "kedr-c32-r5.jsonl.gz",
+    "sha256": "f38e5f57937ff07b00f1f5570a26591ac2bcd678ece8f4feac64aef742692894"
+  },
+  {
+    "path": "kedr-c32-r4.jsonl.gz",
+    "sha256": "0599b0a090dac3a33c41f9aea15aced2a09eb1d8285c6b014472a4a6699272cc"
+  },
+  {
+    "path": "kedr-c1-r5.jsonl.gz",
+    "sha256": "9d414ff3b83cd1c1d4bab5bd7cdf583f51f8da780c0fd684b988ed91d157d3a4"
+  },
+  {
+    "path": "kedr-c1-r4.jsonl.gz",
+    "sha256": "398ad097a947378dca24a7c6b7be33daf78ad08805b95f6901412a11a184df89"
+  },
+  {
+    "path": "kedr-c8-r4.jsonl.gz",
+    "sha256": "528a6e21079a8fdfa08dcf60f0ce242d6d76f1160cd5f354f4e196111912ce02"
+  },
+  {
+    "path": "kedr-c8-r5.jsonl.gz",
+    "sha256": "67e3201bb6f0aa26fc4150644348965f7e458ffbeed97f8543b6600f11d59d98"
+  },
+  {
+    "path": "kedr-c32-r1.jsonl.gz",
+    "sha256": "7c595afbfbb2db13f064e89b1928ac6491f989e93d81412e52ac570a3e7723dc"
+  },
+  {
+    "path": "kedr-c8-r1.jsonl.gz",
+    "sha256": "39422e9840f28893671c4812290ca5532360ff9a6fc4909f1dc0dc031dcdd89b"
+  },
+  {
+    "path": "kedr-c1-r1.jsonl.gz",
+    "sha256": "52abf2d6b0c85e01d77f75837ae4fdffc60cf231d8c8b3fd1f871fec555214b9"
+  }
+]
