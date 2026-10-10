@@ -53,6 +53,7 @@ pub struct ResultSet {
     pub truncated: bool,
 }
 
+#[derive(Clone)]
 pub struct Profile {
     pub host: String,
     pub port: u16,

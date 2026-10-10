@@ -94,6 +94,29 @@ impl Server {
             return Err(invalid("non-loopback listener requires TLS"));
         }
         let credential = Credential::read(&config.auth)?;
+        Self::bind_credential(config, credential, tls).await
+    }
+    /// Managed local server: ephemeral loopback port and in-memory SCRAM verifier.
+    /// Authentication is still mandatory; no plaintext password is persisted.
+    pub async fn bind_local(data: PathBuf, credential: Credential) -> io::Result<Self> {
+        Self::bind_credential(
+            Config {
+                data,
+                auth: PathBuf::new(),
+                listen: "127.0.0.1:0".parse().unwrap(),
+                tls_cert: None,
+                tls_key: None,
+            },
+            credential,
+            None,
+        )
+        .await
+    }
+    async fn bind_credential(
+        config: Config,
+        credential: Credential,
+        tls: Option<TlsAcceptor>,
+    ) -> io::Result<Self> {
         let database = FileDatabase::open(&config.data, 16 * 1024 * 1024)
             .map_err(|error| invalid(error.to_string()))?;
         let database = SharedDatabase::new(

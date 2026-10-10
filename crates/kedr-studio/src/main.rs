@@ -2,10 +2,21 @@
 mod app;
 mod backend;
 mod files;
+mod local;
 mod network;
 
 fn main() -> eframe::Result {
-    let preview_results = std::env::args().any(|arg| arg == "--preview-results");
+    let args = std::env::args().collect::<Vec<_>>();
+    let preview_results = args.iter().any(|arg| arg == "--preview-results");
+    let managed = !preview_results
+        && !args
+            .iter()
+            .any(|arg| arg == "--no-local" || arg == "--connect-test");
+    let local_root = args
+        .windows(2)
+        .find(|a| a[0] == "--local-data")
+        .map(|a| Ok(std::path::PathBuf::from(&a[1])))
+        .unwrap_or_else(local::default_root);
     #[cfg(feature = "screenshot")]
     let mut profile = test_profile();
     eframe::run_native(
@@ -17,9 +28,10 @@ fn main() -> eframe::Result {
             ..Default::default()
         },
         Box::new(move |cc| {
-            let studio = app::Studio::new(cc, preview_results);
-            #[cfg(feature = "screenshot")]
-            let mut studio = studio;
+            let mut studio = app::Studio::new(cc, preview_results);
+            if managed {
+                studio.start_local(cc.egui_ctx.clone(), local_root);
+            }
             #[cfg(feature = "screenshot")]
             if let Some(profile) = profile.take() {
                 studio.connect_test(profile);

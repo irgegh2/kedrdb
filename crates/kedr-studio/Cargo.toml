@@ -23,7 +23,6 @@ zeroize = "1"
 futures-util = "0.3"
 rfd = "=0.17.2"
 
-[dev-dependencies]
 kedr-server = { path = "../kedr-server" }
 kedr-core = { path = "../kedr-core" }
 

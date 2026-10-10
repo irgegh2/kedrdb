@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 use crate::backend::{self, Cell, Command, Payload, Profile, ResultSet, Table, Worker};
-use crate::files;
 use crate::network::{Network, identifier};
+use crate::{files, local};
 use eframe::egui::{self, Color32, FontFamily, FontId, RichText, Stroke, TextStyle};
 use std::time::Duration;
 
@@ -15,6 +15,10 @@ const ERROR: Color32 = Color32::from_rgb(164, 41, 41);
 pub struct Studio {
     worker: Result<Worker, String>,
     pending: Option<u64>,
+    local: Option<local::Local>,
+    local_profile: Option<Profile>,
+    local_root: Option<std::path::PathBuf>,
+    local_loading: bool,
     preview: bool,
     connected: bool,
     status: String,
@@ -58,6 +62,10 @@ impl Studio {
                 Network::new().and_then(Worker::new)
             },
             pending: None,
+            local: None,
+            local_profile: None,
+            local_root: None,
+            local_loading: false,
             preview,
             connected: false,
             status: "Нет подключения".into(),
@@ -97,6 +105,20 @@ impl Studio {
             test_query: false,
             #[cfg(feature = "screenshot")]
             test_mode: false,
+        }
+    }
+    pub fn start_local(&mut self, ctx: egui::Context, root: Result<std::path::PathBuf, String>) {
+        let result = root.and_then(|root| {
+            self.local_root = Some(root.clone());
+            local::Local::start(root, move || ctx.request_repaint())
+        });
+        match result {
+            Ok(local) => {
+                self.local = Some(local);
+                self.local_loading = true;
+                self.message = "Запускается локальная KedrDB…".into();
+            }
+            Err(error) => self.error = Some(error),
         }
     }
     #[cfg(feature = "screenshot")]
@@ -160,6 +182,37 @@ impl Studio {
         }
     }
     fn poll(&mut self, ctx: &egui::Context) {
+        if self.local_loading {
+            let reply = self.local.as_ref().unwrap().receiver.try_recv();
+            match reply {
+                Ok(Ok(profile)) => {
+                    self.local_loading = false;
+                    self.host = profile.host.clone();
+                    self.port = profile.port.to_string();
+                    self.user = profile.user.clone();
+                    self.database = profile.database.clone();
+                    self.tls = false;
+                    self.ca_file.clear();
+                    self.local_profile = Some(profile.clone());
+                    self.submit(Command::Connect(profile));
+                }
+                Ok(Err(error)) => {
+                    self.local_loading = false;
+                    self.message.clear();
+                    self.error = Some(error);
+                }
+                Err(std::sync::mpsc::TryRecvError::Disconnected) => {
+                    self.local_loading = false;
+                    self.message.clear();
+                    self.error = Some(
+                        "Локальная KedrDB не запустилась. Существующие данные сохранены.".into(),
+                    );
+                }
+                Err(std::sync::mpsc::TryRecvError::Empty) => {
+                    ctx.request_repaint_after(Duration::from_millis(50))
+                }
+            }
+        }
         if let Some(task) = &self.file_task {
             match task.receiver.try_recv() {
                 Ok(reply) => {
@@ -287,11 +340,42 @@ impl Studio {
     }
     fn header(&mut self, ui: &mut egui::Ui) {
         ui.horizontal(|ui| {
-            if action(ui, "Подключиться", true).clicked() {
+            if action(
+                ui,
+                "Другой сервер…",
+                !self.local_loading && self.pending.is_none(),
+            )
+            .clicked()
+            {
                 self.connection_dialog = true;
             }
             ui.separator();
-            ui.label(RichText::new("KedrDB").color(MUTED));
+            if self.local_profile.is_some() {
+                let selected = self.connected
+                    && self.local_profile.as_ref().is_some_and(|p| {
+                        p.port.to_string() == self.port
+                            && p.host == self.host
+                            && p.user == self.user
+                    });
+                if action(
+                    ui,
+                    "Локальная база",
+                    !selected && !self.local_loading && self.pending.is_none(),
+                )
+                .clicked()
+                {
+                    let profile = self.local_profile.as_ref().unwrap().clone();
+                    self.host = profile.host.clone();
+                    self.port = profile.port.to_string();
+                    self.user = profile.user.clone();
+                    self.database = profile.database.clone();
+                    self.tls = false;
+                    self.ca_file.clear();
+                    self.submit(Command::Connect(profile));
+                }
+            } else {
+                ui.label(RichText::new("KedrDB").color(MUTED));
+            }
             if self.connected {
                 ui.label(&self.database);
             }
@@ -682,6 +766,14 @@ impl eframe::App for Studio {
                         }
                     });
                 ui.add_space(12.0);
+                if let Some(root) = &self.local_root {
+                    ui.add_space(8.0);
+                    ui.label(
+                        RichText::new(format!("Локальные данные: {}", root.join("data").display()))
+                            .small()
+                            .color(MUTED),
+                    );
+                }
                 connect = ui
                     .add_enabled(self.pending.is_none(), egui::Button::new("Подключиться"))
                     .clicked();
@@ -735,6 +827,14 @@ impl Studio {
                     self.error.is_some()
                 );
             }
+            if self.local.is_some() {
+                println!(
+                    "KEDR_STUDIO_LOCAL_RESULT connected={} tables={} error={}",
+                    self.connected,
+                    self.tables.len(),
+                    self.error.is_some()
+                );
+            }
             let bytes = image
                 .pixels
                 .iter()
@@ -754,6 +854,7 @@ impl Studio {
             if !self.snapshot_requested
                 && ctx.cumulative_frame_nr() >= 10
                 && self.pending.is_none()
+                && !self.local_loading
                 && !self.test_query
             {
                 ctx.send_viewport_cmd(egui::ViewportCommand::Screenshot(Default::default()));

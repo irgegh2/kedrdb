@@ -124,6 +124,30 @@ SHOW COLUMNS FROM products;
                     with Image.open(screenshot) as image:
                         assert any(high - low > 100 for low, high in image.convert("RGB").getextrema()), "blank native frame"
                 result["checks"].append("native Studio authenticated TLS catalog/query screenshot")
+                # The default GUI starts its own authenticated local server, with persistent data.
+                local_root = root / "local-managed"
+                identity = None
+                for attempt, tables in ((1, 0), (2, 1)):
+                    local_image = args.output.resolve() / f"studio-auto-{attempt}.png"
+                    local_env = dict(os.environ, KEDR_STUDIO_SCREENSHOT=str(local_image))
+                    local_gui = [str(binaries / "kedr-studio"), "--local-data", str(local_root)]
+                    if os.environ.get("DISPLAY") is None and shutil.which("xvfb-run"):
+                        local_gui = ["xvfb-run", "-a"] + local_gui
+                        local_env["LIBGL_ALWAYS_SOFTWARE"] = "1"
+                    local_output = run(local_gui, env=local_env)
+                    assert f"KEDR_STUDIO_LOCAL_RESULT connected=true tables={tables} error=false" in local_output
+                    assert local_image.is_file() and local_image.stat().st_size > 10000
+                    current = (local_root / "data" / ".identity").read_bytes()
+                    if identity is None:
+                        identity = current
+                        run([str(binaries / "kedr"), "sql", str(local_root / "data"), "CREATE TABLE persisted (id BIGINT PRIMARY KEY, name TEXT)"])
+                        run([str(binaries / "kedr"), "sql", str(local_root / "data"), "INSERT INTO persisted (id,name) VALUES (1,'сохранено')"])
+                    else:
+                        assert current == identity
+                        output = run([str(binaries / "kedr"), "sql", str(local_root / "data"), "SELECT name FROM persisted"])
+                        assert "сохранено" in output
+                    assert {p.name for p in local_root.iterdir()} == {"data", ".studio.lock"}
+                result["checks"].append("native Studio auto-start/authentication, restart preserves identity/catalog/acknowledged row and releases ownership")
         finally:
             server.terminate()
             try:
