@@ -372,6 +372,99 @@ async fn extended(stream: &mut TcpStream, sql: &str, portal: &str) {
     execute.extend_from_slice(&0i32.to_be_bytes());
     send(stream, b'E', &execute).await;
 }
+
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn single_prepared_read_sync_shares_reader_lock_and_retires_portals() {
+    let fixture = Fixture::new().await;
+    let reader = fixture.client().await;
+    reader
+        .batch_execute("CREATE TABLE items (id BIGINT PRIMARY KEY)")
+        .await
+        .unwrap();
+    reader
+        .batch_execute("INSERT INTO items (id) VALUES (1)")
+        .await
+        .unwrap();
+    let (mut socket, _, _) = raw_client(&fixture).await;
+    let mut parse = vec![0];
+    parse.extend_from_slice(b"SELECT id FROM items\0\0\0");
+    send(&mut socket, b'P', &parse).await;
+    let mut bind = b"one\0\0".to_vec();
+    bind.extend_from_slice(&[0, 0, 0, 0, 0, 0]);
+    send(&mut socket, b'B', &bind).await;
+    send(&mut socket, b'H', &[]).await;
+    assert_eq!(read(&mut socket).await.0, b'1');
+    assert_eq!(read(&mut socket).await.0, b'2');
+    reader.batch_execute("BEGIN READ ONLY").await.unwrap();
+    // Both complete frames arrive together. This read must not request the
+    // exclusive writer gate held off by the other connection's read snapshot.
+    let mut packet = b"E".to_vec();
+    packet.extend_from_slice(&12u32.to_be_bytes());
+    packet.extend_from_slice(b"one\0");
+    packet.extend_from_slice(&0i32.to_be_bytes());
+    packet.extend_from_slice(b"S\0\0\0\x04");
+    socket.write_all(&packet).await.unwrap();
+    let messages = tokio::time::timeout(Duration::from_secs(2), async {
+        let mut messages = Vec::new();
+        loop {
+            let message = read(&mut socket).await;
+            let done = message.0 == b'Z';
+            messages.push(message);
+            if done {
+                return messages;
+            }
+        }
+    })
+    .await
+    .expect("single read blocked behind an existing reader");
+    assert_eq!(messages.iter().map(|m| m.0).collect::<Vec<_>>(), b"DCZ");
+    assert_eq!(messages.last().unwrap().1, b"I");
+    reader.batch_execute("ROLLBACK").await.unwrap();
+    let mut execute = b"one\0".to_vec();
+    execute.extend_from_slice(&0i32.to_be_bytes());
+    send(&mut socket, b'E', &execute).await;
+    send(&mut socket, b'S', &[]).await;
+    assert_eq!(read(&mut socket).await.0, b'E');
+    assert_eq!(read(&mut socket).await.0, b'Z');
+    drop(socket);
+    drop(reader);
+    fixture.finish().await;
+}
+
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn read_then_write_pipeline_is_one_transaction_until_sync() {
+    let fixture = Fixture::new().await;
+    let (mut socket, _, _) = raw_client(&fixture).await;
+    simple(&mut socket, "CREATE TABLE items (id BIGINT PRIMARY KEY)").await;
+    extended(&mut socket, "SELECT COUNT(*) FROM items", "read").await;
+    // Flush is not a commit boundary, even when the preceding query is read-only.
+    send(&mut socket, b'H', &[]).await;
+    for expected in b"12DC" {
+        assert_eq!(read(&mut socket).await.0, *expected);
+    }
+    extended(&mut socket, "INSERT INTO items (id) VALUES (1)", "write").await;
+    let mut invalid = vec![0];
+    invalid.extend_from_slice(b"SELECT missing FROM items\0\0\0");
+    send(&mut socket, b'P', &invalid).await;
+    send(&mut socket, b'S', &[]).await;
+    let mut tags = Vec::new();
+    loop {
+        let (tag, bytes) = read(&mut socket).await;
+        tags.push(tag);
+        if tag == b'Z' {
+            assert_eq!(bytes, b"I");
+            break;
+        }
+    }
+    assert_eq!(tags, b"12CEZ");
+    let messages = simple(&mut socket, "SELECT COUNT(*) FROM items").await;
+    assert_eq!(
+        messages.iter().find(|m| m.0 == b'D').unwrap().1.last(),
+        Some(&b'0')
+    );
+    drop(socket);
+    fixture.finish().await;
+}
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
 async fn extended_pipeline_error_rollback_and_portal_suspension() {
     let fixture = Fixture::new().await;

@@ -119,14 +119,40 @@ impl<I: StorageIo> BPlusTree<I> {
     }
     pub fn get(&mut self, key: &[u8]) -> Result<Option<Vec<u8>>> {
         Self::check_key(key)?;
-        let (id, _) = self.leaf_path(key)?;
-        let Node::Leaf(entries) = self.node(id)? else {
-            unreachable!("validated path")
-        };
-        Ok(entries
-            .binary_search_by(|e| e.key.as_slice().cmp(key))
-            .ok()
-            .map(|at| entries[at].value.clone()))
+        let mut id = self.store.root();
+        let mut expected_level = None;
+        for _ in 0..MAX_DEPTH {
+            let node = self.node(id)?;
+            if expected_level.is_some_and(|level| level != node.level()) {
+                return Err(Error::CorruptStore {
+                    reason: "child level mismatch",
+                });
+            }
+            match node {
+                Node::Leaf(mut entries) => {
+                    return Ok(entries
+                        .binary_search_by(|e| e.key.as_slice().cmp(key))
+                        .ok()
+                        .map(|at| std::mem::take(&mut entries[at].value)));
+                }
+                Node::Branch {
+                    level,
+                    keys,
+                    children,
+                } => {
+                    id = children[keys.partition_point(|k| k.as_slice() <= key)];
+                    expected_level = Some(level - 1);
+                }
+                Node::Free(_) => {
+                    return Err(Error::CorruptStore {
+                        reason: "tree references free page",
+                    });
+                }
+            }
+        }
+        Err(Error::CorruptStore {
+            reason: "tree depth or cycle",
+        })
     }
 
     /// Insert rejects duplicates. replace is an upsert. Logical errors are atomic;

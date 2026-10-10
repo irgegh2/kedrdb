@@ -7,7 +7,7 @@ use crate::{
 use kedr_core::{
     database::FileDatabase,
     record::Value,
-    sql::{DataType, Description, QueryResult, ResultColumn, SqlSession},
+    sql::{DataType, Description, PreparedSql, QueryResult, ResultColumn, SqlSession},
     transaction::{CancelHandle, SessionLimits, SharedDatabase},
 };
 use rsasl::{mechname::Mechname, prelude::State};
@@ -262,8 +262,12 @@ async fn connection(
         wire::send(&mut socket, b'S', &bytes).await?;
     }
     wire::send(&mut socket, b'Z', b"I").await?;
-    let (mut reader, mut writer) = tokio::io::split(socket);
-    let (sender, mut incoming) = tokio::sync::mpsc::channel(1);
+    let (reader, writer) = tokio::io::split(socket);
+    let mut reader = tokio::io::BufReader::with_capacity(16 * 1024, reader);
+    let mut writer = tokio::io::BufWriter::with_capacity(64 * 1024, writer);
+    // At most four bounded frames are queued; lookahead never waits for a
+    // future client message and never splits a multi-execute transaction.
+    let (sender, mut incoming) = tokio::sync::mpsc::channel(4);
     let reader_cancel = cancel.clone();
     let mut reader_shutdown = shutdown.clone();
     let reader_task = tokio::spawn(async move {
@@ -281,27 +285,87 @@ async fn connection(
     });
     let mut state = ConnectionState::new(session, shared.clone());
     let result = async {
+        let mut pending = None;
         loop {
-            let frame = tokio::select! { _ = shutdown.changed() => break, frame = incoming.recv() => frame };
-            let Some(frame) = frame else { break; };
+            let frame = if let Some(frame) = pending.take() {
+                Some(frame)
+            } else {
+                tokio::select! { _ = shutdown.changed() => break, frame = incoming.recv() => frame }
+            };
+            let Some(frame) = frame else {
+                break;
+            };
             let (tag, bytes) = frame?;
-            if tag == b'X' { if !bytes.is_empty() { return Err(wire::protocol()); } break; }
-            if state.skip && tag != b'S' { continue; }
-            match state.message(tag, &bytes, &mut writer).await {
-                Ok(()) => {},
-                Err(error) => {
-                    shared.metrics.protocol_errors.fetch_add(1,Ordering::Relaxed);
-                    let _ = state.run({ let code = error.state; let message = error.message.clone(); move |session| session.fail(kedr_core::Error::Sql { state: code, message }) }).await;
-                    if state.status == b'T' { state.status = b'E'; }
-                    wire::error(&mut writer, &error, false).await?;
-                    if tag == b'Q' { wire::send(&mut writer, b'Z', &[state.status]).await?; }
-                    else if tag == b'S' { return Err(error); }
-                    else { state.skip = true; }
+            if tag == b'X' {
+                if !bytes.is_empty() {
+                    return Err(wire::protocol());
                 }
+                break;
+            }
+            if state.skip && tag != b'S' {
+                continue;
+            }
+            let mut single_read = false;
+            if tag == b'E' && state.single_read_candidate(&bytes) {
+                if incoming.is_empty() {
+                    tokio::task::yield_now().await;
+                }
+                if let Ok(next) = incoming.try_recv() {
+                    single_read = matches!(&next, Ok((b'S', body)) if body.is_empty());
+                    pending = Some(next);
+                }
+            }
+            if single_read {
+                shared
+                    .metrics
+                    .single_read_batches
+                    .fetch_add(1, Ordering::Relaxed);
+            }
+            let outcome = state.message(tag, &bytes, &mut writer, single_read).await;
+            if single_read {
+                state.portals.clear();
+            }
+            match outcome {
+                Ok(()) => {}
+                Err(error) => {
+                    shared
+                        .metrics
+                        .protocol_errors
+                        .fetch_add(1, Ordering::Relaxed);
+                    let _ = state
+                        .run({
+                            let code = error.state;
+                            let message = error.message.clone();
+                            move |session| {
+                                session.fail(kedr_core::Error::Sql {
+                                    state: code,
+                                    message,
+                                })
+                            }
+                        })
+                        .await;
+                    if state.status == b'T' {
+                        state.status = b'E';
+                    }
+                    wire::error(&mut writer, &error, false).await?;
+                    if tag == b'Q' {
+                        wire::send(&mut writer, b'Z', &[state.status]).await?;
+                    } else if tag == b'S' {
+                        flush_response(&mut writer).await?;
+                        return Err(error);
+                    } else {
+                        state.skip = true;
+                    }
+                    flush_response(&mut writer).await?;
+                }
+            }
+            if matches!(tag, b'Q' | b'S' | b'H') || (pending.is_none() && incoming.is_empty()) {
+                flush_response(&mut writer).await?;
             }
         }
         Ok(())
-    }.await;
+    }
+    .await;
     cancel.cancel();
     reader_task.abort();
     let _ = reader_task.await;
@@ -309,6 +373,12 @@ async fn connection(
     let session = state.session;
     let _ = tokio::task::spawn_blocking(move || drop(session)).await;
     result
+}
+async fn flush_response(writer: &mut (impl AsyncWrite + Unpin)) -> Result<()> {
+    tokio::time::timeout(Duration::from_secs(5), writer.flush())
+        .await
+        .map_err(|_| Fault::new("08006", "client write timeout"))??;
+    Ok(())
 }
 async fn authenticate(socket: TcpStream, shared: &Shared) -> Result<Option<(Stream, SqlSession)>> {
     let mut socket: Stream = Box::new(socket);
@@ -467,6 +537,7 @@ async fn authenticate(socket: TcpStream, shared: &Shared) -> Result<Option<(Stre
 #[derive(Clone)]
 struct Statement {
     sql: String,
+    prepared: Option<PreparedSql>,
     description: Description,
     parameter_oids: Vec<i32>,
 }
@@ -487,6 +558,26 @@ struct ConnectionState {
     shared: Arc<Shared>,
 }
 impl ConnectionState {
+    fn single_read_candidate(&self, bytes: &[u8]) -> bool {
+        if self.status != b'I' || self.implicit || self.skip {
+            return false;
+        }
+        let mut cursor = Cursor::new(bytes);
+        let Ok(name) = cursor.string(63) else {
+            return false;
+        };
+        if cursor.i32().ok() != Some(0) || cursor.end().is_err() {
+            return false;
+        }
+        self.portals.get(&name).is_some_and(|portal| {
+            portal.result.is_none()
+                && portal
+                    .statement
+                    .prepared
+                    .as_ref()
+                    .is_some_and(PreparedSql::read_only)
+        })
+    }
     fn new(session: SqlSession, shared: Arc<Shared>) -> Self {
         Self {
             session: Arc::new(Mutex::new(session)),
@@ -517,9 +608,12 @@ impl ConnectionState {
         sql: String,
         parameters: Vec<Value>,
         extended: bool,
+        prepared: Option<PreparedSql>,
     ) -> Result<QueryResult> {
         let began = std::time::Instant::now();
-        let result = self.execute_inner(sql, parameters, extended).await;
+        let result = self
+            .execute_inner(sql, parameters, extended, prepared)
+            .await;
         self.shared
             .metrics
             .query(began, result.as_ref().err().map(|e| e.state));
@@ -530,6 +624,7 @@ impl ConnectionState {
         sql: String,
         parameters: Vec<Value>,
         extended: bool,
+        prepared: Option<PreparedSql>,
     ) -> Result<QueryResult> {
         if metrics_query(&sql) {
             if !parameters.is_empty() {
@@ -573,6 +668,11 @@ impl ConnectionState {
             .unwrap_or("")
             .trim_end_matches(';')
             .to_ascii_uppercase();
+        let word = prepared
+            .as_ref()
+            .and_then(PreparedSql::control_tag)
+            .map(str::to_owned)
+            .unwrap_or(word);
         let control = matches!(word.as_str(), "BEGIN" | "COMMIT" | "ROLLBACK");
         if self.status == b'E' && word == "COMMIT" {
             self.run(|session| session.execute("ROLLBACK", &[])).await?;
@@ -590,7 +690,10 @@ impl ConnectionState {
             self.implicit = true;
         }
         let result = self
-            .run(move |session| session.execute(&sql, &parameters))
+            .run(move |session| match prepared {
+                Some(prepared) => session.execute_prepared(&prepared, &parameters),
+                None => session.execute(&sql, &parameters),
+            })
             .await?;
         match result.tag.as_str() {
             "BEGIN" => self.status = b'T',
@@ -608,6 +711,7 @@ impl ConnectionState {
         tag: u8,
         bytes: &[u8],
         writer: &mut (impl AsyncWrite + Unpin),
+        single_read: bool,
     ) -> Result<()> {
         let mut cursor = Cursor::new(bytes);
         match tag {
@@ -617,7 +721,7 @@ impl ConnectionState {
                 if sql.trim().trim_end_matches(';').is_empty() {
                     wire::send(writer, b'I', &[]).await?;
                 } else {
-                    let result = self.execute(sql, Vec::new(), false).await?;
+                    let result = self.execute(sql, Vec::new(), false, None).await?;
                     if !result.columns.is_empty() {
                         wire::send(writer, b'T', &wire::description(&result.columns, &[])).await?;
                     }
@@ -648,6 +752,7 @@ impl ConnectionState {
                 if self.statements.len() >= 16 && !self.statements.contains_key(&name) {
                     return Err(Fault::new("54000", "prepared statement limit is 16"));
                 }
+                let mut prepared = None;
                 let description = if status_query(&sql) || metrics_query(&sql) {
                     if !types.is_empty() {
                         return Err(wire::protocol());
@@ -661,11 +766,15 @@ impl ConnectionState {
                         },
                     }
                 } else {
-                    self.run({
-                        let sql = sql.clone();
-                        move |session| session.describe(&sql, &types)
-                    })
-                    .await?
+                    let plan = self
+                        .run({
+                            let sql = sql.clone();
+                            move |session| session.prepare(&sql, &types)
+                        })
+                        .await?;
+                    let description = plan.description().clone();
+                    prepared = Some(plan);
+                    description
                 };
                 if name.is_empty() {
                     self.portals.remove("");
@@ -680,6 +789,7 @@ impl ConnectionState {
                     name,
                     Statement {
                         sql,
+                        prepared,
                         description,
                         parameter_oids,
                     },
@@ -816,7 +926,8 @@ impl ConnectionState {
                         .execute(
                             portal.statement.sql.clone(),
                             portal.parameters.clone(),
-                            true,
+                            !single_read,
+                            portal.statement.prepared.clone(),
                         )
                         .await?;
                     if result.columns != portal.statement.description.columns {
@@ -883,7 +994,6 @@ impl ConnectionState {
             }
             b'H' => {
                 cursor.end()?;
-                writer.flush().await?;
             }
             b'S' => {
                 cursor.end()?;

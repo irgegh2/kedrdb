@@ -17,6 +17,7 @@ use crate::{
     tree::KeyValue,
 };
 pub use catalog::DataType;
+use std::sync::Arc;
 
 pub const MAX_SQL_BYTES: usize = 65_536;
 pub const MAX_RESULT_BYTES: usize = 8 * 1024 * 1024;
@@ -49,6 +50,30 @@ impl QueryResult {
         }
     }
 }
+/// Parsed, bounded SQL retained by a prepared statement. Names and data are
+/// still resolved against the current transaction; this is not a stale row cache.
+#[derive(Clone)]
+pub struct PreparedSql {
+    statement: Arc<parser::Statement>,
+    description: Description,
+}
+impl PreparedSql {
+    pub fn description(&self) -> &Description {
+        &self.description
+    }
+    pub fn read_only(&self) -> bool {
+        self.statement.read_only()
+    }
+    pub fn control_tag(&self) -> Option<&'static str> {
+        match self.statement.as_ref() {
+            parser::Statement::Begin(_) => Some("BEGIN"),
+            parser::Statement::Commit => Some("COMMIT"),
+            parser::Statement::Rollback => Some("ROLLBACK"),
+            _ => None,
+        }
+    }
+}
+
 pub struct SqlSession {
     session: Session,
 }
@@ -84,6 +109,10 @@ impl SqlSession {
     }
     /// Bind names/types without executing writes or scanning table rows.
     pub fn describe(&mut self, sql: &str, types: &[Option<DataType>]) -> Result<Description> {
+        self.prepare(sql, types)
+            .map(|prepared| prepared.description)
+    }
+    pub fn prepare(&mut self, sql: &str, types: &[Option<DataType>]) -> Result<PreparedSql> {
         let statement = match parser::parse(sql) {
             Ok(statement) => statement,
             Err(error) => {
@@ -100,17 +129,27 @@ impl SqlSession {
             statement,
             parser::Statement::Begin(_) | parser::Statement::Commit | parser::Statement::Rollback
         ) {
-            return Ok(Description {
-                parameters: types
-                    .iter()
-                    .map(|kind| kind.unwrap_or(DataType::Text))
-                    .collect(),
-                columns: Vec::new(),
+            return Ok(PreparedSql {
+                statement: Arc::new(statement),
+                description: Description {
+                    parameters: types
+                        .iter()
+                        .map(|kind| kind.unwrap_or(DataType::Text))
+                        .collect(),
+                    columns: Vec::new(),
+                },
             });
         }
         let types = types.to_vec();
-        self.session
-            .describe_sql(move |store| describe::describe(store, &statement, types))
+        let statement = Arc::new(statement);
+        let retained = statement.clone();
+        let description = self
+            .session
+            .describe_sql(move |store| describe::describe(store, &retained, types))?;
+        Ok(PreparedSql {
+            statement,
+            description,
+        })
     }
     pub fn fail(&mut self, error: Error) -> Result<()> {
         self.session.fail(error)
@@ -124,6 +163,20 @@ impl SqlSession {
                 unreachable!()
             }
         };
+        self.execute_statement(statement, parameters)
+    }
+    pub fn execute_prepared(
+        &mut self,
+        prepared: &PreparedSql,
+        parameters: &[Value],
+    ) -> Result<QueryResult> {
+        self.execute_statement(prepared.statement.as_ref().clone(), parameters)
+    }
+    fn execute_statement(
+        &mut self,
+        statement: parser::Statement,
+        parameters: &[Value],
+    ) -> Result<QueryResult> {
         if parameters.len() > 256
             || parameters.iter().map(expression::value_size).sum::<usize>() > MAX_WORK_BYTES
         {

@@ -34,6 +34,7 @@ pub(crate) struct Metrics {
     pub rejected: AtomicU64,
     pub authentication_errors: AtomicU64,
     pub protocol_errors: AtomicU64,
+    pub single_read_batches: AtomicU64,
     histogram: Mutex<Histogram>,
     began: Instant,
 }
@@ -51,6 +52,7 @@ impl Default for Metrics {
             rejected: 0.into(),
             authentication_errors: 0.into(),
             protocol_errors: 0.into(),
+            single_read_batches: 0.into(),
             histogram: Mutex::default(),
             began: Instant::now(),
         }
@@ -91,7 +93,7 @@ impl Metrics {
             }
             None
         };
-        serde_json::json!({"metrics_version":1,"scope":"process_cumulative","uptime_ms":self.began.elapsed().as_millis(),"connections_total":self.connections.load(Ordering::Relaxed),"connections_rejected":self.rejected.load(Ordering::Relaxed),"authentication_errors":self.authentication_errors.load(Ordering::Relaxed),"protocol_errors":self.protocol_errors.load(Ordering::Relaxed),"queries":h.count,"query_errors":h.errors,"query_total_us":h.total_us,"p50_upper_us":percentile(50),"p95_upper_us":percentile(95),"p99_upper_us":percentile(99),"latency_bucket_upper_us":BOUNDS,"latency_bucket_counts":h.buckets})
+        serde_json::json!({"metrics_version":1,"scope":"process_cumulative","uptime_ms":self.began.elapsed().as_millis(),"connections_total":self.connections.load(Ordering::Relaxed),"connections_rejected":self.rejected.load(Ordering::Relaxed),"authentication_errors":self.authentication_errors.load(Ordering::Relaxed),"protocol_errors":self.protocol_errors.load(Ordering::Relaxed),"single_read_batches":self.single_read_batches.load(Ordering::Relaxed),"queries":h.count,"query_errors":h.errors,"query_total_us":h.total_us,"p50_upper_us":percentile(50),"p95_upper_us":percentile(95),"p99_upper_us":percentile(99),"latency_bucket_upper_us":BOUNDS,"latency_bucket_counts":h.buckets})
     }
 }
 pub(crate) fn system(root: &Path) -> serde_json::Value {

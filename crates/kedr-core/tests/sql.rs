@@ -47,6 +47,52 @@ fn rows(session: &mut SqlSession, sql: &str) -> Vec<Vec<Value>> {
 }
 
 #[test]
+fn prepared_sql_rebinds_current_catalog_and_keeps_transaction_control() {
+    let (_root, _shared, mut sql) = database();
+    sql.execute("CREATE TABLE items (id BIGINT PRIMARY KEY, value INT)", &[])
+        .unwrap();
+    sql.execute("INSERT INTO items (id,value) VALUES (1,7)", &[])
+        .unwrap();
+    let select = sql
+        .prepare("SELECT value FROM items WHERE id=$1", &[])
+        .unwrap();
+    assert!(select.read_only());
+    assert_eq!(
+        sql.execute_prepared(&select, &[Value::BigInt(1)])
+            .unwrap()
+            .rows,
+        vec![vec![Value::Int(7)]]
+    );
+    sql.execute("DROP TABLE items", &[]).unwrap();
+    assert_eq!(
+        state(sql.execute_prepared(&select, &[Value::BigInt(1)])),
+        "42P01"
+    );
+    sql.execute(
+        "CREATE TABLE items (id BIGINT PRIMARY KEY, value TEXT)",
+        &[],
+    )
+    .unwrap();
+    sql.execute("INSERT INTO items (id,value) VALUES (1,'fresh')", &[])
+        .unwrap();
+    let result = sql.execute_prepared(&select, &[Value::BigInt(1)]).unwrap();
+    assert_eq!(result.rows, vec![vec![Value::Text("fresh".into())]]);
+    assert_ne!(result.columns, select.description().columns);
+    let begin = sql.prepare("/* cached control */ BEGIN", &[]).unwrap();
+    let rollback = sql.prepare("/* cached control */ ROLLBACK", &[]).unwrap();
+    assert_eq!(begin.control_tag(), Some("BEGIN"));
+    assert!(!begin.read_only());
+    sql.execute_prepared(&begin, &[]).unwrap();
+    sql.execute("INSERT INTO items (id,value) VALUES (2,'private')", &[])
+        .unwrap();
+    sql.execute_prepared(&rollback, &[]).unwrap();
+    assert_eq!(
+        rows(&mut sql, "SELECT COUNT(*) FROM items"),
+        vec![vec![Value::BigInt(1)]]
+    );
+}
+
+#[test]
 fn describe_and_catalog_share_snapshot_without_executing_writes() {
     use kedr_core::sql::DataType;
     let (_root, _shared, mut sql) = database();
