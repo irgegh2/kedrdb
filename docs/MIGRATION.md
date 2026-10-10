@@ -1,6 +1,30 @@
 # KedrDB: проверяемый перенос из других СУБД
 
-Дата: 9 октября 2026 года. Статус: **план будущего инструмента**. Пользователь запросил удобный безопасный автоматизированный перенос. Импортер, SQL-сервер и перенос клиентских баз пока не реализованы; внешние базы в этой работе не изменялись.
+Дата: 10 октября 2026 года. Статус: **первый offline PostgreSQL adapter реализован на этапе 7, локальная приемка PG 18.2 пройдена; PG 16 и перенос между OS проверяются в CI**. Клиентские базы и внешние серверы не менялись: harness создает отдельный синтетический PostgreSQL cluster. Ядро/сервер/Studio на Rust; миграционный инструмент Python использует psycopg 3, не входит в ядро.
+
+## Рабочие команды первого адаптера
+
+Подключение задается libpq environment либо `PGSERVICE`/`PGSERVICEFILE` и приватным `PGPASSFILE`, не паролем/DSN в аргументах. Допускается Unix socket или TCP с `sslmode=verify-full`. В журналах инструмента только коды ошибок/количества, не строки/SQL/credentials. Нужны права SELECT и достаточные права на SHARE lock; инструмент их не расширяет.
+
+```sh
+python3 tools/migrate_postgres.py preflight
+# Предварительно остановить ВСЕ приложения, фоновые писатели и DDL:
+python3 tools/migrate_postgres.py snapshot --job migration-001 --writes-stopped
+python3 tools/migrate_postgres.py import --job migration-001 --kedr target/release/kedr
+# Той же командой import продолжить после обрыва из сохраненного snapshot.
+```
+
+`--writes-stopped` — подтверждение оператора, не магическое отключение чужих клиентов. Инструмент берет SHARE locks всех существующих таблиц **до первого SELECT snapshot**, выполняет единый REPEATABLE READ и rechecks схему. Эти locks блокируют INSERT/UPDATE/DELETE/DDL существующих таблиц; они не запрещают создание новых объектов другим администратором. Поэтому внешний запрет писателей/DDL обязателен. [PostgreSQL LOCK](https://www.postgresql.org/docs/18/sql-lock.html) описывает связь порядка lock и первого snapshot. Preflight не меняет источник; snapshot не выполняет DML/DDL, но создает locks и удерживает их во время копирования.
+
+Поддерживаемый профиль v1: PostgreSQL 16–18, только `public`, до 128 обычных persistent tables/256 columns, INT/BIGINT/TEXT/BOOLEAN, один **явный BIGINT PRIMARY KEY** без identity/default, одно поле UNIQUE/FK к BIGINT PK, обычный одно-полевой B-tree индекс. TEXT только с bytewise C/POSIX collation (либо database default C/POSIX libc). Размеры encoded rows/index keys/SQL проверяются при streaming snapshot; preflight catalog не заявляет, что все строки уже проверены.
+
+NUMERIC/date/timestamp/JSON/UUID, sequences/defaults/identity/generated, CHECK, composite PK/FK/index, deferred/cascading FK, RLS/custom ACL, user triggers/rules/routines, views/partitions/inheritance/foreign tables, extensions кроме plpgsql, domains/enums/ranges, expression/partial/INCLUDE/descending/custom-opclass/NULLS NOT DISTINCT indexes отклоняются. Межтабличный FK цикл не экспортируется; self-FK цикл допускается. Неподдерживаемое не преобразуется молча. Имена PK/UNIQUE/FK constraints нормализуются, внутренние IDs/индексы не сохраняются; роли/гранты/комментарии/replication settings/statistics не переносятся. Один администратор target — ограничение 1.0, готовность приложения проверяется отдельно.
+
+Job 0700, snapshot/manifest 0600. Завершенный snapshot.sql и manifest.json пишутся после fsync, до их появления возобновление невозможно: нужен новый job/новое окно. После потери source соединения importer использует **только** уже завершенный snapshot, не подменяет его новым состоянием. Прогресс хранится в WAL target атомарно со строками. `.migration-incomplete` блокирует обычный сервер даже после SQL import; `complete-migration` напрямую сравнивает все байты canonical schema и типизированных значений, проверяет integrity/checkpoint и только затем снимает guard. Равный count/hash сам по себе не завершает перенос.
+
+После успеха target находится в `migration-001/database`, verified.json фиксирует количества/сверку; `application_verified=false`. Выбор/переключение конфигурации приложения выполняется отдельно после прикладных проверок и проверки backup target. Источник не удаляется. Возврат после новых target writes не автоматизирован.
+
+Воспроизводимая проверка на новом cluster: `python3 tools/check_stage7_maintenance.py --pg-bin /путь/к/PostgreSQL/bin --output новый-каталог`. Команды backup/restore/обычного SQL import — [OPERATIONS.md](OPERATIONS.md).
 
 ## Цель и границы
 

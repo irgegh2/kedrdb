@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 use crate::{
     credentials::{self, Credential},
+    metrics::{self, Metrics},
     wire::{self, Cursor, Fault, Result},
 };
 use kedr_core::{
@@ -15,7 +16,7 @@ use std::{
     io::{self, BufReader},
     net::SocketAddr,
     path::PathBuf,
-    sync::{Arc, Mutex},
+    sync::{Arc, Mutex, atomic::Ordering},
     time::Duration,
 };
 use tokio::{
@@ -43,6 +44,8 @@ struct Shared {
     tls: Option<TlsAcceptor>,
     require_tls: bool,
     registry: Registry,
+    metrics: Arc<Metrics>,
+    data: PathBuf,
 }
 pub struct Server {
     listener: TcpListener,
@@ -111,6 +114,8 @@ impl Server {
                 tls,
                 require_tls: !config.listen.ip().is_loopback(),
                 registry: Arc::default(),
+                metrics: Arc::default(),
+                data: config.data,
             }),
         })
     }
@@ -132,13 +137,14 @@ impl Server {
                 Some(result) = tasks.join_next(), if !tasks.is_empty() => { if result.is_err() { task_failed = true; break; } },
                 accepted = self.listener.accept() => {
                     let (socket, _) = accepted?;
+                    self.shared.metrics.connections.fetch_add(1, Ordering::Relaxed);
                     match slots.clone().try_acquire_owned() {
                         Ok(permit) => { let shared = self.shared.clone(); let shutdown = stopped.clone(); tasks.spawn(async move {
                             let _permit = permit;
                             // Credentials, packets and SQL are never logged.
-                            let _ = connection(socket, shared, shutdown).await;
+                            if let Err(error) = connection(socket, shared, shutdown).await { metrics::event(serde_json::json!({"event":"connection_error","sqlstate":error.state})); }
                         }); },
-                        Err(_) => drop(socket),
+                        Err(_) => {self.shared.metrics.rejected.fetch_add(1,Ordering::Relaxed);drop(socket);},
                     }
                 }
             }
@@ -181,10 +187,16 @@ async fn connection(
     mut shutdown: watch::Receiver<bool>,
 ) -> Result<()> {
     socket.set_nodelay(true)?;
-    let startup = tokio::select! {
+    let startup: Result<Option<(Stream, SqlSession)>> = tokio::select! {
         _ = shutdown.changed() => return Ok(()),
-        startup = tokio::time::timeout(Duration::from_secs(8), authenticate(socket, &shared)) => startup.map_err(|_| Fault::new("08006", "authentication timeout"))??,
+        startup = tokio::time::timeout(Duration::from_secs(8), authenticate(socket, &shared)) => startup.map_err(|_| Fault::new("08006", "authentication timeout")).and_then(|r|r),
     };
+    let startup = startup.inspect_err(|_| {
+        shared
+            .metrics
+            .authentication_errors
+            .fetch_add(1, Ordering::Relaxed);
+    })?;
     let Some((mut socket, session)) = startup else {
         return Ok(());
     };
@@ -219,7 +231,7 @@ async fn connection(
         ("standard_conforming_strings", "on"),
         ("TimeZone", "UTC"),
         ("kedr_api_version", "1"),
-        ("kedr_features", "sql,catalog,cancel,scram"),
+        ("kedr_features", "sql,catalog,cancel,scram,metrics"),
     ] {
         let mut bytes = Vec::new();
         wire::cstring(&mut bytes, name);
@@ -244,7 +256,7 @@ async fn connection(
         }
         reader_cancel.cancel();
     });
-    let mut state = ConnectionState::new(session);
+    let mut state = ConnectionState::new(session, shared.clone());
     let result = async {
         loop {
             let frame = tokio::select! { _ = shutdown.changed() => break, frame = incoming.recv() => frame };
@@ -255,6 +267,7 @@ async fn connection(
             match state.message(tag, &bytes, &mut writer).await {
                 Ok(()) => {},
                 Err(error) => {
+                    shared.metrics.protocol_errors.fetch_add(1,Ordering::Relaxed);
                     let _ = state.run({ let code = error.state; let message = error.message.clone(); move |session| session.fail(kedr_core::Error::Sql { state: code, message }) }).await;
                     if state.status == b'T' { state.status = b'E'; }
                     wire::error(&mut writer, &error, false).await?;
@@ -448,9 +461,10 @@ struct ConnectionState {
     status: u8,
     implicit: bool,
     skip: bool,
+    shared: Arc<Shared>,
 }
 impl ConnectionState {
-    fn new(session: SqlSession) -> Self {
+    fn new(session: SqlSession, shared: Arc<Shared>) -> Self {
         Self {
             session: Arc::new(Mutex::new(session)),
             statements: HashMap::new(),
@@ -458,6 +472,7 @@ impl ConnectionState {
             status: b'I',
             implicit: false,
             skip: false,
+            shared,
         }
     }
     async fn run<T: Send + 'static>(
@@ -480,6 +495,40 @@ impl ConnectionState {
         parameters: Vec<Value>,
         extended: bool,
     ) -> Result<QueryResult> {
+        let began = std::time::Instant::now();
+        let result = self.execute_inner(sql, parameters, extended).await;
+        self.shared
+            .metrics
+            .query(began, result.as_ref().err().map(|e| e.state));
+        result
+    }
+    async fn execute_inner(
+        &mut self,
+        sql: String,
+        parameters: Vec<Value>,
+        extended: bool,
+    ) -> Result<QueryResult> {
+        if metrics_query(&sql) {
+            if !parameters.is_empty() {
+                return Err(wire::protocol());
+            }
+            let mut value = self.shared.metrics.snapshot();
+            let lock = self.shared.database.lock_metrics();
+            let io = kedr_core::metrics::storage_metrics();
+            value["locks"] = serde_json::json!({"readers":lock.readers,"writer":lock.writer,"waiting":lock.waiting,"grants":lock.grants,"total_wait_ns":lock.total_wait_nanos,"max_wait_ns":lock.max_wait_nanos});
+            value["active_sessions"] = self.shared.database.active_sessions().into();
+            value["storage"] = serde_json::json!({"read_bytes":io.read_bytes,"data_write_bytes":io.data_write_bytes,"wal_write_bytes":io.wal_write_bytes,"fsync_calls":io.fsync_calls,"fsync_ns":io.fsync_nanos,"io_errors":io.io_errors,"checkpoints":io.checkpoints,"checkpoint_ns":io.checkpoint_nanos,"checkpoint_errors":io.checkpoint_errors});
+            let root = self.shared.data.clone();
+            value["system"] = tokio::task::spawn_blocking(move || metrics::system(&root))
+                .await
+                .map_err(|_| Fault::new("58000", "metric sampler failed"))?;
+            return Ok(QueryResult {
+                columns: metrics_columns(),
+                rows: vec![vec![Value::Text(value.to_string())]],
+                affected: 1,
+                tag: "SHOW".into(),
+            });
+        }
         if status_query(&sql) {
             if !parameters.is_empty() {
                 return Err(wire::protocol());
@@ -576,13 +625,17 @@ impl ConnectionState {
                 if self.statements.len() >= 16 && !self.statements.contains_key(&name) {
                     return Err(Fault::new("54000", "prepared statement limit is 16"));
                 }
-                let description = if status_query(&sql) {
+                let description = if status_query(&sql) || metrics_query(&sql) {
                     if !types.is_empty() {
                         return Err(wire::protocol());
                     }
                     Description {
                         parameters: Vec::new(),
-                        columns: status_columns(),
+                        columns: if metrics_query(&sql) {
+                            metrics_columns()
+                        } else {
+                            status_columns()
+                        },
                     }
                 } else {
                     self.run({
@@ -825,6 +878,18 @@ impl ConnectionState {
         }
         Ok(())
     }
+}
+fn metrics_query(sql: &str) -> bool {
+    sql.trim()
+        .trim_end_matches(';')
+        .trim()
+        .eq_ignore_ascii_case("SHOW KEDR METRICS")
+}
+fn metrics_columns() -> Vec<ResultColumn> {
+    vec![ResultColumn {
+        name: "metrics".into(),
+        data_type: DataType::Text,
+    }]
 }
 fn status_query(sql: &str) -> bool {
     sql.trim()

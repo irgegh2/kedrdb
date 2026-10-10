@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 mod app;
 mod backend;
+mod files;
 mod network;
 
 fn main() -> eframe::Result {

@@ -572,3 +572,43 @@ fn failed_index_build_and_result_memory_bound_preserve_acknowledged_rows() {
         1
     );
 }
+
+#[test]
+fn export_io_failure_never_mutates_database_and_releases_read_snapshot() {
+    use std::io::Write;
+    struct FullDisk;
+    impl Write for FullDisk {
+        fn write(&mut self, _: &[u8]) -> std::io::Result<usize> {
+            Err(std::io::Error::from_raw_os_error(28))
+        }
+        fn flush(&mut self) -> std::io::Result<()> {
+            Ok(())
+        }
+    }
+    struct FailedFlush;
+    impl Write for FailedFlush {
+        fn write(&mut self, b: &[u8]) -> std::io::Result<usize> {
+            Ok(b.len())
+        }
+        fn flush(&mut self) -> std::io::Result<()> {
+            Err(std::io::Error::other("injected final flush failure"))
+        }
+    }
+    let (_root, _shared, mut sql) = database();
+    sql.execute("CREATE TABLE t (id BIGINT PRIMARY KEY, name TEXT)", &[])
+        .unwrap();
+    sql.execute("INSERT INTO t (id,name) VALUES (1,'acknowledged')", &[])
+        .unwrap();
+    assert!(sql.export_sql(FullDisk).is_err());
+    assert!(sql.export_sql(FailedFlush).is_err());
+    assert_eq!(
+        rows(&mut sql, "SELECT name FROM t"),
+        vec![vec![Value::Text("acknowledged".into())]]
+    );
+    sql.execute(
+        "INSERT INTO t (id,name) VALUES (2,'writer still admitted')",
+        &[],
+    )
+    .unwrap();
+    assert_eq!(sql.export_sql(std::io::sink()).unwrap().affected, 2);
+}

@@ -333,12 +333,30 @@ fn validate_inserted_foreign_rows(
     }
     Ok(())
 }
+pub(super) fn insert_import(
+    store: &mut dyn Store,
+    table: &str,
+    columns: &[String],
+    values: &[Vec<Expr>],
+) -> Result<QueryResult> {
+    insert_mode(store, table, columns, values, &[], false)
+}
 fn insert(
     store: &mut dyn Store,
     name: &str,
     columns: &[String],
     values: &[Vec<Expr>],
     params: &[Value],
+) -> Result<QueryResult> {
+    insert_mode(store, name, columns, values, params, true)
+}
+fn insert_mode(
+    store: &mut dyn Store,
+    name: &str,
+    columns: &[String],
+    values: &[Vec<Expr>],
+    params: &[Value],
+    check_foreign: bool,
 ) -> Result<QueryResult> {
     let table = catalog::load(store, name)?;
     let mut selected = BTreeSet::new();
@@ -373,7 +391,9 @@ fn insert(
         insert_row(store, &table, &result)?;
         inserted.push(result);
     }
-    validate_inserted_foreign_rows(store, &table, &inserted)?;
+    if check_foreign {
+        validate_inserted_foreign_rows(store, &table, &inserted)?;
+    }
     Ok(QueryResult::command("INSERT", values.len() as u64))
 }
 fn targets(

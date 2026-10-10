@@ -10,6 +10,10 @@ use zeroize::Zeroizing;
 #[tokio::main]
 async fn main() {
     if let Err(error) = run().await {
+        eprintln!(
+            "{}",
+            serde_json::json!({"event":"startup_or_server_error","kind":"operation_failed"})
+        );
         eprintln!("kedr-server: {error}");
         std::process::exit(1);
     }

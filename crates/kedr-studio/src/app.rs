@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 use crate::backend::{self, Cell, Command, Payload, Profile, ResultSet, Table, Worker};
+use crate::files;
 use crate::network::{Network, identifier};
 use eframe::egui::{self, Color32, FontFamily, FontId, RichText, Stroke, TextStyle};
 use std::time::Duration;
@@ -35,6 +36,10 @@ pub struct Studio {
     message: String,
     elapsed: Option<Duration>,
     connection_dialog: bool,
+    file_task: Option<files::Task>,
+    document: Option<std::path::PathBuf>,
+    saved_sql: String,
+    discard_dialog: bool,
     #[cfg(feature = "screenshot")]
     snapshot_requested: bool,
     #[cfg(feature = "screenshot")]
@@ -82,6 +87,10 @@ impl Studio {
             message: String::new(),
             elapsed: None,
             connection_dialog: false,
+            file_task: None,
+            document: None,
+            saved_sql: String::new(),
+            discard_dialog: false,
             #[cfg(feature = "screenshot")]
             snapshot_requested: false,
             #[cfg(feature = "screenshot")]
@@ -141,7 +150,51 @@ impl Studio {
             Err(error) => self.error = Some(error.clone()),
         }
     }
+    fn open_document(&mut self, ctx: &egui::Context) {
+        match files::Task::open(ctx.clone()) {
+            Ok(task) => {
+                self.file_task = Some(task);
+                self.message = "Открывается SQL-файл…".into();
+            }
+            Err(error) => self.error = Some(error),
+        }
+    }
     fn poll(&mut self, ctx: &egui::Context) {
+        if let Some(task) = &self.file_task {
+            match task.receiver.try_recv() {
+                Ok(reply) => {
+                    self.file_task = None;
+                    match reply {
+                        Ok(Some(files::Reply::Opened(path, text))) => {
+                            self.sql = text;
+                            self.saved_sql = self.sql.clone();
+                            self.document = Some(path);
+                            self.selection = None;
+                            self.structure = false;
+                            self.error = None;
+                            self.result = None;
+                            self.message = "SQL-файл открыт".into();
+                        }
+                        Ok(Some(files::Reply::Saved(path, text))) => {
+                            self.saved_sql = text;
+                            self.document = Some(path);
+                            self.error = None;
+                            self.message = "SQL-файл сохранён".into();
+                        }
+                        Ok(None) => {}
+                        Err(e) => self.error = Some(e),
+                    }
+                }
+                Err(std::sync::mpsc::TryRecvError::Disconnected) => {
+                    self.file_task = None;
+                    self.error = Some("Файловая операция прервана.".into());
+                }
+                Err(std::sync::mpsc::TryRecvError::Empty) => {
+                    ctx.request_repaint_after(Duration::from_millis(50));
+                }
+            }
+        }
+
         let reply = match &mut self.worker {
             Ok(worker) => worker.poll(),
             Err(_) => return,
@@ -158,6 +211,14 @@ impl Studio {
                     Ok(Payload::Connected(tables)) => {
                         self.connected = true;
                         self.tables = tables;
+                        if self
+                            .selected_table
+                            .as_ref()
+                            .is_some_and(|name| !self.tables.iter().any(|t| &t.name == name))
+                        {
+                            self.selected_table = None;
+                            self.structure = false;
+                        }
                         self.message.clear();
                         self.connection_dialog = false;
                         #[cfg(feature = "screenshot")]
@@ -168,6 +229,14 @@ impl Studio {
                     }
                     Ok(Payload::Catalog(tables)) => {
                         self.tables = tables;
+                        if self
+                            .selected_table
+                            .as_ref()
+                            .is_some_and(|name| !self.tables.iter().any(|t| &t.name == name))
+                        {
+                            self.selected_table = None;
+                            self.structure = false;
+                        }
                         self.message.clear();
                     }
                     Ok(Payload::Rows(result)) => {
@@ -185,13 +254,7 @@ impl Studio {
                             )
                         };
                         self.result = Some(result);
-                        if self.connected
-                            && self.last_sql.split_whitespace().next().is_some_and(|word| {
-                                ["CREATE", "ALTER", "DROP"]
-                                    .iter()
-                                    .any(|kind| word.eq_ignore_ascii_case(kind))
-                            })
-                        {
+                        if self.connected && catalog_changed(&self.last_sql) {
                             self.submit(Command::Catalog);
                         }
                     }
@@ -303,7 +366,7 @@ impl Studio {
                         self.selected_table = Some(table.name.clone());
                         self.structure = true;
                     }
-                    if response.double_clicked() {
+                    if response.double_clicked() && self.file_task.is_none() {
                         self.sql = if self.preview {
                             if table.name == "products" {
                                 backend::PRODUCT_SQL.into()
@@ -331,8 +394,46 @@ impl Studio {
             ui.separator();
             if action(
                 ui,
+                "Открыть…",
+                self.file_task.is_none() && self.pending.is_none(),
+            )
+            .clicked()
+            {
+                if self.sql != self.saved_sql && !self.sql.is_empty() {
+                    self.discard_dialog = true;
+                } else {
+                    self.open_document(ui.ctx());
+                }
+            }
+            if action(
+                ui,
+                "Сохранить…",
+                self.file_task.is_none() && self.pending.is_none(),
+            )
+            .clicked()
+            {
+                let name = self
+                    .document
+                    .as_ref()
+                    .and_then(|p| p.file_name())
+                    .map(|s| s.to_string_lossy().into_owned())
+                    .unwrap_or_else(|| "query.sql".into());
+                match files::Task::save(ui.ctx().clone(), self.sql.clone(), name) {
+                    Ok(task) => {
+                        self.file_task = Some(task);
+                        self.message = "Сохраняется SQL-файл…".into();
+                    }
+                    Err(error) => self.error = Some(error),
+                }
+            }
+            ui.separator();
+            if action(
+                ui,
                 "Выполнить",
-                (self.preview || self.connected) && self.pending.is_none() && !self.structure,
+                (self.preview || self.connected)
+                    && self.pending.is_none()
+                    && self.file_task.is_none()
+                    && !self.structure,
             )
             .clicked()
             {
@@ -397,7 +498,8 @@ impl Studio {
                 let output = egui::TextEdit::multiline(&mut self.sql)
                     .code_editor()
                     .font(FontId::monospace(14.0))
-                    .char_limit(backend::MAX_SQL_BYTES / 4)
+                    .char_limit(backend::MAX_SQL_BYTES)
+                    .interactive(self.file_task.is_none())
                     .frame(egui::Frame::NONE)
                     .desired_width(f32::INFINITY)
                     .desired_rows(12)
@@ -523,6 +625,23 @@ impl eframe::App for Studio {
         egui::CentralPanel::default()
             .frame(frame(Color32::WHITE, 10.0))
             .show(ui, |ui| self.editor(ui));
+        if self.discard_dialog {
+            egui::Window::new("Несохранённый SQL")
+                .collapsible(false)
+                .resizable(false)
+                .show(&ctx, |ui| {
+                    ui.label("Открытие файла заменит несохранённый текст.");
+                    ui.horizontal(|ui| {
+                        if ui.button("Отмена").clicked() {
+                            self.discard_dialog = false;
+                        }
+                        if ui.button("Открыть файл").clicked() {
+                            self.discard_dialog = false;
+                            self.open_document(&ctx);
+                        }
+                    });
+                });
+        }
         let mut open = self.connection_dialog;
         let mut connect = false;
         egui::Window::new("Подключение")
@@ -718,4 +837,71 @@ fn configure_style(ctx: &egui::Context) {
         .text_styles
         .insert(TextStyle::Monospace, FontId::monospace(14.0));
     ctx.set_global_style(style);
+}
+
+// Leading comments are part of editable SQL files. Refresh after both DDL and
+// transaction completion: a rollback can remove a table the UI has already seen.
+fn catalog_changed(mut sql: &str) -> bool {
+    loop {
+        sql = sql.trim_start();
+        if let Some(rest) = sql.strip_prefix("--") {
+            sql = rest.split_once('\n').map_or("", |(_, tail)| tail);
+            continue;
+        }
+        if let Some(rest) = sql.strip_prefix("/*") {
+            let mut depth = 1;
+            let mut pos = 0;
+            while pos + 1 < rest.len() {
+                if &rest.as_bytes()[pos..pos + 2] == b"/*" {
+                    depth += 1;
+                    pos += 2;
+                } else if &rest.as_bytes()[pos..pos + 2] == b"*/" {
+                    depth -= 1;
+                    pos += 2;
+                    if depth == 0 {
+                        break;
+                    }
+                } else {
+                    pos += 1;
+                }
+            }
+            if depth != 0 {
+                return false;
+            }
+            sql = &rest[pos..];
+            continue;
+        }
+        break;
+    }
+    let word = sql
+        .split(|c: char| !c.is_ascii_alphabetic())
+        .next()
+        .unwrap_or("");
+    ["CREATE", "ALTER", "DROP", "COMMIT", "ROLLBACK"]
+        .iter()
+        .any(|kind| word.eq_ignore_ascii_case(kind))
+}
+#[cfg(test)]
+mod stage7_tests {
+    use super::catalog_changed;
+    #[test]
+    fn catalog_refresh_handles_comments_and_transaction_completion() {
+        for sql in [
+            "-- привет\nCREATE TABLE t (id BIGINT PRIMARY KEY)",
+            "/* a /* b */ c */ ALTER TABLE t ADD COLUMN n INT",
+            "ROLLBACK;",
+            "COMMIT;",
+            " drop table t",
+        ] {
+            assert!(catalog_changed(sql));
+        }
+        for sql in [
+            "SELECT 'CREATE'",
+            "INSERT INTO t (id) VALUES(1)",
+            "/* unfinished",
+            "-- CREATE TABLE t",
+        ] {
+            assert!(!catalog_changed(sql));
+        }
+    }
 }

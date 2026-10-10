@@ -21,6 +21,7 @@ rustls = { version = "=0.23.45", default-features = false, features = ["ring", "
 rustls-pemfile = "=2.2.0"
 zeroize = "1"
 futures-util = "0.3"
+rfd = "=0.17.2"
 
 [dev-dependencies]
 kedr-server = { path = "../kedr-server" }

@@ -112,6 +112,9 @@ impl SharedDatabase {
             in_transaction: false,
         })
     }
+    pub fn active_sessions(&self) -> usize {
+        self.0.sessions.load(Ordering::Acquire)
+    }
     pub fn lock_metrics(&self) -> LockMetrics {
         self.0.gate.metrics()
     }

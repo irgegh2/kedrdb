@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
+mod maintenance;
 mod sql;
+mod transfer;
 use kedr_core::{
     Error, Operation, Result,
     database::FileDatabase,
@@ -16,7 +18,7 @@ use std::{
 
 const PAYLOAD: &[u8] = b"KedrDB stage 1 storage check\n";
 const CACHE_BUDGET: usize = 4 * 16 * 1024;
-const USAGE: &str = "Usage: kedr --version | doctor | storage-check <directory> | create-db <new-directory> | sql <database-directory> <statement> | sql-stream <database-directory> | create-store <new-file> | put <database> <bigint-key> <text> | get <database> <bigint-key> | delete <database> <bigint-key> | integrity-check <database> | checkpoint <database-directory>";
+const USAGE: &str = "Usage: kedr --version | doctor | storage-check <directory> | create-db <new-directory> | sql <database-directory> <statement> | sql-stream <database-directory> | create-store <new-file> | put <database> <bigint-key> <text> | get <database> <bigint-key> | delete <database> <bigint-key> | integrity-check <database> | checkpoint <database-directory> | backup <database> <new-backup-directory> | verify-backup <backup-directory> | restore <backup> <new-database> | export-sql <database> <new.sql> | import-sql <export.sql> <new-database> | resume-import <export.sql> <incomplete-database> | import-migration <snapshot.sql> <new-database> | complete-migration <snapshot.sql> <quarantined-database> | diagnostics <database> <new.json>";
 
 fn open_tree(path: &Path) -> Result<BPlusTree<FileStorage>> {
     let file = FileStorage::open_existing(path)?;
@@ -128,8 +130,9 @@ fn run() -> Result<()> {
             );
             println!("Single-owner storage transactions, WAL redo and checkpoints: available.");
             println!("Local concurrent sessions, fair locks and transaction timeouts: available.");
-            println!("Local SQL tables and bounded SQL execution: in development.");
-            println!("SQL server and network protocol: not implemented.");
+            println!("Local SQL tables and bounded SQL execution: available.");
+            println!("SQL server and network protocol: available via kedr-server.");
+            println!("Offline backup/restore, verified SQL export/import: available.");
         }
         [command, directory] if command == "storage-check" => storage_check(Path::new(directory))?,
         [command, path] if command == "create-store" => create_store(Path::new(path))?,
@@ -146,6 +149,33 @@ fn run() -> Result<()> {
             sql::single(Path::new(path), query)?;
         }
         [command, path] if command == "sql-stream" => sql::stream(Path::new(path))?,
+        [command, source, target] if command == "backup" => {
+            maintenance::backup(Path::new(source), Path::new(target))?
+        }
+        [command, source] if command == "verify-backup" => {
+            maintenance::check_backup(Path::new(source))?
+        }
+        [command, source, target] if command == "restore" => {
+            maintenance::restore(Path::new(source), Path::new(target))?
+        }
+        [command, source, target] if command == "diagnostics" => {
+            maintenance::diagnostics(Path::new(source), Path::new(target))?
+        }
+        [command, source, target] if command == "export-sql" => {
+            transfer::export(Path::new(source), Path::new(target))?
+        }
+        [command, source, target] if command == "import-sql" => {
+            transfer::import(Path::new(source), Path::new(target), false, false)?
+        }
+        [command, source, target] if command == "import-migration" => {
+            transfer::import(Path::new(source), Path::new(target), false, true)?
+        }
+        [command, source, target] if command == "complete-migration" => {
+            transfer::complete_migration(Path::new(source), Path::new(target))?
+        }
+        [command, source, target] if command == "resume-import" => {
+            transfer::import(Path::new(source), Path::new(target), true, false)?
+        }
         [command, path, key_arg, value] if command == "put" => {
             let key = key(key_arg)?;
             let value = value.to_str().ok_or(Error::InvalidArgument {

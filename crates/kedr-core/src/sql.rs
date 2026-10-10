@@ -2,6 +2,7 @@
 //! Bounded relational SQL over the same private-page transaction machinery.
 mod catalog;
 mod describe;
+pub mod dump;
 mod executor;
 mod expression;
 mod keywords;
@@ -52,6 +53,29 @@ pub struct SqlSession {
     session: Session,
 }
 impl SqlSession {
+    /// One stable read snapshot; streaming avoids materializing the database.
+    pub fn export_sql(
+        &mut self,
+        mut writer: impl std::io::Write + Send + 'static,
+    ) -> Result<QueryResult> {
+        self.session
+            .execute_sql(true, move |store| dump::export(store, &mut writer))
+    }
+    /// Maintenance only: caller must quarantine the target until finish_import succeeds.
+    pub fn import_statement(
+        &mut self,
+        sql: &str,
+        job: [u8; 32],
+        ordinal: u64,
+    ) -> Result<QueryResult> {
+        let sql = sql.to_owned();
+        self.session
+            .execute_sql(false, move |store| dump::import(store, &sql, &job, ordinal))
+    }
+    pub fn finish_import(&mut self, job: [u8; 32], total: u64) -> Result<QueryResult> {
+        self.session
+            .execute_sql(false, move |store| dump::finish(store, &job, total))
+    }
     pub fn new(session: Session) -> Self {
         Self { session }
     }

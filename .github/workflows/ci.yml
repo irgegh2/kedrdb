@@ -25,7 +25,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libxkbcommon-dev libxkbcommon-x11-dev libegl1-mesa-dev libwayland-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev xvfb xauth
+          sudo apt-get install -y libxkbcommon-dev libxkbcommon-x11-dev libegl1-mesa-dev libwayland-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev xvfb xauth libdbus-1-dev zenity
       - name: Lint
         run: cargo clippy --workspace --all-targets --all-features --locked --offline -- -D warnings
       - name: Debug tests
@@ -55,6 +55,16 @@ jobs:
         run: |
           /usr/bin/python3 tools/check_stage5_sql.py --pg-bin /usr/lib/postgresql/16/bin --manual 1025 --generated 100000 --output "$RUNNER_TEMP/stage5-sql-oracle"
           cat "$RUNNER_TEMP/stage5-sql-oracle/summary.json"
+      - name: PostgreSQL migration and maintenance acceptance (Linux)
+        if: runner.os == 'Linux'
+        run: /usr/bin/python3 tools/check_stage7_maintenance.py --pg-bin /usr/lib/postgresql/16/bin --kedr target/release/kedr --output "$RUNNER_TEMP/stage7-maintenance"
+      - name: Save portable backup (Linux)
+        if: runner.os == 'Linux'
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage7-linux-maintenance
+          path: ${{ runner.temp }}/stage7-maintenance
+          retention-days: 7
   studio-integration:
     timeout-minutes: 25
     runs-on: ubuntu-24.04
@@ -65,7 +75,7 @@ jobs:
       - name: Install native/client test dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libxkbcommon-dev libxkbcommon-x11-dev libegl1-mesa-dev libwayland-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev xvfb xauth fonts-dejavu-core postgresql-16 python3-psycopg python3-pil
+          sudo apt-get install -y libxkbcommon-dev libxkbcommon-x11-dev libegl1-mesa-dev libwayland-dev libx11-dev libxcursor-dev libxi-dev libxrandr-dev xvfb xauth libdbus-1-dev zenity fonts-dejavu-core postgresql-16 python3-psycopg python3-pil
       - name: Build actual server and Studio
         run: cargo build --workspace --features kedr-studio/screenshot --locked
       - name: Native Studio and client acceptance
@@ -78,3 +88,25 @@ jobs:
           name: stage6-linux-studio
           path: ${{ runner.temp }}/stage6-clients
           retention-days: 7
+
+  portable-restore:
+    timeout-minutes: 15
+    needs: check
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned Rust
+        run: rustup toolchain install 1.94.1 --profile minimal
+      - uses: actions/download-artifact@v4
+        with:
+          name: stage7-linux-maintenance
+          path: ${{ runner.temp }}/stage7-linux-maintenance
+      - name: Build maintenance CLI
+        run: cargo build -p kedr --release --locked
+      - name: Restore Linux checkpoint on independent macOS machine
+        run: |
+          target/release/kedr verify-backup "$RUNNER_TEMP/stage7-linux-maintenance/portable-backup"
+          target/release/kedr restore "$RUNNER_TEMP/stage7-linux-maintenance/portable-backup" "$RUNNER_TEMP/restored-linux"
+          target/release/kedr integrity-check "$RUNNER_TEMP/restored-linux"
+          target/release/kedr export-sql "$RUNNER_TEMP/restored-linux" "$RUNNER_TEMP/restored-linux.sql"
+          cmp "$RUNNER_TEMP/restored-linux.sql" "$RUNNER_TEMP/stage7-linux-maintenance/portable.sql"

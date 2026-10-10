@@ -24,6 +24,21 @@ pub struct StorageEngine<D: StorageIo, W: StorageIo> {
     poisoned: bool,
 }
 
+/// Inspect an offline checkpoint without recovery or writes. The caller must
+/// independently validate that its WAL has the same identity and frontier.
+pub fn inspect_checkpoint<I: StorageIo>(
+    mut io: I,
+    cache_budget: usize,
+) -> Result<([u8; 16], u64, IntegrityReport)> {
+    let length = io.len()?;
+    let mut tree = BPlusTree::open(PrivateIo::new(io, length, 1)?, cache_budget)?;
+    Ok((
+        tree.database_id(),
+        tree.checkpoint_lsn(),
+        tree.integrity_check()?,
+    ))
+}
+
 impl<D: StorageIo, W: StorageIo> StorageEngine<D, W> {
     pub fn create(mut data: D, wal: W, database_id: [u8; 16], cache_budget: usize) -> Result<Self> {
         if data.len()? != 0 {

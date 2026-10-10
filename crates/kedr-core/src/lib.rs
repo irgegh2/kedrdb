@@ -18,3 +18,5 @@ pub mod tree;
 pub mod wal;
 
 pub use error::{Error, Operation, Result};
+
+pub mod metrics;

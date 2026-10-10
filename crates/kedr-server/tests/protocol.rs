@@ -509,3 +509,58 @@ async fn wrong_cancel_key_does_not_cancel_another_session() {
     drop(socket);
     fixture.finish().await;
 }
+
+#[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+async fn metrics_work_with_binary_and_simple_protocol_without_transaction_lock() {
+    let fixture = Fixture::new().await;
+    let writer = fixture.client().await;
+    let observer = fixture.client().await;
+    writer
+        .batch_execute("CREATE TABLE metrics_test (id BIGINT PRIMARY KEY, name TEXT)")
+        .await
+        .unwrap();
+    writer.batch_execute("BEGIN").await.unwrap();
+    writer
+        .batch_execute(
+            "INSERT INTO metrics_test (id,name) VALUES (1,'secret SQL must not enter metrics')",
+        )
+        .await
+        .unwrap();
+    let row = tokio::time::timeout(
+        Duration::from_secs(3),
+        observer.query_one("SHOW KEDR METRICS", &[]),
+    )
+    .await
+    .unwrap()
+    .unwrap();
+    let text: String = row.get(0);
+    assert!(!text.contains("secret"));
+    assert!(!text.contains("metrics_test"));
+    let metrics: serde_json::Value = serde_json::from_str(&text).unwrap();
+    assert!(metrics["locks"]["writer"].as_bool().unwrap());
+    assert!(metrics["storage"]["wal_write_bytes"].as_u64().unwrap() > 0);
+    assert!(metrics["storage"]["fsync_calls"].as_u64().unwrap() > 0);
+    assert!(metrics["active_sessions"].as_u64().unwrap() >= 2);
+    assert!(metrics["queries"].as_u64().unwrap() >= 3);
+    writer.batch_execute("ROLLBACK").await.unwrap();
+    assert!(
+        observer
+            .batch_execute("SELECT no_such_column FROM metrics_test")
+            .await
+            .is_err()
+    );
+    let row = observer.query_one("SHOW KEDR METRICS", &[]).await.unwrap();
+    let metrics: serde_json::Value =
+        serde_json::from_str(row.get::<_, String>(0).as_str()).unwrap();
+    assert!(metrics["query_errors"].as_u64().unwrap() > 0);
+    assert!(
+        !observer
+            .simple_query("SHOW KEDR METRICS")
+            .await
+            .unwrap()
+            .is_empty()
+    );
+    drop(writer);
+    drop(observer);
+    fixture.finish().await;
+}

@@ -18,6 +18,14 @@ type Engine = StorageEngine<FileStorage, FileStorage>;
 pub const DEFAULT_SEGMENT_BYTES: u64 = 128 * 1024 * 1024;
 const MAX_SEGMENTS: usize = 1024;
 
+/// Consistent offline metadata; the caller must retain this database owner while copying.
+pub struct SnapshotInfo {
+    pub database_id: [u8; 16],
+    pub checkpoint_lsn: u64,
+    pub segment_id: u64,
+    pub files: Vec<PathBuf>,
+}
+
 pub struct FileDatabase {
     root: PathBuf,
     _ownership: FileStorage,
@@ -83,6 +91,21 @@ impl FileDatabase {
         })
     }
     pub fn open(path: impl AsRef<Path>, cache_budget: usize) -> Result<Self> {
+        for marker in [".import-incomplete", ".migration-incomplete"] {
+            match fs::symlink_metadata(path.as_ref().join(marker)) {
+                Ok(_) => {
+                    return Err(Error::InvalidArgument {
+                        message: "incomplete import: use the maintenance importer, not a normal database client",
+                    });
+                }
+                Err(e) if e.kind() == std::io::ErrorKind::NotFound => {}
+                Err(e) => return Err(open_error(e)),
+            }
+        }
+        Self::open_importing(path, cache_budget)
+    }
+    /// Maintenance importer only: normal clients must never expose partial imported data.
+    pub fn open_importing(path: impl AsRef<Path>, cache_budget: usize) -> Result<Self> {
         require_directory(path.as_ref())?;
         let root = fs::canonicalize(path).map_err(open_error)?;
         let ownership = regular_file(&root.join(".lock"))?;
@@ -165,9 +188,27 @@ impl FileDatabase {
     pub fn active_segment(&mut self) -> Result<u64> {
         Ok(self.engine()?.wal_config().segment_id)
     }
+    pub fn snapshot_info(&mut self) -> Result<SnapshotInfo> {
+        let database_id = read_identity(&self.root)?;
+        let checkpoint_lsn = self.last_commit_lsn()?;
+        let segment_id = self.active_segment()?;
+        Ok(SnapshotInfo {
+            database_id,
+            checkpoint_lsn,
+            segment_id,
+            files: vec![
+                self.root.join(".identity"),
+                self.root.join("data.kdr"),
+                segment_path(&self.root, segment_id),
+            ],
+        })
+    }
     /// The engine remains unavailable after any checkpoint error until reopen.
     pub fn checkpoint(&mut self) -> Result<()> {
-        self.checkpoint_with(&mut SystemCheckpoint)
+        let began = std::time::Instant::now();
+        let result = self.checkpoint_with(&mut SystemCheckpoint);
+        crate::metrics::checkpoint(began, result.is_ok());
+        result
     }
     fn checkpoint_with(&mut self, filesystem: &mut impl CheckpointIo) -> Result<()> {
         self.engine()?;
