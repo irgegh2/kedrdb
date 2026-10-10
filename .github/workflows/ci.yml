@@ -55,16 +55,6 @@ jobs:
         run: |
           /usr/bin/python3 tools/check_stage5_sql.py --pg-bin /usr/lib/postgresql/16/bin --manual 1025 --generated 100000 --output "$RUNNER_TEMP/stage5-sql-oracle"
           cat "$RUNNER_TEMP/stage5-sql-oracle/summary.json"
-      - name: PostgreSQL migration and maintenance acceptance (Linux)
-        if: runner.os == 'Linux'
-        run: /usr/bin/python3 tools/check_stage7_maintenance.py --pg-bin /usr/lib/postgresql/16/bin --kedr target/release/kedr --output "$RUNNER_TEMP/stage7-maintenance"
-      - name: Save portable backup (Linux)
-        if: runner.os == 'Linux'
-        uses: actions/upload-artifact@v4
-        with:
-          name: stage7-linux-maintenance
-          path: ${{ runner.temp }}/stage7-maintenance
-          retention-days: 7
   studio-integration:
     timeout-minutes: 25
     runs-on: ubuntu-24.04
@@ -89,9 +79,33 @@ jobs:
           path: ${{ runner.temp }}/stage6-clients
           retention-days: 7
 
+  maintenance:
+    timeout-minutes: 15
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned Rust
+        run: rustup toolchain install 1.94.1 --profile minimal
+      - name: Install migration test dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-16 python3-psycopg
+      - name: Build maintenance CLI
+        run: cargo build -p kedr --release --locked
+      - name: PostgreSQL migration and maintenance acceptance (Linux)
+        run: /usr/bin/python3 tools/check_stage7_maintenance.py --pg-bin /usr/lib/postgresql/16/bin --kedr target/release/kedr --output "$RUNNER_TEMP/stage7-maintenance"
+      - name: Save portable backup (Linux)
+        uses: actions/upload-artifact@v4
+        with:
+          name: stage7-linux-maintenance
+          path: ${{ runner.temp }}/stage7-maintenance
+          # .identity belongs to this synthetic backup; no credentials are exported.
+          include-hidden-files: true
+          retention-days: 7
+
   portable-restore:
     timeout-minutes: 15
-    needs: check
+    needs: maintenance
     runs-on: macos-15
     steps:
       - uses: actions/checkout@v4
