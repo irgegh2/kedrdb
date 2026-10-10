@@ -141,6 +141,7 @@ impl<D: StorageIo, W: StorageIo> StorageEngine<D, W> {
             wal: &mut self.wal,
             poisoned: &mut self.poisoned,
             aborted: false,
+            modified: false,
         })
     }
     pub fn transaction<T>(
@@ -203,6 +204,7 @@ pub struct StorageTransaction<'a, D: StorageIo, W: StorageIo> {
     wal: &'a mut WalLog<W>,
     poisoned: &'a mut bool,
     aborted: bool,
+    modified: bool,
 }
 impl<D: StorageIo, W: StorageIo> StorageTransaction<'_, D, W> {
     #[cfg(unix)]
@@ -244,13 +246,19 @@ impl<D: StorageIo, W: StorageIo> StorageTransaction<'_, D, W> {
         self.apply(|tree| tree.get(key))
     }
     pub fn insert(&mut self, key: &[u8], value: &[u8]) -> Result<()> {
-        self.apply(|tree| tree.insert(key, value))
+        self.apply(|tree| tree.insert(key, value))?;
+        self.modified = true;
+        Ok(())
     }
     pub fn replace(&mut self, key: &[u8], value: &[u8]) -> Result<()> {
-        self.apply(|tree| tree.replace(key, value))
+        self.apply(|tree| tree.replace(key, value))?;
+        self.modified = true;
+        Ok(())
     }
     pub fn delete(&mut self, key: &[u8]) -> Result<bool> {
-        self.apply(|tree| tree.delete(key))
+        let deleted = self.apply(|tree| tree.delete(key))?;
+        self.modified |= deleted;
+        Ok(deleted)
     }
     pub fn range(
         &mut self,
@@ -269,6 +277,11 @@ impl<D: StorageIo, W: StorageIo> StorageTransaction<'_, D, W> {
             return Err(Error::TransactionAborted);
         }
         let mut tree = self.tree.take().expect("active transaction");
+        if !self.modified {
+            // Keep cancellation and abort semantics, but never journal a read.
+            tree.io_mut().check_interrupt()?;
+            return Ok(self.wal.last_commit_lsn());
+        }
         tree.checkpoint()?; // May fail safely before any durable WAL write.
         let mut private = tree.into_io();
         let commit_lsn = self.wal.planned_commit_lsn(private.images.len())?;

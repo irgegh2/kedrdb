@@ -40,6 +40,66 @@ fn change(engine: &mut Engine) -> kedr_core::Result<()> {
     })
 }
 #[test]
+fn unchanged_commit_performs_no_write_resize_or_sync_and_preserves_recovery() {
+    let control = CrashControl::default();
+    let mut engine = StorageEngine::create(
+        CrashStorage::new(MemoryStorage::new(LIMIT), control.clone()),
+        CrashStorage::new(MemoryStorage::new(LIMIT), control.clone()),
+        [6; 16],
+        CACHE,
+    )
+    .unwrap();
+    engine
+        .transaction(|tx| tx.insert(b"key", b"original"))
+        .unwrap();
+    let lsn = engine.last_commit_lsn();
+    let length = engine.wal_length();
+    let next_id = engine.next_transaction_id().unwrap();
+    control.arm(None);
+    let mut tx = engine.begin().unwrap();
+    assert_eq!(
+        tx.get(b"key").unwrap().as_deref(),
+        Some(b"original".as_slice())
+    );
+    assert!(!tx.delete(b"absent").unwrap());
+    assert_eq!(tx.commit().unwrap(), lsn);
+    assert!(control.trace().iter().all(|op| matches!(
+        op,
+        kedr_core::Operation::Read | kedr_core::Operation::Length
+    )));
+    assert_eq!(engine.wal_length(), length);
+    assert_eq!(engine.next_transaction_id().unwrap(), next_id);
+
+    let mut tx = engine.begin().unwrap();
+    let cancelled = std::sync::Arc::new(std::sync::atomic::AtomicBool::new(true));
+    tx.set_interrupt(
+        cancelled,
+        std::time::Instant::now() + std::time::Duration::from_secs(1),
+    );
+    assert!(matches!(tx.commit(), Err(Error::Cancelled)));
+    let mut tx = engine.begin().unwrap();
+    tx.abort();
+    assert!(matches!(tx.commit(), Err(Error::TransactionAborted)));
+
+    control.arm(None);
+    engine
+        .transaction(|tx| {
+            assert_eq!(tx.get(b"key")?.as_deref(), Some(b"original".as_slice()));
+            tx.replace(b"key", b"durable")
+        })
+        .unwrap();
+    assert!(control.trace().contains(&kedr_core::Operation::Sync));
+    assert!(engine.last_commit_lsn() > lsn);
+    let (d, w) = engine.into_io();
+    let data = d.crash_image(Persistence::Lost, 1);
+    let wal = w.crash_image(Persistence::Lost, 2);
+    let mut recovered = open(&data, &wal, &control);
+    assert_eq!(
+        recovered.get(b"key").unwrap().as_deref(),
+        Some(b"durable".as_slice())
+    );
+}
+#[test]
 fn seeded_two_file_crashes_preserve_acknowledgements_or_diagnose_corrupt_tail() {
     let mut engine = StorageEngine::create(
         MemoryStorage::new(LIMIT),
