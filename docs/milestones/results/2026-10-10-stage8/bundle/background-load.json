@@ -1,0 +1,6 @@
+{
+  "snapshot": "during benchmark initialization",
+  "aggregate_process_cpu_percent": 710.1,
+  "processes_above_50_percent": 4,
+  "note": "Uncontrolled background load; process CPU percentages are sampled OS estimates, not an isolated benchmark."
+}

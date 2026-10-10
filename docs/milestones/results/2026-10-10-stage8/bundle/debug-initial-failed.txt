@@ -1,0 +1,99 @@
+   Compiling kedr-core v0.1.0 (/Users/irgegh/Documents/ChatGPT/бд/crates/kedr-core)
+   Compiling kedr-server v0.1.0 (/Users/irgegh/Documents/ChatGPT/бд/crates/kedr-server)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 11.46s
+     Running unittests src/lib.rs (target/debug/deps/kedr_core-6f83d5481a4d15b1)
+
+running 3 tests
+test checksum::tests::standard_crc32c_vectors ... ok
+test checksum::tests::chunked_crc_matches_independent_bitwise_reference_at_all_boundaries ... ok
+test database::tests::every_checkpoint_lifecycle_step_before_and_after_failure_preserves_acknowledgements ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.36s
+
+     Running tests/database_file.rs (target/debug/deps/database_file-f80697abaf84156f)
+
+running 4 tests
+test identity_corruption_and_symlink_members_are_rejected_without_changes ... ok
+test checkpoint_failure_poisoning_can_be_resolved_only_by_reopen ... ok
+test incomplete_checkpoint_header_uses_predecessor_but_complete_corruption_fails ... ok
+test rotations_reopen_and_prevent_raw_page_writes_or_a_second_owner ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 2.89s
+
+     Running tests/pages.rs (target/debug/deps/pages-3f80c481e6d8d0bf)
+
+running 8 tests
+test slot_table_exhaustion_with_empty_records ... ok
+test explicit_little_endian_format_and_roundtrip ... ok
+test deletion_keeps_other_slots_and_clears_payload ... ok
+test encoded_page_survives_file_sync_and_reopen ... ok
+test corruption_and_truncation_are_rejected ... ok
+test record_and_capacity_limits_are_atomic ... ok
+test valid_checksum_does_not_bypass_structural_checks ... ok
+test seeded_sequences_match_an_independent_record_model ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 57.94s
+
+     Running tests/records.rs (target/debug/deps/records-d2abe7e530ebe09f)
+
+running 3 tests
+test keys_follow_value_order_and_preserve_duplicate_values ... ok
+test row_roundtrip_boundaries_null_and_unicode ... ok
+test malformed_rows_are_rejected_without_panics ... ok
+
+test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/sql.rs (target/debug/deps/sql-95641f5beda237d2)
+
+running 11 tests
+test adjacent_operator_signs_and_reserved_names_match_postgres_lexing ... ok
+test read_only_parser_bounds_and_unsupported_clauses ... ok
+test describe_and_catalog_share_snapshot_without_executing_writes ... ok
+test errors_abort_whole_statement_and_explicit_ddl_until_rollback ... ok
+test export_io_failure_never_mutates_database_and_releases_read_snapshot ... ok
+test binding_checks_empty_tables_and_integer_boundaries ... ok
+test foreign_keys_join_self_reference_and_atomic_parent_changes ... ok
+test tables_crud_parameters_nulls_indices_and_reopen ... ok
+test failed_index_build_and_result_memory_bound_preserve_acknowledged_rows ... ok
+test parameterized_type_and_null_matrix_is_checked_before_empty_scan ... ok
+test concurrent_sql_catalog_primary_secondary_and_foreign_histories_are_serial ... FAILED
+
+failures:
+
+---- concurrent_sql_catalog_primary_secondary_and_foreign_histories_are_serial stdout ----
+SQL clients=1 acknowledged=2 catalog/primary/secondary/FK consistent
+SQL clients=2 acknowledged=4 catalog/primary/secondary/FK consistent
+SQL clients=8 acknowledged=16 catalog/primary/secondary/FK consistent
+
+thread '<unnamed>' (50586900) panicked at crates/kedr-core/tests/sql.rs:417:47:
+called `Result::unwrap()` on an `Err` value: LockTimeout
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+thread '<unnamed>' (50586906) panicked at crates/kedr-core/tests/sql.rs:417:47:
+called `Result::unwrap()` on an `Err` value: LockTimeout
+
+thread '<unnamed>' (50586918) panicked at crates/kedr-core/tests/sql.rs:417:47:
+called `Result::unwrap()` on an `Err` value: LockTimeout
+
+thread '<unnamed>' (50586938) panicked at crates/kedr-core/tests/sql.rs:417:47:
+called `Result::unwrap()` on an `Err` value: LockTimeout
+
+thread '<unnamed>' (50586885) panicked at crates/kedr-core/tests/sql.rs:417:47:
+called `Result::unwrap()` on an `Err` value: LockTimeout
+
+thread '<unnamed>' (50586920) panicked at crates/kedr-core/tests/sql.rs:417:47:
+called `Result::unwrap()` on an `Err` value: LockTimeout
+
+thread '<unnamed>' (50586894) panicked at crates/kedr-core/tests/sql.rs:417:47:
+called `Result::unwrap()` on an `Err` value: LockTimeout
+
+thread 'concurrent_sql_catalog_primary_secondary_and_foreign_histories_are_serial' (50586576) panicked at crates/kedr-core/tests/sql.rs:458:36:
+called `Result::unwrap()` on an `Err` value: Any { .. }
+
+
+failures:
+    concurrent_sql_catalog_primary_secondary_and_foreign_histories_are_serial
+
+test result: FAILED. 10 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 54.65s
+
+error: test failed, to rerun pass `-p kedr-core --test sql`

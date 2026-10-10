@@ -1,0 +1,10 @@
+    Finished `release` profile [optimized] target(s) in 0.29s
+     Running tests/crash_campaign.rs (target/release/deps/crash_campaign-9a09b8c3e211ca38)
+
+running 2 tests
+test unchanged_commit_performs_no_write_resize_or_sync_and_preserves_recovery ... ok
+seed=4b45445243524153 random_cases=10000 deterministic_io_cuts=24 successful_recoveries=19464 corrupt_tail_diagnostics=586 acknowledged_cases=1
+test seeded_two_file_crashes_preserve_acknowledgements_or_diagnose_corrupt_tail ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 30.19s
+

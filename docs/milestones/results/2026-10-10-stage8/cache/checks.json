@@ -76,10 +76,11 @@
   },
   "cloud": {
     "run_id": 38014172397,
-    "status": "in_progress",
+    "status": "completed",
     "studio": "passed",
     "maintenance": "passed",
     "linux_to_macos_restore": "passed",
-    "full_linux_macos_checks": "pending"
+    "full_linux_macos_checks": "passed",
+    "conclusion": "success"
   }
 }

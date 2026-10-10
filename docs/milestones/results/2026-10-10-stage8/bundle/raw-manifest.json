@@ -1,0 +1,107 @@
+[
+  {
+    "file": "kedr-c1-r1.jsonl.gz",
+    "raw_file": "kedr-c1-r1.jsonl",
+    "raw_bytes": 261751,
+    "raw_sha256": "3cdfdf214539335181b9464183d4ea3f591e89161af885ac1561e1605b0352af",
+    "gzip_sha256": "2bb4729213c89387d080fa4d519a0ac2e8bda07da89b42b77b1369b1eb94d990"
+  },
+  {
+    "file": "kedr-c1-r2.jsonl.gz",
+    "raw_file": "kedr-c1-r2.jsonl",
+    "raw_bytes": 202806,
+    "raw_sha256": "c2b9d878f9f5e8a6e736f101913e38979260a714f50b2e984129246ac8484041",
+    "gzip_sha256": "c062c3d0a3959c8718f6357159b26ebdc858c8efd80ff352734797605b11a7fd"
+  },
+  {
+    "file": "kedr-c1-r3.jsonl.gz",
+    "raw_file": "kedr-c1-r3.jsonl",
+    "raw_bytes": 220973,
+    "raw_sha256": "0280632a56890b040ac99b8235164b40a2b44ce83189c833f8a34ec9634fa0ad",
+    "gzip_sha256": "ed1becb9a1f7a225717522ccd3eea9e6fd1e51b570905053f165992215038e58"
+  },
+  {
+    "file": "kedr-c1-r4.jsonl.gz",
+    "raw_file": "kedr-c1-r4.jsonl",
+    "raw_bytes": 281562,
+    "raw_sha256": "ffc5eef29a590b14346df2ae311dd452cee159fb8e3cfec1996394bd51cbde49",
+    "gzip_sha256": "63b9e8fe939fc85e112408719e8a526e114a8c2d17935ce50c041e97f1cd7f88"
+  },
+  {
+    "file": "kedr-c1-r5.jsonl.gz",
+    "raw_file": "kedr-c1-r5.jsonl",
+    "raw_bytes": 263273,
+    "raw_sha256": "c47b3cf07365067a4e0b04a4e957305c819ee0cf9e0d5983a266049092712325",
+    "gzip_sha256": "935bf6c23b2ffa47bc93d89254648dd97714cf68a80e105c957e02d203029d27"
+  },
+  {
+    "file": "kedr-c32-r1.jsonl.gz",
+    "raw_file": "kedr-c32-r1.jsonl",
+    "raw_bytes": 303164,
+    "raw_sha256": "29ea3e7a30f234c5851c684623b149692b01c923de6190d8f2f47f6a8ba865dc",
+    "gzip_sha256": "f1dd4c42d18e8c6898d068433fdd6025d3a4761c488a333a2192d4f50dfb5134"
+  },
+  {
+    "file": "kedr-c32-r2.jsonl.gz",
+    "raw_file": "kedr-c32-r2.jsonl",
+    "raw_bytes": 381158,
+    "raw_sha256": "f61afc63b3bbdb0891b109ca0bd208715f2a5e632ebce74bed7de2bc8633c2c0",
+    "gzip_sha256": "1da14407f3ca2b7e2086e6df14543fc34b37452f537362f707dc9efc66222948"
+  },
+  {
+    "file": "kedr-c32-r3.jsonl.gz",
+    "raw_file": "kedr-c32-r3.jsonl",
+    "raw_bytes": 388751,
+    "raw_sha256": "3b695693466ea3f5eb05cd0c697dd845f532cfb447cdc8fe5b8b140327964146",
+    "gzip_sha256": "4d3f8da11531cdcfc6e5d84e0928437e15beb3ffeb5e383ffb2f68d020ee6483"
+  },
+  {
+    "file": "kedr-c32-r4.jsonl.gz",
+    "raw_file": "kedr-c32-r4.jsonl",
+    "raw_bytes": 400945,
+    "raw_sha256": "21409234d6213f1fc8b06c617113fe3a7ea5f0c45d8e851db0906c9ea170cbd4",
+    "gzip_sha256": "dc8dd0176738520846eb2c073da11eb76d100b35f89e05de159f853052ef2312"
+  },
+  {
+    "file": "kedr-c32-r5.jsonl.gz",
+    "raw_file": "kedr-c32-r5.jsonl",
+    "raw_bytes": 404601,
+    "raw_sha256": "c2a4a69339affed3c9b08676cb238bcbfa15ea8a4fb4f9aeb3846d713679f5c7",
+    "gzip_sha256": "de0a3447846f03bdc36fd59d8e684ed5350c4ed9219791c53e926b30bd71558a"
+  },
+  {
+    "file": "kedr-c8-r1.jsonl.gz",
+    "raw_file": "kedr-c8-r1.jsonl",
+    "raw_bytes": 348626,
+    "raw_sha256": "cc54ccb4e21387d0e85b92fe8675da6c18ef44b618866d5b546525d477edf247",
+    "gzip_sha256": "8df41e07cf96e3f3d3333752d96d86b62485a342686e1a6ce2ccec40a44c660a"
+  },
+  {
+    "file": "kedr-c8-r2.jsonl.gz",
+    "raw_file": "kedr-c8-r2.jsonl",
+    "raw_bytes": 386557,
+    "raw_sha256": "6c6da9c7356d22fbfc9e248f3d94c40adb1e1fea05a683ca9ac45d9bd15de5f4",
+    "gzip_sha256": "412496bb5f04d692712396f1908ab92a0e6d684c14fc90441b4efa655892e3d5"
+  },
+  {
+    "file": "kedr-c8-r3.jsonl.gz",
+    "raw_file": "kedr-c8-r3.jsonl",
+    "raw_bytes": 389574,
+    "raw_sha256": "c2619c2db9ee0e0d6a79c1c9684894383027f5b92ab4a5f1f9fdc1ce50c67ebd",
+    "gzip_sha256": "dffe317687540561d4265b2a5ca24e0056d12dc29192960a2cfa67aa01b190c2"
+  },
+  {
+    "file": "kedr-c8-r4.jsonl.gz",
+    "raw_file": "kedr-c8-r4.jsonl",
+    "raw_bytes": 392322,
+    "raw_sha256": "0834b563512e2a4b0b526168c55816e43e7e3dc3e40acb7b6a096196d0a5c05d",
+    "gzip_sha256": "3eddad37f46a93b0a5466ae7c77fd377ab5e874e490d474220561d4c572cc1cc"
+  },
+  {
+    "file": "kedr-c8-r5.jsonl.gz",
+    "raw_file": "kedr-c8-r5.jsonl",
+    "raw_bytes": 365053,
+    "raw_sha256": "052af638593f55155c637e7369b5ddcbb317900803dccd88c94c4cffe1a95137",
+    "gzip_sha256": "82b975c1a199a563dc4bc459fab639f63d58d8634dbaa5c5b595d85d8b77478b"
+  }
+]
