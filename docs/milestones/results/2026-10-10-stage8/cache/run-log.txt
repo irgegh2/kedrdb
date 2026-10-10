@@ -1,0 +1,30 @@
+Measuring kedr-c8-r1
+{"label": "kedr-c8-r1", "successful_tps": 480.553809260901, "p99_ms": 153.399125, "errors": 0, "valid": true}
+Measuring kedr-c1-r4
+{"label": "kedr-c1-r4", "successful_tps": 354.53662557692553, "p99_ms": 24.259125, "errors": 0, "valid": true}
+Measuring kedr-c1-r3
+{"label": "kedr-c1-r3", "successful_tps": 400.9866728100281, "p99_ms": 23.25625, "errors": 0, "valid": true}
+Measuring kedr-c8-r2
+{"label": "kedr-c8-r2", "successful_tps": 474.10067182874394, "p99_ms": 148.652125, "errors": 0, "valid": true}
+Measuring kedr-c8-r3
+{"label": "kedr-c8-r3", "successful_tps": 469.6544873294631, "p99_ms": 151.584917, "errors": 0, "valid": true}
+Measuring kedr-c8-r5
+{"label": "kedr-c8-r5", "successful_tps": 456.0847393791412, "p99_ms": 161.565542, "errors": 0, "valid": true}
+Measuring kedr-c32-r3
+{"label": "kedr-c32-r3", "successful_tps": 514.4640028035701, "p99_ms": 601.765042, "errors": 0, "valid": true}
+Measuring kedr-c32-r1
+{"label": "kedr-c32-r1", "successful_tps": 530.3366309482934, "p99_ms": 618.826042, "errors": 0, "valid": true}
+Measuring kedr-c32-r5
+{"label": "kedr-c32-r5", "successful_tps": 423.020922462649, "p99_ms": 632.640458, "errors": 0, "valid": true}
+Measuring kedr-c32-r4
+{"label": "kedr-c32-r4", "successful_tps": 499.67783428203427, "p99_ms": 614.191792, "errors": 0, "valid": true}
+Measuring kedr-c1-r1
+{"label": "kedr-c1-r1", "successful_tps": 413.43234824071766, "p99_ms": 23.566042000000003, "errors": 0, "valid": true}
+Measuring kedr-c1-r5
+{"label": "kedr-c1-r5", "successful_tps": 431.3154816237013, "p99_ms": 22.938709, "errors": 0, "valid": true}
+Measuring kedr-c8-r4
+{"label": "kedr-c8-r4", "successful_tps": 404.6951967726805, "p99_ms": 188.7085, "errors": 0, "valid": true}
+Measuring kedr-c1-r2
+{"label": "kedr-c1-r2", "successful_tps": 399.8123270370166, "p99_ms": 24.233, "errors": 0, "valid": true}
+Measuring kedr-c32-r2
+{"label": "kedr-c32-r2", "successful_tps": 348.0935633412658, "p99_ms": 900.750667, "errors": 0, "valid": true}

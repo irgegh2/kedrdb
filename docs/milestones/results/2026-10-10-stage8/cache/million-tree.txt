@@ -1,0 +1,14 @@
+    Finished `release` profile [optimized] target(s) in 0.50s
+     Running tests/tree_contract.rs (target/release/deps/tree_contract-e52e456eac51fa31)
+
+running 1 test
+test seeded_tree_operations_match_independent_map has been running for over 60 seconds
+tree campaign: 20/100 seeds, 10000 operations per seed
+tree campaign: 40/100 seeds, 10000 operations per seed
+tree campaign: 60/100 seeds, 10000 operations per seed
+tree campaign: 80/100 seeds, 10000 operations per seed
+tree campaign: 100/100 seeds, 10000 operations per seed
+test seeded_tree_operations_match_independent_map ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 324.41s
+

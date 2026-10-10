@@ -1,0 +1,125 @@
+{
+  "compression": "gzip, mtime=0",
+  "files": [
+    {
+      "file": "kedr-c1-r1.jsonl.gz",
+      "raw_file": "kedr-c1-r1.jsonl",
+      "raw_bytes": 143621,
+      "raw_sha256": "93aabe1cf7b520c2105bdd4934df8fc810016fbf52a1f9ae1cec6eb1f1cf32b4",
+      "gzip_bytes": 8698,
+      "gzip_sha256": "b8e1d6a7e894723dac539037e7d898d8c46f8ef83ea5658ced75c17e6feb6c51"
+    },
+    {
+      "file": "kedr-c1-r2.jsonl.gz",
+      "raw_file": "kedr-c1-r2.jsonl",
+      "raw_bytes": 138932,
+      "raw_sha256": "1f6482afcad3c16b4b29c2f8892b0259c8b4965dbc6edcf9cd576547a75d49e5",
+      "gzip_bytes": 8494,
+      "gzip_sha256": "9c11453dc79f2b331c21a89f860036a1b1451a8a380524213b9c7cdb174fa98e"
+    },
+    {
+      "file": "kedr-c1-r3.jsonl.gz",
+      "raw_file": "kedr-c1-r3.jsonl",
+      "raw_bytes": 139303,
+      "raw_sha256": "94eaa3ec7bffd7fadf551b4e96c3a8921bb75328dd510113414991f46a6e3cf8",
+      "gzip_bytes": 8454,
+      "gzip_sha256": "9fc37e00e3c2ffc73a0a8efb8712538d4ff4d5454ed28886f5b5acfa591fe4a8"
+    },
+    {
+      "file": "kedr-c1-r4.jsonl.gz",
+      "raw_file": "kedr-c1-r4.jsonl",
+      "raw_bytes": 123054,
+      "raw_sha256": "d89b14f9ef911d93322802d8db16ddd08fffae7fe691bd0da9aa304f3abb51b2",
+      "gzip_bytes": 7574,
+      "gzip_sha256": "64bc0b91d7c119a9caca554e1202f7badd4bb863f080ce2e72f0fde7bfc5d80f"
+    },
+    {
+      "file": "kedr-c1-r5.jsonl.gz",
+      "raw_file": "kedr-c1-r5.jsonl",
+      "raw_bytes": 149722,
+      "raw_sha256": "1d021b09ac6eca5934c7a8cd0f74453810d57ea0bb3bf50ad8177425857655f3",
+      "gzip_bytes": 9139,
+      "gzip_sha256": "c88f1d6db5c0e876295e357b040298cc17ed9c20155332c5a042a956aea5e70e"
+    },
+    {
+      "file": "kedr-c32-r1.jsonl.gz",
+      "raw_file": "kedr-c32-r1.jsonl",
+      "raw_bytes": 186909,
+      "raw_sha256": "047bd1ad9b6c6fab64fd28d4c8987ca2b6103e4c3723327c45ade3b81fa7bf75",
+      "gzip_bytes": 12230,
+      "gzip_sha256": "d5b4b251f5e2f78251d113e859901f2fde35da6682666f38f78ec8bda4d0f211"
+    },
+    {
+      "file": "kedr-c32-r2.jsonl.gz",
+      "raw_file": "kedr-c32-r2.jsonl",
+      "raw_bytes": 123000,
+      "raw_sha256": "83f840798385a520bff761f1b683ce682a58b351c89c103abbb0094db736cce1",
+      "gzip_bytes": 8496,
+      "gzip_sha256": "74f42ec4ccc6fe7d8671987094639ab8d3912c5d82f6260aa56efd8b76155048"
+    },
+    {
+      "file": "kedr-c32-r3.jsonl.gz",
+      "raw_file": "kedr-c32-r3.jsonl",
+      "raw_bytes": 181878,
+      "raw_sha256": "591b4e921a7d7746459f7dea1ff97fcdf4ec365b25f47d95f4cff3a2f0143e8b",
+      "gzip_bytes": 11768,
+      "gzip_sha256": "9fc353391599016b70b2234b24b4b2d6256e307752dadc36f0cc69963a7b8572"
+    },
+    {
+      "file": "kedr-c32-r4.jsonl.gz",
+      "raw_file": "kedr-c32-r4.jsonl",
+      "raw_bytes": 176148,
+      "raw_sha256": "e1396cff99ca4b8f1fbf4eb856bf78e728c9409576ca6200042d181d866b16bc",
+      "gzip_bytes": 11595,
+      "gzip_sha256": "c06e54daa7f987932143cf1d26b09ff947b0c40dda8373adeb8cc60502d044c4"
+    },
+    {
+      "file": "kedr-c32-r5.jsonl.gz",
+      "raw_file": "kedr-c32-r5.jsonl",
+      "raw_bytes": 152304,
+      "raw_sha256": "2f4d7c31dd57b467d15d4f94289da99d2021e4637ce021ca55e3ee6125ded9cc",
+      "gzip_bytes": 10366,
+      "gzip_sha256": "126af4a5febc9daefcf60b3f16b1f2fc2cdfa275a0e7a476bccfd04dc6ec48f6"
+    },
+    {
+      "file": "kedr-c8-r1.jsonl.gz",
+      "raw_file": "kedr-c8-r1.jsonl",
+      "raw_bytes": 166915,
+      "raw_sha256": "841bdd9db6ab4c8d125aaf01f4dff71aeb3f0327245cadd919d74f463281d4c2",
+      "gzip_bytes": 10709,
+      "gzip_sha256": "2cc453ad63d701ab285d58a3ac64d7228a93131ee7bb1d203e5345eb75d11fb9"
+    },
+    {
+      "file": "kedr-c8-r2.jsonl.gz",
+      "raw_file": "kedr-c8-r2.jsonl",
+      "raw_bytes": 166793,
+      "raw_sha256": "7ed66390b255957298cda3f926916365685771eef1292bb35f481612fde9d441",
+      "gzip_bytes": 10828,
+      "gzip_sha256": "1b62a572217674c906ae034bea0ebdb8fc1a536e6c5f125a01af1c8d582e4cd1"
+    },
+    {
+      "file": "kedr-c8-r3.jsonl.gz",
+      "raw_file": "kedr-c8-r3.jsonl",
+      "raw_bytes": 166612,
+      "raw_sha256": "01eaac0d87b8aa69b2e59374187be918317637708f66d447d43fd73e5ead158d",
+      "gzip_bytes": 10846,
+      "gzip_sha256": "bcb173b1b58c37e1f80f9438292e1a372dca6f293808f06ed62c651eb7e416a2"
+    },
+    {
+      "file": "kedr-c8-r4.jsonl.gz",
+      "raw_file": "kedr-c8-r4.jsonl",
+      "raw_bytes": 147541,
+      "raw_sha256": "a4d9420cb0f665aabe704442fe845cf56f09da6e1b4c726db07e9f0035e82884",
+      "gzip_bytes": 9543,
+      "gzip_sha256": "cbc225ffab3f24d89f3c8ddbb9d1c1130449861b6e1d14e1c4028601e1e5885e"
+    },
+    {
+      "file": "kedr-c8-r5.jsonl.gz",
+      "raw_file": "kedr-c8-r5.jsonl",
+      "raw_bytes": 166302,
+      "raw_sha256": "3a819fe7888c8c4001a229fcfe183b19bf253703bcfa7e9fc15aa12d241f97a0",
+      "gzip_bytes": 10563,
+      "gzip_sha256": "df32e544504ac4e4300bcb242bc1372203b97c8e39e96f6b3f58ae70bf5d0f03"
+    }
+  ]
+}
